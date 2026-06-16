@@ -1,0 +1,4 @@
+.DS_Store
+*.bak-*
+scripts/launchd_stdout.log
+scripts/launchd_stderr.log
