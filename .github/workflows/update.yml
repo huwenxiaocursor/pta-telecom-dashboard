@@ -7,6 +7,7 @@ on:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   update:
@@ -22,9 +23,58 @@ jobs:
         run: python3 scripts/update_pta_dashboard.py
 
       - name: Commit and push if changed
+        id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --cached --quiet || git commit -m "Monthly data refresh $(date -u +%Y-%m-%d)"
-          git push
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "Monthly data refresh $(date -u +%Y-%m-%d)"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get date and update log
+        if: steps.commit.outputs.changed == 'true'
+        id: meta
+        run: |
+          echo "today=$(date -u +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          tail -20 scripts/update_log.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Issue
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "PTA 数据已更新 ${{ steps.meta.outputs.today }}" \
+            --body "## 本次更新内容
+
+          ${{ steps.meta.outputs.log }}
+
+          ---
+          [查看 Dashboard](https://huwenxiaocursor.github.io/pta-telecom-dashboard/)"
+
+      - name: Send email notification
+        if: steps.commit.outputs.changed == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "PTA Dashboard 数据已更新 ${{ steps.meta.outputs.today }}"
+          to: shawn.hwx@gmail.com
+          from: PTA Dashboard <${{ secrets.GMAIL_USERNAME }}>
+          body: |
+            PTA 巴基斯坦电信市场 Dashboard 已于 ${{ steps.meta.outputs.today }} 自动更新。
+
+            更新日志：
+            ${{ steps.meta.outputs.log }}
+
+            查看 Dashboard：https://huwenxiaocursor.github.io/pta-telecom-dashboard/
