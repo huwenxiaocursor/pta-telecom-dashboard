@@ -105,7 +105,7 @@
   <div class="grid" style="margin-top:20px;">
     <div class="card full">
       <h3>月度移动用户数趋势（按运营商，万）</h3>
-      <div class="sub"><span class="js-start-month-cn">2025年5月</span> – <span class="js-end-month-cn">2026年4月</span>，PTA官方月度蜂窝移动用户数据；<span class="js-end-year">2026</span>年各月已高亮</div>
+      <div class="sub"><span class="js-end-year">2026</span>年1–12月，PTA官方月度蜂窝移动用户数据；实线=<span class="js-end-year">2026</span>年，点击图例可叠加上年虚线对比</div>
       <canvas id="subsChart"></canvas>
     </div>
 
@@ -330,24 +330,71 @@ Object.keys(subs).forEach(op=>{
   kpiHost.appendChild(div);
 });
 
+// 构建当年/上年各运营商12个月数组（按月份1-12）
+const prevYear = String(+latestYear - 1);
+const MONTHS_LABEL = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
+function getYearArr(op, yr) {
+  return Array.from({length:12}, (_,i) => {
+    const iso = `${yr}-${String(i+1).padStart(2,'0')}`;
+    const idx = months.indexOf(iso);
+    return idx >= 0 ? +(subs[op][idx]/10000).toFixed(0) : null;
+  });
+}
+
 new Chart(document.getElementById('subsChart'), {
   type:'line',
   data:{
-    labels:months,
-    datasets: Object.keys(subs).map(op=>({
-      label:op,
-      data:subs[op].map(v=>+(v/10000).toFixed(0)),
-      borderColor:COLORS[op],
-      backgroundColor:COLORS[op],
-      tension:0.3,
-      pointRadius: is2026.map(b=>b?4:2),
-      pointBackgroundColor: is2026.map(b=> b ? COLORS[op] : '#fff'),
-      borderWidth:2.5
-    }))
+    labels: MONTHS_LABEL,
+    datasets: [
+      // 当年实线（主数据）
+      ...Object.keys(subs).map(op=>({
+        label: `${op} ${latestYear}`,
+        data: getYearArr(op, latestYear),
+        borderColor: COLORS[op],
+        backgroundColor: COLORS[op],
+        tension: 0.3,
+        pointRadius: 4,
+        borderWidth: 2.5,
+        spanGaps: false
+      })),
+      // 上年虚线（同比参考，默认隐藏，可点图例显示）
+      ...Object.keys(subs).map(op=>({
+        label: `${op} ${prevYear}`,
+        data: getYearArr(op, prevYear),
+        borderColor: COLORS[op],
+        backgroundColor: 'transparent',
+        borderDash: [5, 4],
+        tension: 0.3,
+        pointRadius: 2,
+        borderWidth: 1.5,
+        spanGaps: false,
+        hidden: true
+      }))
+    ]
   },
   options:{
     responsive:true,
-    plugins:{ legend:{position:'bottom'}, tooltip:{mode:'index', intersect:false} },
+    plugins:{
+      legend:{position:'bottom'},
+      tooltip:{
+        mode:'index', intersect:false,
+        callbacks:{
+          afterBody: (items) => {
+            const cur = items.filter(i=>i.dataset.label.includes(latestYear));
+            const pre = items.filter(i=>i.dataset.label.includes(prevYear));
+            if(cur.length && pre.length) {
+              return cur.map((c,i)=>{
+                const p = pre[i];
+                if(!p || p.raw===null || c.raw===null) return '';
+                const d = c.raw - p.raw;
+                return `${c.dataset.label.split(' ')[0]} 同比: ${d>0?'+':''}${d}万`;
+              }).filter(Boolean);
+            }
+            return [];
+          }
+        }
+      }
+    },
     scales:{ y:{ title:{display:true,text:'用户数（万）'} } }
   }
 });
