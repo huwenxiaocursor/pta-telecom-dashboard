@@ -386,7 +386,7 @@ def main():
     log(f"历史记录已更新，cellularSubs 共 {len(history.get('cellularSubs', {}))} 个月份")
 
     # 4b. 从历史记录重建顺序正确的月份数组（最近13个月）
-    chart_months, chart_subs = rebuild_months_from_history(history, n_months=13)
+    chart_months, chart_subs = rebuild_months_from_history(history, n_months=17)
     log(f"趋势图月份范围：{chart_months[0]} ~ {chart_months[-1]}（{len(chart_months)}个月）")
 
     # 5. 构建新数据 JS
