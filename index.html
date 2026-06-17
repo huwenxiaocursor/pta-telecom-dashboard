@@ -80,6 +80,7 @@
   }
   .src-list{font-size:12px; color:var(--muted); margin-top:8px;}
   .src-list li{margin-bottom:3px;}
+
 </style>
 </head>
 <body>
@@ -173,6 +174,73 @@
     <canvas id="cityWinChart" style="max-height:280px;"></canvas>
   </div>
 
+  <!-- =================== 三. 行业规模（年度） =================== -->
+  <div class="section-title" style="margin-top:32px;">三、电信行业规模（年度） <span class="tag">PTA Telecom Indicators</span></div>
+  <div class="grid" style="margin-top:20px;">
+    <div class="card">
+      <h3>电信行业总收入（PKR Billion）</h3>
+      <div class="sub">按业务类型分拆；(R)=修订值，(P)=初步值</div>
+      <canvas id="revenuesChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>行业资本投入（PKR Billion）</h3>
+      <div class="sub">按投资主体分拆；(R)=修订值，(P)=初步值</div>
+      <canvas id="investmentsChart"></canvas>
+    </div>
+  </div>
+
+  <!-- =================== 四. 网络建设与外资（年度） =================== -->
+  <div class="section-title" style="margin-top:32px;">四、网络建设与外资（年度） <span class="tag">PTA Telecom Indicators</span></div>
+  <div class="grid" style="margin-top:20px;">
+    <div class="card">
+      <h3>基站数量 2G / 3G / 4G</h3>
+      <div class="sub">蜂窝移动基站站址数（个）</div>
+      <canvas id="cellSitesChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>外商直接投资 FDI（USD Million）</h3>
+      <div class="sub">流入柱状 + 净额折线（负值 = 净流出）</div>
+      <canvas id="fdiChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>国内手机制造（百万台）</h3>
+      <div class="sub">本土制造智能机 vs 2G 功能机</div>
+      <canvas id="manufacturingChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>全行业 ARPU（PKR / 月）</h3>
+      <div class="sub">蜂窝移动运营商月均每用户收入；PTA 数据更新至 2022-23</div>
+      <canvas id="arpuChart"></canvas>
+    </div>
+  </div>
+
+  <!-- =================== 五. 月度同比（2025 vs 2026） =================== -->
+  <div class="section-title" style="margin-top:32px;">五、月度指标同比（2025 vs 2026） <span class="tag">蓝柱 = 2025 · 红线 = 2026</span></div>
+  <div class="note">横轴为月份（1–12月），不区分年份；<b>蓝色柱</b>为 2025 年各月，<b>红色折线</b>为 2026 年各月。PTA 仅公布近 12 个月数据，2025 年 1–4 月将随每月脚本运行逐步积累补全。<br><span style="color:#7a4d00">数据流量与宽带 2025 年 5–8 月：PTA 官网已滚动下线，5–7 月由 PTA Cat.175 季度总量（Apr-Jun 25 共 3,681 PB）估算；8 月由月均用量（8.76 GB/用户）× NGMS 用户数推算；宽带总量参考 PTA 里程碑公告（6 月 1.5 亿、8 月 1.52 亿）。</span></div>
+
+  <div class="grid" style="margin-top:16px;">
+    <div class="card">
+      <h3>3G/4G 宽带用户总量同比（万用户）</h3>
+      <div class="sub">NGMS（Next Generation Mobile Services）合计</div>
+      <canvas id="ngmsYoyChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>移动数据流量同比（PB）</h3>
+      <div class="sub">五大运营商合计；1 PB = 100万 GB</div>
+      <canvas id="dataUsageYoyChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>宽带总用户数同比（百万）</h3>
+      <div class="sub">含移动宽带、FTTH、DSL 等全部接入方式</div>
+      <canvas id="broadbandYoyChart"></canvas>
+    </div>
+    <div class="card">
+      <h3>电话渗透率同比（每百人）</h3>
+      <div class="sub">蜂窝移动+固话用户合计，每百人</div>
+      <canvas id="teledensityYoyChart"></canvas>
+    </div>
+  </div>
+
 </div>
 
 <footer>
@@ -184,6 +252,16 @@
     <li>PTA Independent Quality of Service Survey in Pakistan – Cities, 1st Quarter 2026（PDF）：
       <a href="https://www.pta.gov.pk/assets/media/2026-06-11-Q1-Report-For-Publication----Updated---V2.pdf" target="_blank">2026-06-11-Q1-Report-For-Publication.pdf</a></li>
     <li>历史季度排名参考：PhoneWorld / TechJuice / ProPakistani 对PTA各季度QoS报告的报道（Q1–Q4 2025）</li>
+    <li>PTA Telecom Indicators – Revenues / Investment：
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/168" target="_blank">.../168</a>（收入），
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/169" target="_blank">.../169</a>（投资）</li>
+    <li>PTA Telecom Indicators – FDI / Manufacturing / Cell Sites / ARPU：
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/170" target="_blank">.../170</a>，
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/171" target="_blank">.../171</a>，
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/173" target="_blank">.../173</a>，
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/174" target="_blank">.../174</a></li>
+    <li>PTA Telecom Indicators – Teledensity：
+      <a href="https://www.pta.gov.pk/category/telecom-indicators/165" target="_blank">.../165</a></li>
   </ul>
   <p style="margin-top:14px;">本报告由本地脚本基于PTA公开数据自动整理生成，仅供内部参考，正式对外数据请以PTA官网及官方报告原文为准。</p>
 </footer>
@@ -192,14 +270,31 @@
 const COLORS = { Jazz:"#d71920", Ufone:"#ef7a15", Zong:"#8cc63e", Telenor:"#18a9f8", SCO:"#302f95" };
 
 // ---------- 1. 月度用户数据（PTA官方，2025-05 ~ 2026-04） ----------
-const months = ["2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04"];
+const months = ["2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05"];
 const subs = {
-  Jazz:    [73783016,73839867,73370431,73028300,72582384,72649532,72915202,73861653,74191312,74905106,74858177,75081575],
-  Ufone:   [26789706,26858916,26997429,26981031,27084240,27151808,27302518,28408965,29129992,29544992,29777020,29908672],
-  Zong:    [51671947,51884333,52064183,52063545,51900248,51958173,52035603,53141227,53825007,54375971,54192630,54675138],
-  Telenor: [43572664,43283858,43108659,42826316,42669803,42406180,42292640,43048917,43324659,43813979,43786513,43868222],
-  SCO:     [1884824,1937255,1973981,1961206,1957970,1988076,2038950,2094723,2104699,2131125,2141256,2156055]
+  Jazz:    [73783016,73839867,73370431,73028300,72582384,72649532,72915202,73861653,74191312,74905106,74858177,75081575,75021742],
+  Ufone:   [26789706,26858916,26997429,26981031,27084240,27151808,27302518,28408965,29129992,29544992,29777020,29908672,30186460],
+  Zong:    [51671947,51884333,52064183,52063545,51900248,51958173,52035603,53141227,53825007,54375971,54192630,54675138,54839448],
+  Telenor: [43572664,43283858,43108659,42826316,42669803,42406180,42292640,43048917,43324659,43813979,43786513,43868222,43790778],
+  SCO:     [1884824,1937255,1973981,1961206,1957970,1988076,2038950,2094723,2104699,2131125,2141256,2156055,2170051]
 };
+
+// ===AUTO-NEW-DATA-START===
+const annualYears = ["2020-21 (R)", "2021-22 (R)", "2022-23 (R)", "2023-24 (R)", "2024-25 (P)"];
+const revenues = {"CMO":[445.12, 480.66, 529.13, 614.08, 712.51], "FLL_WLL":[], "LDI":[41.61, 50.54, 65.67, 87.08, 91.7], "TTP_TIP":[], "CVAS":[18.61, 25.82, 28.57, 34.18, 36.14]};
+const investments = {"CMO":[808, 1175, 396, 431, 555], "LDI":[31.4, 24, 17, 13, 14], "TTP_TIP":[], "FLL_CVAS":[]};
+const fdi = {"Inflow":[204.3, 174.9, 57.7, 46, 97], "Net":[36, -23, -222, -44, -131]};
+const manufacturingYears = ["2021", "2022", "2023", "2024", "2025"];
+const manufacturing = {"Smart":[10.06, 8.79, 8.28, 18.64, 15.64], "TwoG":[14.6, 13.15, 13, 12.74, 14.57]};
+const cellSites = {"TwoG":[48091, 51768, 53581, 55777, 58423], "ThreeG":[42007, 44576, 45855, 44833, 33419], "FourG":[40749, 47759, 50359, 53245, 56694]};
+const arpu = {"years":["2018-19", "2019-20", "2020-21", "2021-22", "2022-23"], "vals":[262, 241, 235, 237, 242]};
+const MONTHS_CN = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
+const ngmsYoY = {2025:{"Jazz":[51552000, 52395000, 53301000, 53641000, 53980065, 54552540, 54893545, 55094161, 55077087, 55042236, 55000626, 55528640], "Ufone":[18795000, 19004000, 19185000, 19240000, 19294634, 19619789, 19939049, 19977988, 20191504, 20161868, 20196816, 20781844], "Zong":[40925000, 41379000, 41764000, 41906000, 42048608, 42402756, 42674161, 42812236, 42897821, 43073640, 43236956, 44004816], "Telenor":[26930000, 27125000, 27465000, 27533000, 27600661, 27682123, 27918470, 28010501, 28075926, 27939873, 27861338, 28313555], "SCO":[1748000, 1737000, 1727000, 1730000, 1737739, 1791608, 1830067, 1819008, 1817423, 1849332, 1901713, 1959752], "Total":[139950000, 141640000, 143442000, 144050000, 144661707, 146048816, 147255292, 147713894, 148059761, 148066949, 148197449, 150588607]}, 2026:{"Jazz":[55979821, 56713013, 57114772, 57483631, 57684054, null, null, null, null, null, null, null], "Ufone":[21311036, 21700605, 21851005, 22010457, 22130368, null, null, null, null, null, null, null], "Zong":[44688717, 45288965, 45238558, 45751699, 45980038, null, null, null, null, null, null, null], "Telenor":[29375551, 30231285, 30428201, 30307385, 30260515, null, null, null, null, null, null, null], "SCO":[1970728, 1996783, 2007870, 2022797, 2038464, null, null, null, null, null, null, null], "Total":[153325853, 155930651, 156640406, 157575969, 158093439, null, null, null, null, null, null, null]}};
+const dataUsagePbYoY = {2025:{"Jazz":[null, null, null, null, null, null, null, null, 454.7, 465.4, 456.6, 495.6], "Ufone":[null, null, null, null, null, null, null, null, 167.6, 172.5, 164.9, 177.5], "Zong":[null, null, null, null, null, null, null, null, 449.9, 472.5, 468.2, 501.5], "Telenor":[null, null, null, null, null, null, null, null, 200.2, 206.2, 203.2, 219.7], "SCO":[null, null, null, null, null, null, null, null, 9.3, 9.4, 8.9, 8.9], "Total":[1180.0, 1185.0, 1195.0, 1207.0, 1220.0, 1235.0, 1260.0, 1294.0, 1281.7, 1325.9, 1301.7, 1403.2]}, 2026:{"Jazz":[501.7, 465.6, 546.3, 518.8, null, null, null, null, null, null, null, null], "Ufone":[180.3, 163.2, 193.8, 182.4, null, null, null, null, null, null, null, null], "Zong":[501.8, 458.3, 531.3, 489.9, null, null, null, null, null, null, null, null], "Telenor":[191.9, 206.5, 239.9, 220.0, null, null, null, null, null, null, null, null], "SCO":[8.8, 8.9, 9.3, 9.4, null, null, null, null, null, null, null, null], "Total":[1384.6, 1302.5, 1520.6, 1420.5, null, null, null, null, null, null, null, null]}};
+const broadbandYoY = {2025:{"Total":[143.1, 144.0, 145.2, 146.3, 148.31, 150.0, 151.1, 152.0, 151.96, 152.0, 152.15, 154.69], "FTTH":[1.7, 1.75, 1.8, 1.85, 1.95, 2.0, 2.1, 2.2, 2.29, 2.33, 2.36, 2.51], "Mobile BB":[139.95, 141.64, 143.44, 144.05, 144.66, 146.05, 147.26, 147.71, 148.06, 148.07, 148.2, 150.59]}, 2026:{"Total":[157.55, 160.2, 160.96, 161.89, null, null, null, null, null, null, null, null], "FTTH":[2.65, 2.69, 2.74, 2.8, null, null, null, null, null, null, null, null], "Mobile BB":[153.33, 155.93, 156.64, 157.58, null, null, null, null, null, null, null, null]}};
+const teledensityYoY = {2025:{"Total":[80.4, 80.87, 81.3, 81.15, 81.1, 81.05, 80.81, 80.41, 80.04, 79.89, 79.94, 81.33]}, 2026:{"Total":[82, 82.75, 82.6, 82.86, null, null, null, null, null, null, null, null]}};
+// ===AUTO-NEW-DATA-END===
+
 const totals = months.map((_,i)=> Object.values(subs).reduce((s,arr)=>s+arr[i],0));
 const shares = {};
 Object.keys(subs).forEach(op=>{ shares[op] = subs[op].map((v,i)=> +(v/totals[i]*100).toFixed(2)); });
@@ -377,6 +472,133 @@ new Chart(document.getElementById('cityWinChart'),{
   },
   options:{ plugins:{legend:{display:false}} }
 });
+
+// =================== 三 & 四. 年度指标图表 ===================
+const AP = ['#1c63d4','#ef7a15','#8cc63e','#d71920','#302f95'];
+
+new Chart(document.getElementById('revenuesChart'),{
+  type:'bar',
+  data:{
+    labels: annualYears,
+    datasets:[
+      {label:'移动CMO', data:revenues.CMO, backgroundColor:AP[0]},
+      {label:'固话FLL/WLL', data:revenues.FLL_WLL, backgroundColor:AP[1]},
+      {label:'长途LDI', data:revenues.LDI, backgroundColor:AP[2]},
+      {label:'中继TTP/TIP', data:revenues.TTP_TIP, backgroundColor:AP[3]},
+      {label:'增值CVAS', data:revenues.CVAS, backgroundColor:AP[4]},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'PKR Billion'}}}}
+});
+
+new Chart(document.getElementById('investmentsChart'),{
+  type:'bar',
+  data:{
+    labels: annualYears,
+    datasets:[
+      {label:'移动CMO', data:investments.CMO, backgroundColor:AP[0]},
+      {label:'LDI', data:investments.LDI, backgroundColor:AP[1]},
+      {label:'TTP/TIP', data:investments.TTP_TIP, backgroundColor:AP[2]},
+      {label:'FLL/CVAS', data:investments.FLL_CVAS, backgroundColor:AP[3]},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'},tooltip:{mode:'index',intersect:false}},
+    scales:{x:{stacked:true},y:{stacked:true,title:{display:true,text:'PKR Billion'}}}}
+});
+
+new Chart(document.getElementById('cellSitesChart'),{
+  type:'bar',
+  data:{
+    labels: annualYears,
+    datasets:[
+      {label:'2G 基站', data:cellSites.TwoG, backgroundColor:AP[1]},
+      {label:'3G 基站', data:cellSites.ThreeG, backgroundColor:AP[2]},
+      {label:'4G 基站', data:cellSites.FourG, backgroundColor:AP[0]},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'}},
+    scales:{y:{title:{display:true,text:'站点数（个）'}}}}
+});
+
+new Chart(document.getElementById('fdiChart'),{
+  type:'bar',
+  data:{
+    labels: annualYears,
+    datasets:[
+      {type:'bar',  label:'FDI 流入', data:fdi.Inflow, backgroundColor:AP[0]+'99', order:2},
+      {type:'line', label:'FDI 净额', data:fdi.Net, borderColor:AP[3], backgroundColor:'transparent',
+       tension:0.3, pointRadius:5, borderWidth:2, order:1}
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'}},
+    scales:{y:{title:{display:true,text:'USD Million'}}}}
+});
+
+new Chart(document.getElementById('manufacturingChart'),{
+  type:'bar',
+  data:{
+    labels: manufacturingYears,
+    datasets:[
+      {label:'智能机', data:manufacturing.Smart, backgroundColor:AP[0]},
+      {label:'2G 功能机', data:manufacturing.TwoG, backgroundColor:AP[1]},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'}},
+    scales:{y:{title:{display:true,text:'百万台'}}}}
+});
+
+new Chart(document.getElementById('arpuChart'),{
+  type:'line',
+  data:{
+    labels: arpu.years,
+    datasets:[{label:'ARPU (PKR/月)', data:arpu.vals, borderColor:AP[0],
+      backgroundColor:AP[0]+'22', tension:0.3, fill:true, pointRadius:5}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false}},
+    scales:{y:{suggestedMin:200, title:{display:true,text:'PKR / 月'}}}}
+});
+
+// =================== 五. 月度同比图表 ===================
+const OPS5 = ['Jazz','Ufone','Zong','Telenor','SCO'];
+const C25 = '#1c63d4', C26 = '#d71920';
+
+function yoyChart(ctxId, data25, data26, yLabel, transform) {
+  const tr = transform || (v => v);
+  new Chart(document.getElementById(ctxId),{
+    type:'bar',
+    data:{
+      labels: MONTHS_CN,
+      datasets:[
+        {type:'bar',  label:'2025', data:data25.map(v=>v!==null?tr(v):null), backgroundColor:C25+'99', order:2},
+        {type:'line', label:'2026', data:data26.map(v=>v!==null?tr(v):null),
+         borderColor:C26, backgroundColor:'transparent',
+         tension:0.3, pointRadius:4, spanGaps:false, borderWidth:2, order:1}
+      ]
+    },
+    options:{responsive:true,
+      plugins:{legend:{position:'bottom'},tooltip:{mode:'index',intersect:false}},
+      scales:{y:{title:{display:true,text:yLabel}}}}
+  });
+}
+
+
+
+yoyChart('ngmsYoyChart',
+  ngmsYoY[2025]['Total'], ngmsYoY[2026]['Total'],
+  '万用户', v=>+(v/1e4).toFixed(0));
+
+yoyChart('dataUsageYoyChart',
+  dataUsagePbYoY[2025]['Total'], dataUsagePbYoY[2026]['Total'],
+  'PB（百万 GB）');
+
+yoyChart('broadbandYoyChart',
+  broadbandYoY[2025]['Total'], broadbandYoY[2026]['Total'],
+  '百万用户');
+
+yoyChart('teledensityYoyChart',
+  teledensityYoY[2025]['Total'], teledensityYoY[2026]['Total'],
+  '每百人');
 </script>
 
 </body>
