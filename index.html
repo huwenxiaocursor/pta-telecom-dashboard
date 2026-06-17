@@ -120,6 +120,12 @@
       <div class="sub">最新月份（与PTA官网发布数字一致）</div>
       <canvas id="sharePieChart"></canvas>
     </div>
+
+    <div class="card">
+      <h3>市场份额对比：当月 vs 2025年12月</h3>
+      <div class="sub">柱高=份额（%），标签=变化量（百分点）</div>
+      <canvas id="shareCompareChart"></canvas>
+    </div>
   </div>
 
   <div class="card full" style="margin-bottom:28px;">
@@ -375,6 +381,77 @@ new Chart(document.getElementById('sharePieChart'), {
   },
   options:{ plugins:{ legend:{position:'bottom'}, tooltip:{callbacks:{label:(ctx)=>`${ctx.label}: ${ctx.parsed}%`}} } }
 });
+
+// ---------- 市场份额对比：当月 vs 2025年12月 ----------
+(function(){
+  const dec25idx = months.indexOf('2025-12');
+  const ops = Object.keys(subs);
+  const shareDec25  = ops.map(op => shares[op][dec25idx]);
+  const shareLatest = ops.map(op => shares[op][latestIdx]);
+  const deltas      = ops.map((op,i) => +(shareLatest[i] - shareDec25[i]).toFixed(2));
+
+  new Chart(document.getElementById('shareCompareChart'), {
+    type: 'bar',
+    data: {
+      labels: ops,
+      datasets: [
+        {
+          label: '2025年12月',
+          data: shareDec25,
+          backgroundColor: ops.map(op => COLORS[op] + '66'),
+          borderColor: ops.map(op => COLORS[op]),
+          borderWidth: 2
+        },
+        {
+          label: months[latestIdx].replace('-','年').replace('-','月') + '（当月）',
+          data: shareLatest,
+          backgroundColor: ops.map(op => COLORS[op]),
+          borderColor: ops.map(op => COLORS[op]),
+          borderWidth: 2
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom' },
+        tooltip: {
+          callbacks: {
+            afterBody: (items) => {
+              const i = items[0].dataIndex;
+              const d = deltas[i];
+              return `变化: ${d > 0 ? '+' : ''}${d} ppt`;
+            }
+          }
+        },
+        datalabels: { display: false }
+      },
+      scales: {
+        y: {
+          title: { display: true, text: '市场份额 (%)' },
+          suggestedMin: 0,
+          suggestedMax: 45
+        }
+      }
+    },
+    plugins: [{
+      id: 'deltaLabels',
+      afterDatasetsDraw(chart) {
+        const ctx = chart.ctx;
+        const meta1 = chart.getDatasetMeta(1);
+        ctx.save();
+        ctx.font = 'bold 11px sans-serif';
+        ctx.textAlign = 'center';
+        meta1.data.forEach((bar, i) => {
+          const d = deltas[i];
+          ctx.fillStyle = d > 0 ? '#1a8a1a' : d < 0 ? '#cc2020' : '#666';
+          ctx.fillText((d > 0 ? '▲' : d < 0 ? '▼' : '—') + Math.abs(d), bar.x, bar.y - 6);
+        });
+        ctx.restore();
+      }
+    }]
+  });
+})();
 
 // data table
 (function(){
