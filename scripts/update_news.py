@@ -155,57 +155,6 @@ def fetch_sbp() -> list:
     return items[:MAX_ITEMS_PER_SOURCE]
 
 
-def fetch_pbs() -> list:
-    log("Fetching PBS …")
-    candidates = [
-        "https://www.pbs.gov.pk/press-releases",
-        "https://www.pbs.gov.pk/news",
-        "https://www.pbs.gov.pk/content/latest-releases",
-        "https://www.pbs.gov.pk/",
-    ]
-
-    html = ""
-    used_url = ""
-    for url in candidates:
-        html = fetch(url)
-        if html:
-            used_url = url
-            break
-
-    if not html:
-        return []
-
-    items = []
-    seen  = set()
-
-    # Generic link extractor for pbs.gov.pk internal links
-    for href, title in re.findall(
-        r'href="([^"]+)"[^>]*>\s*([^<]{15,250})',
-        html, re.S
-    ):
-        title = clean(title)
-        if not title or len(title) < 15:
-            continue
-        if href.startswith("http"):
-            url = href
-        elif href.startswith("/"):
-            url = "https://www.pbs.gov.pk" + href
-        else:
-            continue
-
-        if "pbs.gov.pk" not in url:
-            continue
-        # Skip nav/footer boilerplate
-        if any(skip in url for skip in ["#", "javascript", "mailto", "login", "contact"]):
-            continue
-        if url not in seen:
-            seen.add(url)
-            items.append({"source": "PBS", "title": title, "url": url, "date": today()})
-
-    log(f"  PBS: {len(items)} items found (from {used_url})")
-    return items[:MAX_ITEMS_PER_SOURCE]
-
-
 def fetch_propakistani() -> list:
     log("Fetching ProPakistani RSS …")
     xml_str = fetch("https://propakistani.pk/feed/")
@@ -377,7 +326,7 @@ def main() -> None:
     known  = {item["url"] for item in cache}
     log(f"Cache: {len(cache)} existing items")
 
-    fetchers = [fetch_pta, fetch_sbp, fetch_pbs, fetch_propakistani, fetch_phoneworld]
+    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_phoneworld]
     new_items: list = []
 
     for fn in fetchers:
