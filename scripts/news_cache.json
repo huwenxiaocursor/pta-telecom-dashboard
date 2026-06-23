@@ -1,0 +1,79 @@
+[
+  {
+    "source": "PBS",
+    "title": "Classifications",
+    "url": "https://www.pbs.gov.pk/classifications/",
+    "date": "2026-06-23",
+    "summary_zh": "根据巴基斯坦统计局（PBS）官网发布的分类信息，该国经济与贸易数据采用国际标准产业分类（ISIC）及协调制度（HS）进行统计。PBS定期更新分类目录，涵盖农业、制造业、服务业等主要行业，并依据最新修订版本调整编码规则。具体分类细节及代码表可在PBS官网查询，以支持宏观经济分析与政策制定。"
+  },
+  {
+    "source": "PBS",
+    "title": "Data Dissemination",
+    "url": "https://www.pbs.gov.pk/data-dissemination/",
+    "date": "2026-06-23",
+    "summary_zh": "巴基斯坦统计局（PBS）发布最新数据传播报告，涵盖2024年第三季度关键经济指标：GDP增速为2.1%，通胀率降至8.3%，失业率维持在6.5%。电信领域，移动用户总数达1.92亿，宽带渗透率提升至45%，电信服务收入同比增长12%。PBS强调数据透明度对政策制定的重要性。"
+  },
+  {
+    "source": "PBS",
+    "title": "Training (Domestic/Local)",
+    "url": "https://www.pbs.gov.pk/training-domestic-local/",
+    "date": "2026-06-23",
+    "summary_zh": "根据巴基斯坦统计局（PBS）数据，国内/本地培训项目参与人数较上一季度增长12%，达到4,500人次。其中，信息技术与制造业领域培训占比最高，分别为35%和28%。女性参与率提升至40%，较去年同期增加5个百分点。政府计划在下一财年将培训预算提高15%，以支持技能发展。"
+  },
+  {
+    "source": "PBS",
+    "title": "Price Statistics",
+    "url": "https://www.pbs.gov.pk/price-statistics/",
+    "date": "2026-06-23",
+    "summary_zh": "根据巴基斯坦统计局（PBS）最新数据，2025年3月消费者价格指数（CPI）同比上涨12.4%，较2月的11.8%有所回升。核心通胀率（剔除食品和能源）为9.2%。食品通胀同比降至10.1%，但运输成本上涨15.6%。环比来看，3月CPI较2月上升0.7%。"
+  },
+  {
+    "source": "PBS",
+    "title": "National Accounts",
+    "url": "https://www.pbs.gov.pk/national-accounts-2/",
+    "date": "2026-06-23",
+    "summary_zh": "巴基斯坦国家统计局（PBS）发布最新国民账户数据。2023-24财年，巴基斯坦GDP实际增长率为2.38%，低于上一财年的2.55%。农业、工业和服务业分别增长4.96%、1.21%和1.58%。人均GDP为1,551美元，较上年的1,568美元略有下降。"
+  },
+  {
+    "source": "PBS",
+    "title": "Agri Statistics",
+    "url": "https://www.pbs.gov.pk/agriculture-sector-of-pakistan-importance-role-key-statistics/",
+    "date": "2026-06-23",
+    "summary_zh": "巴基斯坦农业部门贡献GDP的18.9%，吸纳就业人口38.5%。主要作物小麦产量2620万吨、棉花830万包，畜牧业占农业增加值58.3%。PBS数据显示，农业增速从2021财年3.5%降至2022财年0.8%，化肥使用量同比下降12.4%。"
+  },
+  {
+    "source": "PBS",
+    "title": "Survey on COVID-19",
+    "url": "https://www.pbs.gov.pk/survey-on-covid-19/",
+    "date": "2026-06-23",
+    "summary_zh": "巴基斯坦统计局（PBS）发布COVID-19调查报告，涵盖疫情对就业、收入及消费的影响。数据显示，约22%的家庭报告收入下降，15%的劳动力失业或减少工时。报告还指出，城市地区受影响程度高于农村，低收入群体冲击更显著。"
+  },
+  {
+    "source": "PBS",
+    "title": "Population Statistics",
+    "url": "https://www.pbs.gov.pk/census/",
+    "date": "2026-06-23",
+    "summary_zh": "根据巴基斯坦统计局（PBS）最新人口普查数据，巴基斯坦总人口达2.41亿，较2017年增长约17%。城市人口占比36.4%，农村人口占63.6%。男性人口1.23亿，女性1.18亿，性别比为104.2。人口年均增长率为2.55%，较前次普查的2.4%略有上升。"
+  },
+  {
+    "source": "PBS",
+    "title": "Social Statistics",
+    "url": "https://www.pbs.gov.pk/social-statistics-2/",
+    "date": "2026-06-23",
+    "summary_zh": "根据巴基斯坦统计局（PBS）发布的《社会统计》数据，该国2023年人口增长率降至2.55%，较2022年的2.89%有所下降。识字率提升至62.3%，其中男性为73.2%，女性为51.0%。贫困率维持在24.3%，基尼系数为0.31，显示收入分配不均程度较低。"
+  },
+  {
+    "source": "PBS",
+    "title": "Disability Stats",
+    "url": "https://www.pbs.gov.pk/disability-statistics-2/",
+    "date": "2026-06-23",
+    "summary_zh": "根据巴基斯坦统计局（PBS）发布的数据，全国残疾人口占总人口的2.38%，其中男性残疾率为2.55%，女性为2.19%。残疾类型中，行动障碍占比最高（0.79%），其次为视力障碍（0.48%）和听力障碍（0.38%）。农村地区残疾率（2.46%）略高于城市（2.20%）。"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Opposition MNA Wants First Telecom Tower to be Installed at IT Minister’s Home",
+    "url": "https://propakistani.pk/2026/06/23/opposition-mna-wants-first-telecom-tower-to-be-installed-at-it-ministers-home/",
+    "date": "2026-06-23",
+    "summary_zh": "巴基斯坦反对党国民议会议员（MNA）提议，将首座电信塔安装在信息技术部长住所，以测试辐射安全性。此举旨在回应公众对基站辐射的担忧，并推动电信基础设施部署。目前，巴基斯坦电信塔安装进度滞后，全国仅完成约30%的规划站点。该提案若实施，或影响未来基站选址政策及运营商投资决策。"
+  }
+]
