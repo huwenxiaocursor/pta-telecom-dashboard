@@ -250,6 +250,102 @@ def fetch_phoneworld() -> list:
     return items[:MAX_ITEMS_PER_SOURCE]
 
 
+def fetch_techjuice() -> list:
+    log("Fetching TechJuice RSS …")
+    xml_str = fetch("https://techjuice.pk/feed/")
+    if not xml_str:
+        return []
+
+    TELECOM_KEYWORDS = {
+        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
+        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
+        "sbp", "economy", "pkr", "rupee", "imf", "frequency", "license",
+        "regulation", "operator", "sim", "fiber", "pakistan telecom",
+    }
+
+    items = []
+    try:
+        root = ET.fromstring(xml_str)
+        channel = root.find("channel")
+        if channel is None:
+            return []
+
+        for entry in channel.findall("item"):
+            title_el = entry.find("title")
+            link_el  = entry.find("link")
+            date_el  = entry.find("pubDate")
+
+            if title_el is None or link_el is None:
+                continue
+
+            title = clean(title_el.text or "")
+            url   = clean(link_el.text or "")
+            if not title or not url:
+                continue
+
+            if not any(kw in title.lower() for kw in TELECOM_KEYWORDS):
+                continue
+
+            pub_date = today()
+            if date_el is not None and date_el.text:
+                try:
+                    from email.utils import parsedate_to_datetime
+                    pub_date = parsedate_to_datetime(date_el.text).strftime("%Y-%m-%d")
+                except Exception:
+                    pass
+
+            items.append({"source": "TechJuice", "title": title, "url": url, "date": pub_date})
+
+    except ET.ParseError as e:
+        log(f"  TechJuice XML parse error: {e}")
+
+    log(f"  TechJuice: {len(items)} items found")
+    return items[:MAX_ITEMS_PER_SOURCE]
+
+
+def fetch_profit_pk() -> list:
+    log("Fetching Profit Pakistan (sitemap) …")
+    TELECOM_KEYWORDS = {
+        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
+        "5g", "4g", "mobile", "internet", "broadband", "spectrum",
+        "sbp", "economy", "pkr", "rupee", "imf", "frequency", "license",
+        "regulation", "operator", "sim", "fiber", "jazzcash", "digital-bank",
+        "startup", "tech",
+    }
+
+    items = []
+    seen  = set()
+    cutoff = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
+
+    for i in range(1, 8):
+        url = f"https://profit.pakistantoday.com.pk/sitemaps/sitemap-articles-{i}.xml"
+        xml = fetch(url)
+        if not xml:
+            break
+
+        entries = re.findall(
+            r"<loc>(https?://profit\.pakistantoday\.com\.pk/(\d{4})/(\d{2})/(\d{2})/([^<]+))</loc>\s*<lastmod>([^<]+)</lastmod>",
+            xml,
+        )
+        for full_url, yr, mo, dy, slug, lastmod in entries:
+            pub_date = f"{yr}-{mo}-{dy}"
+            if pub_date < cutoff:
+                break  # sitemaps are newest-first; stop when too old
+            if full_url in seen:
+                continue
+            if not any(kw in slug for kw in TELECOM_KEYWORDS):
+                continue
+            seen.add(full_url)
+            title = slug.replace("-", " ").title()
+            items.append({"source": "Profit.pk", "title": title, "url": full_url, "date": pub_date})
+
+        if items and entries and entries[-1][5] < cutoff:
+            break  # all remaining sitemaps will be older
+
+    log(f"  Profit.pk: {len(items)} items found")
+    return items[:MAX_ITEMS_PER_SOURCE]
+
+
 # ─── DeepSeek Summary ─────────────────────────────────────────────────────────
 
 def summarize(title: str, url: str) -> str:
@@ -326,7 +422,8 @@ def main() -> None:
     known  = {item["url"] for item in cache}
     log(f"Cache: {len(cache)} existing items")
 
-    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_phoneworld]
+    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_phoneworld,
+                fetch_techjuice, fetch_profit_pk]
     new_items: list = []
 
     for fn in fetchers:
