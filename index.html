@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>巴基斯坦电信信息中心</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: "PingFang SC","Microsoft YaHei","Helvetica Neue",Arial,sans-serif;
+      background: #f5f7fa;
+      color: #1d2530;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0b3d91, #1c63d4);
+      color: white;
+      text-align: center;
+      padding: 32px 20px 28px;
+    }
+    header h1 { font-size: 26px; font-weight: 700; margin-bottom: 6px; letter-spacing: 0.02em; }
+    header p  { font-size: 13px; color: #dbe6ff; }
+
+    /* ── Layout ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 28px 20px 60px; }
+
+    /* ── Nav Cards ── */
+    .nav-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 36px;
+    }
+    @media (max-width: 600px) { .nav-cards { grid-template-columns: 1fr; } }
+
+    .nav-card {
+      display: block;
+      text-decoration: none;
+      color: inherit;
+      background: white;
+      border-radius: 12px;
+      padding: 24px 24px 20px;
+      border: 2px solid transparent;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      transition: transform 0.15s, box-shadow 0.15s;
+      position: relative;
+    }
+    .nav-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
+    .nav-card.blue  { border-color: #1c63d4; }
+    .nav-card.green { border-color: #01652e; }
+
+    .nav-card-label {
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.06em; margin-bottom: 8px;
+    }
+    .nav-card.blue  .nav-card-label { color: #1c63d4; }
+    .nav-card.green .nav-card-label { color: #01652e; }
+
+    .nav-card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .nav-card-desc  { font-size: 13px; color: #6b7280; line-height: 1.55; padding-right: 24px; }
+
+    .nav-card-arrow { position: absolute; top: 22px; right: 22px; font-size: 22px; }
+    .nav-card.blue  .nav-card-arrow { color: #1c63d4; }
+    .nav-card.green .nav-card-arrow { color: #01652e; }
+
+    /* ── Section Title ── */
+    .section-title {
+      font-size: 18px; font-weight: 700; color: #1d2530;
+      margin-bottom: 16px; padding-bottom: 10px;
+      border-bottom: 3px solid #1c63d4; display: inline-block;
+    }
+
+    /* ── Month Block ── */
+    .month-block { margin-bottom: 10px; }
+
+    .month-header {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 16px; background: white; border-radius: 8px;
+      cursor: pointer; font-weight: 600; font-size: 15px; color: #1d2530;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.05); user-select: none;
+      transition: background 0.1s;
+    }
+    .month-header:hover { background: #f8f9fa; }
+
+    .month-toggle-icon { font-size: 11px; color: #9ca3af; flex-shrink: 0; }
+    .month-count {
+      font-size: 12px; background: #e8f0fd; color: #1c63d4;
+      padding: 2px 9px; border-radius: 12px; font-weight: 600;
+    }
+    .month-hint { font-size: 12px; color: #9ca3af; margin-left: auto; }
+
+    .month-content { padding: 6px 0 2px; }
+    .month-content.collapsed { display: none; }
+
+    /* ── Day Row ── */
+    .day-row { display: flex; gap: 14px; padding: 5px 0; align-items: flex-start; }
+
+    .day-label {
+      flex-shrink: 0; width: 58px; text-align: right;
+      padding-top: 13px; font-size: 12px; color: #c1c8d4; font-weight: 500;
+    }
+    .day-label.has-news { color: #374151; font-weight: 600; }
+
+    .day-items { flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 24px; }
+
+    .day-divider {
+      height: 1px; background: #eff0f2; margin: 6px 0; border: none;
+      align-self: center; width: 100%;
+    }
+
+    /* ── News Item ── */
+    .news-item {
+      background: white; border-radius: 8px; padding: 13px 15px;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+      border-left: 4px solid #e5e7eb;
+    }
+    .news-item-header {
+      display: flex; align-items: flex-start; gap: 8px; margin-bottom: 7px;
+      flex-wrap: wrap;
+    }
+    .source-tag {
+      flex-shrink: 0; font-size: 10px; font-weight: 800;
+      padding: 3px 8px; border-radius: 4px; color: white;
+      letter-spacing: 0.04em; white-space: nowrap; margin-top: 1px;
+    }
+    .news-title {
+      font-size: 14px; font-weight: 600; color: #1d2530;
+      text-decoration: none; line-height: 1.45; flex: 1;
+    }
+    .news-title:hover { color: #1c63d4; text-decoration: underline; }
+    .news-summary {
+      font-size: 13px; color: #4b5563; line-height: 1.75;
+      margin-top: 2px; border-top: 1px solid #f3f4f6; padding-top: 7px;
+    }
+
+    /* ── No News ── */
+    .no-news {
+      text-align: center; color: #9ca3af; font-size: 14px;
+      padding: 48px 0; background: white; border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>巴基斯坦电信信息中心</h1>
+  <p>Pakistan Telecom &amp; Economy Intelligence Hub ｜ 资讯更新：<span id="updateDate"></span></p>
+</header>
+
+<div class="container">
+
+  <!-- Navigation Cards -->
+  <div class="nav-cards">
+    <a href="industry_index.html" class="nav-card blue">
+      <div class="nav-card-label">通信行业</div>
+      <div class="nav-card-title">通信行业数据</div>
+      <div class="nav-card-desc">PTA 月度用户数据、运营商市场份额、QoS 质量报告</div>
+      <div class="nav-card-arrow">→</div>
+    </a>
+    <a href="macro_index.html" class="nav-card green">
+      <div class="nav-card-label">宏观经济</div>
+      <div class="nav-card-title">宏观经济数据</div>
+      <div class="nav-card-desc">GDP、通胀、汇率、外汇储备、利率等宏观经济指标</div>
+      <div class="nav-card-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- News Calendar -->
+  <h2 class="section-title">巴基斯坦电信资讯</h2>
+  <div id="newsCalendar"></div>
+
+</div>
+
+<script>
+const SOURCE_CONFIG = {
+  'PTA':          '#1c63d4',
+  'SBP':          '#01652e',
+  'PBS':          '#6d28d9',
+  'ProPakistani': '#ef7a15',
+  'PhoneWorld':   '#d71920',
+};
+
+// ===AUTO-NEWS-START===
+const NEWS_DATA = [];
+// ===AUTO-NEWS-END===
+
+function esc(s) {
+  return String(s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;')
+    .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function renderCalendar() {
+  const cal = document.getElementById('newsCalendar');
+
+  if (!NEWS_DATA.length) {
+    cal.innerHTML = '<div class="no-news">暂无资讯，每日自动抓取更新</div>';
+    return;
+  }
+
+  // Group by YYYY-MM → DD
+  const byMonth = {};
+  NEWS_DATA.forEach(item => {
+    const ym = item.date.slice(0, 7);
+    const dd = item.date.slice(8, 10);
+    if (!byMonth[ym]) byMonth[ym] = {};
+    if (!byMonth[ym][dd]) byMonth[ym][dd] = [];
+    byMonth[ym][dd].push(item);
+  });
+
+  const now = new Date();
+  const currentYM = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+  const months = Object.keys(byMonth).sort().reverse();
+
+  months.forEach(ym => {
+    const isCurrentMonth = ym === currentYM;
+    const [year, month] = ym.split('-');
+    const monthLabel = `${year}年${parseInt(month)}月`;
+    const dayMap = byMonth[ym];
+    const totalItems = Object.values(dayMap).reduce((s, a) => s + a.length, 0);
+
+    const block = document.createElement('div');
+    block.className = 'month-block';
+
+    // Month header
+    const header = document.createElement('div');
+    header.className = 'month-header';
+    header.innerHTML = `
+      <span class="month-toggle-icon">${isCurrentMonth ? '▼' : '▶'}</span>
+      <span>${monthLabel}</span>
+      <span class="month-count">${totalItems} 条</span>
+      <span class="month-hint">${isCurrentMonth ? '当月' : '点击展开'}</span>
+    `;
+
+    // Month content
+    const content = document.createElement('div');
+    content.className = 'month-content' + (isCurrentMonth ? '' : ' collapsed');
+
+    if (isCurrentMonth) {
+      // Show all days from today down to 1st
+      for (let d = now.getDate(); d >= 1; d--) {
+        const dd = String(d).padStart(2, '0');
+        content.appendChild(buildDayRow(dd, month, year, dayMap[dd] || [], true));
+      }
+    } else {
+      // Only show days with news
+      Object.keys(dayMap).sort().reverse().forEach(dd => {
+        content.appendChild(buildDayRow(dd, month, year, dayMap[dd], false));
+      });
+    }
+
+    header.addEventListener('click', () => {
+      const nowCollapsed = content.classList.toggle('collapsed');
+      header.querySelector('.month-toggle-icon').textContent = nowCollapsed ? '▶' : '▼';
+      header.querySelector('.month-hint').textContent = nowCollapsed ? '点击展开' : (isCurrentMonth ? '当月' : '');
+    });
+
+    block.appendChild(header);
+    block.appendChild(content);
+    cal.appendChild(block);
+  });
+}
+
+function buildDayRow(dd, month, year, items, showIfEmpty) {
+  const row = document.createElement('div');
+  row.className = 'day-row';
+
+  const label = document.createElement('div');
+  label.className = 'day-label' + (items.length ? ' has-news' : '');
+  label.textContent = `${parseInt(month)}月${parseInt(dd)}日`;
+  row.appendChild(label);
+
+  const itemsDiv = document.createElement('div');
+  itemsDiv.className = 'day-items';
+
+  if (items.length) {
+    items.forEach(item => itemsDiv.appendChild(buildNewsItem(item)));
+  } else if (showIfEmpty) {
+    const hr = document.createElement('hr');
+    hr.className = 'day-divider';
+    itemsDiv.appendChild(hr);
+  }
+
+  row.appendChild(itemsDiv);
+  return row;
+}
+
+function buildNewsItem(item) {
+  const color = SOURCE_CONFIG[item.source] || '#6b7280';
+  const div = document.createElement('div');
+  div.className = 'news-item';
+  div.style.borderLeftColor = color;
+  div.innerHTML = `
+    <div class="news-item-header">
+      <span class="source-tag" style="background:${color}">${esc(item.source)}</span>
+      <a class="news-title" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a>
+    </div>
+    ${item.summary_zh ? `<div class="news-summary">${esc(item.summary_zh)}</div>` : ''}
+  `;
+  return div;
+}
+
+document.getElementById('updateDate').textContent =
+  new Date().toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' });
+
+renderCalendar();
+</script>
+
+</body>
+</html>
