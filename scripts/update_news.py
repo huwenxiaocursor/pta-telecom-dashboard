@@ -454,6 +454,15 @@ def main() -> None:
 
     log(f"New items: {len(new_items)}")
 
+    # Re-summarise cached items that have an empty summary_zh
+    retry_items = [i for i in cache if not i.get("summary_zh", "").strip()]
+    if retry_items:
+        log(f"Re-summarising {len(retry_items)} cached items with empty summaries …")
+    for item in retry_items:
+        log(f"  Re-summarising: {item['title'][:70]} …")
+        item["summary_zh"] = summarize(item["title"], item["url"])
+        time.sleep(0.5)
+
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
         item["summary_zh"] = summarize(item["title"], item["url"])
