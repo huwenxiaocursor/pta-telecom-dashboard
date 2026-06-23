@@ -2,7 +2,7 @@ name: Daily news refresh
 
 on:
   schedule:
-    - cron: '0 3 * * *'   # 03:00 UTC = 08:00 PKT, daily
+    - cron: '0 18 * * *'  # 18:00 UTC = 23:00 PKT, daily
   workflow_dispatch: {}    # allow manual run from the Actions tab
 
 permissions:
