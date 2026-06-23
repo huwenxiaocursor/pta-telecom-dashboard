@@ -305,12 +305,25 @@ def fetch_techjuice() -> list:
 
 def fetch_profit_pk() -> list:
     log("Fetching Profit Pakistan (sitemap) …")
-    TELECOM_KEYWORDS = {
+    # Must contain at least one of these to be included
+    INCLUDE = {
         "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
-        "5g", "4g", "mobile", "internet", "broadband", "spectrum",
-        "sbp", "economy", "pkr", "rupee", "imf", "frequency", "license",
-        "regulation", "operator", "sim", "fiber", "jazzcash", "digital-bank",
-        "startup", "tech",
+        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
+        "sim", "fiber", "jazzcash", "digital-bank", "digital-payment",
+        "frequency", "license", "regulation", "operator", "smartphone",
+        "handset", "phone-tax", "phone-import", "airlink",
+        "sbp-monetary", "monetary-policy", "policy-rate", "sbp-rate",
+        "sbp-reserve", "sbp-digital", "sbp-payment", "sbp-survey",
+        "forex-reserve", "foreign-exchange", "remittance",
+        "imf-pakistan", "imf-programme", "imf-loan", "imf-review",
+    }
+    # If slug contains any of these, skip regardless
+    EXCLUDE = {
+        "energies", "gas-supply", "gas-pipeline", "oil-supply", "ogdcl",
+        "mari-", "sngpl", "ssgc", "ppib", "ntdc", "petroleum",
+        "lng-", "coal-", "wheat-", "sugar-", "fertilizer",
+        "agriculture", "livestock", "poultry", "beef-", "rice-",
+        "ipo-book", "book-building",
     }
 
     items = []
@@ -333,7 +346,9 @@ def fetch_profit_pk() -> list:
                 break  # sitemaps are newest-first; stop when too old
             if full_url in seen:
                 continue
-            if not any(kw in slug for kw in TELECOM_KEYWORDS):
+            if any(ex in slug for ex in EXCLUDE):
+                continue
+            if not any(kw in slug for kw in INCLUDE):
                 continue
             seen.add(full_url)
             title = slug.replace("-", " ").title()
@@ -359,9 +374,10 @@ def summarize(title: str, url: str) -> str:
                 "role": "system",
                 "content": (
                     "你是专注巴基斯坦电信与宏观经济的资深分析师。"
-                    "根据提供的新闻标题，撰写200字以内的中文摘要。"
-                    "要求：保留所有关键数字、百分比、机构名称；语言专业简洁；"
-                    "直接输出摘要正文，不加标题前缀。"
+                    "根据提供的新闻标题，撰写300～400字的深度中文摘要。"
+                    "要求：①说明事件背景与起因；②保留所有关键数字、百分比、机构名称；"
+                    "③分析对巴基斯坦电信行业或宏观经济的影响；"
+                    "④语言专业，直接输出正文，不加标题前缀。"
                 ),
             },
             {
@@ -369,7 +385,7 @@ def summarize(title: str, url: str) -> str:
                 "content": f"请为以下新闻撰写中文摘要：\n\n标题：{title}\n来源：{url}",
             },
         ],
-        "max_tokens": 400,
+        "max_tokens": 800,
         "temperature": 0.3,
     }).encode("utf-8")
 
