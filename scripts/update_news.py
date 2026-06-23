@@ -36,7 +36,7 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-MAX_ITEMS_PER_SOURCE = 50   # temporarily raised for June backfill
+MAX_ITEMS_PER_SOURCE = 15
 MAX_DISPLAY_ITEMS    = 300
 
 
