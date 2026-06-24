@@ -7,15 +7,13 @@ Sources: PTA, SBP, PBS, ProPakistani (RSS), PhoneWorld
 """
 
 import datetime
+import html as html_lib
 import json
 import os
 import pathlib
 import re
-import sys
 import time
-import urllib.error
 import urllib.request
-import xml.etree.ElementTree as ET
 
 BASE_DIR   = pathlib.Path(__file__).resolve().parent
 CACHE_FILE = BASE_DIR / "news_cache.json"
@@ -36,8 +34,18 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-MAX_ITEMS_PER_SOURCE = 50
+MAX_ITEMS_PER_SOURCE = 20
 MAX_DISPLAY_ITEMS    = 300
+CUTOFF_DATE          = "2026-01-01"   # exclude articles before this date
+
+TELECOM_KW = {
+    "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
+    "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
+    "sim", "fiber", "regulation", "operator", "frequency", "license",
+    "smartphone", "handset", "airlink", "pmcl", "nrtc", "ptcl",
+    "sbp", "imf", "monetary", "policy", "rupee", "pkr",
+    "bandwidth", "fintech", "digital pakistan",
+}
 
 
 # ─── Utilities ────────────────────────────────────────────────────────────────
@@ -124,6 +132,9 @@ def fetch_google_news(query: str, source_label: str) -> list:
             except Exception:
                 pass
 
+        if pub_date < CUTOFF_DATE:
+            continue
+
         seen.add(article_url)
         items.append({"source": source_label, "title": title, "url": article_url, "date": pub_date})
 
@@ -147,65 +158,44 @@ def fetch_sbp() -> list:
     )
 
 
-def fetch_propakistani() -> list:
-    log("Fetching ProPakistani RSS …")
-    # Fetch multiple pages to get historical items
-    xml_str = ""
+def fetch_wp_recent(base_url: str, source_label: str) -> list:
+    """Fetch recent posts via WordPress REST API (last 30 days), filtered by telecom keywords."""
+    cutoff = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
+    after  = max(cutoff, CUTOFF_DATE) + "T00:00:00"
+    items  = []
+    log(f"Fetching {source_label} via WP REST API …")
     for page in range(1, 6):
-        page_url = f"https://propakistani.pk/feed/?paged={page}"
-        chunk = fetch(page_url)
-        if not chunk or "<item>" not in chunk:
+        url = (f"{base_url}/wp-json/wp/v2/posts"
+               f"?per_page=20&page={page}&after={after}"
+               f"&_fields=title,link,date")
+        try:
+            req = urllib.request.Request(url, headers=HEADERS)
+            with urllib.request.urlopen(req, timeout=15) as resp:
+                posts = json.loads(resp.read().decode("utf-8"))
+            if not posts:
+                break
+            for p in posts:
+                title    = clean(html_lib.unescape(p.get("title", {}).get("rendered", "")))
+                link     = p.get("link", "")
+                pub_date = p.get("date", "")[:10]
+                if not title or not link:
+                    continue
+                if pub_date < CUTOFF_DATE:
+                    continue
+                if not any(kw in title.lower() for kw in TELECOM_KW):
+                    continue
+                items.append({"source": source_label, "title": title,
+                               "url": link, "date": pub_date})
+            time.sleep(0.2)
+        except Exception as e:
+            log(f"  {source_label} WP API error (page {page}): {e}")
             break
-        xml_str += chunk
-    if not xml_str:
-        return []
-
-    TELECOM_KEYWORDS = {
-        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
-        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
-        "sbp", "economy", "pkr", "rupee", "pakistan economy", "imf",
-        "frequency", "license", "regulation", "operator",
-    }
-
-    items = []
-    try:
-        root = ET.fromstring(xml_str)
-        channel = root.find("channel")
-        if channel is None:
-            return []
-
-        for entry in channel.findall("item"):
-            title_el = entry.find("title")
-            link_el  = entry.find("link")
-            date_el  = entry.find("pubDate")
-
-            if title_el is None or link_el is None:
-                continue
-
-            title = clean(title_el.text or "")
-            url   = clean(link_el.text or "")
-            if not title or not url:
-                continue
-
-            # Relevance filter
-            if not any(kw in title.lower() for kw in TELECOM_KEYWORDS):
-                continue
-
-            pub_date = today()
-            if date_el is not None and date_el.text:
-                try:
-                    from email.utils import parsedate_to_datetime
-                    pub_date = parsedate_to_datetime(date_el.text).strftime("%Y-%m-%d")
-                except Exception:
-                    pass
-
-            items.append({"source": "ProPakistani", "title": title, "url": url, "date": pub_date})
-
-    except ET.ParseError as e:
-        log(f"  ProPakistani XML parse error: {e}")
-
-    log(f"  ProPakistani: {len(items)} items found")
+    log(f"  {source_label}: {len(items)} items found")
     return items[:MAX_ITEMS_PER_SOURCE]
+
+
+def fetch_propakistani() -> list:
+    return fetch_wp_recent("https://propakistani.pk", "ProPakistani")
 
 
 def fetch_phoneworld() -> list:
@@ -267,61 +257,7 @@ def fetch_phoneworld() -> list:
 
 
 def fetch_techjuice() -> list:
-    log("Fetching TechJuice RSS …")
-    xml_str = ""
-    for page in range(1, 6):
-        chunk = fetch(f"https://techjuice.pk/feed/?paged={page}")
-        if not chunk or "<item>" not in chunk:
-            break
-        xml_str += chunk
-    if not xml_str:
-        return []
-
-    TELECOM_KEYWORDS = {
-        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
-        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
-        "sbp", "economy", "pkr", "rupee", "imf", "frequency", "license",
-        "regulation", "operator", "sim", "fiber", "pakistan telecom",
-    }
-
-    items = []
-    try:
-        root = ET.fromstring(xml_str)
-        channel = root.find("channel")
-        if channel is None:
-            return []
-
-        for entry in channel.findall("item"):
-            title_el = entry.find("title")
-            link_el  = entry.find("link")
-            date_el  = entry.find("pubDate")
-
-            if title_el is None or link_el is None:
-                continue
-
-            title = clean(title_el.text or "")
-            url   = clean(link_el.text or "")
-            if not title or not url:
-                continue
-
-            if not any(kw in title.lower() for kw in TELECOM_KEYWORDS):
-                continue
-
-            pub_date = today()
-            if date_el is not None and date_el.text:
-                try:
-                    from email.utils import parsedate_to_datetime
-                    pub_date = parsedate_to_datetime(date_el.text).strftime("%Y-%m-%d")
-                except Exception:
-                    pass
-
-            items.append({"source": "TechJuice", "title": title, "url": url, "date": pub_date})
-
-    except ET.ParseError as e:
-        log(f"  TechJuice XML parse error: {e}")
-
-    log(f"  TechJuice: {len(items)} items found")
-    return items[:MAX_ITEMS_PER_SOURCE]
+    return fetch_wp_recent("https://www.techjuice.pk", "TechJuice")
 
 
 
