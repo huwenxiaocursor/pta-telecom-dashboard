@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+"""
+每日电信新闻图片邮件
+- 截取本地 index.html 当天新闻区域（2× 高清）
+- 通过 macOS Apple Mail 发送到指定邮箱
+"""
+
+import datetime
+import json
+import pathlib
+import subprocess
+import sys
+import tempfile
+
+BASE_DIR      = pathlib.Path(__file__).resolve().parent
+CACHE_FILE    = BASE_DIR / "news_cache.json"
+INDEX_FILE    = BASE_DIR.parent / "index.html"
+DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
+TO_EMAIL      = "huwenxiao@zong.com.pk"
+
+SOURCE_COLORS = {
+    "PTA":          "#1c63d4",
+    "SBP":          "#01652e",
+    "ProPakistani": "#ef7a15",
+    "PhoneWorld":   "#d71920",
+    "TechJuice":    "#0ea5e9",
+}
+SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "TechJuice": 4}
+
+
+def load_today_news(date_str: str) -> list:
+    with open(CACHE_FILE, encoding="utf-8") as f:
+        cache = json.load(f)
+    items = [i for i in cache
+             if i.get("date") == date_str and i.get("summary_zh", "").strip()]
+    return sorted(items, key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99))
+
+
+def highlight(text: str) -> str:
+    import re
+    return re.sub(r"【([^】]+)】", r"<strong>\1</strong>", text)
+
+
+def build_digest_html(items: list, date_str: str) -> str:
+    dt           = datetime.date.fromisoformat(date_str)
+    date_cn      = f"{dt.year}年{dt.month}月{dt.day}日"
+    date_weekday = ["周一","周二","周三","周四","周五","周六","周日"][dt.weekday()]
+
+    cards = ""
+    for item in items:
+        color = SOURCE_COLORS.get(item["source"], "#6b7280")
+        paras = [p.strip() for p in item.get("summary_zh", "").split("\n\n") if p.strip()]
+        summary_html = "".join(f"<p>{highlight(p)}</p>" for p in paras)
+        cards += f"""
+        <div class="card" style="border-left-color:{color};--src-color:{color}">
+          <span class="tag" style="background:{color}">{item["source"]}</span>
+          <div class="title">{item["title"]}</div>
+          <div class="summary">{summary_html}</div>
+        </div>"""
+
+    return f"""<!DOCTYPE html>
+<html><head><meta charset="utf-8">
+<style>
+*{{box-sizing:border-box;margin:0;padding:0}}
+body{{
+  width:960px;background:#f1f5f9;
+  font-family:-apple-system,"PingFang SC","Helvetica Neue",sans-serif;
+}}
+.header{{
+  background:linear-gradient(135deg,#1c3d6e 0%,#1c63d4 100%);
+  padding:22px 32px 18px;display:flex;align-items:center;justify-content:space-between;
+}}
+.h-left h1{{color:#fff;font-size:19px;font-weight:700;letter-spacing:.3px}}
+.h-left p{{color:#93c5fd;font-size:12px;margin-top:3px}}
+.h-right{{text-align:right;color:#bfdbfe;font-size:13px;line-height:1.6}}
+.h-right .badge{{
+  display:inline-block;background:rgba(255,255,255,.15);
+  border-radius:20px;padding:2px 12px;font-size:11px;color:#e0f2fe;margin-top:4px;
+}}
+.body{{padding:14px 20px 6px}}
+.card{{
+  background:#fff;border-radius:8px;margin-bottom:12px;
+  padding:15px 18px;border-left:4px solid #ccc;
+  box-shadow:0 1px 3px rgba(0,0,0,.06);
+}}
+.tag{{
+  display:inline-block;padding:2px 10px;border-radius:20px;
+  font-size:11px;font-weight:700;color:#fff;margin-bottom:8px;
+}}
+.title{{font-size:13.5px;font-weight:600;color:#1e293b;line-height:1.45;margin-bottom:9px}}
+.summary{{font-size:12.5px;color:#475569;line-height:1.75}}
+.summary p{{margin-bottom:5px}}
+.summary p:last-child{{margin-bottom:0}}
+.summary strong{{font-weight:700;color:var(--src-color,#1c63d4)}}
+.footer{{
+  background:#1e293b;padding:14px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+}}
+.footer-left{{color:#94a3b8;font-size:11px}}
+.footer-right{{color:#60a5fa;font-size:11px}}
+</style>
+</head><body>
+<div class="header">
+  <div class="h-left">
+    <h1>巴基斯坦电信行业资讯日报</h1>
+    <p>Pakistan Telecom &amp; Economy Daily Digest</p>
+  </div>
+  <div class="h-right">
+    {date_cn} &nbsp;{date_weekday}<br>
+    <span class="badge">今日 {len(items)} 条</span>
+  </div>
+</div>
+<div class="body">{cards}</div>
+<div class="footer">
+  <span class="footer-left">数据来源：PTA · ProPakistani · SBP · PhoneWorld · TechJuice &nbsp;|&nbsp; 每日自动更新</span>
+  <span class="footer-right">{DASHBOARD_URL}</span>
+</div>
+</body></html>"""
+
+
+def html_to_png(html: str, out_path: str) -> None:
+    from playwright.sync_api import sync_playwright
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page(
+            viewport={"width": 960, "height": 600},
+            device_scale_factor=2,   # 2× = 1920px wide, 高清
+        )
+        page.set_content(html, wait_until="domcontentloaded")
+        page.screenshot(path=out_path, full_page=True)
+        browser.close()
+    print(f"  图片已生成：{out_path}")
+
+
+def send_via_apple_mail(img_path: str, subject: str, body: str) -> None:
+    def esc(s: str) -> str:
+        return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
+
+    # Build AppleScript as a list of -e lines (avoids multi-line quoting issues)
+    lines = [
+        'tell application "Mail"',
+        f'set msg to make new outgoing message with properties {{subject:"{esc(subject)}", content:"{esc(body)}", visible:false}}',
+        "tell msg",
+        f'make new to recipient with properties {{address:"{TO_EMAIL}"}}',
+        f'make new attachment with properties {{file name:POSIX file "{img_path}"}}',
+        "send",
+        "end tell",
+        "end tell",
+    ]
+    args = ["osascript"]
+    for line in lines:
+        args += ["-e", line]
+
+    result = subprocess.run(args, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"  AppleScript 错误：{result.stderr.strip()}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  邮件已发送 → {TO_EMAIL}")
+
+
+def main() -> None:
+    date_str = datetime.date.today().isoformat()
+    dt       = datetime.date.fromisoformat(date_str)
+    date_cn  = f"{dt.year}年{dt.month}月{dt.day}日"
+
+    print(f"[digest] 日期：{date_str}")
+    items = load_today_news(date_str)
+
+    if not items:
+        # 若今天尚未抓取，用最近一天有数据的日期
+        with open(CACHE_FILE, encoding="utf-8") as f:
+            cache = json.load(f)
+        latest = max((i["date"] for i in cache if i.get("summary_zh", "").strip()),
+                     default=None)
+        if not latest:
+            print("  无可用新闻，退出。")
+            return
+        print(f"  今天暂无数据，使用最近日期：{latest}")
+        date_str = latest
+        dt       = datetime.date.fromisoformat(date_str)
+        date_cn  = f"{dt.year}年{dt.month}月{dt.day}日"
+        items = load_today_news(date_str)
+
+    print(f"  共 {len(items)} 条新闻，生成图片中…")
+
+    html     = build_digest_html(items, date_str)
+    img_path = f"/tmp/telecom_digest_{date_str}.png"
+    html_to_png(html, img_path)
+
+    subject = f"巴基斯坦电信资讯日报 {date_cn}（{len(items)} 条）"
+    body    = (f"您好，\n\n"
+               f"今日巴基斯坦电信行业资讯（{date_cn}）共 {len(items)} 条，详见附图。\n\n"
+               f"在线查看完整版：{DASHBOARD_URL}\n\n"
+               f"本邮件由系统自动生成。")
+
+    print(f"  发送邮件：{subject}")
+    send_via_apple_mail(img_path, subject, body)
+    print("  完成。")
+
+
+if __name__ == "__main__":
+    main()
