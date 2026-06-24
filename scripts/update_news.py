@@ -86,73 +86,65 @@ def save_cache(items: list) -> None:
 
 # ─── Scrapers ─────────────────────────────────────────────────────────────────
 
-def fetch_pta() -> list:
-    log("Fetching PTA …")
-    html = fetch("https://www.pta.gov.pk/en/media-center/press-releases")
-    if not html:
+def fetch_google_news(query: str, source_label: str) -> list:
+    """Fetch news via Google News RSS. Used for PTA and SBP whose official sites block scrapers."""
+    encoded = query.replace(" ", "+")
+    url = f"https://news.google.com/rss/search?q={encoded}&hl=en-PK&gl=PK&ceid=PK:en"
+    log(f"Fetching Google News [{source_label}] …")
+    raw = fetch(url)
+    if not raw:
         return []
 
     items = []
     seen  = set()
 
-    # Pattern 1: full URL inside href
-    for url, title in re.findall(
-        r'href="(https?://(?:www\.)?pta\.gov\.pk/en/media-center/press-releases/[^"#?]+)"[^>]*>\s*([^<]{10,250})',
-        html, re.S
-    ):
-        title = clean(title)
-        if title and url not in seen:
-            seen.add(url)
-            items.append({"source": "PTA", "title": title, "url": url, "date": today()})
+    # Google News RSS has quirky <link> placement; use regex for reliability
+    for block in re.findall(r"<item>(.*?)</item>", raw, re.S):
+        title_m = re.search(r"<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?</title>", block, re.S)
+        link_m  = re.search(r"<link>(https?://[^<]+)</link>", block)
+        guid_m  = re.search(r"<guid[^>]*>(https?://[^<]+)</guid>", block)
+        date_m  = re.search(r"<pubDate>(.*?)</pubDate>", block)
 
-    # Pattern 2: relative URL
-    for rel, title in re.findall(
-        r'href="(/en/media-center/press-releases/[^"#?]+)"[^>]*>\s*([^<]{10,250})',
-        html, re.S
-    ):
-        url   = "https://www.pta.gov.pk" + rel
-        title = clean(title)
-        if title and url not in seen:
-            seen.add(url)
-            items.append({"source": "PTA", "title": title, "url": url, "date": today()})
+        if not title_m:
+            continue
 
-    log(f"  PTA: {len(items)} items found")
+        title = clean(title_m.group(1))
+        # Google appends " - Publisher Name" — strip it
+        title = re.sub(r"\s+-\s+[\w\s\.]+$", "", title).strip()
+        # Prefer guid (direct article URL) over Google redirect link
+        article_url = (guid_m.group(1) if guid_m else (link_m.group(1) if link_m else "")).strip()
+        if not title or not article_url or article_url in seen:
+            continue
+
+        pub_date = today()
+        if date_m:
+            try:
+                from email.utils import parsedate_to_datetime
+                pub_date = parsedate_to_datetime(date_m.group(1)).strftime("%Y-%m-%d")
+            except Exception:
+                pass
+
+        seen.add(article_url)
+        items.append({"source": source_label, "title": title, "url": article_url, "date": pub_date})
+
+    log(f"  Google News [{source_label}]: {len(items)} items found")
     return items[:MAX_ITEMS_PER_SOURCE]
+
+
+def fetch_pta() -> list:
+    # PTA website is a JS SPA that blocks scrapers; use Google News instead
+    return fetch_google_news(
+        "PTA Pakistan telecom regulation spectrum operator 2026",
+        "PTA",
+    )
 
 
 def fetch_sbp() -> list:
-    log("Fetching SBP …")
-    html = fetch("https://www.sbp.org.pk/press/index.htm")
-    if not html:
-        return []
-
-    items = []
-    seen  = set()
-
-    # SBP uses relative links like PR/2026/Jun/PR1.htm or similar
-    for href, title in re.findall(
-        r'href="([^"]+\.(?:htm|html|pdf|aspx))"[^>]*>\s*([^<]{15,250})',
-        html, re.S
-    ):
-        title = clean(title)
-        if not title or len(title) < 15:
-            continue
-        # Build absolute URL
-        if href.startswith("http"):
-            url = href
-        elif href.startswith("/"):
-            url = "https://www.sbp.org.pk" + href
-        else:
-            url = "https://www.sbp.org.pk/press/" + href.lstrip("./")
-
-        if "sbp.org.pk" not in url:
-            continue
-        if url not in seen:
-            seen.add(url)
-            items.append({"source": "SBP", "title": title, "url": url, "date": today()})
-
-    log(f"  SBP: {len(items)} items found")
-    return items[:MAX_ITEMS_PER_SOURCE]
+    # SBP official site blocks scrapers; use Google News instead
+    return fetch_google_news(
+        "SBP Pakistan monetary policy interest rate inflation reserves 2026",
+        "SBP",
+    )
 
 
 def fetch_propakistani() -> list:
@@ -210,41 +202,53 @@ def fetch_propakistani() -> list:
 
 
 def fetch_phoneworld() -> list:
-    log("Fetching PhoneWorld …")
-    html = fetch("https://phoneworld.com.pk/")
-    if not html:
+    log("Fetching PhoneWorld RSS …")
+    xml_str = fetch("https://www.phoneworld.com.pk/category/telecom-news/feed/")
+    if not xml_str:
         return []
 
-    items = []
-    seen  = set()
+    TELECOM_KEYWORDS = {
+        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
+        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
+        "sim", "fiber", "regulation", "operator", "frequency", "license",
+        "smartphone", "handset", "airlink", "pmcl",
+    }
 
-    # WordPress-style URLs: /YYYY/MM/DD/slug/
-    for url, title in re.findall(
-        r'href="(https?://phoneworld\.com\.pk/\d{4}/\d{2}/\d{2}/[^"]+)"[^>]*>\s*([^<]{10,250})',
-        html, re.S
-    ):
-        title = clean(title)
-        if not title:
-            continue
-        date_m = re.search(r"/(\d{4})/(\d{2})/(\d{2})/", url)
-        pub_date = f"{date_m.group(1)}-{date_m.group(2)}-{date_m.group(3)}" if date_m else today()
-        if url not in seen:
-            seen.add(url)
+    items = []
+    try:
+        root = ET.fromstring(xml_str)
+        channel = root.find("channel")
+        if channel is None:
+            return []
+
+        for entry in channel.findall("item"):
+            title_el = entry.find("title")
+            link_el  = entry.find("link")
+            date_el  = entry.find("pubDate")
+
+            if title_el is None or link_el is None:
+                continue
+
+            title = clean(title_el.text or "")
+            url   = (link_el.text or "").strip()
+            if not title or not url:
+                continue
+
+            if not any(kw in title.lower() for kw in TELECOM_KEYWORDS):
+                continue
+
+            pub_date = today()
+            if date_el is not None and date_el.text:
+                try:
+                    from email.utils import parsedate_to_datetime
+                    pub_date = parsedate_to_datetime(date_el.text).strftime("%Y-%m-%d")
+                except Exception:
+                    pass
+
             items.append({"source": "PhoneWorld", "title": title, "url": url, "date": pub_date})
 
-    # Fallback: any internal link with a meaningful title
-    if not items:
-        for href, title in re.findall(
-            r'href="(https?://phoneworld\.com\.pk/[^"]+)"[^>]*>\s*([^<]{15,250})',
-            html, re.S
-        ):
-            title = clean(title)
-            if not title or href in seen:
-                continue
-            if any(skip in href for skip in ["#", "page", "category", "tag", "author"]):
-                continue
-            seen.add(href)
-            items.append({"source": "PhoneWorld", "title": title, "url": href, "date": today()})
+    except ET.ParseError as e:
+        log(f"  PhoneWorld XML parse error: {e}")
 
     log(f"  PhoneWorld: {len(items)} items found")
     return items[:MAX_ITEMS_PER_SOURCE]
