@@ -104,17 +104,9 @@
     }
     .day-label.has-news { color: #374151; font-weight: 600; }
 
-    .day-items {
-      flex: 1; display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 10px; min-height: 24px; align-items: start;
-    }
-    @media (max-width: 1000px) { .day-items { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 768px)  { .day-items { grid-template-columns: 1fr; } }
+    .day-items { flex: 1; display: flex; flex-direction: column; gap: 10px; min-height: 24px; }
 
-    .day-divider {
-      height: 1px; background: #eff0f2; margin: 6px 0; border: none;
-      grid-column: 1 / -1;
-    }
+    .day-divider { height: 1px; background: #eff0f2; margin: 6px 0; border: none; }
 
     /* ── News Item ── */
     .news-item {
@@ -144,7 +136,7 @@
     .news-summary p:last-child { margin-bottom: 0; }
 
     /* ── Highlight ── */
-    .key-highlight { color: #1c63d4; font-weight: 700; }
+    .key-highlight { color: var(--source-color, #1c63d4); font-weight: 700; }
 
     /* ── No News ── */
     .no-news {
@@ -670,6 +662,7 @@ function buildNewsItem(item) {
   const div = document.createElement('div');
   div.className = 'news-item';
   div.style.borderLeftColor = color;
+  div.style.setProperty('--source-color', color);
   div.innerHTML = `
     <div class="news-item-header">
       <span class="source-tag" style="background:${color}">${esc(item.source)}</span>
