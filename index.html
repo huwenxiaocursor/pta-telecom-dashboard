@@ -36,7 +36,7 @@
     @media (max-width: 600px) { .nav-cards { grid-template-columns: 1fr; } }
 
     /* ── News Grid breakpoints ── */
-    @media (min-width: 1200px) { .day-items { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 900px)  { .day-items { grid-template-columns: repeat(3, 1fr); } }
     @media (max-width: 768px)  { .day-items { grid-template-columns: 1fr; } }
 
     .nav-card {
@@ -141,6 +141,8 @@
       font-size: 13px; color: #4b5563; line-height: 1.75;
       margin-top: 2px; border-top: 1px solid #f3f4f6; padding-top: 7px;
     }
+    .news-summary p { margin: 0 0 6px; }
+    .news-summary p:last-child { margin-bottom: 0; }
 
     /* ── Highlight ── */
     .key-highlight { color: #1c63d4; font-weight: 700; }
@@ -563,9 +565,10 @@ function esc(s) {
 
 function highlightText(text) {
   if (!text) return '';
-  return esc(text).replace(/【([^】]+)】/g,
-    '<span class="key-highlight">$1</span>'
-  );
+  return text.split(/\n\n+/).map(para =>
+    '<p>' + esc(para).replace(/【([^】]+)】/g,
+      '<span class="key-highlight">$1</span>') + '</p>'
+  ).join('');
 }
 
 function renderCalendar() {
