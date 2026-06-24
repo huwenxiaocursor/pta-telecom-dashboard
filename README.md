@@ -99,4 +99,4 @@ python3 scripts/send_daily_digest.py
 
 ---
 
-*负责人：胡文潇，CMPak（中国移动巴基斯坦）战略部*
+*负责人：胡文潇，CMPak战略部*
