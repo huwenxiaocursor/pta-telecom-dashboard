@@ -423,7 +423,7 @@ def main() -> None:
     save_cache(cache)
     log(f"Cache saved: {len(cache)} total items")
 
-    # Inject into index.html: per day, sorted by source priority, max MAX_PER_DAY
+    # Inject into index.html: per day, sorted by source priority, deduplicated, max MAX_PER_DAY
     from collections import defaultdict as _dd
     _by_day: dict = _dd(list)
     for _it in cache:
@@ -434,7 +434,15 @@ def main() -> None:
             _by_day[_d],
             key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99),
         )
-        display.extend(day_sorted[:MAX_PER_DAY])
+        # Deduplicate same-day articles with very similar titles (keep higher-priority source)
+        seen_titles: set = set()
+        deduped: list = []
+        for _it in day_sorted:
+            _key = re.sub(r"[^a-z0-9]", "", _it.get("title", "").lower())[:60]
+            if _key not in seen_titles:
+                seen_titles.add(_key)
+                deduped.append(_it)
+        display.extend(deduped[:MAX_PER_DAY])
     display = display[:MAX_DISPLAY_ITEMS]
     inject_into_html(display)
 
