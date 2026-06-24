@@ -92,12 +92,8 @@ body{{
 .summary p{{margin-bottom:5px}}
 .summary p:last-child{{margin-bottom:0}}
 .summary strong{{font-weight:700;color:var(--src-color,#1c63d4)}}
-.footer{{
-  background:#1e293b;padding:14px 32px;
-  display:flex;align-items:center;justify-content:space-between;
-}}
+.footer{{background:#1e293b;padding:12px 32px;text-align:center}}
 .footer-left{{color:#94a3b8;font-size:11px}}
-.footer-right{{color:#60a5fa;font-size:11px}}
 </style>
 </head><body>
 <div class="header">
@@ -113,7 +109,6 @@ body{{
 <div class="body">{cards}</div>
 <div class="footer">
   <span class="footer-left">数据来源：PTA · ProPakistani · SBP · PhoneWorld · TechJuice &nbsp;|&nbsp; 每日自动更新</span>
-  <span class="footer-right">{DASHBOARD_URL}</span>
 </div>
 </body></html>"""
 
@@ -190,7 +185,8 @@ def main() -> None:
     subject = f"巴基斯坦电信资讯日报 {date_cn}（{len(items)} 条）"
     body    = (f"您好，\n\n"
                f"今日巴基斯坦电信行业资讯（{date_cn}）共 {len(items)} 条，详见附图。\n\n"
-               f"在线查看完整版：{DASHBOARD_URL}\n\n"
+               f"在线查看完整版：\n"
+               f"{DASHBOARD_URL}\n\n"
                f"本邮件由系统自动生成。")
 
     print(f"  发送邮件：{subject}")
