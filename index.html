@@ -35,13 +35,17 @@
     }
     @media (max-width: 600px) { .nav-cards { grid-template-columns: 1fr; } }
 
+    /* ── News Grid breakpoints ── */
+    @media (min-width: 1200px) { .day-items { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 768px)  { .day-items { grid-template-columns: 1fr; } }
+
     .nav-card {
       display: block;
       text-decoration: none;
       color: inherit;
       background: white;
       border-radius: 12px;
-      padding: 24px 24px 20px;
+      padding: 14px 24px 12px;
       border: 2px solid transparent;
       box-shadow: 0 1px 4px rgba(0,0,0,0.06);
       transition: transform 0.15s, box-shadow 0.15s;
@@ -58,7 +62,7 @@
     .nav-card.blue  .nav-card-label { color: #1c63d4; }
     .nav-card.green .nav-card-label { color: #01652e; }
 
-    .nav-card-title { font-size: 20px; font-weight: 700; margin-bottom: 8px; }
+    .nav-card-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
     .nav-card-desc  { font-size: 13px; color: #6b7280; line-height: 1.55; padding-right: 24px; }
 
     .nav-card-arrow { position: absolute; top: 22px; right: 22px; font-size: 22px; }
@@ -103,11 +107,14 @@
     }
     .day-label.has-news { color: #374151; font-weight: 600; }
 
-    .day-items { flex: 1; display: flex; flex-direction: column; gap: 8px; min-height: 24px; }
+    .day-items {
+      flex: 1; display: grid; grid-template-columns: repeat(2, 1fr);
+      gap: 10px; min-height: 24px; align-items: start;
+    }
 
     .day-divider {
       height: 1px; background: #eff0f2; margin: 6px 0; border: none;
-      align-self: center; width: 100%;
+      grid-column: 1 / -1;
     }
 
     /* ── News Item ── */
@@ -134,6 +141,9 @@
       font-size: 13px; color: #4b5563; line-height: 1.75;
       margin-top: 2px; border-top: 1px solid #f3f4f6; padding-top: 7px;
     }
+
+    /* ── Highlight ── */
+    .key-highlight { color: #1c63d4; font-weight: 700; }
 
     /* ── No News ── */
     .no-news {
@@ -544,6 +554,13 @@ function esc(s) {
     .replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
+function highlightText(text) {
+  if (!text) return '';
+  return esc(text).replace(/【([^】]+)】/g,
+    '<span class="key-highlight">$1</span>'
+  );
+}
+
 function renderCalendar() {
   const cal = document.getElementById('newsCalendar');
 
@@ -649,7 +666,7 @@ function buildNewsItem(item) {
       <span class="source-tag" style="background:${color}">${esc(item.source)}</span>
       <a class="news-title" href="${esc(item.url)}" target="_blank" rel="noopener noreferrer">${esc(item.title)}</a>
     </div>
-    ${item.summary_zh ? `<div class="news-summary">${esc(item.summary_zh)}</div>` : ''}
+    ${item.summary_zh ? `<div class="news-summary">${highlightText(item.summary_zh)}</div>` : ''}
   `;
   return div;
 }
