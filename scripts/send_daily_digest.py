@@ -70,8 +70,7 @@ body{{
   background:linear-gradient(135deg,#1c3d6e 0%,#1c63d4 100%);
   padding:22px 32px 18px;display:flex;align-items:center;justify-content:space-between;
 }}
-.h-left h1{{color:#fff;font-size:19px;font-weight:700;letter-spacing:.3px}}
-.h-left p{{color:#93c5fd;font-size:12px;margin-top:3px}}
+.h-left h1{{color:#fff;font-size:21px;font-weight:700;letter-spacing:.4px}}
 .h-right{{text-align:right;color:#bfdbfe;font-size:13px;line-height:1.6}}
 .h-right .badge{{
   display:inline-block;background:rgba(255,255,255,.15);
@@ -98,12 +97,11 @@ body{{
 </head><body>
 <div class="header">
   <div class="h-left">
-    <h1>巴基斯坦电信行业资讯日报</h1>
-    <p>Pakistan Telecom &amp; Economy Daily Digest</p>
+    <h1>Pakistan Telecom &amp; Economy Daily Digest</h1>
   </div>
   <div class="h-right">
     {date_cn} &nbsp;{date_weekday}<br>
-    <span class="badge">今日 {len(items)} 条</span>
+    <span class="badge">{len(items)} articles today</span>
   </div>
 </div>
 <div class="body">{cards}</div>
@@ -119,7 +117,7 @@ def html_to_png(html: str, out_path: str) -> None:
         browser = p.chromium.launch()
         page = browser.new_page(
             viewport={"width": 960, "height": 600},
-            device_scale_factor=2,   # 2× = 1920px wide, 高清
+            device_scale_factor=3,   # 3× = 2880px wide, 超高清
         )
         page.set_content(html, wait_until="domcontentloaded")
         page.screenshot(path=out_path, full_page=True)
