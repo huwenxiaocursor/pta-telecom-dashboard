@@ -307,62 +307,6 @@ def fetch_techjuice() -> list:
     return items[:MAX_ITEMS_PER_SOURCE]
 
 
-def fetch_profit_pk() -> list:
-    log("Fetching Profit Pakistan (sitemap) …")
-    # Must contain at least one of these to be included
-    INCLUDE = {
-        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
-        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
-        "sim", "fiber", "jazzcash", "digital-bank", "digital-payment",
-        "frequency", "license", "regulation", "operator", "smartphone",
-        "handset", "phone-tax", "phone-import", "airlink",
-        "sbp-monetary", "monetary-policy", "policy-rate", "sbp-rate",
-        "sbp-reserve", "sbp-digital", "sbp-payment", "sbp-survey",
-        "forex-reserve", "foreign-exchange", "remittance",
-        "imf-pakistan", "imf-programme", "imf-loan", "imf-review",
-    }
-    # If slug contains any of these, skip regardless
-    EXCLUDE = {
-        "energies", "gas-supply", "gas-pipeline", "oil-supply", "ogdcl",
-        "mari-", "sngpl", "ssgc", "ppib", "ntdc", "petroleum",
-        "lng-", "coal-", "wheat-", "sugar-", "fertilizer",
-        "agriculture", "livestock", "poultry", "beef-", "rice-",
-        "ipo-book", "book-building",
-    }
-
-    items = []
-    seen  = set()
-    cutoff = (datetime.date.today() - datetime.timedelta(days=30)).isoformat()
-
-    for i in range(1, 8):
-        url = f"https://profit.pakistantoday.com.pk/sitemaps/sitemap-articles-{i}.xml"
-        xml = fetch(url)
-        if not xml:
-            break
-
-        entries = re.findall(
-            r"<loc>(https?://profit\.pakistantoday\.com\.pk/(\d{4})/(\d{2})/(\d{2})/([^<]+))</loc>\s*<lastmod>([^<]+)</lastmod>",
-            xml,
-        )
-        for full_url, yr, mo, dy, slug, lastmod in entries:
-            pub_date = f"{yr}-{mo}-{dy}"
-            if pub_date < cutoff:
-                break  # sitemaps are newest-first; stop when too old
-            if full_url in seen:
-                continue
-            if any(ex in slug for ex in EXCLUDE):
-                continue
-            if not any(kw in slug for kw in INCLUDE):
-                continue
-            seen.add(full_url)
-            title = slug.replace("-", " ").title()
-            items.append({"source": "Profit.pk", "title": title, "url": full_url, "date": pub_date})
-
-        if items and entries and entries[-1][5] < cutoff:
-            break  # all remaining sitemaps will be older
-
-    log(f"  Profit.pk: {len(items)} items found")
-    return items[:MAX_ITEMS_PER_SOURCE]
 
 
 # ─── DeepSeek Summary ─────────────────────────────────────────────────────────
@@ -444,7 +388,7 @@ def main() -> None:
     log(f"Cache: {len(cache)} existing items")
 
     fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_phoneworld,
-                fetch_techjuice, fetch_profit_pk]
+                fetch_techjuice]
     new_items: list = []
 
     for fn in fetchers:
