@@ -14,6 +14,7 @@ import pathlib
 import re
 import time
 import urllib.request
+import xml.etree.ElementTree as ET
 
 BASE_DIR   = pathlib.Path(__file__).resolve().parent
 CACHE_FILE = BASE_DIR / "news_cache.json"
@@ -36,17 +37,68 @@ HEADERS = {
 
 MAX_ITEMS_PER_SOURCE = 20
 MAX_DISPLAY_ITEMS    = 400
-MAX_PER_DAY          = 6
-CUTOFF_DATE          = "2026-01-01"   # exclude articles before this date
+MAX_PER_DAY          = 5
+MAX_DISPLAY_ITEMS    = 400
+CUTOFF_DATE          = "2026-01-01"
 
-TELECOM_KW = {
-    "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
-    "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
-    "sim", "fiber", "regulation", "operator", "frequency", "license",
-    "smartphone", "handset", "airlink", "pmcl", "nrtc", "ptcl",
-    "sbp", "imf", "monetary", "policy", "rupee", "pkr",
-    "bandwidth", "fintech", "digital pakistan",
+# Source priority for per-day display ranking (lower = higher priority)
+SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "TechJuice": 4}
+
+# Compound/specific telecom terms — substring match is safe for these
+_TELECOM_SUB = {
+    "telecom", "ufone", "telenor", "airlink", "nayatel", "wateen", "ptcl",
+    "telecom sector", "telecom industry", "telecom regulation", "telecom policy",
+    "telecom bill", "telecom law", "telecom amendment", "telecom license",
+    "telecom revenue", "telecom market", "telecom operator", "telecom company",
+    "telecom complaints", "telecom tower", "telecom tax", "telecom service",
+    "mobile network", "mobile operator", "mobile subscriber", "mobile data",
+    "mobile subscription", "mobile service", "mobile broadband", "mobile market",
+    "mobile phone", "mobile phones",
+    "internet service", "internet speed", "internet access", "internet price",
+    "internet blackout", "internet outage", "internet shutdown", "internet disruption",
+    "broadband", "fiber internet", "fiber optic", "fiber network",
+    "spectrum", "frequency band", "frequency allocation",
+    "5g network", "5g service", "5g spectrum", "5g rollout", "5g launch", "5g coverage",
+    "4g network", "4g service", "lte network",
+    "sim registration", "sim card", "illegal sim", "sim issuance", "sim block",
+    "phone tax", "smartphone tax", "handset tax", "mobile phone tax",
+    "handset import", "phone import", "device registration", "dirbs",
+    "telco", "telcos", "jazzworld",
+    # SBP & macro (specific compound terms only)
+    "monetary policy", "policy rate", "interest rate", "central bank",
+    "foreign reserves", "forex reserve", "current account",
+    "inflation rate", "balance of payment", "external debt",
+    "imf program", "imf review", "imf tranche", "imf loan", "imf talks",
 }
+
+# Short names requiring word-boundary check
+_TELECOM_WB = {"pta", "sbp", "sco", "nrtc", "pmcl", "jazz", "zong", "sim", "isp"}
+
+# Exclude these topics regardless of telecom keywords
+_EXCLUDE = {
+    "e-challan", "rickshaw", "pubg", "esports", "cricket", "psl ", "mlc ",
+    "asian games", "football match",
+    "car price", "automobile", "byd ", "driving license", "traffic fine", "traffic police",
+    "restaurant", "food delivery", "coffee chain", "recipe",
+    "real estate", "property price", "housing scheme", "home loan",
+    "visa ", "passport", "travel advisory",
+    "birth certificate", "death certificate", "marriage certificate",
+    "lesco ", "fesco ", "electricity bill", "load shedding", "power outage",
+    "hec ", "university admission", "genomics",
+    "fast food", "petroleum levy", "minimum wage",
+    "agriculture tax", "water charges", "textile industry",
+}
+
+
+def is_relevant(title: str) -> bool:
+    t  = title.lower()
+    tw = " " + t + " "
+    if any(kw in tw for kw in _EXCLUDE):
+        return False
+    if any(kw in t for kw in _TELECOM_SUB):
+        return True
+    return any(" " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
+               for kw in _TELECOM_WB)
 
 
 # ─── Utilities ────────────────────────────────────────────────────────────────
@@ -183,7 +235,7 @@ def fetch_wp_recent(base_url: str, source_label: str) -> list:
                     continue
                 if pub_date < CUTOFF_DATE:
                     continue
-                if not any(kw in title.lower() for kw in TELECOM_KW):
+                if not is_relevant(title):
                     continue
                 items.append({"source": source_label, "title": title,
                                "url": link, "date": pub_date})
@@ -210,13 +262,6 @@ def fetch_phoneworld() -> list:
     if not xml_str:
         return []
 
-    TELECOM_KEYWORDS = {
-        "telecom", "pta", "jazz", "ufone", "zong", "telenor", "sco",
-        "5g", "4g", "lte", "mobile", "internet", "broadband", "spectrum",
-        "sim", "fiber", "regulation", "operator", "frequency", "license",
-        "smartphone", "handset", "airlink", "pmcl",
-    }
-
     items = []
     try:
         root = ET.fromstring(xml_str)
@@ -237,7 +282,7 @@ def fetch_phoneworld() -> list:
             if not title or not url:
                 continue
 
-            if not any(kw in title.lower() for kw in TELECOM_KEYWORDS):
+            if not is_relevant(title):
                 continue
 
             pub_date = today()
@@ -373,19 +418,23 @@ def main() -> None:
 
     # Prepend new items and save
     cache = new_items + cache
+    # Drop irrelevant articles that slipped into cache previously
+    cache = [i for i in cache if is_relevant(i.get("title", ""))]
     save_cache(cache)
     log(f"Cache saved: {len(cache)} total items")
 
-    # Inject into index.html: at most MAX_PER_DAY per calendar day, sorted date desc
+    # Inject into index.html: per day, sorted by source priority, max MAX_PER_DAY
     from collections import defaultdict as _dd
     _by_day: dict = _dd(list)
-    for _it in sorted(cache, key=lambda x: x.get("date", ""), reverse=True):
-        _d = _it.get("date", "")
-        if len(_by_day[_d]) < MAX_PER_DAY:
-            _by_day[_d].append(_it)
+    for _it in cache:
+        _by_day[_it.get("date", "")].append(_it)
     display: list = []
     for _d in sorted(_by_day.keys(), reverse=True):
-        display.extend(_by_day[_d])
+        day_sorted = sorted(
+            _by_day[_d],
+            key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99),
+        )
+        display.extend(day_sorted[:MAX_PER_DAY])
     display = display[:MAX_DISPLAY_ITEMS]
     inject_into_html(display)
 
