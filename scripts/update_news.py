@@ -36,7 +36,7 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
-MAX_ITEMS_PER_SOURCE = 15
+MAX_ITEMS_PER_SOURCE = 50
 MAX_DISPLAY_ITEMS    = 300
 
 
@@ -149,7 +149,14 @@ def fetch_sbp() -> list:
 
 def fetch_propakistani() -> list:
     log("Fetching ProPakistani RSS …")
-    xml_str = fetch("https://propakistani.pk/feed/")
+    # Fetch multiple pages to get historical items
+    xml_str = ""
+    for page in range(1, 6):
+        page_url = f"https://propakistani.pk/feed/?paged={page}"
+        chunk = fetch(page_url)
+        if not chunk or "<item>" not in chunk:
+            break
+        xml_str += chunk
     if not xml_str:
         return []
 
@@ -203,7 +210,12 @@ def fetch_propakistani() -> list:
 
 def fetch_phoneworld() -> list:
     log("Fetching PhoneWorld RSS …")
-    xml_str = fetch("https://www.phoneworld.com.pk/category/telecom-news/feed/")
+    xml_str = ""
+    for page in range(1, 6):
+        chunk = fetch(f"https://www.phoneworld.com.pk/category/telecom-news/feed/?paged={page}")
+        if not chunk or "<item>" not in chunk:
+            break
+        xml_str += chunk
     if not xml_str:
         return []
 
@@ -256,7 +268,12 @@ def fetch_phoneworld() -> list:
 
 def fetch_techjuice() -> list:
     log("Fetching TechJuice RSS …")
-    xml_str = fetch("https://techjuice.pk/feed/")
+    xml_str = ""
+    for page in range(1, 6):
+        chunk = fetch(f"https://techjuice.pk/feed/?paged={page}")
+        if not chunk or "<item>" not in chunk:
+            break
+        xml_str += chunk
     if not xml_str:
         return []
 
