@@ -35,7 +35,8 @@ HEADERS = {
 }
 
 MAX_ITEMS_PER_SOURCE = 20
-MAX_DISPLAY_ITEMS    = 300
+MAX_DISPLAY_ITEMS    = 400
+MAX_PER_DAY          = 6
 CUTOFF_DATE          = "2026-01-01"   # exclude articles before this date
 
 TELECOM_KW = {
@@ -375,8 +376,17 @@ def main() -> None:
     save_cache(cache)
     log(f"Cache saved: {len(cache)} total items")
 
-    # Inject most-recent items into index.html (sorted by date desc)
-    display = sorted(cache, key=lambda x: x.get("date", ""), reverse=True)[:MAX_DISPLAY_ITEMS]
+    # Inject into index.html: at most MAX_PER_DAY per calendar day, sorted date desc
+    from collections import defaultdict as _dd
+    _by_day: dict = _dd(list)
+    for _it in sorted(cache, key=lambda x: x.get("date", ""), reverse=True):
+        _d = _it.get("date", "")
+        if len(_by_day[_d]) < MAX_PER_DAY:
+            _by_day[_d].append(_it)
+    display: list = []
+    for _d in sorted(_by_day.keys(), reverse=True):
+        display.extend(_by_day[_d])
+    display = display[:MAX_DISPLAY_ITEMS]
     inject_into_html(display)
 
     log("News update complete")
