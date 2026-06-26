@@ -3,30 +3,29 @@
 <plist version="1.0">
 <dict>
     <key>Label</key>
-    <string>com.cmpak.telecom-digest</string>
+    <string>com.cmpak.telecom-news-fetch</string>
 
     <key>ProgramArguments</key>
     <array>
         <string>/bin/bash</string>
-        <string>/Users/huwenxiao/Downloads/For Claude/pta-telecom-dashboard/scripts/run_digest.sh</string>
+        <string>/Users/huwenxiao/Downloads/For Claude/pta-telecom-dashboard/scripts/run_news_fetch.sh</string>
     </array>
 
-    <!-- 每天 10:10 PKT 触发，发送 T-1 日新闻 -->
+    <!-- 每天 09:30 PKT 抓取新闻、生成摘要、commit+push 到 GitHub，供 10:10 digest 使用 -->
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
-        <integer>10</integer>
+        <integer>9</integer>
         <key>Minute</key>
-        <integer>10</integer>
+        <integer>30</integer>
     </dict>
 
-    <!-- Mac 睡眠期间错过的任务，唤醒后立即补跑 -->
     <key>RunAtLoad</key>
     <false/>
 
     <key>StandardOutPath</key>
-    <string>/tmp/telecom_digest.log</string>
+    <string>/tmp/telecom_news_fetch.log</string>
     <key>StandardErrorPath</key>
-    <string>/tmp/telecom_digest_error.log</string>
+    <string>/tmp/telecom_news_fetch_error.log</string>
 </dict>
 </plist>

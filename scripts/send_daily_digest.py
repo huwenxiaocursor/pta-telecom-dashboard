@@ -27,13 +27,38 @@ SOURCE_COLORS = {
 }
 SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "TechJuice": 4}
 
+MAX_DIGEST_ITEMS = 6
+
+# 手机品牌、促销套餐等非政策类内容，在邮件摘要中排除
+_DIGEST_EXCLUDE = {
+    # 手机品牌
+    "tecno", "samsung", "huawei", "iphone", "realme", "xiaomi", "oppo",
+    "vivo", "nokia", "motorola", "infinix", "itel", "oneplus", "google pixel",
+    # 促销/套餐/产品发布
+    "roaming offer", "roaming package", "ziyarat", "hajj package",
+    "data offer", "data bundle", "call package", "sms package",
+    "discount", "lucky draw", "prize", "cashback", "scratch card",
+    "introduces", "launches new", "new package", "new offer", "new bundle",
+    # 功能/评测文章
+    "how to", "review:", "top 5", "top 10", "best phones", "price in pakistan",
+    "specifications", "specs and price",
+}
+
+
+def is_digest_relevant(title: str) -> bool:
+    t = title.lower()
+    return not any(kw in t for kw in _DIGEST_EXCLUDE)
+
 
 def load_today_news(date_str: str) -> list:
     with open(CACHE_FILE, encoding="utf-8") as f:
         cache = json.load(f)
     items = [i for i in cache
-             if i.get("date") == date_str and i.get("summary_zh", "").strip()]
-    return sorted(items, key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99))
+             if i.get("date") == date_str
+             and i.get("summary_zh", "").strip()
+             and is_digest_relevant(i.get("title", ""))]
+    items = sorted(items, key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99))
+    return items[:MAX_DIGEST_ITEMS]
 
 
 def highlight(text: str) -> str:
@@ -117,10 +142,15 @@ def html_to_png(html: str, out_path: str) -> None:
         browser = p.chromium.launch()
         page = browser.new_page(
             viewport={"width": 960, "height": 600},
-            device_scale_factor=3,   # 3× = 2880px wide, 超高清
+            device_scale_factor=3,
         )
         page.set_content(html, wait_until="domcontentloaded")
-        page.screenshot(path=out_path, full_page=True)
+        # 量 footer 底部坐标作为真实内容高度，避免底部留白
+        content_height = page.evaluate(
+            "Math.ceil(document.querySelector('.footer').getBoundingClientRect().bottom)"
+        )
+        page.set_viewport_size({"width": 960, "height": content_height})
+        page.screenshot(path=out_path, full_page=False)
         browser.close()
     print(f"  图片已生成：{out_path}")
 
@@ -129,7 +159,6 @@ def send_via_apple_mail(img_path: str, subject: str, body: str) -> None:
     def esc(s: str) -> str:
         return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
 
-    # Build AppleScript as a list of -e lines (avoids multi-line quoting issues)
     lines = [
         'tell application "Mail"',
         f'set msg to make new outgoing message with properties {{subject:"{esc(subject)}", content:"{esc(body)}", visible:false}}',
@@ -152,11 +181,11 @@ def send_via_apple_mail(img_path: str, subject: str, body: str) -> None:
 
 
 def main() -> None:
-    date_str = datetime.date.today().isoformat()
+    date_str = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
     dt       = datetime.date.fromisoformat(date_str)
     date_cn  = f"{dt.year}年{dt.month}月{dt.day}日"
 
-    print(f"[digest] 日期：{date_str}")
+    print(f"[digest] 日期（T-1）：{date_str}")
     items = load_today_news(date_str)
 
     if not items:
@@ -182,10 +211,9 @@ def main() -> None:
 
     subject = f"巴基斯坦电信资讯日报 {date_cn}（{len(items)} 条）"
     body    = (f"您好，\n\n"
-               f"今日巴基斯坦电信行业资讯（{date_cn}）共 {len(items)} 条，详见附图。\n\n"
+               f"巴基斯坦通信行业资讯（{date_cn}）共 {len(items)} 条，详见附图。\n\n"
                f"在线查看完整版：\n"
-               f"{DASHBOARD_URL}\n\n"
-               f"本邮件由系统自动生成。")
+               f"{DASHBOARD_URL}")
 
     print(f"  发送邮件：{subject}")
     send_via_apple_mail(img_path, subject, body)

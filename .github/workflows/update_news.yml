@@ -1,9 +1,7 @@
 name: Daily news refresh
 
 on:
-  schedule:
-    - cron: '0 18 * * *'  # 18:00 UTC = 23:00 PKT, daily
-  workflow_dispatch: {}    # allow manual run from the Actions tab
+  workflow_dispatch: {}    # manual run only; daily fetch handled by local launchd at 09:30 PKT
 
 permissions:
   contents: write
