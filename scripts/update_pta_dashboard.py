@@ -12,7 +12,7 @@ SUBSCRIBERS_URL = "https://www.pta.gov.pk/category/telecom-indicators/164"
 QOS_LIST_URL = "https://www.pta.gov.pk/category/qos-survey-959959384-2023-05-30"
 
 BASE_DIR = pathlib.Path(__file__).resolve().parent
-HTML_FILE = BASE_DIR.parent / "index.html"
+HTML_FILE = BASE_DIR.parent / "industry_index.html"
 LOG_FILE = BASE_DIR / "update_log.txt"
 KNOWN_QOS_FILE = BASE_DIR / "known_qos_pdfs.json"
 QOS_ALERT_FILE = BASE_DIR / "qos_update_needed.txt"
