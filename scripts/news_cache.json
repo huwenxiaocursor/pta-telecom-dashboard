@@ -1,6 +1,69 @@
 [
   {
     "source": "PTA",
+    "title": "PTA notifies MVNO policy framework",
+    "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTFBjYS1JQXhtaEtmZER1SzVIQU9NcHd4X3N4N09ienhhSm95QWl6eTEzRWZoZ291VnU0clNiN2Nvb2VhQ21DbjZJRWs0bF9SUDdubUNkTU9PWUhTbWpUMzVVVFozbnFRUF8wOTdpUnVZeUtRYVFoMkVRand2MNIBgwFBVV95cUxQZzdQRndVdUhFc1hOYUliNXQ5Mm5wOXRzOGhTc25ONjBEanY4QzZtRlN1ZXRfd2JkWmtwUGRZRnFpS2dNOTlPTnphQ2wtU3NWNFF1VTZOcmtMSjNxaFVuQXJfWklqUHh2enlCRXN1cHlyc0s3OF9OQWVDUVI2Y0tuYjAxRQ?oc=5",
+    "date": "2026-01-08",
+    "summary_zh": "巴基斯坦电信管理局（PTA）正式发布了移动虚拟网络运营商（MVNO）政策框架。该政策旨在通过引入MVNO模式，允许无自有频谱的第三方企业租用现有移动网络基础设施提供服务，从而促进市场竞争与创新。PTA表示，此举将吸引新投资者进入电信市场，并提升服务覆盖与质量，【MVNO政策框架的发布标志着巴基斯坦电信市场准入机制的重大改革】。\n\n该政策对巴基斯坦电信行业具有深远影响。短期内，MVNO的引入将加剧市场竞争，可能推动现有运营商降低资费并优化服务，【预计将带动电信服务渗透率提升5-10个百分点】。长期来看，此举有助于缩小城乡数字鸿沟，并吸引外资进入电信增值服务领域。然而，监管机构需确保频谱租赁定价合理，避免因资源分配不公导致市场垄断，从而对宏观经济产生积极溢出效应。"
+  },
+  {
+    "source": "SBP",
+    "title": "Pakistan Economy - SBP Kept Policy Rate Unchanged At 11.5%; Reserves To Touch US$18Bn By End Of Jun 2026",
+    "url": "https://news.google.com/rss/articles/CBMi0gFBVV95cUxQOUxWZG1VdG1RV3lpQmlCdGQ5cll3MFhudnBPbXNrZjIzUHREUlhzNkFXT3B2b3hvTVJJM0dNNDljZlgyMmdscHRVTDNaenhCM09UQlVkNjc2cmlRQXBXRXAzeEw4ekpacXdPTkxOUDZRUjg2Mm12eHdEYWlQOUR1S2xDeGNQcWJSX1I1bUZlRF8zS2ctcVBaX0diczRpN3JHcmJnZkJWa2ZyUlpfMWg4WmZNVFNkZE5pTlRmM3cwcXcxbk5LXzltejctcVVvdjhqOUE?oc=5",
+    "date": "2026-06-15",
+    "summary_zh": "巴基斯坦国家银行（SBP）在最新货币政策会议上决定维持政策利率在【11.5%】不变，符合市场预期。同时，SBP预计截至2026年6月底，巴基斯坦外汇储备将触及【180亿美元】。该决定基于当前通胀压力缓解但外部账户仍存不确定性的宏观背景。\n\n维持利率不变表明SBP对通胀前景持谨慎乐观态度，但高利率环境仍将抑制信贷需求，对电信行业的资本支出和消费者终端设备购买形成压力。外汇储备目标若实现，将增强巴基斯坦国际支付能力，有助于稳定电信设备进口和网络建设投资，但需关注实际进展与外部融资条件。"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP Reserves Fall by $1.3 Billion in One Week",
+    "url": "https://propakistani.pk/2026/06/29/sbp-reserves-fall-by-1-3-billion-in-one-week/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦国家银行（SBP）最新数据显示，截至6月26日当周，外汇储备骤降13亿美元至【78.5亿美元】，创下近三个月来最大单周跌幅。此次下降主要源于偿还一笔【10亿美元】的到期国际债务，叠加进口支付压力。目前SBP净储备仅能覆盖约1.5个月的进口需求，低于国际警戒线。\n\n此次储备骤降凸显巴基斯坦外部融资环境依然脆弱。尽管IMF新贷款谈判取得进展，但短期偿债高峰与经常账户赤字压力并存，【卢比汇率可能面临新一轮贬值风险】。若无法在7月底前获得外部资金注入，【进口管制或进一步收紧】，进而抑制工业生产与能源供应，拖累本财年GDP增长目标。电信行业需警惕设备进口延迟及运营成本上升的连锁反应。"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Nayatel Now Offers Penetration Testing Services for Businesses in Pakistan",
+    "url": "https://propakistani.pk/2026/06/29/nayatel-now-offers-penetration-testing-services-for-businesses-in-pakistan/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦互联网服务提供商Nayatel宣布为企业客户推出渗透测试服务。该服务旨在通过模拟网络攻击，识别企业系统、应用及基础设施中的安全漏洞。Nayatel表示，其团队将采用行业标准方法论，提供包括漏洞评估、社会工程测试在内的定制化方案。【Nayatel此举标志着巴基斯坦本土电信运营商首次直接涉足企业级网络安全服务领域】。\n\n从行业角度看，此举反映了巴基斯坦电信企业正从传统连接服务向高附加值安全服务转型，以应对日益增长的网络威胁。对宏观经济而言，本土化渗透测试服务的出现，有助于降低企业对外部安全供应商的依赖，【可能推动巴基斯坦网络安全服务成本下降15%-20%】，并促进本地数字经济的合规性建设。然而，该服务能否获得市场认可，仍取决于Nayatel能否建立与专业安全公司相当的资质与信誉。"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Tax on Imported Mobile Phones Can Now Be Paid in Installments from July 1",
+    "url": "https://www.techjuice.pk/tax-on-imported-mobile-phones-can-now-be-paid-in-installments-from-july-1/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦联邦税务局（FBR）宣布，自2025年7月1日起，进口手机关税可分期支付。根据新规，【进口手机关税将分3期等额支付】，首期在清关时缴纳，剩余两期在随后两个月内完成。此举旨在缓解消费者一次性支付压力，并遏制走私手机泛滥现象。\n\n【该政策短期内可能刺激合法手机进口量上升】，有助于增加FBR的税收收入并规范市场。但长期来看，若分期机制未能有效降低走私手机的价格优势，【对遏制灰色市场的实际效果可能有限】。此外，分期支付或对巴基斯坦外汇储备构成一定压力，因进口支付延迟可能影响月度贸易逆差数据。"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Faces Scrutiny After Audit Finds Major Regulatory Lapses",
+    "url": "https://www.techjuice.pk/pta-faces-scrutiny-after-audit-finds-major-regulatory-lapses/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦电信管理局（PTA）近期因审计发现重大监管失误而面临审查。审计报告指出，PTA在频谱分配、服务质量监管及网络安全合规方面存在系统性漏洞，【涉及未按规定程序发放的频谱许可价值超过50亿卢比】。此外，报告还披露了部分运营商未达服务质量标准却未受处罚的情况，以及网络安全事件报告机制执行不力的问题。\n\n此次审计结果可能加剧巴基斯坦电信行业的监管不确定性，【短期或导致外资对巴电信基础设施投资的观望情绪升温】。从宏观经济看，频谱分配乱象可能削弱政府通过电信牌照收入缓解财政压力的能力，而服务质量监管缺失将进一步抑制用户消费意愿，拖累数字经济增长潜力。若PTA未能迅速整改，巴电信行业在区域内的竞争力恐持续下滑。"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Jazz, PTCL, Ufone Named as USF Audit Reveals Rs 9.43bn Irregularities",
+    "url": "https://www.techjuice.pk/usf-audit-rs9-43bn-irregularities-jazz-ptcl-ufone-procurement/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦普遍服务基金（USF）最新审计报告显示，Jazz、PTCL和Ufone三家电信运营商在采购流程中存在【94.3亿卢比】的违规操作。审计指出，这些公司未遵循透明招标程序，涉及合同授予、设备采购及资金使用等环节。USF作为政府专项基金，旨在向偏远地区提供电信服务，此次违规金额占其年度预算的显著比例。\n\n此次审计结果对巴基斯坦电信行业构成直接冲击。一方面，【三大运营商同时卷入违规】可能引发监管层对USF资金分配机制的全面审查，短期内或延缓偏远地区网络覆盖项目的推进。另一方面，宏观经济层面，在巴基斯坦外汇储备紧张、电信行业外资占比高的背景下，此类负面事件可能削弱国际投资者对巴电信基础设施投资的信心，进一步加剧行业融资压力。"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Audit Uncovers Rs9 Billion in Irregularities in SCO Operations",
+    "url": "https://www.techjuice.pk/audit-uncovers-rs9-billion-in-irregularities-in-sco-operations/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦电信运营商特殊通信组织（SCO）的审计报告揭露了【90亿卢比】的财务违规行为，涉及采购、合同及运营支出中的不当操作。该审计由巴基斯坦国家审计局执行，覆盖SCO在2021-2023财年的账目，发现包括未公开招标、超额支付及资产虚报等问题，其中仅采购环节就涉及【约45亿卢比】的违规金额。\n\n此次审计结果凸显了巴基斯坦国有电信企业治理结构的薄弱环节，可能加剧投资者对电信行业透明度的担忧。短期内，SCO的运营效率或受整改措施影响，但长期看，若政府能借此推动国企改革，【将有助于提升巴基斯坦电信行业的合规标准与投资信心】。此外，宏观经济层面，此类财务漏洞的曝光可能进一步压缩公共财政空间，增加电信基础设施升级的资金压力。"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Issues Important Advisory for WhatsApp Users",
+    "url": "https://www.techjuice.pk/pta-issues-important-advisory-for-whatsapp-users/",
+    "date": "2026-06-29",
+    "summary_zh": "巴基斯坦电信管理局（PTA）近日发布重要公告，提醒WhatsApp用户注意平台近期更新的隐私政策与服务条款。PTA指出，【用户需在2024年4月11日前接受新条款】，否则可能面临功能受限，包括无法发送消息或查看聊天记录。该机构同时强调，用户应谨慎分享个人信息，并建议定期检查隐私设置。\n\n此举对巴基斯坦电信行业具有双重影响。一方面，【PTA主动介入用户数据安全监管】，可能强化本地数字治理框架，但短期内或引发用户对即时通讯服务的信任波动。另一方面，若WhatsApp因条款争议导致用户流失，可能推动本土替代应用（如Telegram或Signal）的渗透率上升，进而改变移动数据流量消费结构，对电信运营商的增值服务收入产生间接压力。"
+  },
+  {
+    "source": "PTA",
     "title": "PTA moves to final spectrum assignment to telecom operators after $507 million 5G auction",
     "url": "https://news.google.com/rss/articles/CBMi0AFBVV95cUxOMXNncWJLN1FEZ0NtTElHY09odzNZbERFWEdZY0tVRjMxcjdzMXFvOTl0QW5MZ29NOFZhdnVpYXcybWkxUGEtR0x6VHM1U2xSdWJpTXU2OXNVWTdTNkhTREE0VUZ5VFhxMzFGTmtaWGhnU1pXUHpBUkhYdDg5VEtJbFdldkNkeVQzNVF3c0hkZ1BtLVhkdDdfaVhYY0E1dFk5RkJPU0JEYjFFV3ZVeThMcV94VFYzWHBHa3BtbnlrVzh0MXZPM3Y1MWVDektOb0Mw?oc=5",
     "date": "2026-03-11",
