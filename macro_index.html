@@ -345,6 +345,16 @@
         </table>
       </div>
 
+      <div class="chart-card">
+        <h3>SBP 政策利率（近期）</h3>
+        <div class="chart-sub">按实际变动日期展示，非固定周期采样</div>
+        <div class="chart-wrap"><canvas id="policyRateChart"></canvas></div>
+        <table class="data-table" id="policy-trend-table">
+          <tr id="policy-trend-labels"><th>日期</th></tr>
+          <tr id="policy-trend-vals"><th>利率%</th></tr>
+        </table>
+      </div>
+
     </div>
   </section>
 
@@ -623,6 +633,8 @@ function renderMacroData(d){
     if (d.chart && d.chart.policyRateLabels){
       fillTrendTable('rate-hist-labels', 'rate-hist-vals', d.chart.policyRateLabels, d.chart.policyRateVals,
         fmtDate, v => v.toFixed(2));
+      fillTrendTable('policy-trend-labels', 'policy-trend-vals', d.chart.policyRateLabels, d.chart.policyRateVals,
+        fmtDate, v => v.toFixed(2));
     }
   }
 
@@ -732,6 +744,8 @@ const reservesLabels = (MACRO_DATA.chart && MACRO_DATA.chart.reservesLabels) || 
 const reservesVals   = (MACRO_DATA.chart && MACRO_DATA.chart.reservesVals)   || [14510, 14200, 15915, 16382, 17215];
 const fxLabels = (MACRO_DATA.chart && MACRO_DATA.chart.fxLabels) || ['24Q3','24Q4','25Q1','25Q2','25Q3','25Q4','26Q1','26Q2'];
 const fxVals   = (MACRO_DATA.chart && MACRO_DATA.chart.fxVals)   || [278.5, 278.0, 283.0, 281.5, 281.5, 280.4, 278.6, 278.31];
+const policyRateLabels = (MACRO_DATA.chart && MACRO_DATA.chart.policyRateLabels) || ['24Q3','24Q4','25Q1','25Q2','25Q3','25Q4','26Q1','26Q2'];
+const policyRateVals   = (MACRO_DATA.chart && MACRO_DATA.chart.policyRateVals)   || [17.50, 13.00, 12.00, 11.00, 11.00, 10.50, 10.50, 11.50];
 
 new Chart(document.getElementById('gdpChart'), {
   data: {
@@ -826,6 +840,27 @@ new Chart(document.getElementById('fxChart'), {
     maintainAspectRatio: false,
     plugins: { legend: { display:false } },
     scales: { y:{ title:{display:true,text:'PKR',font:{size:10}}, ticks:{font:{size:10}} }, x:{ ticks:{font:{size:10}} } }
+  }
+});
+
+new Chart(document.getElementById('policyRateChart'), {
+  type: 'line',
+  data: {
+    labels: policyRateLabels,
+    datasets: [{
+      label: '政策利率%',
+      data: policyRateVals,
+      borderColor: greenA,
+      backgroundColor: greenA20,
+      fill: true,
+      stepped: true,
+      pointRadius: 3
+    }]
+  },
+  options: {
+    maintainAspectRatio: false,
+    plugins: { legend: { display:false } },
+    scales: { y:{ title:{display:true,text:'%',font:{size:10}}, ticks:{font:{size:10}} }, x:{ ticks:{font:{size:10}} } }
   }
 });
 </script>
