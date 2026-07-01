@@ -6,5 +6,14 @@
     },
     "source": "PTA Annual Report 2025 (page 26, 'ARPU & Data Pricing'), 提取于 2026-07-01",
     "note": "PTA官网 category/telecom-indicators/174 页面截至2026-07-01仍只更新到2022-23，未包含年报里更新的数值。年报FY21-22/FY22-23数值与官网旧图表不一致（官网237/242 vs 年报212/229），按用户要求：年报覆盖的年份用年报数值，官网有而年报没有的年份（2018-19~2020-21）继续沿用官网数值。"
+  },
+  "mobile-device-manufacturing-chart": {
+    "years": ["2021", "2022", "2023", "2024", "2025"],
+    "series": {
+      "Smart Phones": [14.6, 13.2, 13.0, 12.7, 17.6],
+      "2G": [10.0, 8.7, 8.2, 18.6, 15.1]
+    },
+    "source": "PTA Annual Report 2025 (page 24, 'Mobile Devices: Locally Manufactured'), 提取于 2026-07-01，2025为报告标注的估算值(est.)",
+    "note": "PTA官网 category/telecom-indicators/171 页面抓取到的 Smart/2G 两个系列数值与年报核对后发现两个系列被互换了（网页版的'Smart Phones'系列实际数值对应年报的2G列，反之亦然），网页当前2021-2024年值与年报对应系列数值高度吻合（仅小数点后误差），可确认是系列标签互换，不是数值本身有误。已按用户要求改用年报数值，且这5个年份不再需要跟随官网月度自动抓取变化——用户明确表示这一维度不用每月去官网核对更新。"
   }
 }
