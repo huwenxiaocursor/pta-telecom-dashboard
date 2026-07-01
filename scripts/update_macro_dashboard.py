@@ -410,7 +410,7 @@ def fetch_cpi(history):
         "只输出本月（最新月份）的数据，严格按以下JSON schema输出，数值单位为百分比，"
         "找不到的字段设为null：\n"
         '{"yoy": 全国CPI同比, "mom": 全国CPI环比, "urbanYoy": 城市CPI同比, '
-        '"ruralYoy": 农村CPI同比, "spiYoy": SPI同比, "nfneUrbanYoy": null, "nfneRuralYoy": null}'
+        '"ruralYoy": 农村CPI同比, "spiYoy": SPI同比}'
     )
     user_text = (
         f"已知上月({ref_month})官方数据供比对：{json.dumps(ref, ensure_ascii=False)}\n\n"

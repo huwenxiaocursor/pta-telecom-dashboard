@@ -132,7 +132,7 @@ CI Secrets（GitHub Actions）：`DEEPSEEK_API_KEY`、`GMAIL_USERNAME`、`GMAIL_
 
 - **CPI 抽取存在真实的 PDF 文字提取瑕疵**：PBS 月度报告 PDF 提取出的文字偶尔会把 10-19 之间的数字掉了开头的"1"（如"11.7%"被提取成"1.7%"或"1 1.7%"），`fetch_cpi()` 会把已知上月数据交给 DeepSeek 做交叉核对来修复，并做 0-50% 范围校验，但如果某月的数字恰好在合理范围内被误读（比如该改的"1"没被发现），依然可能产生小概率的错误，建议每次自动更新后抽查一次 CPI 数值。
 - **侨汇（Excel归档文件）更新滞后**：`Homeremit_Arch.xlsx` 观察到有数月的滞后（不是实时反映官方新闻稿数字），`fetch_remittances()` 只会在归档文件真正更新到新月份时才产生新记录，中间可能连续多次运行都"无新增"，属正常现象。
-- **CPI 的 NFNE 核心通胀字段**仅在 PBS 报告"Inflation in Brief"摘要段落包含时才会被抽取，若某月报告未在该段落提及，页面会保留上次已知值而非清空。
+- **CPI 的 NFNE 核心通胀字段已不再自动抓取**（覆盖不稳定，价值有限），`macro_index.html` 中已移除对应展示卡片；`macro_history.json` 里此前已存的 `nfneUrbanYoy`/`nfneRuralYoy` 历史值保留不删，仅不再新增。
 
 ## 注意事项
 

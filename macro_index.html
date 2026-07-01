@@ -423,11 +423,6 @@
         <div class="value" id="cpi2-spi-value">12.8<span class="unit">%</span></div>
         <div class="delta" id="cpi2-spi-delta"><span class="up">▲ 较5月12.0%上升</span></div>
       </div>
-      <div class="card wide">
-        <div class="label">核心通胀 NFNE（非食品非能源）同比</div>
-        <div class="value" id="cpi2-nfne">城市 9.0% <span class="unit">/</span> 农村 8.4%</div>
-        <div class="note" id="cpi2-nfne-note">自动抽取仅覆盖报告开头的"Inflation in Brief"摘要段落，若该段未包含NFNE数据则保留上次已知值。</div>
-      </div>
     </div>
   </section>
 
@@ -655,9 +650,6 @@ function renderMacroData(d){
           el4.innerHTML = `<span class="${sd.dir}">${sd.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.spiYoy}%${verbTxt}</span>`;
         }
       }
-      const nu = d.cpi.nfneUrbanYoy !== undefined ? d.cpi.nfneUrbanYoy : prev.nfneUrbanYoy;
-      const nr = d.cpi.nfneRuralYoy !== undefined ? d.cpi.nfneRuralYoy : prev.nfneRuralYoy;
-      if (nu !== undefined && nr !== undefined) set('cpi2-nfne', `城市 ${nu}% / 农村 ${nr}%`);
     }
     if (d.chart && d.chart.cpiLabels){
       fillTrendTable('cpi-trend-labels', 'cpi-trend-vals', d.chart.cpiLabels, d.chart.cpiVals,
