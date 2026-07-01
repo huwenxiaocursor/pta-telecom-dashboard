@@ -120,6 +120,12 @@ CI Secrets（GitHub Actions）：`DEEPSEEK_API_KEY`、`GMAIL_USERNAME`、`GMAIL_
 
 `scripts/known_qos_pdfs.json` 记录已处理的 PDF 链接列表，避免重复告警。
 
+## 年度指标人工覆盖（`scripts/annual_overrides.json`）
+
+PTA 官网部分年度指标图表（`ANNUAL_SOURCES` 里的6类：营收、投资、FDI、设备制造、基站、ARPU）会出现长期不更新的情况——比如 `mobile-arpu-per-month-during-year-chart` 截至2026-07仍停留在2022-23，但同期的 *PTA Annual Report* PDF 里已经有更新数值。遇到这种情况，人工从年报PDF提取数据后写入 `scripts/annual_overrides.json`，`fetch_annual_metrics()` 会在每次运行时通过 `apply_annual_override()` 合并：**覆盖文件里有的年份一律用覆盖值**（即使官网当时也有该年份但数值不同，如ARPU的FY21-22/FY22-23官网237/242 vs 年报212/229，以年报为准），**覆盖文件里没有的年份继续沿用官网抓取值**。这样人工修正不会被下次自动抓取悄悄覆盖回去。
+
+给年报PDF提取数字配对年份时要注意：PTA年报的单年份图表标签（如"2025"）通常代表**财年结束年**（对照报告里同一文档"—FY"或"as of June"标注的图表来确认惯例），不是自然日历年；提取时最好用 `page.get_text('words')` 拿到每个数字和年份标签的坐标，按x轴位置对齐，不要只看文字顺序（同一图表里多个数值可能因为高度接近被合并进同一个文本块，导致读取顺序和视觉顺序不一致）。
+
 ## 宏观年度数据维护（手动）
 
 `macro_index.html` 中 GDP总量/人均GDP/`gdpChart`、Section③ 全部财政/产业结构/贸易板块来自《Pakistan Economic Survey》等年度或不定期报告，`update_macro_dashboard.py` **不会**自动解析这些数据（报告篇幅长、数值需要人工判断口径），只做"检测到新报告就提醒"：

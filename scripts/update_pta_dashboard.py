@@ -17,6 +17,7 @@ LOG_FILE = BASE_DIR / "update_log.txt"
 KNOWN_QOS_FILE = BASE_DIR / "known_qos_pdfs.json"
 QOS_ALERT_FILE = BASE_DIR / "qos_update_needed.txt"
 HISTORY_FILE = BASE_DIR / "history_monthly.json"
+ANNUAL_OVERRIDES_FILE = BASE_DIR / "annual_overrides.json"
 
 MONTH_MAP = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
              'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
@@ -170,6 +171,42 @@ def fetch_subscriber_data():
     return raw_months, raw_subs_aligned, categories, html
 
 
+def load_annual_overrides():
+    if ANNUAL_OVERRIDES_FILE.exists():
+        return json.loads(ANNUAL_OVERRIDES_FILE.read_text(encoding='utf-8'))
+    return {}
+
+
+def apply_annual_override(chart_id, years, series):
+    """合并人工/年报来源的覆盖数据（scripts/annual_overrides.json）。
+    覆盖文件里有的年份一律用覆盖值（即使PTA官网当前也有该年份的不同数值）；
+    覆盖文件里没有的年份继续沿用官网抓取到的原值。用于PTA官网某些年度图表
+    长期未更新、但年报PDF里已有更新数据的情况（如ARPU）。"""
+    override = load_annual_overrides().get(chart_id)
+    if not override:
+        return years, series
+
+    merged_years = list(years)
+    merged_series = {k: list(v) for k, v in series.items()}
+
+    for i, y in enumerate(override['years']):
+        if y not in merged_years:
+            merged_years.append(y)
+            for k in merged_series:
+                merged_series[k].append(None)
+        idx = merged_years.index(y)
+        for k, vals in override['series'].items():
+            if k not in merged_series:
+                merged_series[k] = [None] * len(merged_years)
+            merged_series[k][idx] = vals[i]
+
+    order = sorted(range(len(merged_years)), key=lambda i: merged_years[i])
+    merged_years = [merged_years[i] for i in order]
+    for k in merged_series:
+        merged_series[k] = [merged_series[k][i] for i in order]
+    return merged_years, merged_series
+
+
 def fetch_annual_metrics():
     """抓取6类年度指标，返回 {chart_id: {'years': [...], 'series': {...}}}"""
     results = {}
@@ -192,10 +229,10 @@ def fetch_annual_metrics():
                 cats = cats[-n:]
                 series = {k: v[-n:] for k, v in series.items()}
 
-            results[chart_id] = {
-                'years': cats,
-                'series': {k: v for k, v in series.items() if k in expected_keys}
-            }
+            series = {k: v for k, v in series.items() if k in expected_keys}
+            cats, series = apply_annual_override(chart_id, cats, series)
+
+            results[chart_id] = {'years': cats, 'series': series}
             log(f"年度指标 {chart_id} 更新成功：{cats[0]} ~ {cats[-1]}")
         except Exception as e:
             log(f"警告：年度指标 {chart_id} 抓取失败（不影响主要更新）：{e}")

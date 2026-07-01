@@ -56,3 +56,22 @@
 [2026-07-01T10:29:57] 历史记录已更新，cellularSubs 共 21 个月份
 [2026-07-01T10:29:57] 趋势图月份范围：2025-01 ~ 2026-05（17个月）
 [2026-07-01T10:29:57] 全部数据更新成功：月度用户最新 2026-05，年度指标 6 类（CI环境，跳过本地备份）
+[2026-07-01T16:26:22] 年度指标 revenues-chart 更新成功：2020-21 (R) ~ 2024-25 (P)
+[2026-07-01T16:26:35] 年度指标 investments-chart 更新成功：2020-21 (R) ~ 2024-25 (P)
+[2026-07-01T16:26:37] 年度指标 foreign-direct-investments-chart 更新成功：2020-21 ~ 2024-25
+[2026-07-01T16:26:38] 年度指标 mobile-device-manufacturing-chart 更新成功：2021 ~ 2025
+[2026-07-01T16:26:40] 年度指标 annual-cellular-mobile-cell-sites-chart 更新成功：2020-21 ~ 2024-25
+[2026-07-01T16:26:42] 年度指标 mobile-arpu-per-month-during-year-chart 更新成功：2018-19 ~ 2024-25
+[2026-07-01T16:27:07] 年度指标 revenues-chart 更新成功：2020-21 (R) ~ 2024-25 (P)
+[2026-07-01T16:27:09] 年度指标 investments-chart 更新成功：2020-21 (R) ~ 2024-25 (P)
+[2026-07-01T16:27:11] 年度指标 foreign-direct-investments-chart 更新成功：2020-21 ~ 2024-25
+[2026-07-01T16:27:12] 年度指标 mobile-device-manufacturing-chart 更新成功：2021 ~ 2025
+[2026-07-01T16:27:14] 年度指标 annual-cellular-mobile-cell-sites-chart 更新成功：2020-21 ~ 2024-25
+[2026-07-01T16:27:15] 年度指标 mobile-arpu-per-month-during-year-chart 更新成功：2018-19 ~ 2024-25
+[2026-07-01T16:27:15] 月度额外 monthly-mobile-data-usage-gbs-chart 提取成功：12 个月份
+[2026-07-01T16:27:15] 月度额外 monthly-ngms-subscribers-chart 提取成功：12 个月份
+[2026-07-01T16:27:15] 月度额外 monthly-broadband-subscribers-chart 提取成功：12 个月份
+[2026-07-01T16:27:17] 月度额外 monthly-teledensity-chart 提取成功：12 个月份
+[2026-07-01T16:27:17] 历史记录已更新，cellularSubs 共 21 个月份
+[2026-07-01T16:27:17] 趋势图月份范围：2025-01 ~ 2026-05（17个月）
+[2026-07-01T16:27:17] 全部数据更新成功：月度用户最新 2026-05，年度指标 6 类（已备份至 industry_index.html.bak-2026-07-01）

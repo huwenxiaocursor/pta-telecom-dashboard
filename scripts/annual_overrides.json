@@ -1,0 +1,10 @@
+{
+  "mobile-arpu-per-month-during-year-chart": {
+    "years": ["2021-22", "2022-23", "2023-24", "2024-25"],
+    "series": {
+      "ARPU": [212, 229, 270, 306]
+    },
+    "source": "PTA Annual Report 2025 (page 26, 'ARPU & Data Pricing'), 提取于 2026-07-01",
+    "note": "PTA官网 category/telecom-indicators/174 页面截至2026-07-01仍只更新到2022-23，未包含年报里更新的数值。年报FY21-22/FY22-23数值与官网旧图表不一致（官网237/242 vs 年报212/229），按用户要求：年报覆盖的年份用年报数值，官网有而年报没有的年份（2018-19~2020-21）继续沿用官网数值。"
+  }
+}
