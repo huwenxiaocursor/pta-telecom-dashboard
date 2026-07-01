@@ -369,13 +369,6 @@
         <div class="label">政策利率 Policy Rate</div>
         <div class="value" id="rate-value">11.50<span class="unit">% p.a.</span></div>
         <div class="note" id="rate-note">利率走廊：下限10.50% / 上限12.50%。2026年4月27日上调100bp至11.50%（为2023年6月以来首次加息）后，6月15日MPC会议决定维持不变。</div>
-        <details class="hist">
-          <summary>近期利率路径</summary>
-          <table class="data-table" id="rate-hist-table">
-            <tr id="rate-hist-labels"><th>日期</th></tr>
-            <tr id="rate-hist-vals"><th>利率%</th></tr>
-          </table>
-        </details>
       </div>
       <div class="card">
         <div class="label">外汇储备（SBP持有）</div>
@@ -631,8 +624,6 @@ function renderMacroData(d){
     if (rateValEl) rateValEl.innerHTML = d.policyRate.rate.toFixed(2) + '<span class="unit">% p.a.</span>';
     set('rate-note', `${corridor}最近一次变动：${d.policyRate.date}，${d.policyRate.note || ''}（变动${d.policyRate.changeBp || 0}bp）。`);
     if (d.chart && d.chart.policyRateLabels){
-      fillTrendTable('rate-hist-labels', 'rate-hist-vals', d.chart.policyRateLabels, d.chart.policyRateVals,
-        fmtDate, v => v.toFixed(2));
       fillTrendTable('policy-trend-labels', 'policy-trend-vals', d.chart.policyRateLabels, d.chart.policyRateVals,
         fmtDate, v => v.toFixed(2));
     }
