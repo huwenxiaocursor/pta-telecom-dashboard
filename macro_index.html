@@ -61,24 +61,6 @@
     padding:2px 8px;
     margin-left:6px;
   }
-  .kpi-row{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:14px;
-    margin-top:26px;
-  }
-  .kpi{
-    background:rgba(255,255,255,0.08);
-    border:1px solid rgba(255,255,255,0.18);
-    border-radius:10px;
-    padding:14px 16px;
-  }
-  .kpi .label{font-size:12px;color:rgba(255,255,255,0.7);margin-bottom:6px;}
-  .kpi .value{font-size:24px;font-weight:600;}
-  .kpi .delta{font-size:12px;margin-top:4px;color:rgba(255,255,255,0.75);}
-  .kpi .delta.up{color:#ffb4ac;}
-  .kpi .delta.down{color:#9fe8b0;}
-
   main{
     max-width:1180px;
     margin:0 auto;
@@ -282,14 +264,12 @@
   }
 
   @media (max-width:900px){
-    .kpi-row{grid-template-columns:repeat(2,1fr);}
     .card-grid{grid-template-columns:repeat(2,1fr);}
     .panel-grid{grid-template-columns:repeat(2,1fr);}
     .card.wide{grid-column:span 2;}
     .chart-grid{grid-template-columns:1fr;}
   }
   @media (max-width:560px){
-    .kpi-row{grid-template-columns:1fr;}
     .card-grid{grid-template-columns:1fr;}
     .panel-grid{grid-template-columns:1fr;}
     .card.wide{grid-column:span 1;}
@@ -309,29 +289,6 @@
     <div class="meta-box">
       数据截至：<b id="meta-asof">2026年6月30日</b><br>
       下次更新：<span class="tag" id="meta-next">2026年7月10日</span>
-    </div>
-  </div>
-
-  <div class="kpi-row">
-    <div class="kpi">
-      <div class="label">SBP 政策利率</div>
-      <div class="value" id="kpi-rate-value">11.50%</div>
-      <div class="delta" id="kpi-rate-delta">2026-06-15 MPC维持不变（连续第2次按兵不动）</div>
-    </div>
-    <div class="kpi">
-      <div class="label" id="kpi-cpi-label">CPI 同比通胀（6月）</div>
-      <div class="value" id="kpi-cpi-value">11.1%</div>
-      <div class="delta down" id="kpi-cpi-delta">▼ 较5月11.7%回落</div>
-    </div>
-    <div class="kpi">
-      <div class="label">外汇储备（SBP持有）</div>
-      <div class="value" id="kpi-reserves-value">$159.16亿</div>
-      <div class="delta down" id="kpi-reserves-delta">▼ 截至2026-06-19，环比降$4.66亿</div>
-    </div>
-    <div class="kpi"><!-- MANUAL: GDP增速，Economic Survey发布后人工更新 -->
-      <div class="label">FY26 GDP增速</div>
-      <div class="value">3.7%</div>
-      <div class="delta">四年最高，低于4.2%目标</div>
     </div>
   </div>
 </header>
@@ -651,8 +608,6 @@ function renderMacroData(d){
 
   // 政策利率
   if (d.policyRate){
-    set('kpi-rate-value', d.policyRate.rate.toFixed(2) + '%');
-    set('kpi-rate-delta', `${d.policyRate.date} ${d.policyRate.note || ''}`);
     const corridor = (d.policyRate.corridorLower !== undefined && d.policyRate.corridorUpper !== undefined)
       ? `利率走廊：下限${d.policyRate.corridorLower.toFixed(2)}% / 上限${d.policyRate.corridorUpper.toFixed(2)}%。` : '';
     const rateValEl = document.getElementById('rate-value');
@@ -667,8 +622,6 @@ function renderMacroData(d){
   // CPI（KPI + 顶部趋势 + section②）
   if (d.cpi){
     const [y, m] = d.cpi.month.split('-');
-    set('kpi-cpi-label', `CPI 同比通胀（${parseInt(m)}月）`);
-    set('kpi-cpi-value', d.cpi.yoy.toFixed(1) + '%');
     set('cpi2-yoy-label', `CPI 同比（全国，${parseInt(m)}月）`);
     set('cpi2-mom-label', `CPI 环比（全国，${parseInt(m)}月）`);
     set('cpi2-yoy-value', d.cpi.yoy.toFixed(1));
@@ -683,8 +636,6 @@ function renderMacroData(d){
       const yd = deltaSpan(d.cpi.yoy, prev.yoy, '%', 1);
       if (yd){
         const verbTxt = yd.verb === '升' ? '走高' : (yd.verb === '降' ? '回落' : '持平');
-        set('kpi-cpi-delta', `${yd.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.yoy}%${verbTxt}`);
-        const el = document.getElementById('kpi-cpi-delta'); if (el) el.className = 'delta ' + (yd.dir || '');
         const el2 = document.getElementById('cpi2-yoy-delta');
         if (el2) el2.innerHTML = `<span class="${yd.dir}">${yd.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.yoy}%${verbTxt}</span>`;
       }
@@ -718,20 +669,6 @@ function renderMacroData(d){
   if (d.reserves){
     const resValEl = document.getElementById('reserves-value');
     if (resValEl) resValEl.innerHTML = d.reserves.sbp.toLocaleString('en-US', {minimumFractionDigits:1}) + '<span class="unit">百万美元</span>';
-    const prev = d.reserves.prev;
-    let deltaText = '';
-    let deltaDir = '';
-    if (prev && prev.sbp !== undefined){
-      const rd = deltaSpan(d.reserves.sbp, prev.sbp, '百万美元', 2);
-      if (rd){
-        deltaText = `${rd.arrow} 截至${d.reserves.date}，环比${rd.verb}$${(rd.abs/100).toFixed(2)}亿`;
-        deltaDir = rd.dir;
-      }
-    }
-    set('kpi-reserves-value', '$' + (d.reserves.sbp/100).toFixed(2) + '亿');
-    set('kpi-reserves-delta', deltaText);
-    const kEl = document.getElementById('kpi-reserves-delta');
-    if (kEl && deltaDir) kEl.className = 'delta ' + deltaDir;
     if (d.reserves.banks !== undefined && d.reserves.total !== undefined){
       set('reserves-note', `银行持有 ${d.reserves.banks.toLocaleString('en-US',{minimumFractionDigits:1})}；储备总额 ${d.reserves.total.toLocaleString('en-US',{minimumFractionDigits:1})}（截至${d.reserves.date}）。`);
     }
