@@ -210,6 +210,11 @@
       <canvas id="manufacturingChart"></canvas>
     </div>
     <div class="card">
+      <h3>在网活跃设备占比（2G / 智能机）</h3>
+      <div class="sub">占比—截至每年6月；数据来自PTA Annual Report 2025，PTA官网无对应图表，不参与自动更新</div>
+      <canvas id="activeDevicesChart"></canvas>
+    </div>
+    <div class="card">
       <h3>全行业 ARPU（PKR / 月）</h3>
       <div class="sub">蜂窝移动运营商月均每用户收入；2021-22起数据来自PTA Annual Report 2025（官网图表页面截至2022-23未再更新）</div>
       <canvas id="arpuChart"></canvas>
@@ -296,6 +301,9 @@ const dataUsagePbYoY = {2025:{"Jazz":[null, null, null, null, null, 446.3, 458.5
 const broadbandYoY = {2025:{"Total":[143.1, 144.0, 145.2, 146.3, 148.31, 150.0, 151.1, 152.0, 151.96, 152.0, 152.15, 154.69], "FTTH":[1.7, 1.75, 1.8, 1.85, 1.95, 2.0, 2.1, 2.2, 2.29, 2.33, 2.36, 2.51], "Mobile BB":[139.95, 141.64, 143.44, 144.05, 144.66, 146.05, 147.26, 147.71, 148.06, 148.07, 148.2, 150.59]}, 2026:{"Total":[157.55, 160.2, 160.96, 161.89, 162.41, null, null, null, null, null, null, null], "FTTH":[2.65, 2.69, 2.74, 2.8, 2.81, null, null, null, null, null, null, null], "Mobile BB":[153.33, 155.93, 156.64, 157.58, 158.09, null, null, null, null, null, null, null]}};
 const teledensityYoY = {2025:{"Total":[80.4, 80.87, 81.3, 81.15, 81.1, 81.05, 80.81, 80.41, 80.04, 79.89, 79.94, 81.33]}, 2026:{"Total":[82, 82.75, 82.6, 82.86, 82.85, null, null, null, null, null, null, null]}};
 // ===AUTO-NEW-DATA-END===
+
+// 在网活跃设备占比：来自PTA Annual Report 2025，无对应官网图表，人工维护，不参与自动更新
+const activeDevices = {"years":["2021","2022","2023","2024","2025"], "TwoG":[48,44,41,35,32], "Smart":[52,56,59,65,68]};
 
 const totals = months.map((_,i)=> Object.values(subs).reduce((s,arr)=>s+arr[i],0));
 const shares = {};
@@ -716,6 +724,19 @@ new Chart(document.getElementById('manufacturingChart'),{
   },
   options:{responsive:true,plugins:{legend:{position:'bottom'}},
     scales:{y:{title:{display:true,text:'百万台'}}}}
+});
+
+new Chart(document.getElementById('activeDevicesChart'),{
+  type:'bar',
+  data:{
+    labels: activeDevices.years,
+    datasets:[
+      {label:'2G', data:activeDevices.TwoG, backgroundColor:AP[2]},
+      {label:'智能机', data:activeDevices.Smart, backgroundColor:AP[1]},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'}},
+    scales:{y:{title:{display:true,text:'占比 (%)'}, suggestedMax:100}}}
 });
 
 new Chart(document.getElementById('arpuChart'),{
