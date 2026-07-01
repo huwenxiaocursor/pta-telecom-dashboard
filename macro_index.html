@@ -159,6 +159,15 @@
     grid-template-columns:repeat(2,1fr);
     gap:16px;
   }
+  .price-layout{
+    display:grid;
+    grid-template-columns:3fr 2fr;
+    gap:16px;
+    align-items:stretch;
+  }
+  .price-layout .card-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
   .chart-card{
     background:var(--card);
     border:1px solid var(--border);
@@ -268,9 +277,11 @@
     .panel-grid{grid-template-columns:repeat(2,1fr);}
     .card.wide{grid-column:span 2;}
     .chart-grid{grid-template-columns:1fr;}
+    .price-layout{grid-template-columns:1fr;}
   }
   @media (max-width:560px){
     .card-grid{grid-template-columns:1fr;}
+    .price-layout .card-grid{grid-template-columns:1fr;}
     .panel-grid{grid-template-columns:1fr;}
     .card.wide{grid-column:span 1;}
     .meta-box{text-align:left;}
@@ -311,16 +322,6 @@
           <tr><th>GDP(十亿$)</th><td>383.0</td><td>≈338.0</td><td>375.0</td><td>407.2</td><td class="now">452.1</td></tr>
           <tr><th>人均GDP($)</th><td>1,798</td><td>1,568</td><td>1,680</td><td>1,751</td><td class="now">1,901</td></tr>
           <tr><th>实际增速</th><td>5.97%</td><td>-0.21%</td><td>2.6%</td><td>3.2%</td><td class="now">3.7%</td></tr>
-        </table>
-      </div>
-
-      <div class="chart-card">
-        <h3>CPI 同比通胀率（近期）</h3>
-        <div class="chart-sub">每次自动更新抓取最新月份，图表滚动展示近8个已抓取月份</div>
-        <div class="chart-wrap"><canvas id="cpiChart"></canvas></div>
-        <table class="data-table" id="cpi-trend-table">
-          <tr id="cpi-trend-labels"><th>月份</th></tr>
-          <tr id="cpi-trend-vals"><th>同比%</th></tr>
         </table>
       </div>
 
@@ -402,26 +403,37 @@
       <span class="src">pbs.gov.pk</span>
       <span class="freshness">CPI：自动更新（PDF文字提取+AI结构化抽取，已做数值校验）</span>
     </div>
-    <div class="card-grid">
-      <div class="card">
-        <div class="label" id="cpi2-yoy-label">CPI 同比（全国，6月）</div>
-        <div class="value" id="cpi2-yoy-value">11.1<span class="unit">%</span></div>
-        <div class="delta" id="cpi2-yoy-delta"><span class="down">▼ 较5月11.7%回落</span></div>
+    <div class="price-layout">
+      <div class="chart-card">
+        <h3>CPI 同比通胀率（近期）</h3>
+        <div class="chart-sub">每次自动更新抓取最新月份，图表滚动展示近8个已抓取月份</div>
+        <div class="chart-wrap"><canvas id="cpiChart"></canvas></div>
+        <table class="data-table" id="cpi-trend-table">
+          <tr id="cpi-trend-labels"><th>月份</th></tr>
+          <tr id="cpi-trend-vals"><th>同比%</th></tr>
+        </table>
       </div>
-      <div class="card">
-        <div class="label" id="cpi2-mom-label">CPI 环比（全国，6月）</div>
-        <div class="value" id="cpi2-mom-value">-0.3<span class="unit">%</span></div>
-        <div class="delta" id="cpi2-mom-delta"><span class="down">▼ 较5月+0.5%转降</span></div>
-      </div>
-      <div class="card">
-        <div class="label">城市 / 农村 CPI 同比</div>
-        <div class="value" id="cpi2-urban-rural">11.2<span class="unit">% / 10.9%</span></div>
-        <div class="note">该分项细节以PBS月度报告全文为准，自动化仅抓取头部摘要数字。</div>
-      </div>
-      <div class="card">
-        <div class="label" id="cpi2-spi-label">SPI 敏感价格指数 同比</div>
-        <div class="value" id="cpi2-spi-value">12.8<span class="unit">%</span></div>
-        <div class="delta" id="cpi2-spi-delta"><span class="up">▲ 较5月12.0%上升</span></div>
+      <div class="card-grid">
+        <div class="card">
+          <div class="label" id="cpi2-yoy-label">CPI 同比（全国，6月）</div>
+          <div class="value" id="cpi2-yoy-value">11.1<span class="unit">%</span></div>
+          <div class="delta" id="cpi2-yoy-delta"><span class="down">▼ 较5月11.7%回落</span></div>
+        </div>
+        <div class="card">
+          <div class="label" id="cpi2-mom-label">CPI 环比（全国，6月）</div>
+          <div class="value" id="cpi2-mom-value">-0.3<span class="unit">%</span></div>
+          <div class="delta" id="cpi2-mom-delta"><span class="down">▼ 较5月+0.5%转降</span></div>
+        </div>
+        <div class="card">
+          <div class="label">城市 / 农村 CPI 同比</div>
+          <div class="value" id="cpi2-urban-rural">11.2<span class="unit">% / 10.9%</span></div>
+          <div class="note">该分项细节以PBS月度报告全文为准，自动化仅抓取头部摘要数字。</div>
+        </div>
+        <div class="card">
+          <div class="label" id="cpi2-spi-label">SPI 敏感价格指数 同比</div>
+          <div class="value" id="cpi2-spi-value">12.8<span class="unit">%</span></div>
+          <div class="delta" id="cpi2-spi-delta"><span class="up">▲ 较5月12.0%上升</span></div>
+        </div>
       </div>
     </div>
   </section>
