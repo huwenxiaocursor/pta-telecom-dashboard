@@ -122,6 +122,18 @@
       <div class="sub">柱高=份额（%），标签=变化量（百分点）</div>
       <canvas id="shareCompareChart"></canvas>
     </div>
+
+    <div class="card">
+      <h3>各运营商移动宽带每GB有效资费（PKR）</h3>
+      <div class="sub">2025年；数据来自PTA Annual Report 2025，PTA官网无对应图表，不参与自动更新</div>
+      <canvas id="ppgbByOperatorChart"></canvas>
+    </div>
+
+    <div class="card">
+      <h3>移动宽带每GB有效资费趋势（PKR）</h3>
+      <div class="sub">全行业口径，2021-2025；数据来自PTA Annual Report 2025，PTA官网无对应图表，不参与自动更新</div>
+      <canvas id="ppgbTrendChart"></canvas>
+    </div>
   </div>
 
   <div class="card full" style="margin-bottom:28px;">
@@ -312,6 +324,10 @@ const activeDevices = {"years":["2021","2022","2023","2024","2025"], "TwoG":[48,
 
 // 本地组装 vs 商业进口：来自PTA Annual Report 2025，无对应官网图表，人工维护，不参与自动更新
 const localVsImport = {"years":["2021","2022","2023","2024","2025"], "Local":[24.6,21.9,21.2,31.3,32.7], "Import":[10.2,1.5,1.5,1.7,1.7]};
+
+// 移动宽带每GB有效资费（PPGB）：来自PTA Annual Report 2025，无对应官网图表，人工维护，不参与自动更新
+const ppgbByOperator = {"Jazz":33.7, "Ufone":28.0, "Zong":20.2, "Telenor":38.6};
+const ppgbTrend = {"years":["2021","2022","2023","2024","2025"], "vals":[29.6,26.9,25.5,26.6,29.0]};
 
 const totals = months.map((_,i)=> Object.values(subs).reduce((s,arr)=>s+arr[i],0));
 const shares = {};
@@ -758,6 +774,30 @@ new Chart(document.getElementById('localVsImportChart'),{
   },
   options:{responsive:true,plugins:{legend:{position:'bottom'}},
     scales:{y:{title:{display:true,text:'百万台'}}}}
+});
+
+new Chart(document.getElementById('ppgbByOperatorChart'),{
+  type:'bar',
+  data:{
+    labels: Object.keys(ppgbByOperator),
+    datasets:[{
+      label:'每GB有效资费 (PKR)',
+      data: Object.values(ppgbByOperator),
+      backgroundColor: Object.keys(ppgbByOperator).map(op=>COLORS[op]),
+    }]
+  },
+  options:{indexAxis:'y', responsive:true,plugins:{legend:{display:false}},
+    scales:{x:{title:{display:true,text:'PKR / GB'}}}}
+});
+
+new Chart(document.getElementById('ppgbTrendChart'),{
+  type:'bar',
+  data:{
+    labels: ppgbTrend.years,
+    datasets:[{label:'每GB有效资费 (PKR)', data:ppgbTrend.vals, backgroundColor:AP[0]}]
+  },
+  options:{responsive:true,plugins:{legend:{display:false}},
+    scales:{y:{title:{display:true,text:'PKR / GB'}}}}
 });
 
 new Chart(document.getElementById('arpuChart'),{
