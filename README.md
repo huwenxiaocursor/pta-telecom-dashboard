@@ -21,9 +21,9 @@
 - 相关性过滤：仅保留电信、移动网络、宏观经济、IMF 相关内容
 
 ### 3. 每日邮件摘要（`scripts/send_daily_digest.py`）
-- 每晚 00:00 自动生成当日新闻高清图片（2880px，3× 分辨率）
-- 通过 macOS Apple Mail 发送至指定邮箱
-- 由 macOS `launchd` 调度，无需手动干预
+- 每天 10:10 PKT 自动生成 T-1（昨天）新闻高清图片（960px，3× 分辨率）
+- 通过 macOS Apple Mail 发送至 `huwenxiao@zong.com.pk`
+- 由 macOS `launchd` 调度，无需手动干预；依赖 09:30 的新闻抓取任务先完成
 
 ---
 
@@ -34,16 +34,22 @@
 ├── industry_index.html                 # 行业数据子页
 ├── macro_index.html                    # 宏观经济子页
 ├── scripts/
-│   ├── update_pta_dashboard.py         # 抓取 PTA 月度用户/市场份额数据
-│   ├── update_news.py                  # 抓取五大来源新闻 + 生成中文摘要
-│   ├── send_daily_digest.py            # 生成日报图片并发送邮件
-│   ├── run_digest.sh                   # 每日摘要定时任务入口脚本
-│   ├── com.cmpak.telecom-digest.plist  # macOS launchd 配置（每晚 00:00 触发）
-│   ├── news_cache.json                 # 新闻缓存（含中文摘要）
-│   ├── history_monthly.json            # PTA 月度历史数据（2025-01 起）
-│   └── update_log.txt                  # 数据更新日志
+│   ├── update_pta_dashboard.py              # 抓取 PTA 月度用户/市场份额数据
+│   ├── update_news.py                       # 抓取五大来源新闻 + 生成中文摘要
+│   ├── send_daily_digest.py                 # 生成日报图片并发送邮件（T-1 日新闻）
+│   ├── run_news_fetch.sh                    # 新闻抓取定时任务入口脚本（含 git pull/commit/push）
+│   ├── run_digest.sh                        # 每日摘要定时任务入口脚本
+│   ├── run_update.sh                        # PTA 数据更新入口脚本
+│   ├── com.cmpak.telecom-news-fetch.plist   # macOS launchd 配置（每天 09:30 PKT 触发新闻抓取）
+│   ├── com.cmpak.telecom-digest.plist       # macOS launchd 配置（每天 10:10 PKT 触发日报邮件）
+│   ├── .env.local                           # 本地 DEEPSEEK_API_KEY（已 gitignore，不提交）
+│   ├── news_cache.json                      # 新闻缓存（含中文摘要）
+│   ├── history_monthly.json                 # PTA 月度历史数据（2025-01 起）
+│   ├── update_log.txt                       # PTA 数据更新日志
+│   └── news_update_log.txt                  # 新闻抓取日志
 ├── .github/workflows/
-│   └── update_news.yml                 # GitHub Actions：每晚 23:00 PKT 自动抓取新闻
+│   ├── update.yml                      # GitHub Actions：每月 1 日 09:07 PKT 自动更新 PTA 数据
+│   └── update_news.yml                 # GitHub Actions：新闻抓取（现仅 workflow_dispatch 手动触发，日常抓取已迁移至本地 launchd）
 ```
 
 ---
@@ -52,28 +58,35 @@
 
 | 任务 | 触发时间 | 方式 |
 |------|----------|------|
-| 抓取新闻 + 生成摘要 | 每晚 23:00 PKT | GitHub Actions |
-| PTA 月度数据更新 | 每月 1 日 | GitHub Actions |
-| 生成日报图片并发邮件 | 每晚 00:00 PKT | macOS launchd |
+| PTA 月度数据更新 | 每月 1 日 09:07 PKT | GitHub Actions（`update.yml`） |
+| 抓取新闻 + 生成摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd（`run_news_fetch.sh`） |
+| 生成日报图片并发邮件（T-1 日新闻） | 每天 10:10 PKT | 本地 macOS launchd（`run_digest.sh`） |
+
+> 新闻抓取原先由 GitHub Actions 每晚触发，现已迁移到本地 launchd：DeepSeek Key 改为本地 `scripts/.env.local` 管理，且需要在同一次运行中完成 `git pull --rebase` + commit + push。GitHub Actions 侧的 `update_news.yml` 仅保留手动触发（`workflow_dispatch`）作为备用。
 
 ---
 
-## 本地安装邮件摘要自动化
+## 本地安装自动化任务
 
 ```bash
-# 1. 安装 launchd 定时任务
-chmod +x scripts/run_digest.sh
-cp scripts/com.cmpak.telecom-digest.plist ~/Library/LaunchAgents/
+# 1. 配置本地 DeepSeek Key（新闻抓取任务需要）
+echo 'DEEPSEEK_API_KEY=<key>' > scripts/.env.local
+
+# 2. 安装两个 launchd 定时任务
+chmod +x scripts/run_news_fetch.sh scripts/run_digest.sh
+cp scripts/com.cmpak.telecom-news-fetch.plist scripts/com.cmpak.telecom-digest.plist ~/Library/LaunchAgents/
+launchctl load ~/Library/LaunchAgents/com.cmpak.telecom-news-fetch.plist
 launchctl load ~/Library/LaunchAgents/com.cmpak.telecom-digest.plist
 
-# 2. 验证
+# 3. 验证
 launchctl list | grep cmpak
 
-# 3. 手动测试（可选）
+# 4. 手动测试（可选）
+python3 scripts/update_news.py
 python3 scripts/send_daily_digest.py
 ```
 
-日志位置：`/tmp/telecom_digest.log`
+日志位置：`/tmp/telecom_news_fetch.log`（新闻抓取）、`/tmp/telecom_digest.log`（日报邮件）
 
 ---
 
@@ -82,7 +95,7 @@ python3 scripts/send_daily_digest.py
 - Python 3.11+
 - `playwright`（截图生成）：`pip install playwright && playwright install chromium`
 - `requests`（HTTP 抓取）
-- DeepSeek API Key（存于 GitHub Secrets `DEEPSEEK_API_KEY`）
+- DeepSeek API Key（GitHub Actions 存于 Secrets `DEEPSEEK_API_KEY`；本地 launchd 任务存于 `scripts/.env.local`，已 gitignore）
 - macOS Apple Mail（邮件发送）
 
 ---

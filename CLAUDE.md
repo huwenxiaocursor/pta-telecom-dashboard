@@ -13,10 +13,10 @@ https://huwenxiaocursor.github.io/pta-telecom-dashboard/
 # 月度 PTA 数据更新（抓取用户数 + 年度指标）
 python3 scripts/update_pta_dashboard.py
 
-# 新闻抓取与摘要生成（需设置环境变量）
+# 新闻抓取与摘要生成（需设置环境变量，本地可从 scripts/.env.local 加载）
 DEEPSEEK_API_KEY=<key> python3 scripts/update_news.py
 
-# 本地日报邮件（需 macOS + Apple Mail + Playwright）
+# 本地日报邮件（T-1 日新闻，需 macOS + Apple Mail + Playwright）
 python3 scripts/send_daily_digest.py
 ```
 
@@ -26,6 +26,8 @@ pip install playwright requests
 playwright install chromium
 ```
 
+无测试框架、无 lint/build 步骤——三个页面均为纯静态 HTML，脚本靠运行后检查 `scripts/update_log.txt` / `scripts/news_update_log.txt` 验证效果。
+
 ## 三页面架构
 
 | 文件 | 定位 | 更新脚本 |
@@ -33,8 +35,6 @@ playwright install chromium
 | `index.html` | 门户页：导航卡片 + 新闻聚合 | `update_news.py` |
 | `industry_index.html` | 电信数据：用户趋势、市场份额、QoS | `update_pta_dashboard.py` |
 | `macro_index.html` | 宏观经济：GDP、利率、外汇 | 手动维护 |
-
-> **已知 Bug**：`update_pta_dashboard.py` 第 15 行 `HTML_FILE` 仍指向 `"index.html"`，但电信数据已在 commit `0b598f9` 中迁移至 `industry_index.html`。脚本在本地运行会因找不到 `const months = [...]` 而报错退出。修复方法：将第 15 行改为 `HTML_FILE = BASE_DIR.parent / "industry_index.html"`。
 
 ## JS 数据注入机制
 
@@ -80,11 +80,15 @@ index.html（sentinel 替换）
 
 | 任务 | 触发 | 配置文件 |
 |------|------|----------|
-| 电信数据更新 | 每月1日 09:07 PKT | `.github/workflows/update.yml` |
-| 新闻抓取 + 摘要 | 每晚 23:00 PKT | `.github/workflows/update_news.yml` |
-| 日报图片邮件 | 每晚 00:00 PKT | `scripts/com.cmpak.telecom-digest.plist`（macOS launchd） |
+| 电信数据更新 | 每月1日 09:07 PKT | GitHub Actions `.github/workflows/update.yml` |
+| 新闻抓取 + 摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-news-fetch.plist` → `scripts/run_news_fetch.sh` |
+| 日报图片邮件（T-1 日新闻） | 每天 10:10 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-digest.plist` → `scripts/run_digest.sh` |
 
-CI Secrets：`DEEPSEEK_API_KEY`、`GMAIL_USERNAME`、`GMAIL_APP_PASSWORD`
+> 新闻抓取已从 GitHub Actions 迁移到本地 launchd（`update_news.yml` 现仅保留 `workflow_dispatch` 手动触发），因为 DeepSeek Key 改为本地 `scripts/.env.local` 管理，且需要在同一次运行中 `git pull --rebase` + `commit` + `push`。`send_daily_digest.py` 默认读取昨天（T-1）的 `news_cache.json`，若当天新闻尚未抓取会自动回退到最近一次有数据的日期。摘要图片由脚本内建的 HTML 模板渲染（非 `index.html` 截图），通过 AppleScript 调用 Apple Mail 发送至 `huwenxiao@zong.com.pk`。
+
+`update.yml` 在电信数据变更时还会自动创建 GitHub Issue 并发送邮件通知（收件人 `shawn.hwx@gmail.com`）。
+
+CI Secrets（GitHub Actions）：`DEEPSEEK_API_KEY`、`GMAIL_USERNAME`、`GMAIL_APP_PASSWORD`。本地 launchd 任务的 `DEEPSEEK_API_KEY` 从 `scripts/.env.local`（已 gitignore）读取。
 
 ## QoS 数据维护（手动）
 

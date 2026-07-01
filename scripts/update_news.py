@@ -87,6 +87,11 @@ _EXCLUDE = {
     "hec ", "university admission", "genomics",
     "fast food", "petroleum levy", "minimum wage",
     "agriculture tax", "water charges", "textile industry",
+    # SBP/bank operational or IT news unrelated to telecom or macro policy
+    "new official website", "website goes live", "launch new official website",
+    "relaunches website", "revamps website",
+    "blocking accounts", "block bank account", "freeze account", "frozen account",
+    "account freezing",
 }
 
 
