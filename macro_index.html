@@ -307,28 +307,28 @@
       <p class="sub">数据来源：State Bank of Pakistan · Pakistan Bureau of Statistics · Ministry of Finance（官方网站）</p>
     </div>
     <div class="meta-box">
-      数据截至：<b>2026年6月30日</b><br>
-      下次更新：<span class="tag">2026年8月1日</span>
+      数据截至：<b id="meta-asof">2026年6月30日</b><br>
+      下次更新：<span class="tag" id="meta-next">2026年7月10日</span>
     </div>
   </div>
 
   <div class="kpi-row">
     <div class="kpi">
       <div class="label">SBP 政策利率</div>
-      <div class="value">11.50%</div>
-      <div class="delta">2026-06-15 MPC维持不变（连续第2次按兵不动）</div>
+      <div class="value" id="kpi-rate-value">11.50%</div>
+      <div class="delta" id="kpi-rate-delta">2026-06-15 MPC维持不变（连续第2次按兵不动）</div>
     </div>
     <div class="kpi">
-      <div class="label">CPI 同比通胀（5月）</div>
-      <div class="value">11.7%</div>
-      <div class="delta up">▲ 较4月10.9%走高（6月数据尚未发布）</div>
+      <div class="label" id="kpi-cpi-label">CPI 同比通胀（6月）</div>
+      <div class="value" id="kpi-cpi-value">11.1%</div>
+      <div class="delta down" id="kpi-cpi-delta">▼ 较5月11.7%回落</div>
     </div>
     <div class="kpi">
       <div class="label">外汇储备（SBP持有）</div>
-      <div class="value">$159.16亿</div>
-      <div class="delta down">▼ 截至2026-06-19，环比降$13.05亿</div>
+      <div class="value" id="kpi-reserves-value">$159.16亿</div>
+      <div class="delta down" id="kpi-reserves-delta">▼ 截至2026-06-19，环比降$4.66亿</div>
     </div>
-    <div class="kpi">
+    <div class="kpi"><!-- MANUAL: GDP增速，Economic Survey发布后人工更新 -->
       <div class="label">FY26 GDP增速</div>
       <div class="value">3.7%</div>
       <div class="delta">四年最高，低于4.2%目标</div>
@@ -340,12 +340,12 @@
 
   <section class="block">
     <div class="block-head">
-      <h2>趋势全景 — 近5年GDP &amp; 近8季度核心指标</h2>
+      <h2>趋势全景 — 近5年GDP &amp; 近期核心指标</h2>
       <span class="freshness">折线/柱状图均可悬停查看具体数值</span>
     </div>
     <div class="chart-grid">
 
-      <div class="chart-card">
+      <div class="chart-card"><!-- MANUAL: GDP年度数据，Economic Survey发布后人工更新 -->
         <h3>GDP 总量与人均GDP（近5个财年）</h3>
         <div class="chart-sub">柱：GDP总量（十亿美元，左轴）　线：人均GDP（美元，右轴）</div>
         <div class="chart-wrap"><canvas id="gdpChart"></canvas></div>
@@ -358,33 +358,32 @@
       </div>
 
       <div class="chart-card">
-        <h3>CPI 同比通胀率（近8个季度）</h3>
-        <div class="chart-sub">各季度取代表月份的全国CPI同比数据</div>
+        <h3>CPI 同比通胀率（近期）</h3>
+        <div class="chart-sub">每次自动更新抓取最新月份，图表滚动展示近8个已抓取月份</div>
         <div class="chart-wrap"><canvas id="cpiChart"></canvas></div>
-        <table class="data-table">
-          <tr><th>季度</th><td>24Q3</td><td>24Q4</td><td>25Q1</td><td>25Q2</td><td>25Q3</td><td>25Q4</td><td>26Q1</td><td class="now">26Q2</td></tr>
-          <tr><th>代表月</th><td>8月</td><td>10月</td><td>2月</td><td>6月</td><td>9月</td><td>12月</td><td>3月</td><td class="now">5月</td></tr>
-          <tr><th>同比%</th><td>9.6</td><td>7.2</td><td>1.5</td><td>3.2</td><td>5.6</td><td>5.6</td><td>7.3</td><td class="now">11.7</td></tr>
+        <table class="data-table" id="cpi-trend-table">
+          <tr id="cpi-trend-labels"><th>月份</th></tr>
+          <tr id="cpi-trend-vals"><th>同比%</th></tr>
         </table>
       </div>
 
       <div class="chart-card">
-        <h3>外汇储备（SBP持有，近5个季度）</h3>
-        <div class="chart-sub">单位：百万美元，取各季度末（或最近可得）数值</div>
+        <h3>外汇储备（SBP持有，近期）</h3>
+        <div class="chart-sub">单位：百万美元，每次自动更新取最新一周数值</div>
         <div class="chart-wrap"><canvas id="reservesChart"></canvas></div>
-        <table class="data-table">
-          <tr><th>季度</th><td>25Q2(6/30)</td><td>25Q3(9月末)</td><td>25Q4(12/31)</td><td>26Q1(3/27)</td><td class="now">26Q2(6/19,最新)</td></tr>
-          <tr><th>百万$</th><td>14,510</td><td>14,200</td><td>15,915</td><td>16,382</td><td class="now">15,916</td></tr>
+        <table class="data-table" id="reserves-trend-table">
+          <tr id="reserves-trend-labels"><th>日期</th></tr>
+          <tr id="reserves-trend-vals"><th>百万$</th></tr>
         </table>
       </div>
 
       <div class="chart-card">
-        <h3>银行间汇率 PKR/USD（近8个季度）</h3>
-        <div class="chart-sub">部分季度为区间近似值（详见页尾说明）</div>
+        <h3>银行间汇率 PKR/USD（近期）</h3>
+        <div class="chart-sub">每次自动更新取最新交易日加权平均价</div>
         <div class="chart-wrap"><canvas id="fxChart"></canvas></div>
-        <table class="data-table">
-          <tr><th>季度</th><td>24Q3</td><td>24Q4</td><td>25Q1</td><td>25Q2</td><td>25Q3</td><td>25Q4</td><td>26Q1</td><td class="now">26Q2</td></tr>
-          <tr><th>PKR</th><td>≈278.5</td><td>≈278.0</td><td>≈283.0*</td><td>≈281.5</td><td>≈281.5</td><td>≈280.4</td><td>≈278.6</td><td class="now">279.18</td></tr>
+        <table class="data-table" id="fx-trend-table">
+          <tr id="fx-trend-labels"><th>日期</th></tr>
+          <tr id="fx-trend-vals"><th>PKR</th></tr>
         </table>
       </div>
 
@@ -395,44 +394,44 @@
     <div class="block-head">
       <h2>① 货币与外汇 — State Bank of Pakistan</h2>
       <span class="src">sbp.org.pk</span>
-      <span class="freshness">汇率/储备：日度更新　侨汇：月度更新</span>
+      <span class="freshness">汇率/储备/利率：自动更新　侨汇：自动更新（源数据约每季度刷新一次）</span>
     </div>
     <div class="card-grid">
       <div class="card">
         <div class="label">政策利率 Policy Rate</div>
-        <div class="value">11.50<span class="unit">% p.a.</span></div>
-        <div class="note">利率走廊：下限10.50% / 上限12.50%。2026年4月27日上调100bp至11.50%（为2023年6月以来首次加息）后，6月15日MPC会议决定维持不变。</div>
+        <div class="value" id="rate-value">11.50<span class="unit">% p.a.</span></div>
+        <div class="note" id="rate-note">利率走廊：下限10.50% / 上限12.50%。2026年4月27日上调100bp至11.50%（为2023年6月以来首次加息）后，6月15日MPC会议决定维持不变。</div>
         <details class="hist">
-          <summary>近8季度利率路径</summary>
-          <table class="data-table">
-            <tr><th>季度</th><td>24Q3</td><td>24Q4</td><td>25Q1</td><td>25Q2</td><td>25Q3</td><td>25Q4</td><td>26Q1</td><td class="now">26Q2</td></tr>
-            <tr><th>利率%</th><td>17.50</td><td>13.00</td><td>12.00</td><td>11.00</td><td>11.00</td><td>10.50</td><td>10.50</td><td class="now">11.50</td></tr>
+          <summary>近期利率路径</summary>
+          <table class="data-table" id="rate-hist-table">
+            <tr id="rate-hist-labels"><th>日期</th></tr>
+            <tr id="rate-hist-vals"><th>利率%</th></tr>
           </table>
         </details>
       </div>
       <div class="card">
         <div class="label">外汇储备（SBP持有）</div>
-        <div class="value">15,916.0<span class="unit">百万美元</span></div>
-        <div class="note">银行持有 5,568.0；储备总额 21,484.0（截至2026-06-19）。当周因偿还外债环比降13.05亿美元；SBP预计约24亿美元多边贷款到账将体现在6月30日当周数据中。</div>
+        <div class="value" id="reserves-value">15,916.0<span class="unit">百万美元</span></div>
+        <div class="note" id="reserves-note">银行持有 5,568.0；储备总额 21,484.0（截至2026-06-19）。当周因偿还外债环比降13.05亿美元；SBP预计约24亿美元多边贷款到账将体现在6月30日当周数据中。</div>
       </div>
       <div class="card">
         <div class="label">银行间汇率 PKR/USD</div>
-        <div class="value">279.18<span class="unit">PKR</span></div>
-        <div class="note">买入价278.95 / 卖出价279.40（2026-06-30市场价）。</div>
+        <div class="value" id="fx-value">279.18<span class="unit">PKR</span></div>
+        <div class="note" id="fx-note">买入价278.95 / 卖出价279.40（2026-06-30市场价）。</div>
       </div>
       <div class="card">
         <div class="label">侨汇 Workers' Remittances</div>
-        <div class="value">$4.30<span class="unit">亿(十亿)美元 / 5月</span></div>
+        <div class="value" id="remit-value">$4.30<span class="unit">十亿美元 / 5月</span></div>
         <div class="delta">
-          <span class="up">▲ 环比+20.2%</span>
-          <span class="up">▲ 同比+15.4%</span>
+          <span class="up" id="remit-mom">▲ 环比+20.2%</span>
+          <span class="up" id="remit-yoy">▲ 同比+15.4%</span>
         </div>
-        <div class="note">单月历史新高。主要来源：沙特(10.25亿)、阿联酋(10.07亿)、英国(6.46亿)。</div>
+        <div class="note" id="remit-note">单月历史新高。主要来源：沙特(10.25亿)、阿联酋(10.07亿)、英国(6.46亿)。</div>
         <details class="hist">
           <summary>近3个财年汇总</summary>
           <table class="data-table">
-            <tr><th>财年</th><td>FY24</td><td>FY25</td><td class="now">FY26(7-5月)</td></tr>
-            <tr><th>十亿$</th><td>30.3</td><td>38.3</td><td class="now">38.1</td></tr>
+            <tr><th>财年</th><td>FY24</td><td>FY25</td><td class="now">FY26(<span id="remit-fy-label">7-5月</span>)</td></tr>
+            <tr><th>十亿$</th><td>30.3</td><td>38.3</td><td class="now" id="remit-fy-total">38.1</td></tr>
             <tr><th>同比%</th><td>—</td><td>+27%</td><td class="now">+9.2%</td></tr>
           </table>
         </details>
@@ -444,42 +443,46 @@
     <div class="block-head">
       <h2>② 价格统计 — Pakistan Bureau of Statistics</h2>
       <span class="src">pbs.gov.pk</span>
-      <span class="freshness">CPI：月度　SPI：周度</span>
+      <span class="freshness">CPI：自动更新（PDF文字提取+AI结构化抽取，已做数值校验）</span>
     </div>
     <div class="card-grid">
       <div class="card">
-        <div class="label">CPI 同比（全国，5月）</div>
-        <div class="value">11.7<span class="unit">%</span></div>
-        <div class="delta"><span class="up">▲ 较4月10.9%走高，为2024年6月以来新高</span></div>
+        <div class="label" id="cpi2-yoy-label">CPI 同比（全国，6月）</div>
+        <div class="value" id="cpi2-yoy-value">11.1<span class="unit">%</span></div>
+        <div class="delta" id="cpi2-yoy-delta"><span class="down">▼ 较5月11.7%回落</span></div>
       </div>
       <div class="card">
-        <div class="label">CPI 环比（全国，5月）</div>
-        <div class="value">0.5<span class="unit">%</span></div>
-        <div class="delta"><span class="down">▼ 较4月2.5%明显放缓</span></div>
+        <div class="label" id="cpi2-mom-label">CPI 环比（全国，6月）</div>
+        <div class="value" id="cpi2-mom-value">-0.3<span class="unit">%</span></div>
+        <div class="delta" id="cpi2-mom-delta"><span class="down">▼ 较5月+0.5%转降</span></div>
       </div>
       <div class="card">
         <div class="label">城市 / 农村 CPI 同比</div>
-        <div class="value">11.8<span class="unit">% / 11.5%</span></div>
-        <div class="note">城市运输分项环比+5.13%，同比+36.78%，为主要拉动项。</div>
+        <div class="value" id="cpi2-urban-rural">11.2<span class="unit">% / 10.9%</span></div>
+        <div class="note">该分项细节以PBS月度报告全文为准，自动化仅抓取头部摘要数字。</div>
       </div>
       <div class="card">
-        <div class="label">SPI 敏感价格指数 同比</div>
-        <div class="value">12.0<span class="unit">%</span></div>
-        <div class="delta"><span class="up">▲ 较4月10.1%上升</span></div>
+        <div class="label" id="cpi2-spi-label">SPI 敏感价格指数 同比</div>
+        <div class="value" id="cpi2-spi-value">12.8<span class="unit">%</span></div>
+        <div class="delta" id="cpi2-spi-delta"><span class="up">▲ 较5月12.0%上升</span></div>
       </div>
       <div class="card wide">
         <div class="label">核心通胀 NFNE（非食品非能源）同比</div>
-        <div class="value">城市 9.0% <span class="unit">/</span> 农村 8.4%</div>
-        <div class="note">食品价格上涨主因：小麦面粉、小麦、洋葱、番茄、肉类。</div>
+        <div class="value" id="cpi2-nfne">城市 9.0% <span class="unit">/</span> 农村 8.4%</div>
+        <div class="note" id="cpi2-nfne-note">自动抽取仅覆盖报告开头的"Inflation in Brief"摘要段落，若该段未包含NFNE数据则保留上次已知值。</div>
       </div>
     </div>
   </section>
 
+  <!-- MANUAL SECTION: 以下③财政/GDP/产业结构/贸易板块不参与自动化，需在 Pakistan Economic Survey
+       或 PBS 贸易数据源确认后人工更新。scripts/update_macro_dashboard.py 的
+       check_new_economic_survey() 会在检测到新一年 Economic Survey 时写
+       scripts/macro_gdp_update_needed.txt 提醒。 -->
   <section class="block">
     <div class="block-head">
       <h2>③ 财政、增长与对外贸易 — Ministry of Finance</h2>
       <span class="src">finance.gov.pk</span>
-      <span class="freshness">来源：《Pakistan Economic Survey 2025-26》（2026年6月发布）+ PBS贸易数据</span>
+      <span class="freshness">来源：《Pakistan Economic Survey 2025-26》（2026年6月发布）+ PBS贸易数据　·　人工维护</span>
     </div>
     <div class="panel">
       <div class="panel-grid">
@@ -576,16 +579,218 @@
     <a href="https://www.finance.gov.pk/" target="_blank">③ Ministry of Finance — Economic Survey</a>
   </div>
   <div class="disclaimer">
-    本页数据整理自上述三个官方网站公开发布的统计数据及报告，部分数值因官网未直接提供文本化原始数据，经新闻检索交叉核实后填入，标注口径与报告期供复核。<br>
-    历史季度数据说明：政策利率、外汇储备按各季度末(或最近可得交易日)官方公布值列示，可信度较高；CPI同比按各季度内有完整公开报道的代表月份列示(已标注具体月份)；汇率因未能取得官方逐季末报价，标*季度为区间近似值，建议后续从SBP月度统计公报获取精确数；侨汇与贸易因官方未按自然季度公布，改以财年累计口径呈现。GDP/人均GDP中FY23总量为按当年平均汇率换算的估算值。<br>
-    本页计划于每月1日更新一次，跟随SBP/PBS最新月度发布节奏；财政、GDP与产业结构类数据更新频率较低，将在官方报告发布后同步。<br>
+    ①货币外汇（利率/储备/汇率/侨汇）与②CPI价格统计已由 <code>scripts/update_macro_dashboard.py</code> 每月10日、25日自动抓取更新；
+    CPI因官方仅发布PDF报告，采用PyMuPDF文字提取+DeepSeek结构化抽取并做数值范围校验，抽取失败或数值异常时自动跳过、保留上次数值。<br>
+    ③财政、GDP、产业结构、贸易数据来自《Pakistan Economic Survey》等年度/不定期报告，不参与自动化，由人工在新报告发布后更新；
+    脚本会在检测到新一年 Economic Survey 时自动提醒。<br>
+    历史数据说明：2024年9月-2026年3月区间的利率/汇率/储备/CPI早期数据点为人工从原网页历史图表转录的近似值（已标注 approx），
+    2026年6月起的数据点均为自动抓取的精确值；侨汇因官方存档文件更新滞后，可能出现按官方发布节奏补录早前月份的情况。<br>
     数据仅供内部参考，正式分析及对外引用请以官网原始数据为准。
   </div>
 </footer>
 
 <script>
+// ===AUTO-MACRO-DATA-START===
+const MACRO_DATA = {"asOf": "2026-07-01", "generatedAt": "2026-07-01", "fx": {"date": "2026-06-30", "mid": 279.18, "bid": 278.95, "offer": 279.4, "m2m": 278.1614, "prev": {"period": "2026-03-31", "mid": 278.6, "approx": true}}, "chart": {"fxLabels": ["2024-09-30", "2024-12-31", "2025-03-31", "2025-06-30", "2025-09-30", "2025-12-31", "2026-03-31", "2026-06-30"], "fxVals": [278.5, 278.0, 283.0, 281.5, 281.5, 280.4, 278.6, 279.18], "reservesLabels": ["2025-06-30", "2025-09-30", "2025-12-31", "2026-03-27", "2026-06-19"], "reservesVals": [14510, 14200, 15915, 16382, 15916.0], "cpiLabels": ["2024-10", "2025-02", "2025-06", "2025-09", "2025-12", "2026-03", "2026-05", "2026-06"], "cpiVals": [7.2, 1.5, 3.2, 5.6, 5.6, 7.3, 11.7, 11.1], "policyRateLabels": ["2024-09-30", "2024-12-31", "2025-03-31", "2025-06-30", "2025-09-30", "2025-12-31", "2026-03-31", "2026-04-27", "2026-06-15"], "policyRateVals": [17.5, 13.0, 12.0, 11.0, 11.0, 10.5, 10.5, 11.5, 11.5]}, "reserves": {"date": "2026-06-19", "sbp": 15916.0, "banks": 5568.0, "total": 21484.0, "prev": {"period": "2026-03-27", "sbp": 16382}}, "cpi": {"month": "2026-06", "yoy": 11.1, "mom": -0.3, "urbanYoy": 11.2, "ruralYoy": 10.9, "spiYoy": 12.8, "prev": {"period": "2026-05", "yoy": 11.7, "mom": 0.5, "urbanYoy": 11.8, "ruralYoy": 11.5, "spiYoy": 12.0, "nfneUrbanYoy": 9.0, "nfneRuralYoy": 8.4}}, "policyRate": {"date": "2026-06-15", "rate": 11.5, "changeBp": 0, "corridorLower": 10.5, "corridorUpper": 12.5, "note": "MPC维持不变（连续第2次按兵不动）"}, "remittances": {"month": "2026-05", "totalUsd": 4300000000.0, "momPct": 20.2, "yoyPct": 15.4, "topCountries": {"Saudi Arabia": 1025000000.0, "UAE": 1007000000.0, "UK": 646000000.0}, "fy26CumulativeUsd": 38100000000.0}};
+// ===AUTO-MACRO-DATA-END===
+
 const greenA = '#01652e', greenA20='rgba(1,101,46,0.12)';
 const blueA = '#0089d0', blueA20='rgba(0,137,208,0.12)';
+
+// ─── helpers ────────────────────────────────────────────────────────────
+function fmtDate(iso){
+  const [y,m,d] = iso.split('-');
+  return d ? `${y}-${m}-${d}` : `${y}-${m}`;
+}
+function fmtCny(iso){
+  const [y,m,d] = iso.split('-');
+  return d ? `${y}年${parseInt(m)}月${parseInt(d)}日` : `${y}年${parseInt(m)}月`;
+}
+function deltaSpan(curr, prev, unit, decimals){
+  if (prev === undefined || prev === null || curr === undefined || curr === null) return '';
+  const diff = curr - prev;
+  const dir = diff > 0 ? 'up' : (diff < 0 ? 'down' : '');
+  const arrow = diff > 0 ? '▲' : (diff < 0 ? '▼' : '—');
+  const verb = diff > 0 ? '升' : (diff < 0 ? '降' : '持平');
+  return {dir, arrow, verb, abs: Math.abs(diff).toFixed(decimals)};
+}
+function fillTrendTable(labelsRowId, valsRowId, labels, vals, fmtLabel, fmtVal){
+  const lRow = document.getElementById(labelsRowId);
+  const vRow = document.getElementById(valsRowId);
+  if (!lRow || !vRow || !labels || !vals) return;
+  while (lRow.children.length > 1) lRow.removeChild(lRow.lastChild);
+  while (vRow.children.length > 1) vRow.removeChild(vRow.lastChild);
+  labels.forEach((lab, i) => {
+    const isLast = i === labels.length - 1;
+    const td1 = document.createElement('td');
+    td1.textContent = fmtLabel(lab);
+    if (isLast) td1.className = 'now';
+    lRow.appendChild(td1);
+    const td2 = document.createElement('td');
+    td2.textContent = fmtVal(vals[i]);
+    if (isLast) td2.className = 'now';
+    vRow.appendChild(td2);
+  });
+}
+function computeNextUpdate(){
+  const now = new Date();
+  const y = now.getFullYear(), m = now.getMonth(), d = now.getDate();
+  let ty = y, tm = m, td = 10;
+  if (d < 10) { td = 10; }
+  else if (d < 25) { td = 25; }
+  else { tm = m + 1; td = 10; }
+  const dt = new Date(ty, tm, td);
+  return `${dt.getFullYear()}年${dt.getMonth()+1}月${dt.getDate()}日`;
+}
+
+function renderMacroData(d){
+  const set = (id, text) => { const el = document.getElementById(id); if (el) el.textContent = text; };
+
+  set('meta-asof', fmtCny(d.asOf));
+  set('meta-next', computeNextUpdate());
+
+  // 政策利率
+  if (d.policyRate){
+    set('kpi-rate-value', d.policyRate.rate.toFixed(2) + '%');
+    set('kpi-rate-delta', `${d.policyRate.date} ${d.policyRate.note || ''}`);
+    const corridor = (d.policyRate.corridorLower !== undefined && d.policyRate.corridorUpper !== undefined)
+      ? `利率走廊：下限${d.policyRate.corridorLower.toFixed(2)}% / 上限${d.policyRate.corridorUpper.toFixed(2)}%。` : '';
+    const rateValEl = document.getElementById('rate-value');
+    if (rateValEl) rateValEl.innerHTML = d.policyRate.rate.toFixed(2) + '<span class="unit">% p.a.</span>';
+    set('rate-note', `${corridor}最近一次变动：${d.policyRate.date}，${d.policyRate.note || ''}（变动${d.policyRate.changeBp || 0}bp）。`);
+    if (d.chart && d.chart.policyRateLabels){
+      fillTrendTable('rate-hist-labels', 'rate-hist-vals', d.chart.policyRateLabels, d.chart.policyRateVals,
+        fmtDate, v => v.toFixed(2));
+    }
+  }
+
+  // CPI（KPI + 顶部趋势 + section②）
+  if (d.cpi){
+    const [y, m] = d.cpi.month.split('-');
+    set('kpi-cpi-label', `CPI 同比通胀（${parseInt(m)}月）`);
+    set('kpi-cpi-value', d.cpi.yoy.toFixed(1) + '%');
+    set('cpi2-yoy-label', `CPI 同比（全国，${parseInt(m)}月）`);
+    set('cpi2-mom-label', `CPI 环比（全国，${parseInt(m)}月）`);
+    set('cpi2-yoy-value', d.cpi.yoy.toFixed(1));
+    if (d.cpi.mom !== undefined) set('cpi2-mom-value', d.cpi.mom.toFixed(1));
+    if (d.cpi.urbanYoy !== undefined && d.cpi.ruralYoy !== undefined){
+      set('cpi2-urban-rural', `${d.cpi.urbanYoy.toFixed(1)}% / ${d.cpi.ruralYoy.toFixed(1)}%`);
+    }
+    if (d.cpi.spiYoy !== undefined) set('cpi2-spi-value', d.cpi.spiYoy.toFixed(1));
+
+    const prev = d.cpi.prev;
+    if (prev){
+      const yd = deltaSpan(d.cpi.yoy, prev.yoy, '%', 1);
+      if (yd){
+        const verbTxt = yd.verb === '升' ? '走高' : (yd.verb === '降' ? '回落' : '持平');
+        set('kpi-cpi-delta', `${yd.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.yoy}%${verbTxt}`);
+        const el = document.getElementById('kpi-cpi-delta'); if (el) el.className = 'delta ' + (yd.dir || '');
+        const el2 = document.getElementById('cpi2-yoy-delta');
+        if (el2) el2.innerHTML = `<span class="${yd.dir}">${yd.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.yoy}%${verbTxt}</span>`;
+      }
+      if (d.cpi.mom !== undefined && prev.mom !== undefined){
+        const md = deltaSpan(d.cpi.mom, prev.mom, '%', 1);
+        const el3 = document.getElementById('cpi2-mom-delta');
+        if (el3 && md){
+          const verbTxt = md.verb === '升' ? '走高' : (md.verb === '降' ? '转降' : '持平');
+          el3.innerHTML = `<span class="${md.dir}">${md.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.mom > 0 ? '+' : ''}${prev.mom}%${verbTxt}</span>`;
+        }
+      }
+      if (d.cpi.spiYoy !== undefined && prev.spiYoy !== undefined){
+        const sd = deltaSpan(d.cpi.spiYoy, prev.spiYoy, '%', 1);
+        const el4 = document.getElementById('cpi2-spi-delta');
+        if (el4 && sd){
+          const verbTxt = sd.verb === '升' ? '上升' : (sd.verb === '降' ? '回落' : '持平');
+          el4.innerHTML = `<span class="${sd.dir}">${sd.arrow} 较${parseInt(prev.period.split('-')[1])}月${prev.spiYoy}%${verbTxt}</span>`;
+        }
+      }
+      const nu = d.cpi.nfneUrbanYoy !== undefined ? d.cpi.nfneUrbanYoy : prev.nfneUrbanYoy;
+      const nr = d.cpi.nfneRuralYoy !== undefined ? d.cpi.nfneRuralYoy : prev.nfneRuralYoy;
+      if (nu !== undefined && nr !== undefined) set('cpi2-nfne', `城市 ${nu}% / 农村 ${nr}%`);
+    }
+    if (d.chart && d.chart.cpiLabels){
+      fillTrendTable('cpi-trend-labels', 'cpi-trend-vals', d.chart.cpiLabels, d.chart.cpiVals,
+        l => l, v => v.toFixed(1));
+    }
+  }
+
+  // 外汇储备
+  if (d.reserves){
+    const resValEl = document.getElementById('reserves-value');
+    if (resValEl) resValEl.innerHTML = d.reserves.sbp.toLocaleString('en-US', {minimumFractionDigits:1}) + '<span class="unit">百万美元</span>';
+    const prev = d.reserves.prev;
+    let deltaText = '';
+    let deltaDir = '';
+    if (prev && prev.sbp !== undefined){
+      const rd = deltaSpan(d.reserves.sbp, prev.sbp, '百万美元', 2);
+      if (rd){
+        deltaText = `${rd.arrow} 截至${d.reserves.date}，环比${rd.verb}$${(rd.abs/100).toFixed(2)}亿`;
+        deltaDir = rd.dir;
+      }
+    }
+    set('kpi-reserves-value', '$' + (d.reserves.sbp/100).toFixed(2) + '亿');
+    set('kpi-reserves-delta', deltaText);
+    const kEl = document.getElementById('kpi-reserves-delta');
+    if (kEl && deltaDir) kEl.className = 'delta ' + deltaDir;
+    if (d.reserves.banks !== undefined && d.reserves.total !== undefined){
+      set('reserves-note', `银行持有 ${d.reserves.banks.toLocaleString('en-US',{minimumFractionDigits:1})}；储备总额 ${d.reserves.total.toLocaleString('en-US',{minimumFractionDigits:1})}（截至${d.reserves.date}）。`);
+    }
+    if (d.chart && d.chart.reservesLabels){
+      fillTrendTable('reserves-trend-labels', 'reserves-trend-vals', d.chart.reservesLabels, d.chart.reservesVals,
+        fmtDate, v => Math.round(v).toLocaleString('en-US'));
+    }
+  }
+
+  // 汇率
+  if (d.fx){
+    const fxValEl = document.getElementById('fx-value');
+    if (fxValEl) fxValEl.innerHTML = d.fx.mid.toFixed(2) + '<span class="unit">PKR</span>';
+    if (d.fx.bid !== undefined && d.fx.offer !== undefined){
+      set('fx-note', `买入价${d.fx.bid.toFixed(2)} / 卖出价${d.fx.offer.toFixed(2)}（${d.fx.date}加权平均价）。`);
+    }
+    if (d.chart && d.chart.fxLabels){
+      fillTrendTable('fx-trend-labels', 'fx-trend-vals', d.chart.fxLabels, d.chart.fxVals,
+        fmtDate, v => v.toFixed(2));
+    }
+  }
+
+  // 侨汇
+  if (d.remittances){
+    const [ry, rm] = d.remittances.month.split('-');
+    const rValEl = document.getElementById('remit-value');
+    if (rValEl) rValEl.innerHTML = '$' + (d.remittances.totalUsd/1e9).toFixed(2) + `<span class="unit">十亿美元 / ${parseInt(rm)}月</span>`;
+    if (d.remittances.momPct !== undefined){
+      const el = document.getElementById('remit-mom');
+      const dir = d.remittances.momPct >= 0 ? 'up' : 'down';
+      if (el) el.outerHTML = `<span class="${dir}" id="remit-mom">${d.remittances.momPct >= 0 ? '▲' : '▼'} 环比${d.remittances.momPct >= 0 ? '+' : ''}${d.remittances.momPct}%</span>`;
+    }
+    if (d.remittances.yoyPct !== undefined){
+      const el = document.getElementById('remit-yoy');
+      const dir = d.remittances.yoyPct >= 0 ? 'up' : 'down';
+      if (el) el.outerHTML = `<span class="${dir}" id="remit-yoy">${d.remittances.yoyPct >= 0 ? '▲' : '▼'} 同比${d.remittances.yoyPct >= 0 ? '+' : ''}${d.remittances.yoyPct}%</span>`;
+    }
+    if (d.remittances.topCountries){
+      const cnName = {"Saudi Arabia": "沙特", "UAE": "阿联酋", "UK": "英国", "USA": "美国"};
+      const parts = Object.entries(d.remittances.topCountries)
+        .sort((a,b) => b[1]-a[1])
+        .map(([k,v]) => `${cnName[k] || k}(${(v/1e8).toFixed(2)}亿)`);
+      set('remit-note', `主要来源：${parts.join('、')}。`);
+    }
+    if (d.remittances.fy26CumulativeUsd !== undefined){
+      set('remit-fy-total', (d.remittances.fy26CumulativeUsd/1e9).toFixed(1));
+      set('remit-fy-label', `7-${parseInt(rm)}月`);
+    }
+  }
+}
+
+renderMacroData(MACRO_DATA);
+
+const cpiLabels = (MACRO_DATA.chart && MACRO_DATA.chart.cpiLabels) || ['24Q3','24Q4','25Q1','25Q2','25Q3','25Q4','26Q1','26Q2'];
+const cpiVals   = (MACRO_DATA.chart && MACRO_DATA.chart.cpiVals)   || [9.6, 7.2, 1.5, 3.2, 5.6, 5.6, 7.3, 11.7];
+const reservesLabels = (MACRO_DATA.chart && MACRO_DATA.chart.reservesLabels) || ['25Q2','25Q3','25Q4','26Q1','26Q2'];
+const reservesVals   = (MACRO_DATA.chart && MACRO_DATA.chart.reservesVals)   || [14510, 14200, 15915, 16382, 17215];
+const fxLabels = (MACRO_DATA.chart && MACRO_DATA.chart.fxLabels) || ['24Q3','24Q4','25Q1','25Q2','25Q3','25Q4','26Q1','26Q2'];
+const fxVals   = (MACRO_DATA.chart && MACRO_DATA.chart.fxVals)   || [278.5, 278.0, 283.0, 281.5, 281.5, 280.4, 278.6, 278.31];
 
 new Chart(document.getElementById('gdpChart'), {
   data: {
@@ -625,10 +830,10 @@ new Chart(document.getElementById('gdpChart'), {
 new Chart(document.getElementById('cpiChart'), {
   type: 'line',
   data: {
-    labels: ['24Q3(8月)','24Q4(10月)','25Q1(2月)','25Q2(6月)','25Q3(9月)','25Q4(12月)','26Q1(3月)','26Q2(5月)'],
+    labels: cpiLabels,
     datasets: [{
       label: 'CPI同比%',
-      data: [9.6, 7.2, 1.5, 3.2, 5.6, 5.6, 7.3, 11.7],
+      data: cpiVals,
       borderColor: greenA,
       backgroundColor: greenA20,
       fill: true,
@@ -646,12 +851,12 @@ new Chart(document.getElementById('cpiChart'), {
 new Chart(document.getElementById('reservesChart'), {
   type: 'bar',
   data: {
-    labels: [['25Q2','(6/30)'],['25Q3','(9月末)'],['25Q4','(12/31)'],['26Q1','(3/27)'],['26Q2','(6/19最新)']],
+    labels: reservesLabels,
     datasets: [{
       label: '外汇储备(百万$)',
-      data: [14510, 14200, 15915, 16382, 15916],
-      backgroundColor: [blueA20,blueA20,blueA20,blueA20, greenA20],
-      borderColor: [blueA,blueA,blueA,blueA, greenA],
+      data: reservesVals,
+      backgroundColor: reservesLabels.map((_,i) => i === reservesLabels.length-1 ? greenA20 : blueA20),
+      borderColor: reservesLabels.map((_,i) => i === reservesLabels.length-1 ? greenA : blueA),
       borderWidth: 1.5
     }]
   },
@@ -665,10 +870,10 @@ new Chart(document.getElementById('reservesChart'), {
 new Chart(document.getElementById('fxChart'), {
   type: 'line',
   data: {
-    labels: ['24Q3','24Q4','25Q1*','25Q2','25Q3','25Q4','26Q1','26Q2'],
+    labels: fxLabels,
     datasets: [{
       label: 'PKR/USD',
-      data: [278.5, 278.0, 283.0, 281.5, 281.5, 280.4, 278.6, 279.18],
+      data: fxVals,
       borderColor: blueA,
       backgroundColor: blueA20,
       fill: true,

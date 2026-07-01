@@ -1,8 +1,8 @@
-name: Monthly PTA dashboard update
+name: Biweekly dashboard update
 
 on:
   schedule:
-    - cron: '0 5 1 * *'   # 1st of each month, 05:00 UTC = 10:00 PKT
+    - cron: '0 5 10,25 * *'   # 10th & 25th of each month, 05:00 UTC = 10:00 PKT
   workflow_dispatch: {}    # allow manual run from the Actions tab
 
 permissions:
@@ -10,7 +10,7 @@ permissions:
   issues: write
 
 jobs:
-  update:
+  update-industry:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,11 +27,13 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
+          git add industry_index.html scripts/history_monthly.json scripts/update_log.txt \
+                  scripts/known_qos_pdfs.json scripts/qos_update_needed.txt
           if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "Monthly data refresh $(date -u +%Y-%m-%d)"
+            git pull --rebase origin main
+            git commit -m "PTA data refresh $(date -u +%Y-%m-%d)"
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
@@ -51,7 +53,7 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           gh issue create \
-            --title "PTA 数据已更新 ${{ steps.meta.outputs.today }}" \
+            --title "PTA 电信数据已更新 ${{ steps.meta.outputs.today }}" \
             --body "## 本次更新内容
 
           ${{ steps.meta.outputs.log }}
@@ -68,7 +70,7 @@ jobs:
           secure: true
           username: ${{ secrets.GMAIL_USERNAME }}
           password: ${{ secrets.GMAIL_APP_PASSWORD }}
-          subject: "PTA Dashboard 数据已更新 ${{ steps.meta.outputs.today }}"
+          subject: "PTA 电信数据已更新 ${{ steps.meta.outputs.today }}"
           to: shawn.hwx@gmail.com
           from: PTA Dashboard <${{ secrets.GMAIL_USERNAME }}>
           body: |
@@ -78,3 +80,79 @@ jobs:
             ${{ steps.meta.outputs.log }}
 
             查看 Dashboard：https://huwenxiaocursor.github.io/pta-telecom-dashboard/
+
+  update-macro:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Python deps
+        run: pip install pymupdf openpyxl
+
+      - name: Run macro update script
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+        run: python3 scripts/update_macro_dashboard.py
+
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add macro_index.html scripts/macro_history.json scripts/macro_update_log.txt \
+                  scripts/macro_known_fy.json scripts/macro_gdp_update_needed.txt
+          if git diff --cached --quiet; then
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            git pull --rebase origin main
+            git commit -m "Macro data refresh $(date -u +%Y-%m-%d)"
+            git push
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Get date and update log
+        if: steps.commit.outputs.changed == 'true'
+        id: meta
+        run: |
+          echo "today=$(date -u +%Y-%m-%d)" >> $GITHUB_OUTPUT
+          echo "log<<EOF" >> $GITHUB_OUTPUT
+          tail -20 scripts/macro_update_log.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Issue
+        if: steps.commit.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "巴基斯坦宏观经济数据已更新 ${{ steps.meta.outputs.today }}" \
+            --body "## 本次更新内容
+
+          ${{ steps.meta.outputs.log }}
+
+          ---
+          [查看 Dashboard](https://huwenxiaocursor.github.io/pta-telecom-dashboard/macro_index.html)"
+
+      - name: Send email notification
+        if: steps.commit.outputs.changed == 'true'
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          secure: true
+          username: ${{ secrets.GMAIL_USERNAME }}
+          password: ${{ secrets.GMAIL_APP_PASSWORD }}
+          subject: "宏观经济数据已更新 ${{ steps.meta.outputs.today }}"
+          to: shawn.hwx@gmail.com
+          from: PTA Dashboard <${{ secrets.GMAIL_USERNAME }}>
+          body: |
+            巴基斯坦宏观经济数据看板已于 ${{ steps.meta.outputs.today }} 自动更新。
+
+            更新日志：
+            ${{ steps.meta.outputs.log }}
+
+            查看 Dashboard：https://huwenxiaocursor.github.io/pta-telecom-dashboard/macro_index.html

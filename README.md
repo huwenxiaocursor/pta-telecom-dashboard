@@ -14,13 +14,18 @@
 - PTA 季度 QoS 报告（城市网络质量评分）
 - KPI 卡片：总用户、3G/4G 用户、宽带、数据用量、渗透率
 
-### 2. 通信行业新闻聚合（`index.html` 新闻区）
+### 2. 宏观经济数据看板（`macro_index.html`）
+- 利率、外汇储备、银行间汇率、侨汇、CPI：自动抓取更新（每月10日、25日）
+- GDP、财政、产业结构、贸易：人工维护，随《Pakistan Economic Survey》等年度报告更新
+- 历史数据永久保留于 `scripts/macro_history.json`，图表按滚动窗口展示最近若干期
+
+### 3. 通信行业新闻聚合（`index.html` 新闻区）
 - 来源：PTA 官网、ProPakistani、SBP、PhoneWorld、TechJuice
 - 每日最多 5 条，按媒体优先级排序（PTA > ProPakistani > SBP > PhoneWorld > TechJuice）
 - AI 自动生成 200-300 字中文摘要（DeepSeek Chat API），重点数据用【】标注
 - 相关性过滤：仅保留电信、移动网络、宏观经济、IMF 相关内容
 
-### 3. 每日邮件摘要（`scripts/send_daily_digest.py`）
+### 4. 每日邮件摘要（`scripts/send_daily_digest.py`）
 - 每天 10:10 PKT 自动生成 T-1（昨天）新闻高清图片（960px，3× 分辨率）
 - 通过 macOS Apple Mail 发送至 `huwenxiao@zong.com.pk`
 - 由 macOS `launchd` 调度，无需手动干预；依赖 09:30 的新闻抓取任务先完成
@@ -35,6 +40,7 @@
 ├── macro_index.html                    # 宏观经济子页
 ├── scripts/
 │   ├── update_pta_dashboard.py              # 抓取 PTA 月度用户/市场份额数据
+│   ├── update_macro_dashboard.py            # 抓取宏观数据：利率/储备/汇率/侨汇/CPI
 │   ├── update_news.py                       # 抓取五大来源新闻 + 生成中文摘要
 │   ├── send_daily_digest.py                 # 生成日报图片并发送邮件（T-1 日新闻）
 │   ├── run_news_fetch.sh                    # 新闻抓取定时任务入口脚本（含 git pull/commit/push）
@@ -45,10 +51,13 @@
 │   ├── .env.local                           # 本地 DEEPSEEK_API_KEY（已 gitignore，不提交）
 │   ├── news_cache.json                      # 新闻缓存（含中文摘要）
 │   ├── history_monthly.json                 # PTA 月度历史数据（2025-01 起）
+│   ├── macro_history.json                   # 宏观数据永久历史（只增不覆盖，供回溯）
+│   ├── macro_known_fy.json                  # 记录已知最新 Economic Survey 财年
 │   ├── update_log.txt                       # PTA 数据更新日志
+│   ├── macro_update_log.txt                 # 宏观数据更新日志
 │   └── news_update_log.txt                  # 新闻抓取日志
 ├── .github/workflows/
-│   ├── update.yml                      # GitHub Actions：每月 1 日 09:07 PKT 自动更新 PTA 数据
+│   ├── update.yml                      # GitHub Actions：每月 10、25 日 10:00 PKT 自动更新 PTA + 宏观数据（两个独立 job）
 │   └── update_news.yml                 # GitHub Actions：新闻抓取（现仅 workflow_dispatch 手动触发，日常抓取已迁移至本地 launchd）
 ```
 
@@ -58,10 +67,13 @@
 
 | 任务 | 触发时间 | 方式 |
 |------|----------|------|
-| PTA 月度数据更新 | 每月 1 日 09:07 PKT | GitHub Actions（`update.yml`） |
+| PTA 电信数据更新 | 每月 10、25 日 10:00 PKT | GitHub Actions（`update.yml` → `update-industry` job） |
+| 宏观经济数据更新 | 每月 10、25 日 10:00 PKT | GitHub Actions（`update.yml` → `update-macro` job） |
 | 抓取新闻 + 生成摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd（`run_news_fetch.sh`） |
 | 生成日报图片并发邮件（T-1 日新闻） | 每天 10:10 PKT | 本地 macOS launchd（`run_digest.sh`） |
 
+> PTA 电信数据与宏观经济数据是同一个 workflow 文件里的两个独立 job，共用同一个 cron 触发时间，但各自独立提交/通知，一个失败不影响另一个。宏观数据中 GDP/财政/产业结构/贸易不参与自动化，人工维护（详见 `CLAUDE.md`「宏观年度数据维护」）。
+>
 > 新闻抓取原先由 GitHub Actions 每晚触发，现已迁移到本地 launchd：DeepSeek Key 改为本地 `scripts/.env.local` 管理，且需要在同一次运行中完成 `git pull --rebase` + commit + push。GitHub Actions 侧的 `update_news.yml` 仅保留手动触发（`workflow_dispatch`）作为备用。
 
 ---
@@ -95,12 +107,15 @@ python3 scripts/send_daily_digest.py
 - Python 3.11+
 - `playwright`（截图生成）：`pip install playwright && playwright install chromium`
 - `requests`（HTTP 抓取）
-- DeepSeek API Key（GitHub Actions 存于 Secrets `DEEPSEEK_API_KEY`；本地 launchd 任务存于 `scripts/.env.local`，已 gitignore）
+- `pymupdf`（PDF 文字提取，宏观数据 CPI 抓取用）、`openpyxl`（Excel 解析，宏观数据侨汇抓取用）
+- DeepSeek API Key（GitHub Actions 存于 Secrets `DEEPSEEK_API_KEY`；本地 launchd 任务存于 `scripts/.env.local`，已 gitignore；同时用于新闻摘要生成和宏观数据 CPI 结构化抽取）
 - macOS Apple Mail（邮件发送）
 
 ---
 
 ## 数据来源
+
+### 新闻聚合
 
 | 来源 | 内容 | 抓取方式 |
 |------|------|----------|
@@ -109,6 +124,15 @@ python3 scripts/send_daily_digest.py
 | [SBP](https://www.sbp.org.pk) | 货币政策、外汇储备 | Google News RSS |
 | [PhoneWorld](https://phoneworld.com.pk) | 手机/设备资讯 | RSS |
 | [TechJuice](https://www.techjuice.pk) | 科技行业动态 | WordPress REST API |
+
+### 宏观经济数据
+
+| 来源 | 内容 | 抓取方式 |
+|------|------|----------|
+| [SBP war-current.asp](https://www.sbp.org.pk/ecodata/rates/war/war-current.asp) | 政策利率、外汇储备、银行间汇率 | 正则解析静态 HTML |
+| [SBP Homeremit_Arch.xlsx](https://www.sbp.org.pk/assets/document/Homeremit_Arch.xlsx) | 侨汇（按国别） | openpyxl 解析 Excel |
+| [PBS Monthly Review PDF](https://www.pbs.gov.pk/price-statistics/) | CPI（全国/城市/农村/SPI） | PyMuPDF 文字提取 + DeepSeek 结构化抽取 |
+| [Ministry of Finance Economic Survey](https://www.finance.gov.pk/survey_archieve.html) | GDP、财政、产业结构（人工维护，仅做新报告检测提醒） | 正则检测新财年 |
 
 ---
 
