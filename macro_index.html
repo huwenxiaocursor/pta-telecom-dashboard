@@ -307,8 +307,8 @@
       <p class="sub">数据来源：State Bank of Pakistan · Pakistan Bureau of Statistics · Ministry of Finance（官方网站）</p>
     </div>
     <div class="meta-box">
-      数据截至：<b>2026年6月15日</b><br>
-      下次更新：<span class="tag">2026年7月1日</span>
+      数据截至：<b>2026年6月30日</b><br>
+      下次更新：<span class="tag">2026年8月1日</span>
     </div>
   </div>
 
@@ -316,17 +316,17 @@
     <div class="kpi">
       <div class="label">SBP 政策利率</div>
       <div class="value">11.50%</div>
-      <div class="delta">2026-04-27 上调后维持至今</div>
+      <div class="delta">2026-06-15 MPC维持不变（连续第2次按兵不动）</div>
     </div>
     <div class="kpi">
       <div class="label">CPI 同比通胀（5月）</div>
       <div class="value">11.7%</div>
-      <div class="delta up">▲ 较4月10.9%走高</div>
+      <div class="delta up">▲ 较4月10.9%走高（6月数据尚未发布）</div>
     </div>
     <div class="kpi">
       <div class="label">外汇储备（SBP持有）</div>
-      <div class="value">$172.15亿</div>
-      <div class="delta">截至2026-06-11</div>
+      <div class="value">$159.16亿</div>
+      <div class="delta down">▼ 截至2026-06-19，环比降$13.05亿</div>
     </div>
     <div class="kpi">
       <div class="label">FY26 GDP增速</div>
@@ -373,8 +373,8 @@
         <div class="chart-sub">单位：百万美元，取各季度末（或最近可得）数值</div>
         <div class="chart-wrap"><canvas id="reservesChart"></canvas></div>
         <table class="data-table">
-          <tr><th>季度</th><td>25Q2(6/30)</td><td>25Q3(9月末)</td><td>25Q4(12/31)</td><td>26Q1(3/27)</td><td class="now">26Q2(6/11,最新)</td></tr>
-          <tr><th>百万$</th><td>14,510</td><td>14,200</td><td>15,915</td><td>16,382</td><td class="now">17,215</td></tr>
+          <tr><th>季度</th><td>25Q2(6/30)</td><td>25Q3(9月末)</td><td>25Q4(12/31)</td><td>26Q1(3/27)</td><td class="now">26Q2(6/19,最新)</td></tr>
+          <tr><th>百万$</th><td>14,510</td><td>14,200</td><td>15,915</td><td>16,382</td><td class="now">15,916</td></tr>
         </table>
       </div>
 
@@ -384,7 +384,7 @@
         <div class="chart-wrap"><canvas id="fxChart"></canvas></div>
         <table class="data-table">
           <tr><th>季度</th><td>24Q3</td><td>24Q4</td><td>25Q1</td><td>25Q2</td><td>25Q3</td><td>25Q4</td><td>26Q1</td><td class="now">26Q2</td></tr>
-          <tr><th>PKR</th><td>≈278.5</td><td>≈278.0</td><td>≈283.0*</td><td>≈281.5</td><td>≈281.5</td><td>≈280.4</td><td>≈278.6</td><td class="now">278.31</td></tr>
+          <tr><th>PKR</th><td>≈278.5</td><td>≈278.0</td><td>≈283.0*</td><td>≈281.5</td><td>≈281.5</td><td>≈280.4</td><td>≈278.6</td><td class="now">279.18</td></tr>
         </table>
       </div>
 
@@ -401,7 +401,7 @@
       <div class="card">
         <div class="label">政策利率 Policy Rate</div>
         <div class="value">11.50<span class="unit">% p.a.</span></div>
-        <div class="note">利率走廊：下限10.50% / 上限12.50%。2026年4月27日上调，为2023年6月以来首次加息。</div>
+        <div class="note">利率走廊：下限10.50% / 上限12.50%。2026年4月27日上调100bp至11.50%（为2023年6月以来首次加息）后，6月15日MPC会议决定维持不变。</div>
         <details class="hist">
           <summary>近8季度利率路径</summary>
           <table class="data-table">
@@ -412,13 +412,13 @@
       </div>
       <div class="card">
         <div class="label">外汇储备（SBP持有）</div>
-        <div class="value">17,215.2<span class="unit">百万美元</span></div>
-        <div class="note">银行持有 5,456.5；储备总额 22,671.7（截至2026-06-11）。SBP预计6月末可达180亿美元。</div>
+        <div class="value">15,916.0<span class="unit">百万美元</span></div>
+        <div class="note">银行持有 5,568.0；储备总额 21,484.0（截至2026-06-19）。当周因偿还外债环比降13.05亿美元；SBP预计约24亿美元多边贷款到账将体现在6月30日当周数据中。</div>
       </div>
       <div class="card">
         <div class="label">银行间汇率 PKR/USD</div>
-        <div class="value">278.31<span class="unit">PKR</span></div>
-        <div class="note">买入价278.03 / 卖出价278.45（2026-06-15加权平均价）。</div>
+        <div class="value">279.18<span class="unit">PKR</span></div>
+        <div class="note">买入价278.95 / 卖出价279.40（2026-06-30市场价）。</div>
       </div>
       <div class="card">
         <div class="label">侨汇 Workers' Remittances</div>
@@ -646,10 +646,10 @@ new Chart(document.getElementById('cpiChart'), {
 new Chart(document.getElementById('reservesChart'), {
   type: 'bar',
   data: {
-    labels: [['25Q2','(6/30)'],['25Q3','(9月末)'],['25Q4','(12/31)'],['26Q1','(3/27)'],['26Q2','(6/11最新)']],
+    labels: [['25Q2','(6/30)'],['25Q3','(9月末)'],['25Q4','(12/31)'],['26Q1','(3/27)'],['26Q2','(6/19最新)']],
     datasets: [{
       label: '外汇储备(百万$)',
-      data: [14510, 14200, 15915, 16382, 17215],
+      data: [14510, 14200, 15915, 16382, 15916],
       backgroundColor: [blueA20,blueA20,blueA20,blueA20, greenA20],
       borderColor: [blueA,blueA,blueA,blueA, greenA],
       borderWidth: 1.5
@@ -668,7 +668,7 @@ new Chart(document.getElementById('fxChart'), {
     labels: ['24Q3','24Q4','25Q1*','25Q2','25Q3','25Q4','26Q1','26Q2'],
     datasets: [{
       label: 'PKR/USD',
-      data: [278.5, 278.0, 283.0, 281.5, 281.5, 280.4, 278.6, 278.31],
+      data: [278.5, 278.0, 283.0, 281.5, 281.5, 280.4, 278.6, 279.18],
       borderColor: blueA,
       backgroundColor: blueA20,
       fill: true,
