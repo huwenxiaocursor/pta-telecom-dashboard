@@ -215,6 +215,11 @@
       <canvas id="activeDevicesChart"></canvas>
     </div>
     <div class="card">
+      <h3>本地组装 vs 商业进口（百万台）</h3>
+      <div class="sub">手机设备来源对比；数据来自PTA Annual Report 2025（2025为报告估算值），PTA官网无对应图表，不参与自动更新</div>
+      <canvas id="localVsImportChart"></canvas>
+    </div>
+    <div class="card">
       <h3>全行业 ARPU（PKR / 月）</h3>
       <div class="sub">蜂窝移动运营商月均每用户收入；2021-22起数据来自PTA Annual Report 2025（官网图表页面截至2022-23未再更新）</div>
       <canvas id="arpuChart"></canvas>
@@ -304,6 +309,9 @@ const teledensityYoY = {2025:{"Total":[80.4, 80.87, 81.3, 81.15, 81.1, 81.05, 80
 
 // 在网活跃设备占比：来自PTA Annual Report 2025，无对应官网图表，人工维护，不参与自动更新
 const activeDevices = {"years":["2021","2022","2023","2024","2025"], "TwoG":[48,44,41,35,32], "Smart":[52,56,59,65,68]};
+
+// 本地组装 vs 商业进口：来自PTA Annual Report 2025，无对应官网图表，人工维护，不参与自动更新
+const localVsImport = {"years":["2021","2022","2023","2024","2025"], "Local":[24.6,21.9,21.2,31.3,32.7], "Import":[10.2,1.5,1.5,1.7,1.7]};
 
 const totals = months.map((_,i)=> Object.values(subs).reduce((s,arr)=>s+arr[i],0));
 const shares = {};
@@ -737,6 +745,19 @@ new Chart(document.getElementById('activeDevicesChart'),{
   },
   options:{responsive:true,plugins:{legend:{position:'bottom'}},
     scales:{y:{title:{display:true,text:'占比 (%)'}, suggestedMax:100}}}
+});
+
+new Chart(document.getElementById('localVsImportChart'),{
+  type:'bar',
+  data:{
+    labels: localVsImport.years,
+    datasets:[
+      {label:'本地组装', data:localVsImport.Local, backgroundColor:AP[2]},
+      {label:'商业进口', data:localVsImport.Import, backgroundColor:AP[1]},
+    ]
+  },
+  options:{responsive:true,plugins:{legend:{position:'bottom'}},
+    scales:{y:{title:{display:true,text:'百万台'}}}}
 });
 
 new Chart(document.getElementById('arpuChart'),{
