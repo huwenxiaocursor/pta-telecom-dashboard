@@ -37,8 +37,12 @@ HEADERS = {
 
 MAX_ITEMS_PER_SOURCE = 20
 MAX_DISPLAY_ITEMS    = 400
-MAX_PER_DAY          = 5
-MAX_DISPLAY_ITEMS    = 400
+MAX_PER_DAY          = 8
+# Minimum distinct sources required in a day's display (when the day's candidate
+# pool actually has that many distinct sources available) — prevents one busy
+# source (e.g. PhoneWorld having a big news day) from crowding out every other
+# outlet entirely.
+MIN_SOURCES_PER_DAY  = 2
 CUTOFF_DATE          = "2026-01-01"
 
 # Source priority for per-day display ranking (lower = higher priority)
@@ -508,6 +512,34 @@ def dedup_same_event(items: list) -> list:
     return [it for i, it in enumerate(items) if i not in drop]
 
 
+def ensure_source_diversity(day_display: list, candidates: list, min_sources: int) -> list:
+    """If day_display ended up with fewer than min_sources distinct sources but
+    candidates (the full deduped pool for that day) actually has more sources
+    available, swap in the best-ranked item from an unrepresented source —
+    dropping the current lowest-ranked item in day_display to keep the same
+    length. candidates must already be sorted by (importance, source priority).
+    No-ops if the day's real candidate pool simply doesn't have enough distinct
+    sources to satisfy the minimum."""
+    have = {it.get("source", "") for it in day_display}
+    if len(have) >= min_sources:
+        return day_display
+
+    shown_urls = {it.get("url", "") for it in day_display}
+    for cand in candidates:
+        if cand.get("url", "") in shown_urls:
+            continue
+        if cand.get("source", "") in have:
+            continue
+        # found the best-ranked item from a source not yet represented
+        if day_display:
+            day_display = day_display[:-1]  # drop the current lowest-ranked slot
+        day_display = day_display + [cand]
+        have.add(cand.get("source", ""))
+        if len(have) >= min_sources:
+            break
+    return day_display
+
+
 # ─── HTML Injection ───────────────────────────────────────────────────────────
 
 def inject_into_html(items: list) -> None:
@@ -631,6 +663,15 @@ def main() -> None:
             ),
         )
         day_display += leftover[:max(0, MAX_PER_DAY - len(day_display))]
+
+        day_sorted_all = sorted(
+            deduped,
+            key=lambda x: (
+                IMPORTANCE_PRIORITY.get(x.get("importance", "中"), 1),
+                SOURCE_PRIORITY.get(x.get("source", ""), 99),
+            ),
+        )
+        day_display = ensure_source_diversity(day_display, day_sorted_all, MIN_SOURCES_PER_DAY)
 
         display.extend(day_display)
     display = display[:MAX_DISPLAY_ITEMS]
