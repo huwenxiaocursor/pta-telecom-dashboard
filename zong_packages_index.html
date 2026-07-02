@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zong 套餐清单 / Zong Packages</title>
+<style>
+  :root{
+    --green:#7ab800; --green-d:#5e8f00; --ink:#1c2530; --muted:#6b7785;
+    --line:#e5e9ee; --bg:#f6f8fa; --card:#fff; --pre:#0a7cff; --post:#9333ea;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.45}
+  header{background:linear-gradient(135deg,#7ab800,#5e8f00);color:#fff;padding:26px 20px 22px}
+  header h1{margin:0 0 4px;font-size:24px;letter-spacing:.3px}
+  header p{margin:0;opacity:.92;font-size:13.5px}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+  .controls{position:sticky;top:0;z-index:5;background:var(--bg);padding:14px 0 10px;border-bottom:1px solid var(--line)}
+  .controls .inner{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+  #search{flex:1;min-width:220px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;font-size:14px;background:#fff}
+  #search:focus{outline:none;border-color:var(--green)}
+  .filters{display:flex;flex-wrap:wrap;gap:6px}
+  .chip{border:1px solid var(--line);background:#fff;color:var(--muted);padding:6px 12px;border-radius:20px;font-size:12.5px;cursor:pointer;white-space:nowrap}
+  .chip:hover{border-color:var(--green)}
+  .chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+  .count{font-size:12.5px;color:var(--muted);padding:10px 0 0}
+  section{margin:22px 0}
+  .sec-title{font-size:16px;font-weight:700;margin:0 0 4px;display:flex;align-items:center;gap:8px}
+  .sec-desc{font-size:12.5px;color:var(--muted);margin:0 0 12px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:12px}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:8px;transition:.15s}
+  .card:hover{box-shadow:0 4px 16px rgba(20,40,70,.08);transform:translateY(-1px)}
+  .card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+  .card h3{margin:0;font-size:14.5px;font-weight:650}
+  .tag{font-size:10.5px;font-weight:600;padding:2px 8px;border-radius:6px;white-space:nowrap}
+  .tag.pre{background:#e7f2ff;color:var(--pre)}
+  .tag.post{background:#f3e8ff;color:var(--post)}
+  .validity{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .feats{list-style:none;margin:2px 0 0;padding:0;display:flex;flex-direction:column;gap:3px}
+  .feats li{font-size:12.8px;color:#2c3742;padding-left:16px;position:relative}
+  .feats li::before{content:"";position:absolute;left:0;top:6px;width:7px;height:7px;border-radius:50%;background:var(--green)}
+  .price{margin-top:auto;font-size:18px;font-weight:750;color:var(--ink)}
+  .price span{font-size:11.5px;font-weight:500;color:var(--muted)}
+  .note{background:#fffbe6;border:1px solid #ffe58f;border-radius:10px;padding:12px 14px;font-size:12.8px;color:#665100;margin:16px 0}
+  footer{text-align:center;font-size:12px;color:var(--muted);padding:24px 16px 40px}
+  footer a{color:var(--green-d)}
+  .empty{text-align:center;color:var(--muted);padding:40px;font-size:14px;display:none}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Zong 套餐清单</h1>
+    <p>预付费 + 后付费套餐 · 含价格与套餐内容 · 数据采集自 zong.com.pk（2026年6月）</p>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="inner">
+    <input id="search" type="text" placeholder="搜索套餐名 / 功能（如 200GB、Monthly、WhatsApp）…">
+    <div class="filters" id="filters">
+      <button class="chip active" data-f="all">全部</button>
+      <button class="chip" data-f="postpaid">后付费</button>
+      <button class="chip" data-f="prepaid">预付费</button>
+      <button class="chip" data-f="hybrid">综合套餐</button>
+      <button class="chip" data-f="data">数据流量</button>
+      <button class="chip" data-f="voice">通话/短信</button>
+      <button class="chip" data-f="app">应用专属</button>
+      <button class="chip" data-f="vas">增值服务</button>
+    </div>
+  </div>
+  <div class="wrap"><div class="count" id="count"></div></div>
+</div>
+
+<div class="wrap">
+  <div class="note">
+    说明：Zong 官网未公布套餐总数，且同一套餐常出现在多个栏目下。本清单已<strong>去重</strong>，仅保留不同的套餐。另有 <strong>~46 个 “Apna Shehr / Area Play” 地区套餐</strong>（各城市版本几乎相同：约 5GB + 1000 Zong 分钟 + 40 跨网分钟，PKR 130–170/周）和 <strong>~60 个国际漫游 / IDD 套餐</strong>未逐条列出。价格单位为巴基斯坦卢比（PKR），部分需另加税（+Tax）。
+  </div>
+  <div id="cards"></div>
+  <div class="empty" id="empty">没有匹配的套餐。</div>
+</div>
+
+<footer>
+  数据来源：<a href="https://www.zong.com.pk/prepaid" target="_blank">Zong 预付费</a> ·
+  <a href="https://www.zong.com.pk/postpaid" target="_blank">Zong 后付费</a><br>
+  价格与套餐内容可能随时变动，请以官网为准。
+</footer>
+
+<script>
+const PLANS = [
+  // ===== 后付费核心套餐 =====
+  {n:"Bronze",t:"postpaid",c:"hybrid",v:"Monthly",p:"800",f:["10GB 流量","1500 Zong 分钟","300 跨网分钟"]},
+  {n:"Silver",t:"postpaid",c:"hybrid",v:"Monthly",p:"1000",f:["15GB 流量","2000 Zong 分钟","350 跨网分钟"]},
+  {n:"Gold",t:"postpaid",c:"hybrid",v:"Monthly",p:"1300",f:["20GB 流量","2500 Zong 分钟","400 跨网分钟"]},
+  {n:"Diamond",t:"postpaid",c:"hybrid",v:"Monthly",p:"1500",f:["50GB 流量","3000 Zong 分钟","1000 跨网分钟"]},
+  {n:"Platinum",t:"postpaid",c:"hybrid",v:"Monthly",p:"2000",f:["200GB 流量","3500 Zong 分钟","1200 跨网分钟"]},
+  {n:"Titanium",t:"postpaid",c:"hybrid",v:"Monthly",p:"4000",f:["400GB 流量","5000 Zong 分钟","2000 跨网分钟"]},
+  // 后付费 加油包
+  {n:"ZData 3GB",t:"postpaid",c:"data",v:"Monthly",p:"250 +税",f:["3GB 流量"]},
+  {n:"ZData 10GB",t:"postpaid",c:"data",v:"Monthly",p:"600 +税",f:["10GB 流量"]},
+  {n:"ZData 20GB",t:"postpaid",c:"data",v:"Monthly",p:"1000 +税",f:["20GB 流量"]},
+  {n:"YouTube 12GB",t:"postpaid",c:"app",v:"Monthly",p:"500 +税",f:["12GB YouTube"]},
+  {n:"YouTube 25GB",t:"postpaid",c:"app",v:"Monthly",p:"800 +税",f:["25GB YouTube"]},
+  {n:"All Voice 500",t:"postpaid",c:"voice",v:"Monthly",p:"550 +税",f:["500 全网分钟"]},
+  {n:"All Voice 1000",t:"postpaid",c:"voice",v:"Monthly",p:"1000 +税",f:["1000 全网分钟"]},
+  {n:"300 SMS Bundle",t:"postpaid",c:"voice",v:"Monthly",p:"25 +税",f:["300 条短信"]},
+  {n:"700 SMS Bundle",t:"postpaid",c:"voice",v:"Monthly",p:"50 +税",f:["700 条短信"]},
+  {n:"Unlimited SMS Bundle",t:"postpaid",c:"voice",v:"Monthly",p:"90 +税",f:["无限* 短信"]},
+  {n:"SecureTeen (Postpaid)",t:"postpaid",c:"vas",v:"Weekly",p:"25 +税",f:["青少年上网保护"]},
+
+  // ===== 预付费 综合套餐（月）=====
+  {n:"My5",t:"prepaid",c:"hybrid",v:"Monthly",p:"6000",f:["200GB 流量","20000 Zong 分钟","2000 跨网分钟"]},
+  {n:"My4",t:"prepaid",c:"hybrid",v:"Monthly",p:"5200",f:["160GB 流量","16000 Zong 分钟","1600 跨网分钟"]},
+  {n:"My3",t:"prepaid",c:"hybrid",v:"Monthly",p:"4500",f:["120GB 流量","10000 Zong 分钟","1000 跨网分钟"]},
+  {n:"Hattrick Pro Max",t:"prepaid",c:"hybrid",v:"Monthly",p:"5800",f:["200GB 流量","20000 Zong 分钟","2000 跨网分钟"]},
+  {n:"Monthly Pro Global",t:"prepaid",c:"hybrid",v:"Monthly",p:"3000",f:["200GB 流量","2000 跨网分钟","100 国际分钟"]},
+  {n:"Monthly Pro Max Plus",t:"prepaid",c:"hybrid",v:"Monthly",p:"2700",f:["200GB 流量","20000 Zong 分钟","2000 跨网分钟"]},
+  {n:"Monthly Pro Max Basic",t:"prepaid",c:"hybrid",v:"Monthly",p:"2600",f:["200GB 流量","20000 Zong 分钟","2000 跨网分钟"]},
+  {n:"Monthly Digital Max Plus",t:"prepaid",c:"hybrid",v:"Monthly",p:"2600",f:["100GB 流量","10000 Zong 分钟","10000 短信"]},
+  {n:"Monthly Digital Max Basic",t:"prepaid",c:"hybrid",v:"Monthly",p:"2500",f:["100GB 流量","10000 Zong 分钟","1000 跨网分钟"]},
+  {n:"Monthly Pro",t:"prepaid",c:"hybrid",v:"Monthly",p:"2200",f:["50GB 流量","10000 Zong 分钟","600 跨网分钟"]},
+  {n:"Monthly Supreme Digital",t:"prepaid",c:"hybrid",v:"Monthly",p:"2000",f:["30GB 流量","5000 Zong 分钟","600 跨网分钟"]},
+  {n:"Monthly Supreme",t:"prepaid",c:"hybrid",v:"Monthly",p:"1900",f:["30GB 流量","5000 Zong 分钟","600 跨网分钟"]},
+  {n:"My5 Call",t:"prepaid",c:"voice",v:"Monthly",p:"1700",f:["5000 全网分钟","5000 短信"]},
+  {n:"Monthly Super Card",t:"prepaid",c:"hybrid",v:"Monthly",p:"1600",f:["10GB 流量","无限* Zong 分钟","300 跨网分钟"]},
+  {n:"Monthly Super Card Mini",t:"prepaid",c:"hybrid",v:"Monthly",p:"1400",f:["4GB 流量","5000 Zong 分钟","200 跨网分钟"]},
+  {n:"Maheena Bhar Mouj",t:"prepaid",c:"voice",v:"Monthly",p:"750",f:["3000 全网分钟","3000 短信","免费 MCA"]},
+  {n:"Monthly Social Max",t:"prepaid",c:"hybrid",v:"Monthly",p:"800",f:["30GB 流量","500 Zong 分钟","100 跨网分钟"]},
+  {n:"Monthly Social Plus",t:"prepaid",c:"hybrid",v:"Monthly",p:"700",f:["20GB 流量","500 Zong 分钟","100 跨网分钟"]},
+  {n:"Monthly Social & YouTube",t:"prepaid",c:"hybrid",v:"Monthly",p:"700",f:["20GB 流量","500 Zong 分钟","100 跨网分钟"]},
+  {n:"Maheena Bhar Offer (Central Punjab)",t:"prepaid",c:"hybrid",v:"Monthly",p:"690",f:["10GB 流量","20GB WhatsApp","2000 全网分钟"]},
+  {n:"Monthly Social Bundle",t:"prepaid",c:"hybrid",v:"Monthly",p:"650",f:["12GB 流量","250 Zong 分钟","50 跨网分钟"]},
+  {n:"Monthly Call Plus",t:"prepaid",c:"voice",v:"Monthly",p:"600",f:["2000 Zong 分钟","2000 短信","100 跨网分钟"]},
+  {n:"Mahana Voice Plus",t:"prepaid",c:"voice",v:"Monthly",p:"600",f:["3000 Zong 分钟","3000 短信","500 跨网分钟"]},
+  {n:"Monthly Call",t:"prepaid",c:"voice",v:"Monthly",p:"400",f:["1000 Zong 分钟","1000 短信"]},
+  {n:"Mahana Voice Offer",t:"prepaid",c:"voice",v:"Monthly",p:"270",f:["100 Zong 分钟/天"]},
+
+  // ===== 预付费 综合套餐（周）=====
+  {n:"Weekly Digital Max",t:"prepaid",c:"hybrid",v:"Weekly",p:"730",f:["100GB 流量","10000 Zong 分钟","1000 跨网分钟"]},
+  {n:"Weekly Azadi Offer",t:"prepaid",c:"hybrid",v:"Weekly",p:"700",f:["60GB 流量","6000 Zong 分钟","600 跨网分钟"]},
+  {n:"Weekly Pro Plus",t:"prepaid",c:"hybrid",v:"Weekly",p:"700",f:["60GB 流量","6000 Zong 分钟","600 跨网分钟"]},
+  {n:"Weekly Pro",t:"prepaid",c:"hybrid",v:"Weekly",p:"650",f:["40GB 流量","5000 Zong 分钟","250 跨网分钟"]},
+  {n:"Weekly Premium",t:"prepaid",c:"hybrid",v:"Weekly",p:"630",f:["30GB 流量","无限* Zong 分钟","180 跨网分钟"]},
+  {n:"Weekly HLO",t:"prepaid",c:"hybrid",v:"Weekly",p:"580",f:["15GB 流量","5000 Zong 分钟","100 跨网分钟"]},
+  {n:"Weekly Super",t:"prepaid",c:"hybrid",v:"Weekly",p:"550",f:["10GB 流量","5000 Zong 分钟","100 跨网分钟"]},
+  {n:"Thunder Plus Offer",t:"prepaid",c:"hybrid",v:"Weekly",p:"500",f:["20GB* 流量","2000 全网分钟","2000 短信"]},
+  {n:"Weekly AIO",t:"prepaid",c:"hybrid",v:"Weekly",p:"370",f:["4GB 流量","5000 Zong 分钟","60 跨网分钟"]},
+  {n:"Weekly Social Offer",t:"prepaid",c:"voice",v:"Weekly",p:"300",f:["500 Zong 分钟","200 短信","20 跨网分钟"]},
+  {n:"Thunder Offer",t:"prepaid",c:"hybrid",v:"Weekly",p:"250",f:["10GB* 流量","1000 全网分钟","1000 短信"]},
+  {n:"Weekly Student Bundle",t:"prepaid",c:"hybrid",v:"Weekly",p:"250",f:["25GB 流量","4000 Zong 分钟","180 跨网分钟"]},
+  {n:"Weekly AIO Mini",t:"prepaid",c:"hybrid",v:"Weekly",p:"240",f:["2GB 流量","2000 Zong 分钟","20 跨网分钟"]},
+  {n:"Haftawar Voice Offer",t:"prepaid",c:"voice",v:"Weekly",p:"200",f:["1GB 流量","20GB WhatsApp","1000 全网分钟"]},
+
+  // ===== 预付费 综合套餐（日 / 短期）=====
+  {n:"3 Day Bundle",t:"prepaid",c:"hybrid",v:"3 Day",p:"140",f:["2GB 流量","1000 Zong 分钟","10 跨网分钟"]},
+  {n:"Daily Supreme Offer",t:"prepaid",c:"hybrid",v:"Daily",p:"130",f:["2GB 流量","1000 Zong 分钟","10 跨网分钟"]},
+  {n:"Zong Unlimited Offer (Daily)",t:"prepaid",c:"hybrid",v:"Daily",p:"69",f:["50MB 流量","1440 Zong 分钟","800 短信"]},
+  {n:"Shandaar Daily Offer",t:"prepaid",c:"hybrid",v:"Daily",p:"69",f:["50MB 流量","1440 Zong 分钟","800 短信"]},
+  {n:"2 Hour Non Stop Offer",t:"prepaid",c:"hybrid",v:"2 小时",p:"69",f:["1GB 流量","120 Zong 分钟"]},
+  {n:"Stay At Home Bundle",t:"prepaid",c:"hybrid",v:"Weekly",p:"330",f:["10GB 流量","1000 Zong 分钟"]},
+
+  // ===== 预付费 仅通话/短信 =====
+  {n:"15 Day Voice Offer",t:"prepaid",c:"voice",v:"15 Day",p:"450",f:["1000 Zong 分钟","1000 短信"]},
+  {n:"7 Day Voice Offer",t:"prepaid",c:"voice",v:"Weekly",p:"250",f:["500 Zong 分钟","500 短信"]},
+  {n:"Weekly Call",t:"prepaid",c:"voice",v:"Weekly",p:"250",f:["2000 Zong 分钟","2000 短信","30 跨网分钟"]},
+  {n:"3 Day Voice Offer",t:"prepaid",c:"voice",v:"3 Day",p:"150",f:["500 Zong 分钟","500 短信"]},
+  {n:"1 Day Voice Offer",t:"prepaid",c:"voice",v:"Daily",p:"120",f:["500 Zong 分钟","500 短信"]},
+  {n:"Daily Voice Offer",t:"prepaid",c:"voice",v:"Daily",p:"69",f:["20 Zong 分钟"]},
+  {n:"2 Hour Voice Offer",t:"prepaid",c:"voice",v:"2 小时",p:"60",f:["120 Zong 分钟","120 短信"]},
+
+  // ===== 预付费 短信 =====
+  {n:"Monthly SMS + WhatsApp",t:"prepaid",c:"voice",v:"Monthly",p:"150",f:["500 短信/天","30MB WhatsApp/天"]},
+  {n:"Weekly SMS + WhatsApp",t:"prepaid",c:"voice",v:"Weekly",p:"60",f:["1300 短信","200MB WhatsApp"]},
+  {n:"Daily SMS",t:"prepaid",c:"voice",v:"Daily",p:"34.50",f:["500 短信","30MB WhatsApp"]},
+
+  // ===== 预付费 纯流量 =====
+  {n:"160GB MBB Exclusive",t:"prepaid",c:"data",v:"Monthly",p:"3500",f:["160GB 流量"]},
+  {n:"Internet SIM 65GB",t:"prepaid",c:"data",v:"Monthly",p:"2100",f:["65GB 流量"]},
+  {n:"Monthly Max 40GB",t:"prepaid",c:"data",v:"Monthly",p:"1350",f:["40GB* 流量"]},
+  {n:"Monthly 20GB",t:"prepaid",c:"data",v:"Monthly",p:"1150",f:["20GB* 流量"]},
+  {n:"Monthly 5GB",t:"prepaid",c:"data",v:"Monthly",p:"750",f:["5GB 流量"]},
+  {n:"Zong Gaming Bundle",t:"prepaid",c:"data",v:"Monthly",p:"650",f:["15GB 流量"]},
+  {n:"5GB Monthly (Internet SIM)",t:"prepaid",c:"data",v:"Monthly",p:"400",f:["5GB 流量"]},
+  {n:"Weekly Mega Data Offer",t:"prepaid",c:"data",v:"Weekly",p:"370",f:["100GB 流量"]},
+  {n:"Daily Data Max",t:"prepaid",c:"data",v:"Daily",p:"49",f:["1GB 总流量","500MB YouTube"]},
+  {n:"Daily GNO",t:"prepaid",c:"data",v:"Daily",p:"69",f:["2.5GB 流量"]},
+  {n:"Daily DTO",t:"prepaid",c:"data",v:"Daily",p:"69",f:["1.5GB 流量"]},
+  {n:"Daily Social Offer",t:"prepaid",c:"data",v:"Daily",p:"69",f:["2GB 流量"]},
+  {n:"Daily Basic",t:"prepaid",c:"data",v:"Daily",p:"23",f:["100MB 流量"]},
+
+  // ===== 预付费 应用专属 =====
+  {n:"Monthly WhatsApp Plus",t:"prepaid",c:"app",v:"Monthly",p:"400",f:["7GB WhatsApp+IMO","200 Zong 分钟","50 跨网分钟"]},
+  {n:"WhatsApp Offer",t:"prepaid",c:"app",v:"Monthly",p:"250",f:["4GB 流量"]},
+  {n:"Monthly PubG Bundle",t:"prepaid",c:"app",v:"Monthly",p:"250",f:["10GB 流量"]},
+  {n:"Monthly Google Maps Offer",t:"prepaid",c:"app",v:"Monthly",p:"69",f:["无限 Google Maps 流量"]},
+  {n:"Daily TikTok",t:"prepaid",c:"app",v:"Daily",p:"69",f:["1GB TikTok"]},
+  {n:"One Day Facebook",t:"prepaid",c:"app",v:"Daily",p:"69",f:["1GB Facebook"]},
+  {n:"1 Hour YouTube Offer",t:"prepaid",c:"app",v:"1 小时",p:"69",f:["500MB YouTube"]},
+
+  // ===== 增值服务 (VAS) =====
+  {n:"OZGPT (AI 助手) 月",t:"prepaid",c:"vas",v:"Monthly",p:"50 +税",f:["AI 聊天助手"]},
+  {n:"Bussu (英语学习) 月",t:"prepaid",c:"vas",v:"Monthly",p:"70 +税",f:["英语学习课程"]},
+  {n:"SecureTeen 月",t:"prepaid",c:"vas",v:"Monthly",p:"96 +税",f:["青少年上网保护"]},
+  {n:"Zong TV",t:"prepaid",c:"vas",v:"Daily",p:"4.18 +税",f:["电视直播/点播"]},
+  {n:"Bajao (音乐)",t:"prepaid",c:"vas",v:"Daily",p:"8.37 +税",f:["音乐串流"]},
+  {n:"Caller ID",t:"prepaid",c:"vas",v:"Daily",p:"1.50 +税",f:["来电显示"]},
+  {n:"RBT (彩铃) 月",t:"prepaid",c:"vas",v:"Monthly",p:"28 +税",f:["来电彩铃"]},
+  {n:"Smart Utility Pack",t:"prepaid",c:"vas",v:"Monthly",p:"98 +税",f:["综合增值服务包"]},
+];
+
+const SEC = {
+  postpaid:{title:"后付费套餐 Postpaid",desc:"需账单结算的合约套餐，含核心月套餐与加油包。"},
+  hybrid:{title:"综合套餐 All-in-One",desc:"同时包含流量、通话、短信的主力套餐（预付费）。"},
+  data:{title:"纯流量套餐 Data",desc:"仅含上网流量。"},
+  voice:{title:"通话 / 短信套餐 Voice & SMS",desc:"以分钟与短信为主。"},
+  app:{title:"应用专属套餐 App Bundles",desc:"针对 WhatsApp、YouTube、TikTok 等单一应用。"},
+  vas:{title:"增值服务 VAS",desc:"低价订阅类服务（AI、音乐、彩铃、上网保护等）。"},
+};
+const ORDER=["postpaid","hybrid","data","voice","app","vas"];
+
+const cardsEl=document.getElementById('cards');
+const countEl=document.getElementById('count');
+const emptyEl=document.getElementById('empty');
+const searchEl=document.getElementById('search');
+let filter='all', q='';
+
+function tagFor(t){return t==='postpaid'?'<span class="tag post">后付费</span>':'<span class="tag pre">预付费</span>';}
+
+function render(){
+  const ql=q.trim().toLowerCase();
+  let shown=0;
+  cardsEl.innerHTML='';
+  ORDER.forEach(secKey=>{
+    let items=PLANS.filter(p=>{
+      if(filter==='postpaid') {if(p.t!=='postpaid')return false;}
+      else if(filter==='prepaid'){if(p.t!=='prepaid')return false;}
+      else if(filter!=='all'){if(p.c!==filter)return false;}
+      // section grouping
+      if(filter==='postpaid'||filter==='prepaid'||filter==='all'){if(p.c!==secKey)return false;}
+      else {if(p.c!==secKey)return false;}
+      if(ql){
+        const hay=(p.n+' '+p.v+' '+p.f.join(' ')).toLowerCase();
+        if(!hay.includes(ql))return false;
+      }
+      if(filter==='postpaid'&&p.t!=='postpaid')return false;
+      if(filter==='prepaid'&&p.t!=='prepaid')return false;
+      return true;
+    });
+    if(filter==='postpaid')items=items; // already filtered by type+section
+    if(!items.length)return;
+    const sec=document.createElement('section');
+    sec.innerHTML=`<h2 class="sec-title">${SEC[secKey].title}</h2><p class="sec-desc">${SEC[secKey].desc}</p>`;
+    const grid=document.createElement('div');grid.className='grid';
+    items.forEach(p=>{
+      shown++;
+      const card=document.createElement('div');card.className='card';
+      card.innerHTML=`
+        <div class="top">
+          <h3>${p.n}</h3>${tagFor(p.t)}
+        </div>
+        <div class="validity">${p.v}</div>
+        <ul class="feats">${p.f.map(x=>`<li>${x}</li>`).join('')}</ul>
+        <div class="price">PKR ${p.p}</div>`;
+      grid.appendChild(card);
+    });
+    sec.appendChild(grid);
+    cardsEl.appendChild(sec);
+  });
+  countEl.textContent=`显示 ${shown} 个套餐`+(ql?`（搜索 “${q}”）`:'');
+  emptyEl.style.display=shown?'none':'block';
+}
+
+document.getElementById('filters').addEventListener('click',e=>{
+  if(!e.target.classList.contains('chip'))return;
+  document.querySelectorAll('.chip').forEach(c=>c.classList.remove('active'));
+  e.target.classList.add('active');
+  filter=e.target.dataset.f;
+  render();
+});
+searchEl.addEventListener('input',e=>{q=e.target.value;render();});
+render();
+</script>
+</body>
+</html>

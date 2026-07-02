@@ -29,7 +29,7 @@
     /* ── Nav Cards ── */
     .nav-cards {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
       gap: 16px;
       margin-bottom: 36px;
     }
@@ -51,6 +51,7 @@
     .nav-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); }
     .nav-card.blue  { border-color: #1c63d4; }
     .nav-card.green { border-color: #01652e; }
+    .nav-card.lime  { border-color: #7ab800; }
 
     .nav-card-label {
       font-size: 11px; font-weight: 700; text-transform: uppercase;
@@ -58,6 +59,7 @@
     }
     .nav-card.blue  .nav-card-label { color: #1c63d4; }
     .nav-card.green .nav-card-label { color: #01652e; }
+    .nav-card.lime  .nav-card-label { color: #5e8f00; }
 
     .nav-card-title { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
     .nav-card-desc  { font-size: 13px; color: #6b7280; line-height: 1.55; padding-right: 24px; }
@@ -65,6 +67,7 @@
     .nav-card-arrow { position: absolute; top: 22px; right: 22px; font-size: 22px; }
     .nav-card.blue  .nav-card-arrow { color: #1c63d4; }
     .nav-card.green .nav-card-arrow { color: #01652e; }
+    .nav-card.lime  .nav-card-arrow { color: #5e8f00; }
 
     /* ── Section Title ── */
     .section-title {
@@ -166,6 +169,12 @@
       <div class="nav-card-label">宏观经济</div>
       <div class="nav-card-title">宏观经济数据</div>
       <div class="nav-card-desc">GDP、通胀、汇率、外汇储备、利率等宏观经济指标</div>
+      <div class="nav-card-arrow">→</div>
+    </a>
+    <a href="zong_packages_index.html" class="nav-card lime">
+      <div class="nav-card-label">Zong 套餐</div>
+      <div class="nav-card-title">Zong 套餐清单</div>
+      <div class="nav-card-desc">预付费/后付费全套餐价格与内容，支持搜索与分类筛选</div>
       <div class="nav-card-arrow">→</div>
     </a>
   </div>
