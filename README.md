@@ -20,10 +20,11 @@
 - 历史数据永久保留于 `scripts/macro_history.json`，图表按滚动窗口展示最近若干期
 
 ### 3. 通信行业新闻聚合（`index.html` 新闻区）
-- 来源：PTA 官网、ProPakistani、SBP、PhoneWorld、TechJuice
-- 每日最多 5 条，按媒体优先级排序（PTA > ProPakistani > SBP > PhoneWorld > TechJuice）
-- AI 自动生成 200-300 字中文摘要（DeepSeek Chat API），重点数据用【】标注
+- 来源：PTA 官网、ProPakistani、SBP、Business Recorder、TechJuice
+- 每日最多 8 条，且至少保证2个不同来源；PTA标题新闻优先前置（封顶3条），同级再按重要性、媒体优先级排序（PTA > ProPakistani > SBP > BusinessRecorder > TechJuice）
+- AI 自动生成 200-300 字中文摘要（DeepSeek Chat API，基于抓取到的正文，无正文时退回title-only安全模式）+ 高/中/低重要性分级
 - 相关性过滤：仅保留电信、移动网络、宏观经济、IMF 相关内容
+- 同一事件跨来源去重（近3天，DeepSeek判定）
 
 ### 4. 每日邮件摘要（`scripts/send_daily_digest.py`）
 - 每天 10:10 PKT 自动生成 T-1（昨天）新闻高清图片（960px，3× 分辨率）
@@ -122,7 +123,7 @@ python3 scripts/send_daily_digest.py
 | [PTA](https://www.pta.gov.pk) | 官方公告、监管动态 | Google News RSS |
 | [ProPakistani](https://propakistani.pk) | 电信/科技新闻 | WordPress REST API |
 | [SBP](https://www.sbp.org.pk) | 货币政策、外汇储备 | Google News RSS |
-| [PhoneWorld](https://phoneworld.com.pk) | 手机/设备资讯 | RSS |
+| [Business Recorder](https://www.brecorder.com) | 财经/商业新闻（巴基斯坦最悠久财经日报） | RSS |
 | [TechJuice](https://www.techjuice.pk) | 科技行业动态 | WordPress REST API |
 
 ### 宏观经济数据
