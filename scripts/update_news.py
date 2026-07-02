@@ -151,6 +151,28 @@ def fetch(url: str, timeout: int = 20) -> str:
         return ""
 
 
+def fetch_article_text(url: str, max_chars: int = 3000) -> str:
+    """Best-effort extraction of visible article text from a live page, so
+    summarize() can ground its summary in real content instead of guessing
+    from the title alone. Returns "" on any failure or if the page yields
+    implausibly little text — callers must treat empty as 'no content
+    available, fall back to title-only summarization'."""
+    try:
+        html = fetch(url, timeout=15)
+        if not html:
+            return ""
+        html = re.sub(r"<(script|style|nav|footer|header)\b[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
+        text = re.sub(r"<[^>]+>", " ", html)
+        text = html_lib.unescape(text)
+        text = re.sub(r"\s+", " ", text).strip()
+        if len(text) < 200:
+            return ""
+        return text[:max_chars]
+    except Exception as e:
+        log(f"  Article content fetch failed ({url}): {e}")
+        return ""
+
+
 def clean(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
@@ -338,14 +360,34 @@ def fetch_techjuice() -> list:
 
 # ─── DeepSeek Summary ─────────────────────────────────────────────────────────
 
-def summarize(title: str, url: str) -> dict:
+def summarize(title: str, url: str, article_text: str = "") -> dict:
     """Returns {"summary_zh": str, "importance": "高"|"中"|"低"}.
     On any failure (no key, HTTP error, bad JSON) returns empty summary and
     importance defaulted to "中" so the item still displays rather than
-    silently vanishing or crashing the pipeline."""
+    silently vanishing or crashing the pipeline.
+
+    article_text (if provided by fetch_article_text()) is the actual scraped
+    page text — the summary MUST be grounded in it. DeepSeek has no ability to
+    fetch the url itself; passing only title+url previously let it silently
+    fabricate plausible-sounding but fictitious numbers/dates. When no content
+    could be scraped, the prompt explicitly forbids inventing specifics."""
     fallback = {"summary_zh": "", "importance": "中"}
     if not DEEPSEEK_API_KEY:
         return fallback
+
+    if article_text:
+        grounding = (
+            "下面提供了这条新闻的正文节选，请【严格根据正文内容】撰写摘要和判断重要性，"
+            "正文中没有的具体数字、百分比、日期、人名一律不得编造。"
+        )
+        user_content = f"标题：{title}\n来源：{url}\n\n正文节选：\n{article_text}"
+    else:
+        grounding = (
+            "本次未能抓取到正文，只能看到标题，你没有能力访问链接内容。"
+            "摘要只能围绕标题明确传达的信息展开合理的背景说明和行业影响分析，"
+            "严禁编造标题中没有的具体数字、百分比、日期等看似精确实则无依据的细节。"
+        )
+        user_content = f"标题：{title}\n来源：{url}"
 
     payload = json.dumps({
         "model": "deepseek-chat",
@@ -354,7 +396,8 @@ def summarize(title: str, url: str) -> dict:
                 "role": "system",
                 "content": (
                     "你是专注巴基斯坦电信与宏观经济的资深分析师。"
-                    "根据提供的新闻标题，完成两项任务，严格按JSON格式输出：\n\n"
+                    f"{grounding}"
+                    "完成两项任务，严格按JSON格式输出：\n\n"
                     "1. summary_zh：撰写200～300字的中文摘要，分2段，用\\n\\n分隔。"
                     "第1段：事件背景与核心内容（保留关键数字、百分比、机构名称）。"
                     "第2段：对巴基斯坦电信行业或宏观经济的影响与判断。"
@@ -373,7 +416,7 @@ def summarize(title: str, url: str) -> dict:
             },
             {
                 "role": "user",
-                "content": f"请分析以下新闻：\n\n标题：{title}\n来源：{url}",
+                "content": user_content,
             },
         ],
         "response_format": {"type": "json_object"},
@@ -520,14 +563,16 @@ def main() -> None:
         log(f"Re-summarising {len(retry_items)} cached items with empty summaries …")
     for item in retry_items:
         log(f"  Re-summarising: {item['title'][:70]} …")
-        result = summarize(item["title"], item["url"])
+        article_text = fetch_article_text(item["url"])
+        result = summarize(item["title"], item["url"], article_text)
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
 
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
-        result = summarize(item["title"], item["url"])
+        article_text = fetch_article_text(item["url"])
+        result = summarize(item["title"], item["url"], article_text)
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
