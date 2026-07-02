@@ -44,6 +44,9 @@ CUTOFF_DATE          = "2026-01-01"
 # Source priority for per-day display ranking (lower = higher priority)
 SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "TechJuice": 4}
 
+# Importance ranking for per-day display (lower = shown first); see summarize()
+IMPORTANCE_PRIORITY = {"高": 0, "中": 1, "低": 2}
+
 # Compound/specific telecom terms — substring match is safe for these
 _TELECOM_SUB = {
     "telecom", "ufone", "telenor", "airlink", "nayatel", "wateen", "ptcl",
@@ -315,9 +318,14 @@ def fetch_techjuice() -> list:
 
 # ─── DeepSeek Summary ─────────────────────────────────────────────────────────
 
-def summarize(title: str, url: str) -> str:
+def summarize(title: str, url: str) -> dict:
+    """Returns {"summary_zh": str, "importance": "高"|"中"|"低"}.
+    On any failure (no key, HTTP error, bad JSON) returns empty summary and
+    importance defaulted to "中" so the item still displays rather than
+    silently vanishing or crashing the pipeline."""
+    fallback = {"summary_zh": "", "importance": "中"}
     if not DEEPSEEK_API_KEY:
-        return ""
+        return fallback
 
     payload = json.dumps({
         "model": "deepseek-chat",
@@ -326,20 +334,31 @@ def summarize(title: str, url: str) -> str:
                 "role": "system",
                 "content": (
                     "你是专注巴基斯坦电信与宏观经济的资深分析师。"
-                    "根据提供的新闻标题，撰写200～300字的中文摘要，分2段输出。"
+                    "根据提供的新闻标题，完成两项任务，严格按JSON格式输出：\n\n"
+                    "1. summary_zh：撰写200～300字的中文摘要，分2段，用\\n\\n分隔。"
                     "第1段：事件背景与核心内容（保留关键数字、百分比、机构名称）。"
                     "第2段：对巴基斯坦电信行业或宏观经济的影响与判断。"
-                    "要求：语言简练专业，直接输出正文，段间空一行，不加标题前缀；"
-                    "用【】标注每段最重要的结论或关键数据，每段至多2处，全文不超过4处。"
+                    "语言简练专业，不加标题前缀；"
+                    "用【】标注每段最重要的结论或关键数据，每段至多2处，全文不超过4处。\n\n"
+                    "2. importance：判断这条新闻对巴基斯坦电信行业竞争格局/宏观经济的重要性，"
+                    "输出\"高\"、\"中\"或\"低\"之一，判断标准：\n"
+                    "- 是否涉及巴基斯坦四大主流移动运营商（Jazz、Zong、Telenor、Ufone）"
+                    "或SBP/PTA层面的政策监管动作——完全不涉及（如中小型固网/宽带ISP、"
+                    "SCO等边缘运营商的常规新闻）应判为\"低\"；\n"
+                    "- 即使涉及主流运营商或监管机构，若只是常规产品发布、常规审计、日常运营类新闻"
+                    "（非监管处罚、并购、财报、重大政策变动、市场格局变化等），也应判为\"中\"而非\"高\"；\n"
+                    "- 只有真正影响行业格局或宏观经济走势的重大事件才判为\"高\"。\n\n"
+                    '严格输出：{"summary_zh": "...", "importance": "高/中/低"}'
                 ),
             },
             {
                 "role": "user",
-                "content": f"请为以下新闻撰写中文摘要：\n\n标题：{title}\n来源：{url}",
+                "content": f"请分析以下新闻：\n\n标题：{title}\n来源：{url}",
             },
         ],
-        "max_tokens": 500,
-        "temperature": 0.3,
+        "response_format": {"type": "json_object"},
+        "max_tokens": 600,
+        "temperature": 0.1,
     }).encode("utf-8")
 
     req = urllib.request.Request(
@@ -354,10 +373,15 @@ def summarize(title: str, url: str) -> str:
     try:
         with urllib.request.urlopen(req, timeout=30) as resp:
             result = json.loads(resp.read().decode("utf-8"))
-            return result["choices"][0]["message"]["content"].strip()
+            content = json.loads(result["choices"][0]["message"]["content"])
+            summary = content.get("summary_zh", "").strip()
+            importance = content.get("importance", "中").strip()
+            if importance not in IMPORTANCE_PRIORITY:
+                importance = "中"
+            return {"summary_zh": summary, "importance": importance}
     except Exception as e:
         log(f"  DeepSeek error: {e}")
-        return ""
+        return fallback
 
 
 # ─── HTML Injection ───────────────────────────────────────────────────────────
@@ -407,18 +431,24 @@ def main() -> None:
 
     log(f"New items: {len(new_items)}")
 
-    # Re-summarise cached items that have an empty summary_zh
+    # Re-summarise cached items that have an empty summary_zh (unrelated to the
+    # importance tag — old cached items without "importance" are left as-is;
+    # the display sort just treats a missing tag as "中" via .get() fallback)
     retry_items = [i for i in cache if not i.get("summary_zh", "").strip()]
     if retry_items:
         log(f"Re-summarising {len(retry_items)} cached items with empty summaries …")
     for item in retry_items:
         log(f"  Re-summarising: {item['title'][:70]} …")
-        item["summary_zh"] = summarize(item["title"], item["url"])
+        result = summarize(item["title"], item["url"])
+        item["summary_zh"] = result["summary_zh"]
+        item["importance"] = result["importance"]
         time.sleep(0.5)
 
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
-        item["summary_zh"] = summarize(item["title"], item["url"])
+        result = summarize(item["title"], item["url"])
+        item["summary_zh"] = result["summary_zh"]
+        item["importance"] = result["importance"]
         time.sleep(0.5)
 
     # Prepend new items and save
@@ -428,7 +458,8 @@ def main() -> None:
     save_cache(cache)
     log(f"Cache saved: {len(cache)} total items")
 
-    # Inject into index.html: per day, sorted by source priority, deduplicated, max MAX_PER_DAY
+    # Inject into index.html: per day, sorted by importance then source priority,
+    # deduplicated, max MAX_PER_DAY
     from collections import defaultdict as _dd
     _by_day: dict = _dd(list)
     for _it in cache:
@@ -437,7 +468,10 @@ def main() -> None:
     for _d in sorted(_by_day.keys(), reverse=True):
         day_sorted = sorted(
             _by_day[_d],
-            key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99),
+            key=lambda x: (
+                IMPORTANCE_PRIORITY.get(x.get("importance", "中"), 1),
+                SOURCE_PRIORITY.get(x.get("source", ""), 99),
+            ),
         )
         # Deduplicate same-day articles with very similar titles (keep higher-priority source)
         seen_titles: set = set()
