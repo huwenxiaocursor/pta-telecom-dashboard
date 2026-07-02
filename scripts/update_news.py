@@ -261,52 +261,58 @@ def fetch_propakistani() -> list:
     return fetch_wp_recent("https://propakistani.pk", "ProPakistani")
 
 
+def _parse_phoneworld_page(xml_str: str) -> list:
+    """Parses a single RSS page's XML into item dicts. Each page is a complete,
+    independent XML document — must be parsed separately (concatenating raw XML
+    across pages produces invalid multi-root documents)."""
+    page_items = []
+    root = ET.fromstring(xml_str)
+    channel = root.find("channel")
+    if channel is None:
+        return page_items
+
+    for entry in channel.findall("item"):
+        title_el = entry.find("title")
+        link_el  = entry.find("link")
+        date_el  = entry.find("pubDate")
+
+        if title_el is None or link_el is None:
+            continue
+
+        title = clean(title_el.text or "")
+        url   = (link_el.text or "").strip()
+        if not title or not url:
+            continue
+
+        if not is_relevant(title):
+            continue
+
+        pub_date = today()
+        if date_el is not None and date_el.text:
+            try:
+                from email.utils import parsedate_to_datetime
+                pub_date = parsedate_to_datetime(date_el.text).strftime("%Y-%m-%d")
+            except Exception:
+                pass
+
+        page_items.append({"source": "PhoneWorld", "title": title, "url": url, "date": pub_date})
+    return page_items
+
+
 def fetch_phoneworld() -> list:
     log("Fetching PhoneWorld RSS …")
-    xml_str = ""
+    items = []
     for page in range(1, 6):
         chunk = fetch(f"https://www.phoneworld.com.pk/category/telecom-news/feed/?paged={page}")
         if not chunk or "<item>" not in chunk:
             break
-        xml_str += chunk
-    if not xml_str:
-        return []
-
-    items = []
-    try:
-        root = ET.fromstring(xml_str)
-        channel = root.find("channel")
-        if channel is None:
-            return []
-
-        for entry in channel.findall("item"):
-            title_el = entry.find("title")
-            link_el  = entry.find("link")
-            date_el  = entry.find("pubDate")
-
-            if title_el is None or link_el is None:
-                continue
-
-            title = clean(title_el.text or "")
-            url   = (link_el.text or "").strip()
-            if not title or not url:
-                continue
-
-            if not is_relevant(title):
-                continue
-
-            pub_date = today()
-            if date_el is not None and date_el.text:
-                try:
-                    from email.utils import parsedate_to_datetime
-                    pub_date = parsedate_to_datetime(date_el.text).strftime("%Y-%m-%d")
-                except Exception:
-                    pass
-
-            items.append({"source": "PhoneWorld", "title": title, "url": url, "date": pub_date})
-
-    except ET.ParseError as e:
-        log(f"  PhoneWorld XML parse error: {e}")
+        try:
+            items.extend(_parse_phoneworld_page(chunk))
+        except ET.ParseError as e:
+            log(f"  PhoneWorld XML parse error (page {page}): {e}")
+            break
+        if len(items) >= MAX_ITEMS_PER_SOURCE:
+            break
 
     log(f"  PhoneWorld: {len(items)} items found")
     return items[:MAX_ITEMS_PER_SOURCE]
