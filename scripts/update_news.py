@@ -95,6 +95,8 @@ _EXCLUDE = {
     "relaunches website", "revamps website",
     "blocking accounts", "block bank account", "freeze account", "frozen account",
     "account freezing",
+    "job openings", "new job openings", "hiring", "recruitment drive",
+    "career opportunities", "vacancies announced",
 }
 
 
