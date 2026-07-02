@@ -94,9 +94,11 @@ Google News RSS / WordPress REST API / PhoneWorld RSS
 update_news.py
     ↓ DeepSeek Chat API（200-300字中文摘要 + 重要性分级，同一次调用完成）
 news_cache.json（永久缓存，含 summary_zh、importance）
-    ↓ 按日期分组，每日限5条；PTA标题前置(封顶MAX_PTA_PER_DAY)优先，
+    ↓ 按日期分组，每日限8条(MAX_PER_DAY)；PTA标题前置(封顶MAX_PTA_PER_DAY)优先，
     ↓ 同级再按 IMPORTANCE_PRIORITY、SOURCE_PRIORITY 排序；
-    ↓ 字符串近似去重 + dedup_same_event()跨源同事件去重（仅最近DEDUP_LOOKBACK_DAYS天）
+    ↓ 字符串近似去重 + dedup_same_event()跨源同事件去重（仅最近DEDUP_LOOKBACK_DAYS天）；
+    ↓ ensure_source_diversity()：若排序结果来源单一但当天候选有多来源，强制换入
+    ↓ 至少 MIN_SOURCES_PER_DAY(2) 个不同来源
 index.html（sentinel 替换）
 ```
 
