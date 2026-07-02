@@ -31,13 +31,14 @@ playwright install chromium
 
 无测试框架、无 lint/build 步骤——三个页面均为纯静态 HTML，脚本靠运行后检查 `scripts/update_log.txt` / `scripts/macro_update_log.txt` / `scripts/news_update_log.txt` 验证效果。
 
-## 三页面架构
+## 四页面架构
 
 | 文件 | 定位 | 更新脚本 |
 |------|------|----------|
 | `index.html` | 门户页：导航卡片 + 新闻聚合 | `update_news.py` |
 | `industry_index.html` | 电信数据：用户趋势、市场份额、QoS | `update_pta_dashboard.py` |
 | `macro_index.html` | 宏观经济：利率/储备/汇率/侨汇/CPI 自动更新　·　GDP/财政/产业结构/贸易人工维护 | `update_macro_dashboard.py`（部分板块，见下方"宏观年度数据维护"） |
+| `zong_packages_index.html` | Zong 预付费/后付费套餐清单，支持搜索与分类筛选 | 纯手工维护，数据来自 zong.com.pk，无自动化脚本 |
 
 ## JS 数据注入机制
 

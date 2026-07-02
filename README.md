@@ -31,6 +31,10 @@
 - 通过 macOS Apple Mail 发送至 `huwenxiao@zong.com.pk`
 - 由 macOS `launchd` 调度，无需手动干预；依赖 09:30 的新闻抓取任务先完成
 
+### 5. Zong 套餐清单（`zong_packages_index.html`）
+- 预付费/后付费全套餐价格与内容，支持搜索与分类筛选（后付费/预付费/综合/流量/通话短信/应用专属/增值服务）
+- 数据来自 zong.com.pk（2026年6月采集），纯静态手工维护，不接入自动化管线
+
 ---
 
 ## 文件结构
@@ -39,6 +43,7 @@
 ├── index.html                          # 主看板页面（单文件，含图表+新闻）
 ├── industry_index.html                 # 行业数据子页
 ├── macro_index.html                    # 宏观经济子页
+├── zong_packages_index.html            # Zong 套餐清单（纯手工维护）
 ├── scripts/
 │   ├── update_pta_dashboard.py              # 抓取 PTA 月度用户/市场份额数据
 │   ├── update_macro_dashboard.py            # 抓取宏观数据：利率/储备/汇率/侨汇/CPI
