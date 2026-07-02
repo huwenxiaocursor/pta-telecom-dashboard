@@ -3,7 +3,7 @@
 Fetches latest Pakistan telecom/economy news from 5 sources,
 generates Chinese summaries via DeepSeek, and injects NEWS_DATA into index.html.
 
-Sources: PTA, SBP, PBS, ProPakistani (RSS), PhoneWorld
+Sources: PTA, SBP, PBS, ProPakistani (RSS), Business Recorder
 """
 
 import datetime
@@ -46,7 +46,7 @@ MIN_SOURCES_PER_DAY  = 2
 CUTOFF_DATE          = "2026-01-01"
 
 # Source priority for per-day display ranking (lower = higher priority)
-SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "TechJuice": 4}
+SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "BusinessRecorder": 3, "TechJuice": 4}
 
 # Importance ranking for per-day display (lower = shown first); see summarize()
 IMPORTANCE_PRIORITY = {"高": 0, "中": 1, "低": 2}
@@ -299,15 +299,31 @@ def fetch_propakistani() -> list:
     return fetch_wp_recent("https://propakistani.pk", "ProPakistani")
 
 
-def _parse_phoneworld_page(xml_str: str) -> list:
-    """Parses a single RSS page's XML into item dicts. Each page is a complete,
-    independent XML document — must be parsed separately (concatenating raw XML
-    across pages produces invalid multi-root documents)."""
-    page_items = []
-    root = ET.fromstring(xml_str)
+def fetch_business_recorder() -> list:
+    """Business Recorder's Business & Finance RSS — Pakistan's oldest financial
+    daily, replaced PhoneWorld (2026-07-02) after a quality complaint: PhoneWorld
+    was found to occasionally republish stale/outdated stories under a fresh
+    date (e.g. an article claiming the 5G spectrum auction "hadn't happened yet"
+    months after it actually concluded in March 2026). This is a general
+    business/finance feed (not telecom-specific), so is_relevant() filtering
+    matters a lot here — most items are unrelated (forex, gold, general markets)."""
+    log("Fetching Business Recorder RSS …")
+    items = []
+    xml_str = fetch("https://www.brecorder.com/feeds/business")
+    if not xml_str:
+        log("  Business Recorder: 0 items found")
+        return items
+
+    try:
+        root = ET.fromstring(xml_str)
+    except ET.ParseError as e:
+        log(f"  Business Recorder XML parse error: {e}")
+        return items
+
     channel = root.find("channel")
     if channel is None:
-        return page_items
+        log("  Business Recorder: 0 items found")
+        return items
 
     for entry in channel.findall("item"):
         title_el = entry.find("title")
@@ -333,26 +349,11 @@ def _parse_phoneworld_page(xml_str: str) -> list:
             except Exception:
                 pass
 
-        page_items.append({"source": "PhoneWorld", "title": title, "url": url, "date": pub_date})
-    return page_items
-
-
-def fetch_phoneworld() -> list:
-    log("Fetching PhoneWorld RSS …")
-    items = []
-    for page in range(1, 6):
-        chunk = fetch(f"https://www.phoneworld.com.pk/category/telecom-news/feed/?paged={page}")
-        if not chunk or "<item>" not in chunk:
-            break
-        try:
-            items.extend(_parse_phoneworld_page(chunk))
-        except ET.ParseError as e:
-            log(f"  PhoneWorld XML parse error (page {page}): {e}")
-            break
+        items.append({"source": "BusinessRecorder", "title": title, "url": url, "date": pub_date})
         if len(items) >= MAX_ITEMS_PER_SOURCE:
             break
 
-    log(f"  PhoneWorld: {len(items)} items found")
+    log(f"  Business Recorder: {len(items)} items found")
     return items[:MAX_ITEMS_PER_SOURCE]
 
 
@@ -571,7 +572,7 @@ def main() -> None:
     known  = {item["url"] for item in cache}
     log(f"Cache: {len(cache)} existing items")
 
-    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_phoneworld,
+    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_business_recorder,
                 fetch_techjuice]
     new_items: list = []
 
