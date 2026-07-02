@@ -47,6 +47,14 @@ SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "Tech
 # Importance ranking for per-day display (lower = shown first); see summarize()
 IMPORTANCE_PRIORITY = {"高": 0, "中": 1, "低": 2}
 
+# Titles mentioning PTA are front-loaded in the per-day display, but capped so
+# they don't crowd out every other source when PTA has a busy news day.
+MAX_PTA_PER_DAY = 3
+
+# Only run the DeepSeek cross-source dedup pass (see dedup_same_event()) on
+# days within this many days of today, to bound API cost as the cache grows.
+DEDUP_LOOKBACK_DAYS = 3
+
 # Compound/specific telecom terms — substring match is safe for these
 _TELECOM_SUB = {
     "telecom", "ufone", "telenor", "airlink", "nayatel", "wateen", "ptcl",
@@ -109,6 +117,10 @@ def is_relevant(title: str) -> bool:
         return True
     return any(" " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
                for kw in _TELECOM_WB)
+
+
+def mentions_pta(title: str) -> bool:
+    return re.search(r"\bpta\b", title, re.IGNORECASE) is not None
 
 
 # ─── Utilities ────────────────────────────────────────────────────────────────
@@ -392,6 +404,67 @@ def summarize(title: str, url: str) -> dict:
         return fallback
 
 
+def dedup_same_event(items: list) -> list:
+    """Cross-source dedup for the same underlying event reported with different
+    title wording (the cheap string-similarity dedup in main() only catches
+    near-identical titles, e.g. it misses ProPakistani's "IHC Clears Telenor
+    Pakistan's Merger Into Ufone" vs PhoneWorld's "IHC Approves Telenor-Ufone
+    Merger..." describing the same event). `items` must already be sorted by
+    (importance, source priority) — within each duplicate group we keep the
+    lowest index (i.e. the best-ranked copy) and drop the rest."""
+    if len(items) < 2 or not DEEPSEEK_API_KEY:
+        return items
+
+    listing = "\n".join(f"{i}. [{it['source']}] {it['title']}" for i, it in enumerate(items))
+    payload = json.dumps({
+        "model": "deepseek-chat",
+        "messages": [
+            {
+                "role": "system",
+                "content": (
+                    "你是新闻编辑助手。下面是同一天抓取到的新闻标题列表（编号从0开始），"
+                    "可能来自不同网站，同一新闻事件常被不同网站用不同措辞报道。"
+                    "请找出其中描述的是同一新闻事件的条目，按分组返回编号（每组至少2条），"
+                    "完全没有重复事件时返回空数组。"
+                    '严格按JSON格式输出：{"duplicate_groups": [[0,3],[5,7]]}'
+                ),
+            },
+            {"role": "user", "content": listing},
+        ],
+        "response_format": {"type": "json_object"},
+        "max_tokens": 300,
+        "temperature": 0,
+    }).encode("utf-8")
+
+    req = urllib.request.Request(
+        "https://api.deepseek.com/chat/completions",
+        data=payload,
+        headers={
+            "Content-Type": "application/json",
+            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+        },
+    )
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            result = json.loads(resp.read().decode("utf-8"))
+            content = json.loads(result["choices"][0]["message"]["content"])
+            groups = content.get("duplicate_groups", [])
+    except Exception as e:
+        log(f"  DeepSeek dedup error: {e}")
+        return items
+
+    drop: set = set()
+    for group in groups:
+        valid = sorted(i for i in group if isinstance(i, int) and 0 <= i < len(items))
+        if len(valid) < 2:
+            continue
+        drop.update(valid[1:])  # keep the first (best-ranked) copy
+
+    if drop:
+        log(f"  Cross-source dedup: dropping {len(drop)} duplicate-event item(s)")
+    return [it for i, it in enumerate(items) if i not in drop]
+
+
 # ─── HTML Injection ───────────────────────────────────────────────────────────
 
 def inject_into_html(items: list) -> None:
@@ -467,11 +540,18 @@ def main() -> None:
     log(f"Cache saved: {len(cache)} total items")
 
     # Inject into index.html: per day, sorted by importance then source priority,
-    # deduplicated, max MAX_PER_DAY
+    # deduplicated, PTA-titled items front-loaded (capped), max MAX_PER_DAY
     from collections import defaultdict as _dd
     _by_day: dict = _dd(list)
     for _it in cache:
         _by_day[_it.get("date", "")].append(_it)
+
+    # Cross-source semantic dedup (DeepSeek call per day) is only worth doing
+    # for recent days — older days' item sets never change between runs, so
+    # re-spending an API call on them every single run would scale badly as
+    # the cache grows.
+    dedup_cutoff = (datetime.date.today() - datetime.timedelta(days=DEDUP_LOOKBACK_DAYS)).isoformat()
+
     display: list = []
     for _d in sorted(_by_day.keys(), reverse=True):
         day_sorted = sorted(
@@ -489,7 +569,25 @@ def main() -> None:
             if _key not in seen_titles:
                 seen_titles.add(_key)
                 deduped.append(_it)
-        display.extend(deduped[:MAX_PER_DAY])
+
+        if _d >= dedup_cutoff:
+            deduped = dedup_same_event(deduped)
+
+        # PTA-titled items are front-loaded but capped so they don't crowd out
+        # every other source on a busy PTA news day.
+        pta_items    = [it for it in deduped if mentions_pta(it.get("title", ""))]
+        other_items  = [it for it in deduped if not mentions_pta(it.get("title", ""))]
+        day_display  = pta_items[:MAX_PTA_PER_DAY]
+        leftover     = sorted(
+            pta_items[MAX_PTA_PER_DAY:] + other_items,
+            key=lambda x: (
+                IMPORTANCE_PRIORITY.get(x.get("importance", "中"), 1),
+                SOURCE_PRIORITY.get(x.get("source", ""), 99),
+            ),
+        )
+        day_display += leftover[:max(0, MAX_PER_DAY - len(day_display))]
+
+        display.extend(day_display)
     display = display[:MAX_DISPLAY_ITEMS]
     inject_into_html(display)
 
