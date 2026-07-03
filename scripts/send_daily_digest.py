@@ -19,13 +19,13 @@ DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
 TO_EMAIL      = "huwenxiao@zong.com.pk"
 
 SOURCE_COLORS = {
-    "PTA":          "#1c63d4",
-    "SBP":          "#01652e",
-    "ProPakistani": "#ef7a15",
-    "PhoneWorld":   "#d71920",
-    "TechJuice":    "#0ea5e9",
+    "PTA":              "#1c63d4",
+    "SBP":              "#01652e",
+    "ProPakistani":     "#ef7a15",
+    "BusinessRecorder": "#7c3aed",
+    "PhoneWorld":       "#d71920",  # 历史数据仍可能命中旧日期，保留配色
+    "TechJuice":        "#0ea5e9",
 }
-SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "PhoneWorld": 3, "TechJuice": 4}
 
 MAX_DIGEST_ITEMS = 6
 
@@ -51,13 +51,25 @@ def is_digest_relevant(title: str) -> bool:
 
 
 def load_today_news(date_str: str) -> list:
-    with open(CACHE_FILE, encoding="utf-8") as f:
-        cache = json.load(f)
-    items = [i for i in cache
+    """Reads the already-ranked NEWS_DATA that update_news.py injected into
+    index.html — this is the exact same PTA-priority/importance/source-priority
+    sorted, cross-source-deduped, source-diversity-enforced list the webpage
+    shows for that day. The digest must never recompute its own independent
+    ranking here: an earlier version did, and it silently drifted out of sync
+    with update_news.py's rules (e.g. still had "PhoneWorld" in its priority
+    map after it was replaced by "BusinessRecorder", so BusinessRecorder items
+    always sorted last and fell off the MAX_DIGEST_ITEMS cutoff). Reading the
+    pre-computed list keeps the two permanently in sync by construction."""
+    import re
+    html = INDEX_FILE.read_text(encoding="utf-8")
+    s = html.find("// ===AUTO-NEWS-START===")
+    e = html.find("// ===AUTO-NEWS-END===")
+    m = re.search(r"const NEWS_DATA = (\[.*\]);", html[s:e], re.S) if s != -1 and e != -1 else None
+    all_items = json.loads(m.group(1)) if m else []
+    items = [i for i in all_items
              if i.get("date") == date_str
              and i.get("summary_zh", "").strip()
              and is_digest_relevant(i.get("title", ""))]
-    items = sorted(items, key=lambda x: SOURCE_PRIORITY.get(x.get("source", ""), 99))
     return items[:MAX_DIGEST_ITEMS]
 
 
@@ -131,7 +143,7 @@ body{{
 </div>
 <div class="body">{cards}</div>
 <div class="footer">
-  <span class="footer-left">数据来源：PTA · ProPakistani · SBP · PhoneWorld · TechJuice &nbsp;|&nbsp; 每日自动更新</span>
+  <span class="footer-left">数据来源：PTA · ProPakistani · SBP · Business Recorder · TechJuice &nbsp;|&nbsp; 每日自动更新</span>
 </div>
 </body></html>"""
 
