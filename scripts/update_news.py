@@ -42,7 +42,14 @@ MAX_PER_DAY          = 8
 # pool actually has that many distinct sources available) — prevents one busy
 # source (e.g. PhoneWorld having a big news day) from crowding out every other
 # outlet entirely.
-MIN_SOURCES_PER_DAY  = 2
+MIN_SOURCES_PER_DAY  = 3
+# If a day's candidate pool doesn't actually have MIN_SOURCES_PER_DAY distinct
+# sources available, showing a full MAX_PER_DAY items would just be one or two
+# outlets' entire output for the day, not a diverse cross-section — so the cap
+# drops to LOW_DIVERSITY_CAP instead. This is a real fallback, not a target:
+# don't invent extra items to reach it, and don't force distinct sources that
+# don't exist that day.
+LOW_DIVERSITY_CAP    = 5
 CUTOFF_DATE          = "2026-01-01"
 
 # Source priority for per-day display ranking (lower = higher priority)
@@ -657,6 +664,15 @@ def main() -> None:
         if _d >= dedup_cutoff:
             deduped = dedup_same_event(deduped)
 
+        # The display cap itself scales with how many distinct sources the day
+        # actually has to offer: a day where only 1-2 outlets published
+        # anything shouldn't be padded out to MAX_PER_DAY just because one of
+        # them was prolific — that's one or two outlets' full output, not a
+        # diverse cross-section. Only days with genuine multi-source coverage
+        # get the full cap.
+        _distinct_sources = len({it.get("source", "") for it in deduped})
+        day_cap = MAX_PER_DAY if _distinct_sources >= MIN_SOURCES_PER_DAY else LOW_DIVERSITY_CAP
+
         # PTA-titled items are front-loaded but capped so they don't crowd out
         # every other source on a busy PTA news day.
         pta_items    = [it for it in deduped if mentions_pta(it.get("title", ""))]
@@ -669,7 +685,7 @@ def main() -> None:
                 SOURCE_PRIORITY.get(x.get("source", ""), 99),
             ),
         )
-        day_display += leftover[:max(0, MAX_PER_DAY - len(day_display))]
+        day_display += leftover[:max(0, day_cap - len(day_display))]
 
         day_sorted_all = sorted(
             deduped,
