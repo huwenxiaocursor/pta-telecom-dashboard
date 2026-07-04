@@ -75,6 +75,19 @@
       margin-bottom: 16px; padding-bottom: 10px;
       border-bottom: 3px solid #1c63d4; display: inline-block;
     }
+    .news-section-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      flex-wrap: wrap; gap: 10px 16px;
+    }
+    .news-section-header .section-title { margin-bottom: 16px; }
+    .news-search {
+      padding: 8px 14px; border: 1px solid #d6dbe3; border-radius: 8px;
+      font-size: 13px; min-width: 240px; background: #fff; margin-bottom: 16px;
+    }
+    .news-search:focus { outline: none; border-color: #1c63d4; }
+    .news-empty {
+      text-align: center; color: #9ca3af; font-size: 14px; padding: 40px 0;
+    }
 
     /* ── Month Block ── */
     .month-block { margin-bottom: 10px; }
@@ -180,8 +193,12 @@
   </div>
 
   <!-- News Calendar -->
-  <h2 class="section-title">巴基斯坦通信行业新闻</h2>
+  <div class="news-section-header">
+    <h2 class="section-title">巴基斯坦通信行业新闻</h2>
+    <input id="newsSearch" class="news-search" type="text" placeholder="搜索关键词（标题/摘要）…">
+  </div>
   <div id="newsCalendar"></div>
+  <div id="newsEmpty" class="news-empty" style="display:none">没有匹配的新闻</div>
 
 </div>
 
@@ -1404,6 +1421,7 @@ function renderCalendar() {
 
     const block = document.createElement('div');
     block.className = 'month-block';
+    block.dataset.wasCurrent = isCurrentMonth ? '1' : '0';
 
     // Month header
     const header = document.createElement('div');
@@ -1466,6 +1484,7 @@ function buildNewsItem(item) {
   div.className = 'news-item';
   div.style.borderLeftColor = color;
   div.style.setProperty('--source-color', color);
+  div.dataset.search = `${item.title} ${item.summary_zh || ''} ${item.source}`.toLowerCase();
   div.innerHTML = `
     <div class="news-item-header">
       <span class="source-tag" style="background:${color}">${esc(item.source)}</span>
@@ -1475,6 +1494,51 @@ function buildNewsItem(item) {
   `;
   return div;
 }
+
+function filterNews(query) {
+  const q = query.trim().toLowerCase();
+  const emptyEl = document.getElementById('newsEmpty');
+  let anyMatch = false;
+
+  document.querySelectorAll('.month-block').forEach(block => {
+    let monthHasMatch = false;
+
+    block.querySelectorAll('.day-row').forEach(row => {
+      let dayHasMatch = false;
+      row.querySelectorAll('.news-item').forEach(item => {
+        const match = !q || item.dataset.search.includes(q);
+        item.style.display = match ? '' : 'none';
+        if (match) dayHasMatch = true;
+      });
+      row.style.display = dayHasMatch ? '' : 'none';
+      if (dayHasMatch) monthHasMatch = true;
+    });
+
+    block.style.display = monthHasMatch ? '' : 'none';
+    if (monthHasMatch) anyMatch = true;
+
+    // Searching auto-expands every month with a match so results aren't
+    // hidden behind a collapsed older month; clearing the search restores
+    // each month's original collapsed/expanded state.
+    const content = block.querySelector('.month-content');
+    const icon    = block.querySelector('.month-toggle-icon');
+    const hint    = block.querySelector('.month-hint');
+    const wasCurrent = block.dataset.wasCurrent === '1';
+    if (q) {
+      content.classList.remove('collapsed');
+      if (icon) icon.textContent = '▼';
+      if (hint) hint.textContent = wasCurrent ? '当月' : '';
+    } else {
+      content.classList.toggle('collapsed', !wasCurrent);
+      if (icon) icon.textContent = wasCurrent ? '▼' : '▶';
+      if (hint) hint.textContent = wasCurrent ? '当月' : '点击展开';
+    }
+  });
+
+  emptyEl.style.display = (q && !anyMatch) ? 'block' : 'none';
+}
+
+document.getElementById('newsSearch').addEventListener('input', e => filterNews(e.target.value));
 
 document.getElementById('updateDate').textContent =
   new Date().toLocaleDateString('zh-CN', { year:'numeric', month:'long', day:'numeric' });
