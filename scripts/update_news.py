@@ -622,6 +622,12 @@ def main() -> None:
     from collections import defaultdict as _dd
     _by_day: dict = _dd(list)
     for _it in cache:
+        # Items whose summarize() call errored/timed out (e.g. DeepSeek timeout)
+        # are left with an empty summary_zh and picked up by the retry_items
+        # pass on the next run — they must not show as a blank card in the
+        # meantime, so they're excluded from display until they have content.
+        if not _it.get("summary_zh", "").strip():
+            continue
         _by_day[_it.get("date", "")].append(_it)
 
     # Cross-source semantic dedup (DeepSeek call per day) is only worth doing
