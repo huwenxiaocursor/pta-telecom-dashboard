@@ -28,7 +28,7 @@
 
 ### 4. 每日邮件摘要（`scripts/send_daily_digest.py`）
 - 每天 10:10 PKT 自动生成 T-1（昨天）新闻高清图片（960px，3× 分辨率）
-- 通过 macOS Apple Mail 发送至 `huwenxiao@zong.com.pk`
+- 通过 macOS Apple Mail 生成邮件草稿，18人名单全部放在密送栏，不自动发送——保存到草稿箱，由人工确认后手动发送
 - 由 macOS `launchd` 调度，无需手动干预；依赖 09:30 的新闻抓取任务先完成
 
 ### 5. Zong 套餐清单（`zong_packages_index.html`）
@@ -76,7 +76,7 @@
 | PTA 电信数据更新 | 每月 10、25 日 10:00 PKT | GitHub Actions（`update.yml` → `update-industry` job） |
 | 宏观经济数据更新 | 每月 10、25 日 10:00 PKT | GitHub Actions（`update.yml` → `update-macro` job） |
 | 抓取新闻 + 生成摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd（`run_news_fetch.sh`） |
-| 生成日报图片并发邮件（T-1 日新闻） | 每天 10:10 PKT | 本地 macOS launchd（`run_digest.sh`） |
+| 生成日报图片邮件草稿（T-1 日新闻，待人工确认发送） | 每天 10:10 PKT | 本地 macOS launchd（`run_digest.sh`） |
 
 > PTA 电信数据与宏观经济数据是同一个 workflow 文件里的两个独立 job，共用同一个 cron 触发时间，但各自独立提交/通知，一个失败不影响另一个。宏观数据中 GDP/财政/产业结构/贸易不参与自动化，人工维护（详见 `CLAUDE.md`「宏观年度数据维护」）。
 >
