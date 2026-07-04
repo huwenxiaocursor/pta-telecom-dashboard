@@ -80,9 +80,15 @@
       flex-wrap: wrap; gap: 10px 16px;
     }
     .news-section-header .section-title { margin-bottom: 16px; }
+    .news-search-group {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 16px;
+    }
+    .news-search-label {
+      font-size: 13px; font-weight: 600; color: #4b5563; white-space: nowrap;
+    }
     .news-search {
       padding: 8px 14px; border: 1px solid #d6dbe3; border-radius: 8px;
-      font-size: 13px; min-width: 240px; background: #fff; margin-bottom: 16px;
+      font-size: 13px; min-width: 240px; background: #fff;
     }
     .news-search:focus { outline: none; border-color: #1c63d4; }
     .news-empty {
@@ -195,7 +201,10 @@
   <!-- News Calendar -->
   <div class="news-section-header">
     <h2 class="section-title">巴基斯坦通信行业新闻</h2>
-    <input id="newsSearch" class="news-search" type="text" placeholder="搜索关键词（标题/摘要）…">
+    <div class="news-search-group">
+      <label for="newsSearch" class="news-search-label">新闻内容搜索</label>
+      <input id="newsSearch" class="news-search" type="text" placeholder="搜索关键词（标题/摘要）…">
+    </div>
   </div>
   <div id="newsCalendar"></div>
   <div id="newsEmpty" class="news-empty" style="display:none">没有匹配的新闻</div>
