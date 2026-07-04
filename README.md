@@ -21,7 +21,7 @@
 
 ### 3. 通信行业新闻聚合（`index.html` 新闻区）
 - 来源：PTA 官网、ProPakistani、SBP、Business Recorder、TechJuice
-- 每日最多 8 条，且至少保证2个不同来源；PTA标题新闻优先前置（封顶3条），同级再按重要性、媒体优先级排序（PTA > ProPakistani > SBP > BusinessRecorder > TechJuice）
+- 每日展示上限随当天渠道多样性动态调整：候选覆盖≥3个不同来源时上限8条，否则降为5条（避免一两家媒体的产出把当日新闻栏"撑满"）；PTA标题新闻优先前置（封顶3条），同级再按重要性、媒体优先级排序（PTA > ProPakistani > SBP > BusinessRecorder > TechJuice）
 - AI 自动生成 200-300 字中文摘要（DeepSeek Chat API，基于抓取到的正文，无正文时退回title-only安全模式）+ 高/中/低重要性分级
 - 相关性过滤：仅保留电信、移动网络、宏观经济、IMF 相关内容
 - 同一事件跨来源去重（近3天，DeepSeek判定）
