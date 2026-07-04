@@ -2,7 +2,8 @@
 """
 每日电信新闻图片邮件
 - 截取本地 index.html 当天新闻区域（2× 高清）
-- 通过 macOS Apple Mail 发送到指定邮箱
+- 通过 macOS Apple Mail 生成邮件草稿（收件人放在密送栏），不自动发送——
+  由用户在 Mail 的"草稿箱"里人工确认后手动发送
 """
 
 import datetime
@@ -16,7 +17,28 @@ BASE_DIR      = pathlib.Path(__file__).resolve().parent
 CACHE_FILE    = BASE_DIR / "news_cache.json"
 INDEX_FILE    = BASE_DIR.parent / "index.html"
 DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
-TO_EMAIL      = "huwenxiao@zong.com.pk"
+
+# 密送收件人名单（草稿只填密送栏，不填"收件人"栏）
+BCC_EMAILS = [
+    "huojunli@zong.com.pk",
+    "wangyong@zong.com.pk",
+    "huangzhidong@zong.com.pk",
+    "maoweiliang@zong.com.pk",
+    "wujianhe@zong.com.pk",
+    "lengxing@zong.com.pk",
+    "fanjing@zong.com.pk",
+    "zhanglei@zong.com.pk",
+    "jiangjisuo@zong.com.pk",
+    "fanjiehuan@zong.com.pk",
+    "lixiaowei@zong.com.pk",
+    "jingxiuming@zong.com.pk",
+    "yangchao@zong.com.pk",
+    "yanmingqiang@zong.com.pk",
+    "zhaofeilong@zong.com.pk",
+    "luweidong@zong.com.pk",
+    "huwenxiao@zong.com.pk",
+    "weilin@zong.com.pk",
+]
 
 SOURCE_COLORS = {
     "PTA":              "#1c63d4",
@@ -167,7 +189,9 @@ def html_to_png(html: str, out_path: str) -> None:
     print(f"  图片已生成：{out_path}")
 
 
-def send_via_apple_mail(img_path: str, subject: str, body: str) -> None:
+def save_draft_via_apple_mail(img_path: str, subject: str, body: str) -> None:
+    """Creates the message with all recipients in Bcc and saves it to Drafts —
+    deliberately does NOT call `send`. The user reviews and sends manually."""
     def esc(s: str) -> str:
         return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
 
@@ -175,11 +199,14 @@ def send_via_apple_mail(img_path: str, subject: str, body: str) -> None:
         'tell application "Mail"',
         f'set msg to make new outgoing message with properties {{subject:"{esc(subject)}", content:"{esc(body)}", visible:false}}',
         "tell msg",
-        f'make new to recipient with properties {{address:"{TO_EMAIL}"}}',
+    ]
+    for addr in BCC_EMAILS:
+        lines.append(f'make new bcc recipient with properties {{address:"{esc(addr)}"}}')
+    lines += [
         f'make new attachment with properties {{file name:POSIX file "{img_path}"}} at after the last paragraph',
         "delay 2",
-        "send",
         "end tell",
+        "save msg",
         "end tell",
     ]
     args = ["osascript"]
@@ -190,7 +217,7 @@ def send_via_apple_mail(img_path: str, subject: str, body: str) -> None:
     if result.returncode != 0:
         print(f"  AppleScript 错误：{result.stderr.strip()}", file=sys.stderr)
         sys.exit(1)
-    print(f"  邮件已发送 → {TO_EMAIL}")
+    print(f"  邮件草稿已保存到 Mail 的草稿箱，密送 {len(BCC_EMAILS)} 人，待手动确认发送")
 
 
 def main() -> None:
@@ -228,8 +255,8 @@ def main() -> None:
                f"在线查看完整版：\n"
                f"{DASHBOARD_URL}")
 
-    print(f"  发送邮件：{subject}")
-    send_via_apple_mail(img_path, subject, body)
+    print(f"  生成邮件草稿：{subject}")
+    save_draft_via_apple_mail(img_path, subject, body)
     print("  完成。")
 
 
