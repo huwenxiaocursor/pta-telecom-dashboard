@@ -191,20 +191,28 @@ def html_to_png(html: str, out_path: str) -> None:
 
 def save_draft_via_apple_mail(img_path: str, subject: str, body: str) -> None:
     """Creates the message with all recipients in Bcc and saves it to Drafts —
-    deliberately does NOT call `send`. The user reviews and sends manually."""
+    deliberately does NOT call `send`. The user reviews and sends manually.
+
+    Must be created with visible:true. With visible:false, Mail never
+    instantiates a real compose window/WebView, so the inserted image
+    attachment isn't embedded into the message's real content the same way —
+    it shows fine in the read-only Drafts preview pane (which renders from a
+    different code path) but disappears when the draft is reopened for
+    editing (double-click), because that path relies on the compose view's
+    persisted state. This was a real observed bug (2026-07-04)."""
     def esc(s: str) -> str:
         return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
 
     lines = [
         'tell application "Mail"',
-        f'set msg to make new outgoing message with properties {{subject:"{esc(subject)}", content:"{esc(body)}", visible:false}}',
+        f'set msg to make new outgoing message with properties {{subject:"{esc(subject)}", content:"{esc(body)}", visible:true}}',
         "tell msg",
     ]
     for addr in BCC_EMAILS:
         lines.append(f'make new bcc recipient with properties {{address:"{esc(addr)}"}}')
     lines += [
         f'make new attachment with properties {{file name:POSIX file "{img_path}"}} at after the last paragraph',
-        "delay 2",
+        "delay 3",
         "end tell",
         "save msg",
         "end tell",
