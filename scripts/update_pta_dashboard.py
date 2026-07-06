@@ -18,6 +18,8 @@ KNOWN_QOS_FILE = BASE_DIR / "known_qos_pdfs.json"
 QOS_ALERT_FILE = BASE_DIR / "qos_update_needed.txt"
 HISTORY_FILE = BASE_DIR / "history_monthly.json"
 ANNUAL_OVERRIDES_FILE = BASE_DIR / "annual_overrides.json"
+KNOWN_OPERATORS_FILE = BASE_DIR / "known_operators.json"
+OPERATORS_ALERT_FILE = BASE_DIR / "operators_changed_needed.txt"
 
 MONTH_MAP = {'Jan': 1, 'Feb': 2, 'Mar': 3, 'Apr': 4, 'May': 5, 'Jun': 6,
              'Jul': 7, 'Aug': 8, 'Sep': 9, 'Oct': 10, 'Nov': 11, 'Dec': 12}
@@ -128,6 +130,66 @@ def build_yoy_arrays(history, key, series_names, years=(2025, 2026)):
     return result
 
 
+def dashboard_dimensions():
+    """本看板当前追踪的数据维度清单，供运营商名单变化时人工核对页面重建范围。"""
+    lines = ["月度 · cellularSubs（月度移动用户数，按运营商）"]
+    for key, _cat, chart_id, names in MONTHLY_EXTRA_CHARTS:
+        lines.append(f"月度 · {key}（{chart_id}）series={names}")
+    for _cat, chart_id, names in ANNUAL_SOURCES:
+        lines.append(f"年度 · {chart_id} series={names}")
+    return lines
+
+
+def check_operator_roster(series):
+    """对比 PTA 月度用户数图当前的运营商名单与已知基线。
+
+    发现新增/消失（如 Telenor×Ufone 合并后 PTA 报表不再单列 Telenor）时，写提醒文件
+    列出「变化了什么 + PTA 当前维度 + 本看板追踪维度」并抛错中止本次更新，避免把不同
+    口径的数据混进历史。必须在下方 missing 校验之前调用——否则运营商一消失会先被那个
+    含糊的「缺少运营商数据」错误拦下，给不出有用反馈。
+
+    确认新名单、重建 industry_index.html 后，需人工把 known_operators.json 更新为新名单
+    以解除提醒（与 macro_gdp_update_needed.txt 需人工处理后自行清除同理）。
+    """
+    current = sorted({s['name'] for s in series if s.get('name') and s['name'] != 'Total'})
+    if not KNOWN_OPERATORS_FILE.exists():
+        KNOWN_OPERATORS_FILE.write_text(
+            json.dumps(current, ensure_ascii=False, indent=2), encoding='utf-8')
+        log(f"首次记录运营商名单基线：{current}")
+        return
+    known = json.loads(KNOWN_OPERATORS_FILE.read_text(encoding='utf-8'))
+    if set(current) == set(known):
+        if OPERATORS_ALERT_FILE.exists():
+            OPERATORS_ALERT_FILE.unlink()
+        return
+
+    appeared = sorted(set(current) - set(known))
+    disappeared = sorted(set(known) - set(current))
+    msg = (
+        "检测到 PTA 月度用户数图表的运营商名单发生变化"
+        "（可能是 Telenor×Ufone 合并等口径调整）。\n"
+        "已中止本次自动更新，以免把不同口径的数据写进历史。"
+        "请人工确认后再让 Claude 重新生成 industry_index.html。\n\n"
+        f"新出现的运营商：{appeared or '（无）'}\n"
+        f"消失的运营商：{disappeared or '（无）'}\n"
+        f"PTA 当前实际提供的运营商维度：{current}\n"
+        f"此前已知名单：{known}\n\n"
+        "本看板目前追踪的数据维度（重建页面时需逐项确认新口径）：\n"
+        + "\n".join(f"  - {l}" for l in dashboard_dimensions())
+        + "\n\n处理提示：\n"
+        "  1. 合并前各运营商的历史数据保留原口径，勿覆盖（沿用本仓库只增不覆盖惯例）。\n"
+        "  2. 同比(YoY)口径：合并后新公司应与去年被并各方之和对比，否则会显示虚假暴涨。\n"
+        "  3. 确认新名单后，更新 OPERATORS 常量与 industry_index.html 中的\n"
+        "     COLORS / 用户数数组 / QoS 指标 / cityWins / 排名趋势表，\n"
+        "     再把 known_operators.json 改成新名单以解除本提醒。\n"
+    )
+    OPERATORS_ALERT_FILE.write_text(msg, encoding='utf-8')
+    log(f"运营商名单变化：新增{appeared}，消失{disappeared}，"
+        f"已写入 operators_changed_needed.txt 并中止更新")
+    raise RuntimeError(
+        "运营商名单变化，需人工确认后重建页面（详见 operators_changed_needed.txt）")
+
+
 def fetch_subscriber_data():
     html = fetch(SUBSCRIBERS_URL)
     anchor = html.find('Highcharts.chart("monthly-cellular-subscribers-chart"')
@@ -142,6 +204,9 @@ def fetch_subscriber_data():
 
     categories = json.loads(cat_m.group(1))
     series = json.loads(series_m.group(1))
+
+    # 运营商名单变化检测（须在下方 missing 校验之前）：合并/改名时给出反馈并中止
+    check_operator_roster(series)
 
     raw_months = [to_iso_month(c) for c in categories]
     raw_subs = {s['name']: s['data'] for s in series if s['name'] in OPERATORS}
