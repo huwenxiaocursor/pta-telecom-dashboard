@@ -62,9 +62,32 @@ IMPORTANCE_PRIORITY = {"高": 0, "中": 1, "低": 2}
 # they don't crowd out every other source when PTA has a busy news day.
 MAX_PTA_PER_DAY = 3
 
-# Only run the DeepSeek cross-source dedup pass (see dedup_same_event()) on
-# days within this many days of today, to bound API cost as the cache grows.
+# Only run the cross-source dedup pass (see mark_duplicates()) on days within
+# this many days of today, to bound API cost as the cache grows.
 DEDUP_LOOKBACK_DAYS = 3
+
+# Deterministic entity-overlap fallback for same-event dedup (backs up the LLM
+# pass, which is non-deterministic and occasionally misses an obvious duplicate
+# even at temperature=0 — e.g. it once let both ProPakistani's "PTCL's Chief
+# People Officer Umer Farid Joins PSTD Board of Governors" and TechJuice's "PTCL
+# CPO Umer Farid Appointed to PSTD Board of Governors" through). Two same-day
+# titles are judged the same event when they share at least
+# ENTITY_OVERLAP_MIN_RARE tokens that are *rare that day* (appear in at most
+# ENTITY_RARE_DF_MAX of the day's titles) — high-signal names like "Umer",
+# "Farid", "PSTD" rather than high-frequency topic words like "Ufone"/"Merger"
+# that many of the day's stories share. Deliberately conservative (miss rather
+# than wrongly merge two different stories on the same topic).
+ENTITY_OVERLAP_MIN_RARE = 3
+ENTITY_RARE_DF_MAX      = 3
+_DEDUP_STOP = {
+    "the", "a", "an", "of", "to", "in", "on", "for", "and", "or", "after",
+    "before", "will", "can", "could", "may", "might", "be", "is", "are", "was",
+    "were", "as", "at", "by", "with", "from", "into", "over", "under", "up",
+    "out", "off", "its", "their", "new", "get", "gets", "face", "faces", "amid",
+    "than", "more", "less", "how", "what", "why", "when", "who", "until",
+    "further", "notice", "existing", "continue", "expected", "rise", "change",
+    "pakistan", "pakistani", "pakistans",
+}
 
 # Compound/specific telecom terms — substring match is safe for these
 _TELECOM_SUB = {
@@ -459,16 +482,16 @@ def summarize(title: str, url: str, article_text: str = "") -> dict:
         return fallback
 
 
-def dedup_same_event(items: list) -> list:
-    """Cross-source dedup for the same underlying event reported with different
-    title wording (the cheap string-similarity dedup in main() only catches
-    near-identical titles, e.g. it misses ProPakistani's "IHC Clears Telenor
-    Pakistan's Merger Into Ufone" vs PhoneWorld's "IHC Approves Telenor-Ufone
-    Merger..." describing the same event). `items` must already be sorted by
-    (importance, source priority) — within each duplicate group we keep the
-    lowest index (i.e. the best-ranked copy) and drop the rest."""
+def llm_dedup_groups(items: list) -> list:
+    """Ask DeepSeek to group same-day titles that report the same underlying
+    event with different wording (the cheap string-similarity dedup in main()
+    only catches near-identical titles). Returns a list of index groups, e.g.
+    [[0, 3], [5, 7]]; [] on error or when nothing matches. This is the main
+    recall pass but is non-deterministic — mark_duplicates() unions it with the
+    deterministic entity_overlap_groups() fallback so an occasional LLM miss
+    doesn't let a duplicate through."""
     if len(items) < 2 or not DEEPSEEK_API_KEY:
-        return items
+        return []
 
     listing = "\n".join(f"{i}. [{it['source']}] {it['title']}" for i, it in enumerate(items))
     payload = json.dumps({
@@ -479,7 +502,16 @@ def dedup_same_event(items: list) -> list:
                 "content": (
                     "你是新闻编辑助手。下面是同一天抓取到的新闻标题列表（编号从0开始），"
                     "可能来自不同网站，同一新闻事件常被不同网站用不同措辞报道。"
-                    "请找出其中描述的是同一新闻事件的条目，按分组返回编号（每组至少2条），"
+                    "判断是否同一事件的标准：同一主体 + 同一动作 + 同一对象，"
+                    "即使措辞不同也算同一事件——注意识别：\n"
+                    "· 缩写与全称（如 CPO = Chief People Officer，MoU = 谅解备忘录）；\n"
+                    "· 同义动词（Joins / Appointed to / Named to / Elected to 表示同一任命）；\n"
+                    "· 主动被动、词序调整、增删修饰语。\n"
+                    "示例：「PTCL's Chief People Officer Umer Farid Joins PSTD Board of Governors」"
+                    "与「PTCL CPO Umer Farid Appointed to PSTD Board of Governors」是同一事件；"
+                    "「IHC Clears Telenor's Merger Into Ufone」与「IHC Approves Telenor-Ufone Merger」是同一事件。"
+                    "但同一话题下的不同角度（如合并后的『资费上涨』与『员工裁员』）不是同一事件。\n"
+                    "请找出描述同一事件的条目，按分组返回编号（每组至少2条），"
                     "完全没有重复事件时返回空数组。"
                     '严格按JSON格式输出：{"duplicate_groups": [[0,3],[5,7]]}'
                 ),
@@ -503,21 +535,115 @@ def dedup_same_event(items: list) -> list:
         with urllib.request.urlopen(req, timeout=30) as resp:
             result = json.loads(resp.read().decode("utf-8"))
             content = json.loads(result["choices"][0]["message"]["content"])
-            groups = content.get("duplicate_groups", [])
+            return content.get("duplicate_groups", [])
     except Exception as e:
         log(f"  DeepSeek dedup error: {e}")
-        return items
+        return []
 
-    drop: set = set()
-    for group in groups:
-        valid = sorted(i for i in group if isinstance(i, int) and 0 <= i < len(items))
-        if len(valid) < 2:
+
+def _title_tokens(title: str) -> set:
+    words = re.findall(r"[a-z0-9]+", title.lower())
+    return {w for w in words if len(w) > 2 and w not in _DEDUP_STOP}
+
+
+def entity_overlap_groups(items: list) -> list:
+    """Deterministic same-event detection backing up the LLM pass: two same-day
+    titles are grouped when they share at least ENTITY_OVERLAP_MIN_RARE tokens
+    that are rare that day (document frequency <= ENTITY_RARE_DF_MAX). Rare
+    shared tokens are high-signal (names, org acronyms) rather than the topic
+    words many of the day's titles share, so this stays conservative. Returns
+    index groups like llm_dedup_groups()."""
+    toks = [_title_tokens(it.get("title", "")) for it in items]
+    df: dict = {}
+    for ts in toks:
+        for w in ts:
+            df[w] = df.get(w, 0) + 1
+
+    groups, used = [], set()
+    for i in range(len(items)):
+        if i in used:
             continue
-        drop.update(valid[1:])  # keep the first (best-ranked) copy
+        grp = [i]
+        for j in range(i + 1, len(items)):
+            if j in used:
+                continue
+            rare_shared = [w for w in (toks[i] & toks[j]) if df.get(w, 0) <= ENTITY_RARE_DF_MAX]
+            if len(rare_shared) >= ENTITY_OVERLAP_MIN_RARE:
+                grp.append(j)
+                used.add(j)
+        if len(grp) >= 2:
+            used.update(grp)
+            groups.append(grp)
+    return groups
 
-    if drop:
-        log(f"  Cross-source dedup: dropping {len(drop)} duplicate-event item(s)")
-    return [it for i, it in enumerate(items) if i not in drop]
+
+def mark_duplicates(cache: list) -> None:
+    """Persist *only the deterministic* entity-overlap dedup decisions onto the
+    cache: within each of the last DEDUP_LOOKBACK_DAYS days, tag every non-best
+    copy of an entity-overlap group with `dup_of` (the URL of the kept item);
+    display skips tagged items. Persisting the decision (vs recomputing every
+    run) is what stops an already-deduped story from resurfacing.
+
+    Deliberately does NOT persist the LLM grouping: the LLM is non-deterministic
+    and, worse, sometimes over-merges different stories on the same topic (e.g.
+    treating a merger's "tariffs rise", "rebranding halted" and "packages
+    continue?" as one event) — persisting that would permanently drop distinct
+    news. The LLM pass stays a per-run, non-persisted display filter (see
+    main()), so an over-merge only affects one run and self-corrects next time.
+    The entity fallback is conservative enough never to over-merge, so persisting
+    it is safe and keeps decisions idempotent."""
+    from collections import defaultdict
+    cutoff = (datetime.date.today() - datetime.timedelta(days=DEDUP_LOOKBACK_DAYS)).isoformat()
+    by_day: dict = defaultdict(list)
+    for it in cache:
+        if it.get("date", "") >= cutoff and it.get("summary_zh", "").strip():
+            by_day[it["date"]].append(it)
+
+    total_tagged = 0
+    for day, day_items in by_day.items():
+        active = [it for it in day_items if not it.get("dup_of")]
+        if len(active) < 2:
+            continue
+        active.sort(key=lambda x: (
+            IMPORTANCE_PRIORITY.get(x.get("importance", "中"), 1),
+            SOURCE_PRIORITY.get(x.get("source", ""), 99),
+        ))
+        groups = entity_overlap_groups(active)
+
+        # Union all groups into connected components so LLM and entity groupings
+        # that overlap collapse to one; keep the lowest index (best-ranked).
+        parent = list(range(len(active)))
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        for group in groups:
+            g = [i for i in group if isinstance(i, int) and 0 <= i < len(active)]
+            for k in g[1:]:
+                ra, rb = find(g[0]), find(k)
+                if ra != rb:
+                    parent[max(ra, rb)] = min(ra, rb)
+
+        comp: dict = defaultdict(list)
+        for i in range(len(active)):
+            comp[find(i)].append(i)
+        for members in comp.values():
+            if len(members) < 2:
+                continue
+            members.sort()
+            keep = active[members[0]]
+            keep_id = keep.get("url", "") or keep.get("title", "")
+            for idx in members[1:]:
+                dup = active[idx]
+                if not dup.get("dup_of"):
+                    dup["dup_of"] = keep_id
+                    total_tagged += 1
+
+    if total_tagged:
+        log(f"  Cross-source dedup: tagged {total_tagged} duplicate-event item(s) with dup_of")
 
 
 def ensure_source_diversity(day_display: list, candidates: list, min_sources: int) -> list:
@@ -624,6 +750,12 @@ def main() -> None:
     save_cache(cache)
     log(f"Cache saved: {len(cache)} total items")
 
+    # Persist same-event dedup decisions (dup_of) onto the cache so an already
+    # deduplicated story doesn't resurface when the LLM grouping wobbles between
+    # runs. Combines the LLM pass with a deterministic entity-overlap fallback.
+    mark_duplicates(cache)
+    save_cache(cache)
+
     # Inject into index.html: per day, sorted by importance then source priority,
     # deduplicated, PTA-titled items front-loaded (capped), max MAX_PER_DAY
     from collections import defaultdict as _dd
@@ -635,12 +767,18 @@ def main() -> None:
         # meantime, so they're excluded from display until they have content.
         if not _it.get("summary_zh", "").strip():
             continue
+        # Items tagged as same-event duplicates by mark_duplicates() (the
+        # deterministic entity-overlap pass) are dropped from display here; that
+        # decision is persisted on the cache (dup_of) so it stays stable across
+        # runs. The LLM pass below is an additional, non-persisted per-run filter.
+        if _it.get("dup_of"):
+            continue
         _by_day[_it.get("date", "")].append(_it)
 
-    # Cross-source semantic dedup (DeepSeek call per day) is only worth doing
-    # for recent days — older days' item sets never change between runs, so
-    # re-spending an API call on them every single run would scale badly as
-    # the cache grows.
+    # The LLM same-event dedup runs per-run on recent days only (bounded API
+    # cost) and is NOT persisted — it catches wording-very-different duplicates
+    # the entity fallback misses, but its occasional over-merges must not be
+    # baked onto the cache, so it only filters the current run's display.
     dedup_cutoff = (datetime.date.today() - datetime.timedelta(days=DEDUP_LOOKBACK_DAYS)).isoformat()
 
     display: list = []
@@ -661,8 +799,18 @@ def main() -> None:
                 seen_titles.add(_key)
                 deduped.append(_it)
 
-        if _d >= dedup_cutoff:
-            deduped = dedup_same_event(deduped)
+        # LLM same-event dedup as a per-run (non-persisted) display filter for
+        # recent days — catches wording-very-different duplicates the persisted
+        # entity-overlap pass misses. deduped is already sorted by (importance,
+        # source), so keeping the lowest index in each group keeps the best copy.
+        if _d >= dedup_cutoff and len(deduped) > 1:
+            _drop: set = set()
+            for _grp in llm_dedup_groups(deduped):
+                _valid = sorted(i for i in _grp if isinstance(i, int) and 0 <= i < len(deduped))
+                if len(_valid) >= 2:
+                    _drop.update(_valid[1:])
+            if _drop:
+                deduped = [it for i, it in enumerate(deduped) if i not in _drop]
 
         # The display cap itself scales with how many distinct sources the day
         # actually has to offer: a day where only 1-2 outlets published
