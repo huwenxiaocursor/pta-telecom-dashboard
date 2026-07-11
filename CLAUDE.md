@@ -16,6 +16,9 @@ python3 scripts/update_pta_dashboard.py
 # 宏观经济数据更新（利率/储备/汇率/侨汇/CPI，需 DEEPSEEK_API_KEY，本地可从 scripts/.env.local 加载）
 DEEPSEEK_API_KEY=<key> python3 scripts/update_macro_dashboard.py
 
+# Zong 套餐清单更新（全量抓取 zong.com.pk 预付费+后付费，无需 Key，纯标准库）
+python3 scripts/update_zong_packages.py
+
 # 新闻抓取与摘要生成（需设置环境变量，本地可从 scripts/.env.local 加载）
 DEEPSEEK_API_KEY=<key> python3 scripts/update_news.py
 
@@ -38,7 +41,7 @@ playwright install chromium
 | `index.html` | 门户页：导航卡片 + 新闻聚合 | `update_news.py` |
 | `industry_index.html` | 电信数据：用户趋势、市场份额、QoS | `update_pta_dashboard.py` |
 | `macro_index.html` | 宏观经济：利率/储备/汇率/侨汇/CPI 自动更新　·　GDP/财政/产业结构/贸易人工维护 | `update_macro_dashboard.py`（部分板块，见下方"宏观年度数据维护"） |
-| `zong_packages_index.html` | Zong 预付费/后付费套餐清单，支持搜索与分类筛选 | 纯手工维护，数据来自 zong.com.pk，无自动化脚本 |
+| `zong_packages_index.html` | Zong 预付费/后付费套餐清单（含国际漫游/IDD、Apna Shehr/Area Play 地区套餐），支持搜索与分类筛选 | `update_zong_packages.py`，每两个月全量抓取 zong.com.pk（见下方"Zong 套餐清单自动化"） |
 | `supplies_form.html` | 中方员工生活用品需求申请表单，从 `index.html` 导航卡片进入 | 无脚本；纯前端表单，`fetch()` POST 到 Google Apps Script（`APPS_SCRIPT_URL` 常量），后端在 Apps Script 侧，不在本仓库 |
 
 ## JS 数据注入机制
@@ -68,6 +71,23 @@ playwright install chromium
 // ===AUTO-NEWS-END===
 ```
 包含：`const NEWS_DATA = [...]`。
+
+**Zong 套餐数据**（`zong_packages_index.html`，由 `update_zong_packages.py` 写入）：
+```
+// ===AUTO-ZONG-START===
+// ===AUTO-ZONG-END===
+```
+包含整个 `const PLANS = [...]` 数组。另有一处 `<!--ZONG-DATE-START-->…<!--ZONG-DATE-END-->` 标注采集年月，脚本同时替换。sentinel 之外的 `SEC`（分类定义）、`ORDER`、筛选 chip、`render()` 逻辑均为人工维护，脚本不动。
+
+## Zong 套餐清单自动化
+
+`update_zong_packages.py` 每两个月**全量**抓取 `zong.com.pk/prepaid` 和 `/postpaid`，覆盖预付费/后付费主套餐、国际漫游/IDD、Apna Shehr/Area Play 地区套餐（约 500 个/次），按 slug 去重后重建 `PLANS`。设计要点：
+
+- **服务端渲染，纯正则解析**：每张卡是 `<article class="card single_bundle …">`，名称在 `<a href=".../prepaid|postpaid/{slug}">`、有效期在 `<small>`、价格在 `PKR. xxx`、套餐内容在 `<div class="specs_col">数字单位 <span>标签</span></div>`。同一 slug 常在"热门"和分栏里重复，按 slug 去重保留首现。
+- **确定性规则翻译，不用 LLM**：套餐内容英文词汇表很小且固定（`GB`/`Zong Mins`/`Off-net Mins`/`All Net Mins`/`Int Mins`/`SMS`/`Total Data`/`Internet`），`tr_feat()` 逐条映射成中文（流量/Zong分钟/跨网分钟/全网分钟/国际分钟/条短信），无法识别的原样保留、绝不编造。刻意不引入 DeepSeek——避免 LLM 脑补价格或套餐内容（与新闻/CPI 脚本的教训一致）。
+- **规则分类**：`category()` 顺序敏感——先按名称/国家关键词判 `roaming`，再判 `area`（Apna Shehr/Area/克什米尔），再按 app 关键词判 `app`/`vas`，最后按"有无流量/有无语音"落到 `data`/`voice`/`hybrid`。
+- **安全阀**：抓取异常或去重后套餐数 `< MIN_EXPECTED(200)` 时 `sys.exit(1)` 中止并**保留原页面**，不写半截数据。页面结构变化时会因此报错，需人工检查官网 HTML。
+- **不留历史**：页面是当前快照，每次全量覆盖，靠 git diff 判断是否有变化（无 `*_history.json`）。运行后检查 `scripts/zong_update_log.txt`。
 
 ## 数据流
 
@@ -120,6 +140,7 @@ DeepSeek 的 Chat API 本身无法访问URL，如果只传标题，它会"脑补
 |------|------|----------|
 | PTA 电信数据更新 | 每月10日、25日 10:00 PKT | GitHub Actions `.github/workflows/update.yml`（`update-industry` job） |
 | 宏观经济数据更新 | 每月10日、25日 10:00 PKT | GitHub Actions `.github/workflows/update.yml`（`update-macro` job） |
+| Zong 套餐清单全量刷新 | 每两个月（1/3/5/7/9/11月）10日 10:00 PKT | GitHub Actions `.github/workflows/update_zong.yml`（`update-zong` job，独立 workflow 因 cron 不同） |
 | 新闻抓取 + 摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-news-fetch.plist` → `scripts/run_news_fetch.sh` |
 | 日报图片邮件草稿（T-1 日新闻，密送多人，人工确认后手动发送） | 每天 10:10 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-digest.plist` → `scripts/run_digest.sh` |
 
