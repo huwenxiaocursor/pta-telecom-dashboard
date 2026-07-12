@@ -142,15 +142,46 @@ _EXCLUDE = {
 }
 
 
+# Unambiguous "this headline is about Pakistan" markers.
+_PK_MARKERS = {
+    "pakistan", "pakistani", "sbp", "state bank", "islamabad", "karachi",
+    "lahore", "peshawar", "quetta", "rawalpindi", "faisalabad",
+    "ptcl", "ufone", "jazz", "zong", "jazzworld", "pta", "pmcl", "nrtc", "sco",
+}
+
+# Foreign-country markers. The macro terms in _TELECOM_SUB ("central bank",
+# "inflation rate", "monetary policy", "interest rate"...) are globally generic,
+# and Business Recorder reprints Reuters/AFP wire stories about other countries.
+# A headline clearly about a foreign country that never mentions Pakistan is noise
+# (e.g. "Thai inflation likely below 2.8% this year, central bank chief says").
+_FOREIGN = {
+    "thai", "thailand", "india", "delhi", "china", "chinese", "beijing",
+    "american", "europe", "european", "britain", "british", "russia", "russian",
+    "japan", "korea", "korean", "bangladesh", "sri lanka", "nepal",
+    "iran", "afghan", "turkey", "turkish", "egypt", "saudi", "uae", "dubai",
+    "qatar", "malaysia", "indonesia", "vietnam", "philippines", "singapore",
+    "germany", "german", "france", "french", "italy", "spain", "brazil",
+    "mexico", "canada", "australia", "nigeria", "africa",
+}
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
     if any(kw in tw for kw in _EXCLUDE):
         return False
-    if any(kw in t for kw in _TELECOM_SUB):
-        return True
-    return any(" " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
-               for kw in _TELECOM_WB)
+    matched = any(kw in t for kw in _TELECOM_SUB) or any(
+        " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
+        for kw in _TELECOM_WB)
+    if not matched:
+        return False
+    # Geography gate: the telecom/macro keywords also match other countries' wire
+    # stories. If the headline is clearly about a foreign country and never mentions
+    # Pakistan, drop it — otherwise generic macro news (Thai/Indian/US central bank,
+    # inflation, rates) slips into a Pakistan-only dashboard.
+    if any(kw in t for kw in _FOREIGN) and not any(m in t for m in _PK_MARKERS):
+        return False
+    return True
 
 
 def mentions_pta(title: str) -> bool:
