@@ -1,5 +1,37 @@
 [
   {
+    "source": "SBP",
+    "title": "SBP set to unveil monetary policy: Interest rates in Pakistan expected to decrease",
+    "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxPd3pCQUVYUDlrV0NxUHRBZzlhRzV1QkljbkdQbXRJS05vbkZiMWJVZVJYRkV4SzVaNUphUlhZM2IzR04zU3RTZGNtOXhiX29LR0NNWVo0NXhNRm41X05ob3ZKUWJPaHBOZUJJY09kb0hYOTVCelVnUEJDd2pxOVFCUHR1RTI1WXVVbnVYN3Y5Y2xLUnNXZHFzYW16aTA2LVFUczhfM01WS1U2RUV5RVl3d29uZ20?oc=5",
+    "date": "2026-06-30",
+    "summary_zh": "巴基斯坦国家银行（SBP）即将公布最新货币政策，市场普遍预期将下调利率。此前，巴基斯坦通胀率已从高位回落，经济增速放缓，为降息提供了空间。\n\n若利率下调，将降低企业融资成本，刺激投资与消费，对电信行业等资本密集型产业形成利好。同时，降息可能缓解政府债务压力，但需关注汇率波动与外部账户平衡风险。总体而言，此举有望提振巴基斯坦宏观经济信心。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "JazzWorld and Population Council Pakistan Collaborate to Advance Inclusive Digital Development",
+    "url": "https://propakistani.pk/2026/07/11/jazzworld-and-population-council-pakistan-collaborate-to-advance-inclusive-digital-development/",
+    "date": "2026-07-11",
+    "summary_zh": "在世界人口日，巴基斯坦领先的综合数字服务公司JazzWorld与人口理事会巴基斯坦分会签署了一份为期两年的意向书，旨在利用数字平台、数据和创新，扩大可信信息的获取渠道，改善健康结果，并为巴基斯坦妇女和青年创造更多机会。合作初期包括全国性数字意识宣传活动、人工智能驱动的创新挑战、联合研究以及聚焦孕产妇健康、生殖健康和青年赋权的数字参与计划。\n\n【该合作将JazzWorld广泛的数字覆盖和客户参与能力与人口理事会的研究发展专长相结合】，有望通过技术手段大规模解决社会挑战，【对巴基斯坦电信行业而言，这标志着主流运营商Jazz从单纯连接服务向数字包容和社会影响领域的战略延伸】。此举可能推动数字健康服务普及，增强妇女和青年群体的数字参与度，从而间接促进宏观经济发展，但短期内对行业竞争格局影响有限。",
+    "importance": "中"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Thai inflation likely below 2.8% this year, policy to remain accommodative, central bank chief says",
+    "url": "https://www.brecorder.com/news/40429547/thai-inflation-likely-below-28-this-year-policy-to-remain-accommodative-central-bank-chief-says",
+    "date": "2026-07-11",
+    "summary_zh": "泰国央行行长表示，今年通胀率可能低于2.8%，货币政策将保持宽松。这一表态反映了泰国经济复苏过程中通胀压力温和，央行将继续支持经济增长。\n\n该消息对巴基斯坦电信行业或宏观经济无直接影响，因为泰国与巴基斯坦的经济联系有限，且不涉及巴基斯坦电信行业竞争格局或监管政策。",
+    "importance": "低"
+  },
+  {
+    "source": "PTML",
+    "title": "PTML (Ufone) 公布合并后最新领导层组织架构",
+    "url": "https://www.ufone.com/",
+    "date": "2026-07-10",
+    "summary_zh": "PTML（Ufone）公布了合并重组后的最新领导层组织架构。Hatem Bamatraf 出任总裁兼首席执行官（President & CEO），下设九位高管：首席商务官 Atif Raza、首席技术与AI官 Awais Vohra、首席财务官 Mudasser Shafiq、首席人力官 Areej Khan、首席企业事务官 Shan ul Haq、首席消费者业务官 Khawaja Shehzad Ullah、首席业务官 Bilal Bhatti、治理·法律与合规高级副总裁 Haider Latif，以及内部审计负责人 Abdullah Hameed。\n\n【PTML（Ufone）在 e& 主导的与 Telenor 合并整合中搭建全新高管团队】，其中新设的“首席技术与AI官”一职凸显合并后新实体对 AI 与网络技术的战略押注。领导层落定标志着新公司治理架构初步成形，商务、消费者业务与企业事务条线的重新划分，将直接影响 Ufone 在四大运营商竞争格局中的整合节奏与市场打法。",
+    "importance": "高"
+  },
+  {
     "source": "ProPakistani",
     "title": "PTCL Flash Fiber Surpasses 900,000 Subscribers, Reinforcing Leadership in Pakistan’s Fiber Broadband Market",
     "url": "https://propakistani.pk/2026/07/10/ptcl-flash-fiber-surpasses-900000-subscribers-reinforcing-leadership-in-pakistans-fiber-broadband-market/",
@@ -21,7 +53,8 @@
     "url": "https://www.brecorder.com/news/40429538/ptcl-flash-fiber-surpasses-900000-subscribers",
     "date": "2026-07-11",
     "summary_zh": "巴基斯坦电信公司（PTCL）旗下Flash Fiber宽带服务用户数突破90万，标志着其在固定宽带市场的持续扩张。PTCL作为巴基斯坦最大的固网运营商，Flash Fiber的快速增长反映了该国对高速光纤宽带需求的上升。\n\n【PTCL Flash Fiber用户数突破90万】表明其在固网宽带领域的主导地位进一步巩固，可能加剧与有线电视运营商及移动宽带（如4G/5G）的竞争。然而，该事件不涉及四大移动运营商或PTA/SBP的重大政策变动，对电信行业整体竞争格局影响有限，属于常规业务增长新闻。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://propakistani.pk/2026/07/10/ptcl-flash-fiber-surpasses-900000-subscribers-reinforcing-leadership-in-pakistans-fiber-broadband-market/"
   },
   {
     "source": "TechJuice",
