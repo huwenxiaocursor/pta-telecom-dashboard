@@ -114,6 +114,7 @@ _TELECOM_SUB = {
     "foreign reserves", "forex reserve", "current account",
     "inflation rate", "balance of payment", "external debt",
     "imf program", "imf review", "imf tranche", "imf loan", "imf talks",
+    "imf funding", "imf disbursement", "imf bailout",
 }
 
 # Short names requiring word-boundary check
