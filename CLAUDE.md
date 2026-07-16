@@ -146,7 +146,7 @@ DeepSeek 的 Chat API 本身无法访问URL，如果只传标题，它会"脑补
 
 > `update-industry` 与 `update-macro` 是同一个 workflow 文件里的两个独立 job，共用同一个 cron，但各自独立 `git add`/`commit`/`push`/建 Issue/发邮件，互不影响、互不阻塞——一个失败不影响另一个正常更新，出问题时也能立刻定位是哪个页面的脚本挂了。两个 job 都在推送前 `git pull --rebase`，避免并发写 `main` 冲突。
 >
-> 新闻抓取已从 GitHub Actions 迁移到本地 launchd（`update_news.yml` 现仅保留 `workflow_dispatch` 手动触发），因为 DeepSeek Key 改为本地 `scripts/.env.local` 管理，且需要在同一次运行中 `git pull --rebase` + `commit` + `push`。`send_daily_digest.py` 默认读取昨天（T-1）的 `news_cache.json`（实际读取的是 `index.html` 里已经排好序/去重/过滤空摘要的 `NEWS_DATA`，不是直接读 `news_cache.json` 重新计算，见脚本 `load_today_news()` 注释），若当天新闻尚未抓取会自动回退到最近一次有数据的日期。摘要图片由脚本内建的 HTML 模板渲染（非 `index.html` 截图）。**2026-07-04起改为生成邮件草稿而非自动发送**：通过 AppleScript 把 `scripts/send_daily_digest.py` 里 `BCC_EMAILS` 列表（18人）全部放进密送栏，只 `save` 到 Apple Mail 的草稿箱，不调用 `send`——由用户在草稿箱人工确认后手动发送。
+> 新闻抓取已从 GitHub Actions 迁移到本地 launchd（`update_news.yml` 现仅保留 `workflow_dispatch` 手动触发），因为 DeepSeek Key 改为本地 `scripts/.env.local` 管理，且需要在同一次运行中 `git pull --rebase` + `commit` + `push`。`send_daily_digest.py` 默认读取昨天（T-1）的 `news_cache.json`（实际读取的是 `index.html` 里已经排好序/去重/过滤空摘要的 `NEWS_DATA`，不是直接读 `news_cache.json` 重新计算，见脚本 `load_today_news()` 注释）。**2026-07-13起改为：若 T-1 当天无新增新闻，不再回退到旧日期把旧新闻当日报再发一遍**——此时跳过日报草稿，改为只给本人（`NOTIFY_EMAIL`，收件人栏，不密送 18 人、不带附图）在草稿箱生成一封纯文字提醒邮件（说明当天无新增、最近有数据的日期），同样只 `save` 不 `send`。摘要图片由脚本内建的 HTML 模板渲染（非 `index.html` 截图）。**2026-07-04起改为生成邮件草稿而非自动发送**：通过 AppleScript 把 `scripts/send_daily_digest.py` 里 `BCC_EMAILS` 列表（18人）全部放进密送栏，只 `save` 到 Apple Mail 的草稿箱，不调用 `send`——由用户在草稿箱人工确认后手动发送。
 
 `update.yml` 的两个 job 在各自页面数据变更时都会自动创建 GitHub Issue 并发送邮件通知（收件人 `shawn.hwx@gmail.com`）。
 

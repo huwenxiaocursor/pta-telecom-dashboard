@@ -18,6 +18,10 @@ CACHE_FILE    = BASE_DIR / "news_cache.json"
 INDEX_FILE    = BASE_DIR.parent / "index.html"
 DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
 
+# 当天无新增新闻（只能回退到旧日期）时，不生成日报草稿，改为只给本人发一封
+# 提醒邮件（收件人栏，不密送 18 人），提示今日无新增、已跳过。
+NOTIFY_EMAIL = "huwenxiao@zong.com.pk"
+
 # 密送收件人名单（草稿只填密送栏，不填"收件人"栏）
 BCC_EMAILS = [
     "huojunli@zong.com.pk",
@@ -228,6 +232,32 @@ def save_draft_via_apple_mail(img_path: str, subject: str, body: str) -> None:
     print(f"  邮件草稿已保存到 Mail 的草稿箱，密送 {len(BCC_EMAILS)} 人，待手动确认发送")
 
 
+def save_notice_via_apple_mail(subject: str, body: str) -> None:
+    """当天无新增新闻时，只给本人（NOTIFY_EMAIL，收件人栏）生成一封纯文字提醒
+    草稿，不密送 18 人、不带附图。同样只 save 到草稿箱，不 send。"""
+    def esc(s: str) -> str:
+        return s.replace("\\", "\\\\").replace('"', '\\"').replace("\n", "\\n")
+
+    lines = [
+        'tell application "Mail"',
+        f'set msg to make new outgoing message with properties {{subject:"{esc(subject)}", content:"{esc(body)}", visible:true}}',
+        "tell msg",
+        f'make new to recipient with properties {{address:"{esc(NOTIFY_EMAIL)}"}}',
+        "end tell",
+        "save msg",
+        "end tell",
+    ]
+    args = ["osascript"]
+    for line in lines:
+        args += ["-e", line]
+
+    result = subprocess.run(args, capture_output=True, text=True)
+    if result.returncode != 0:
+        print(f"  AppleScript 错误：{result.stderr.strip()}", file=sys.stderr)
+        sys.exit(1)
+    print(f"  提醒邮件草稿已保存到草稿箱（仅收件人 {NOTIFY_EMAIL}），待手动确认发送")
+
+
 def main() -> None:
     date_str = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
     dt       = datetime.date.fromisoformat(date_str)
@@ -237,19 +267,29 @@ def main() -> None:
     items = load_today_news(date_str)
 
     if not items:
-        # 若今天尚未抓取，用最近一天有数据的日期
+        # T-1 无新增新闻。以前会自动回退到最近一天有数据的日期，把旧新闻当日报再发
+        # 一遍——用户明确要求：这种情况不再生成日报草稿，改为只给本人发一封提醒邮件。
         with open(CACHE_FILE, encoding="utf-8") as f:
             cache = json.load(f)
         latest = max((i["date"] for i in cache if i.get("summary_zh", "").strip()),
                      default=None)
-        if not latest:
-            print("  无可用新闻，退出。")
-            return
-        print(f"  今天暂无数据，使用最近日期：{latest}")
-        date_str = latest
-        dt       = datetime.date.fromisoformat(date_str)
-        date_cn  = f"{dt.year}年{dt.month}月{dt.day}日"
-        items = load_today_news(date_str)
+        latest_cn = ""
+        if latest:
+            ldt = datetime.date.fromisoformat(latest)
+            latest_cn = f"{ldt.year}年{ldt.month}月{ldt.day}日"
+
+        print(f"  {date_str} 无新增新闻，跳过日报，生成提醒邮件"
+              + (f"（最近有数据：{latest}）" if latest else "（缓存内也无任何可用新闻）"))
+        subject = f"巴基斯坦电信资讯日报｜{date_cn} 无新增新闻，已跳过"
+        body = (f"您好，\n\n"
+                f"{date_cn} 未抓取到符合条件的巴基斯坦电信/宏观新闻，"
+                f"今日不生成日报草稿。\n\n"
+                + (f"最近一次有新闻的日期为 {latest_cn}（已在此前发送，不再重复）。\n\n"
+                   if latest else "新闻缓存内暂无任何可用新闻，请检查抓取任务。\n\n")
+                + f"如需人工核对，可在线查看：\n{DASHBOARD_URL}")
+        save_notice_via_apple_mail(subject, body)
+        print("  完成。")
+        return
 
     print(f"  共 {len(items)} 条新闻，生成图片中…")
 
