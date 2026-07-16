@@ -163,7 +163,16 @@ _FOREIGN = {
     "qatar", "malaysia", "indonesia", "vietnam", "philippines", "singapore",
     "germany", "german", "france", "french", "italy", "spain", "brazil",
     "mexico", "canada", "australia", "nigeria", "africa",
+    # Region/market phrases in Reuters/AFP wire reprints (substring-safe)
+    "asian stock", "asian market", "asian share", "wall street", "us inflation",
+    "us economy", "us fed", "federal reserve", "us treasury", "us stock",
 }
+
+# Foreign markers that are short abbreviations — must be matched as whole words,
+# otherwise "us" would hit "business"/"focus", "uk" would hit "sukuk", etc.
+# These catch US/UK/EU macro wire stories (e.g. "Asian stocks gain on drop in
+# US inflation rate") that _FOREIGN's substring set misses.
+_FOREIGN_WB = {"us", "u.s.", "u.s", "uk", "u.k.", "eu", "opec"}
 
 
 def is_relevant(title: str) -> bool:
@@ -180,7 +189,10 @@ def is_relevant(title: str) -> bool:
     # stories. If the headline is clearly about a foreign country and never mentions
     # Pakistan, drop it — otherwise generic macro news (Thai/Indian/US central bank,
     # inflation, rates) slips into a Pakistan-only dashboard.
-    if any(kw in t for kw in _FOREIGN) and not any(m in t for m in _PK_MARKERS):
+    foreign = any(kw in t for kw in _FOREIGN) or any(
+        " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
+        for kw in _FOREIGN_WB)
+    if foreign and not any(m in t for m in _PK_MARKERS):
         return False
     return True
 
