@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>中巴友谊政府通告声明</title>
+</head>
+<body>
+<style>
+:root{
+  --ground:#F4F1E8; --surface:#FCFAF3; --surface2:#F0ECDE;
+  --ink:#1D211B; --muted:#6C7061; --faint:#9A9C8C;
+  --green:#0B5D3B; --green-soft:#0B5D3B14; --green-line:#0B5D3B;
+  --red:#B51F2A; --red-soft:#B51F2A12;
+  --gold:#B4913F; --hair:#0B5D3B26;
+  --serif:"Songti SC","STSong","Source Han Serif SC","Noto Serif CJK SC","Times New Roman",serif;
+  --sans:"PingFang SC","Hiragino Sans GB","Microsoft YaHei","Noto Sans CJK SC",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  line-height:1.75;-webkit-font-smoothing:antialiased;font-size:16px}
+.wrap{max-width:920px;margin:0 auto;padding:0 22px}
+a{color:inherit}
+/* ---- header ---- */
+header{padding:52px 0 26px;text-align:center}
+.kick{font-family:var(--sans);font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--green);font-weight:600;margin-bottom:16px}
+h1{font-family:var(--serif);font-weight:700;font-size:clamp(30px,5.4vw,46px);line-height:1.18;
+  margin:0;letter-spacing:.02em;text-wrap:balance}
+.h1-en{font-family:var(--serif);font-size:15px;letter-spacing:.14em;color:var(--muted);
+  margin-top:12px;text-transform:none;font-style:italic}
+.rule{display:flex;justify-content:center;gap:0;margin:22px auto 16px;width:132px}
+.rule span{height:3px;flex:1}
+.rule .g{background:var(--green)} .rule .w{background:var(--surface2)} .rule .r{background:var(--red)}
+.meta{font-size:13.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.meta b{color:var(--ink);font-weight:600}
+/* ---- controls ---- */
+.controls{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ground) 92%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair);padding:12px 0;margin-bottom:8px}
+.controls .row{display:flex;flex-wrap:wrap;gap:10px 12px;align-items:center}
+.search{flex:1;min-width:180px;display:flex;align-items:center;gap:8px;background:var(--surface);
+  border:1px solid var(--hair);border-radius:2px;padding:8px 12px}
+.search input{border:0;background:transparent;color:var(--ink);font-family:var(--sans);font-size:14px;
+  width:100%;outline:none}
+.search svg{flex:none;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-family:var(--sans);font-size:12.5px;font-variant-numeric:tabular-nums;padding:5px 11px;
+  border:1px solid var(--hair);background:var(--surface);color:var(--muted);border-radius:2px;
+  cursor:pointer;transition:all .15s}
+.chip:hover{color:var(--ink);border-color:var(--green-line)}
+.chip[aria-pressed="true"]{background:var(--green);color:#fff;border-color:var(--green)}
+.toggle{font-family:var(--sans);font-size:12.5px;padding:5px 11px;border:1px solid var(--red);
+  color:var(--red);background:transparent;border-radius:2px;cursor:pointer;transition:all .15s}
+.toggle[aria-pressed="true"]{background:var(--red);color:#fff}
+.count{font-size:12.5px;color:var(--faint);font-variant-numeric:tabular-nums;margin-left:auto}
+/* ---- timeline ---- */
+.timeline{position:relative;padding:30px 0 80px}
+.timeline::before{content:"";position:absolute;left:112px;top:0;bottom:0;width:1.5px;background:var(--hair)}
+.yr{position:relative;font-family:var(--serif);font-weight:700;font-size:24px;color:var(--green);
+  margin:34px 0 18px;padding-left:150px;letter-spacing:.04em}
+.yr::after{content:"";position:absolute;left:106px;top:50%;transform:translateY(-50%);
+  width:14px;height:14px;border-radius:50%;background:var(--ground);border:2px solid var(--green)}
+.entry{position:relative;padding-left:150px;margin-bottom:26px}
+.entry::before{content:"";position:absolute;left:108px;top:11px;width:9px;height:9px;border-radius:50%;
+  background:var(--gold);box-shadow:0 0 0 4px var(--ground)}
+.entry.first::before{background:var(--red)}
+.date{position:absolute;left:0;top:6px;width:96px;text-align:right;font-family:var(--serif);
+  font-variant-numeric:tabular-nums;color:var(--muted);font-size:13.5px;line-height:1.35}
+.date .d{display:block;font-size:20px;color:var(--ink);font-weight:700}
+.card{background:var(--surface);border:1px solid var(--hair);border-left:3px solid var(--green);
+  border-radius:2px;padding:17px 20px 16px}
+.card.has-first{border-left-color:var(--red)}
+.title{font-family:var(--serif);font-weight:700;font-size:18px;line-height:1.5;margin:0 0 3px;
+  color:var(--ink);text-decoration:none;display:inline}
+a.title:hover{color:var(--green);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--green-line)}
+.src{font-size:11.5px;color:var(--green);font-weight:600;letter-spacing:.06em;white-space:nowrap;
+  text-decoration:none;margin-left:8px}
+.src:hover{text-decoration:underline}
+.nolink{color:var(--faint);font-size:11.5px;margin-left:8px}
+.block{margin-top:13px}
+.lbl{font-family:var(--sans);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  display:inline-flex;align-items:center;gap:7px;margin-bottom:7px}
+.lbl.first{color:var(--red)} .lbl.classic{color:var(--green)} .lbl.speech{color:var(--gold)}
+.lbl::before{content:"";width:16px;height:1.5px;background:currentColor;opacity:.6}
+.first-box{background:var(--red-soft);border:1px solid var(--red-soft);border-left:2px solid var(--red);
+  padding:11px 14px;border-radius:2px}
+ul.pts{margin:0;padding:0;list-style:none}
+ul.pts li{position:relative;padding-left:18px;margin:5px 0;font-size:14.5px;line-height:1.7}
+ul.pts li::before{content:"◆";position:absolute;left:0;top:0;font-size:9px;line-height:1.95}
+.classic ul.pts li::before{content:"—";color:var(--green);left:0;font-size:13px;line-height:1.5}
+.first-box ul.pts li::before{color:var(--red)}
+.speech-box{border-left:2px solid var(--gold);padding:2px 0 2px 16px;color:var(--muted);
+  font-family:var(--serif);font-size:15px;line-height:1.8}
+.empty{text-align:center;color:var(--faint);padding:60px 0;font-size:15px}
+footer{border-top:1px solid var(--hair);padding:22px 0 40px;color:var(--faint);font-size:12px;text-align:center}
+@media (max-width:640px){
+  .timeline::before{left:9px} .yr{padding-left:34px} .yr::after{left:3px}
+  .entry{padding-left:34px} .entry::before{left:5px}
+  .date{position:static;width:auto;text-align:left;margin-bottom:6px}
+  .date .d{display:inline;font-size:15px;margin-right:6px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+</style>
+
+<header>
+  <div class="wrap">
+    <div class="kick">中巴全天候战略合作伙伴关系</div>
+    <h1>中巴友谊政府通告声明</h1>
+    <div class="h1-en">China&ndash;Pakistan Friendship&nbsp;&middot;&nbsp;Official Statements Archive</div>
+    <div class="rule"><span class="g"></span><span class="w"></span><span class="r"></span></div>
+    <div class="meta">收录 <b id="total">0</b> 条官方表述&nbsp;&middot;&nbsp;<b>1956</b>&ndash;<b>2025</b>&nbsp;&middot;&nbsp;点击标题跳转原文</div>
+  </div>
+</header>
+
+<div class="controls">
+  <div class="wrap row">
+    <label class="search">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="搜索会议、概念、经典表述&hellip;" aria-label="搜索">
+    </label>
+    <div class="chips" id="years"></div>
+    <button class="toggle" id="onlyFirst" aria-pressed="false">只看含首提概念 &starf;</button>
+    <span class="count" id="count"></span>
+  </div>
+</div>
+
+<div class="wrap"><div class="timeline" id="tl"></div></div>
+<footer class="wrap">数据源自中国政府网（gov.cn）等官方公开发布&nbsp;&middot;&nbsp;本页仅呈现要点摘录，全文请点击原文链接</footer>
+
+<script id="data" type="application/json">[{"date": "2025-09-04", "name": "中华人民共和国政府和巴基斯坦伊斯兰共和国政府关于构建新时代更加紧密的中巴命运共同体行动计划（2025－2029年", "link": "https://www.gov.cn/yaowen/liebiao/202509/content_7039194.htm", "concept": "★中巴经济走廊是 “中巴经济合作的支柱以及共建‘一带一路’倡议先行先试项目”；深化走廊 “五大走廊”（增长走廊、民生走廊、创新走廊、绿色走廊、开放走廊）与巴基斯坦 “5Es”（出口、数字、环境、能源和公平赋权）发展框架的战略对接。\n\n★构建中巴命运共同体的 “五坚持” 原则：\n坚持推动构建命运共同体大方向，坚持相互尊重、世代友好，坚持以诚相待、高度互信，坚持互利互惠、合作共赢，坚持同舟共济、共迎挑战", "classic": "★中巴关系的 “四重定位”：\n“中国和巴基斯坦是山水相连的好邻居、信义相交的好朋友、互帮互助的好伙伴、患难与共的好兄弟”。\n\n★中巴全天候战略合作伙伴关系的 “定性”：\n“中巴全天候战略合作伙伴关系是历史的选择、人民的选择，得到两国社会各界一致支持”；\n“牢不可破的中巴铁杆友谊历经国际风云变幻考验，超越地缘政治利益，是地区和平、稳定和发展的重要积极因素”。\n\n★全球治理领域的 “共同倡议”：\n“共同推进落实全球安全倡议”“携手践行全球文明倡议”“共同落实全球治理倡议，推动构建更加公正合理的全球治理体系”。", "speech": ""}, {"date": "2025-09-04", "name": "李强会见巴基斯坦总理夏巴兹", "link": "https://www.gov.cn/yaowen/liebiao/202509/content_7039176.htm", "concept": "", "classic": "★“中巴全天候战略合作伙伴关系” “巴中铁杆友谊世代传承、历久弥坚”。\n\n★“中巴经济走廊‘2.0 升级版’”\n李强 “推动贸易扩容增效，深化产业对接融合，抓好港口、公路、铁路等重大联通项目建设”；\n夏巴兹 “以推进中巴经济走廊‘2.0 升级版’建设为引领，加快互联互通重点项目建设”。\n\n★ “中巴经济走廊‘五大走廊’（增长、民生、创新、绿色、开放）”\n\n★“深化医疗、教育、地方、青年、文化等领域交流，促进两国人民相知相亲”“深化医疗卫生等领域合作” “加强人文交流、民间友好”", "speech": ""}, {"date": "2025-09-02", "name": "总书记会见巴基斯坦总理夏巴兹", "link": "https://www.gov.cn/yaowen/liebiao/202509/content_7038770.htm", "concept": "★“中巴经济走廊 2.0 升级版”“中巴自贸协定升级版”（文档首次在国家领导人会见层面明确提出）", "classic": "★“铁杆友谊” 与 “四重交情”：\n“中巴两国是患难之交、兄弟之交，更是信义之交、道义之交，铁杆友谊历久弥坚”\n\n★“中巴经济走廊 2.0 升级版”\n“加强产业、农业、矿业等领域合作，助力提升巴方自主发展能力”。\n\n★“落实好全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议”“巴方将全力支持并积极落实全球治理倡议”。", "speech": "总书记指出，中巴两国是患难之交、兄弟之交，更是信义之交、道义之交，铁杆友谊历久弥坚，这是在历史的重重考验中锻造出来的。世界百年变局加速演进，强有力的中巴关系有利于维护地区和平与发展。双方要加快构建新时代更加紧密的中巴命运共同体，更好造福两国人民，为构建周边命运共同体作示范。\n\n总书记强调，中方支持巴基斯坦保持团结、聚焦发展、增强国力，愿同巴方共同努力，打造中巴经济走廊“2.0升级版”和中巴自贸协定升级版，加强产业、农业、矿业等领域合作，助力提升巴方自主发展能力。中方支持巴方打击恐怖主义，希望巴方采取切实有效举措保障中方在巴人员、项目和机构安全，为两国合作营造安全环境。双方要加强战略沟通，落实好全球发展倡议、全球安全倡议、全球文明倡议、全球治理倡议，应对共同挑战，维护国际公平正义。"}, {"date": "2025-08-21", "name": "王毅同巴基斯坦副总理兼外长达尔举行中巴外长战略对话", "link": "https://www.gov.cn/yaowen/liebiao/202508/content_7037436.htm", "concept": "", "classic": "★“对华友好是巴对外政策的基石，也是全国上下的共同认识”“中巴关系在中国外交中具有特殊意义、处于优先位置”\n\n★“构建巴中命运共同体”\n达尔“巴方将坚定支持构建巴中命运共同体”\n王毅“让中巴命运共同体建设继续走在周边命运共同体建设的前列”。\n\n★“支持共建‘一带一路’和三大全球倡议（全球发展倡议、全球安全倡议、全球文明倡议）”", "speech": ""}, {"date": "2025-02-06", "name": "中华人民共和国和巴基斯坦伊斯兰共和国联合声明(全文)", "link": "https://www.gov.cn/yaowen/liebiao/202502/content_7002492.htm", "concept": "", "classic": "★“中巴全天候战略合作伙伴关系是历史的选择、人民的选择，得到两国社会各界普遍支持。牢不可破的中巴铁杆友谊和伙伴关系历经国际风云变幻考验，超越地缘政治利益，是地区和平、稳定和发展的重要积极因素。”\n\n★“推动高质量共建‘一带一路’的八项行动在巴基斯坦落地并同巴方‘5Es’（出口、数字、环境、能源和公平赋权）发展框架对接，共建增长走廊、民生走廊、创新走廊、绿色走廊、开放走廊，打造中巴经济走廊‘升级版’。”\n\n★安全合作的 “核心原则”：“零容忍反恐 + 在巴人员安全”“保护在巴中国人员、项目和机构安全是巴基斯坦政府的首要责任。”", "speech": ""}, {"date": "2025-02-05", "name": "总书记同巴基斯坦总统扎尔达里会谈", "link": "https://www.gov.cn/yaowen/liebiao/202502/content_7002347.htm", "concept": "", "classic": "★“历久弥坚的中巴传统友谊由两国老一辈领导人亲手缔造，是两国和两国人民的宝贵财富”\n\n★“共同打造中巴经济走廊合作‘升级版’，总书记主席提出这一方向，是对中巴经济走廊（CPEC）合作的阶段性升级 —— 从早期的 “基础设施建设为主” 转向 “高质量发展、多领域协同”（如结合创新、绿色、民生等维度）。\n\n★“深化发展战略对接和治国理政经验交流，加强各层级各部门交往，不断巩固中巴关系的政治基础”\n\n★“中方对巴友好政策保持高度稳定性和延续性，始终面向巴基斯坦全体人民”", "speech": "总书记指出，中国和巴基斯坦是铁杆朋友和全天候战略合作伙伴。历久弥坚的中巴传统友谊由两国老一辈领导人亲手缔造，是两国和两国人民的宝贵财富。近年来，双方坚定相互政治支持，保持密切高层交往，深入推进中巴经济走廊建设和各领域合作，树立了国与国关系典范。中方愿同巴方在各自现代化道路上携手前行，加快构建新时代更加紧密的中巴命运共同体，更好造福两国人民，为地区和平、稳定、繁荣作出更大贡献。\n\n总书记强调，中方始终从战略上看待中巴关系，对巴友好政策保持高度稳定性和延续性，始终面向巴基斯坦全体人民。中方将一如既往坚定支持巴方维护主权、独立和领土完整，打击恐怖主义，走符合本国国情的发展道路。双方要深化发展战略对接和治国理政经验交流，加强各层级各部门交往，不断巩固中巴关系的政治基础。欢迎巴基斯坦从中国进一步全面深化改革、扩大高水平对外开放中率先受益，中方愿同巴方深化各领域务实合作，共同打造中巴经济走廊合作“升级版”，帮助巴方夯实发展基础、释放发展潜力。希望巴方强化对在巴中国人员、项目和机构的安全保护，加强双多边反恐合作。明年是中巴建交75周年，双方要深化文化、教育、媒体等领域交流合作，让中巴友谊薪火相传。中方赞赏巴方积极支持三大全球倡议并参与有关合作，愿同巴方一道，坚持和平共处五项原则，抵制单边主义和霸权行径，加强多边协作，维护发展中国家的共同利益。"}, {"date": "2024-10-16", "name": "中华人民共和国和巴基斯坦伊斯兰共和国联合声明(全文)", "link": "https://www.gov.cn/yaowen/liebiao/202410/content_6980690.htm", "concept": "", "classic": "★“中方重申将中巴关系置于中国外交的优先方向。巴方强调，巴中关系是巴外交政策的基石。中方强调，中巴关系在中国外交政策中具有特殊意义。”“中巴建交以来，两国关系历经考验，坚如磐石”“同意进一步深化两国铁杆友谊与合作”\n\n★“把中巴经济走廊打造成高质量共建‘一带一路’的示范性工程”，", "speech": ""}, {"date": "2024-10-15", "name": "李强同巴基斯坦总理共同出席瓜达尔新国际机场项目竣工仪式", "link": "https://www.gov.cn/yaowen/liebiao/202410/content_6980357.htm", "concept": "★“中巴经济走廊是高质量共建‘一带一路’的示范性工程”“中巴经济走廊建设进一步走向深入的重要标志”", "classic": "★李强总理提出 “坚持共商共建共享、开放绿色廉洁、高标准惠民生可持续” 推进走廊建设\n\n★“中巴铁杆友谊经受住国际风云变幻考验，牢不可破” \n\n★“瓜达尔新国际机场是 “中巴特殊友谊的生动写照”，夏巴兹总理也提及项目是 “巴中友谊的又一标志性象征”。 “项目承载友谊、友谊推动项目”", "speech": ""}, {"date": "2024-10-14", "name": "李强赴伊斯兰堡对巴基斯坦进行正式访问并出席上海合作组织成员国政府首脑（总理）理事会第二十三次会议", "link": "https://www.gov.cn/yaowen/liebiao/202410/content_6980342.htm", "concept": "", "classic": "★李强总理评价中巴关系 “成为国与国之间友好合作、互利共赢的典范”\n\n★“两国建交 73 年来，彼此始终高度信任、坚定相互支持”，“持续弘扬传统友谊，不断深化互利合作，更好分享发展机遇”“以友谊为基础、以合作谋共赢”", "speech": ""}, {"date": "2024-06-09", "name": "中华人民共和国和巴基斯坦伊斯兰共和国联合声明(全文)", "link": "https://www.gov.cn/yaowen/liebiao/202406/content_6956372.htm", "concept": "", "classic": "★“中方重申将中巴关系作为中国外交的优先方向。巴方强调，巴中关系是巴外交政策基石。”\n\n★“用 “铁杆朋友”“两国关系历经国际风云变幻考验，坚如磐石、稳如泰山” 形容中巴友谊\n\n★“打造中巴经济走廊‘升级版’，建设高质量共建‘一带一路’示范性工程”", "speech": ""}, {"date": "2024-06-07", "name": "总书记会见巴基斯坦总理夏巴兹", "link": "https://www.gov.cn/yaowen/liebiao/202406/content_6956206.htm", "concept": "★“中国和巴基斯坦是山水相连的好邻居、信义相交的好朋友、守望相助的好伙伴、患难与共的好兄弟”，总书记主席以 “四好关系” 界定中巴双边定位", "classic": "★“中巴铁杆友谊历久弥坚，关键在于双方始终相互理解、高度信任、坚定支持”\n\n★“以打造中巴经济走廊‘升级版’为中心，共建增长、民生、创新、绿色、开放‘五大走廊’”\n\n★“推动高质量共建‘一带一路’同巴方发展规划对接”，总书记主席强调中巴合作的 “规划对接” 原则\n\n★“共同推动平等有序的世界多极化和普惠包容的经济全球化”", "speech": "总书记指出，中国和巴基斯坦是山水相连的好邻居、信义相交的好朋友，更是守望相助的好伙伴、患难与共的好兄弟。中巴全天候战略合作伙伴关系不断深化，拥有坚实的民意基础、强大的内生动力、广阔的发展前景。中方愿同巴方坚定相互支持，拉紧合作纽带，深化战略协调，加快构建新时代更加紧密的中巴命运共同体，为地区和平、稳定、发展、繁荣作出更大贡献。\n\n总书记强调，中巴铁杆友谊历久弥坚，关键在于双方始终相互理解、高度信任、坚定支持。感谢巴方在涉及中国核心利益和重大关切问题上长期坚定支持中国。中方也将一如既往坚定支持巴方捍卫国家主权和领土完整，支持巴方走符合本国国情的发展道路，支持巴方坚定打击恐怖主义。中方愿推动高质量共建“一带一路”同巴方发展规划对接，因地制宜开展农业、矿业、社会民生等领域合作，以打造中巴经济走廊“升级版”为中心，共建增长、民生、创新、绿色、开放“五大走廊”，推动高质量共建中巴经济走廊走深走实，助力巴基斯坦经济社会发展。希望巴方持续创造安全、稳定、可预期的营商环境，切实保障在巴中方人员、项目、机构安全。中方愿同巴方加强在联合国、上海合作组织等多边机制内的协调配合，共同推动平等有序的世界多极化和普惠包容的经济全球化，聚焦发展议程，应对安全挑战，完善全球治理，维护发展中国家共同利益和国际公平正义。"}, {"date": "2024-03-13", "name": "“巴基斯坦和中国携手共同发展、繁荣、进步”——访巴基斯坦总理夏巴兹·谢里夫", "link": "https://www.gov.cn/yaowen/liebiao/202403/content_6939225.htm", "concept": "★夏巴兹明确 “巴方坚定支持中方提出的三大全球倡议（全球发展倡议、全球安全倡议、全球文明倡议）", "classic": "★“70 多年来，两国领导人不断培育和促进巴中友谊”\n\n★夏巴兹提出 “推动中巴经济走廊项目向现代化、科技化方向发展”，并提及 “建立特别投资促进委员会机制、工业园区和出口区”\n\n★夏巴兹高度评价 “中国式现代化是一种很成功的模式”，并提出巴基斯坦 “应学习中国式现代化，鼓励中小企业创业、解决青年就业、减轻贫困”\n\n★夏巴兹评价共建 “一带一路”“有助于减轻贫困饥饿、促进投资和教育卫生发展，没有比这更好的全球社会共建模式了”", "speech": ""}, {"date": "2023-10-22", "name": "国家发展改革委与巴基斯坦有关部门签署八份合作文件", "link": "https://www.gov.cn/lianbo/bumen/202310/content_6910894.htm", "concept": "★“《在中巴经济走廊框架下开展产业合作路径研究的谅解备忘录》中明确 “有效促进特别经济区发展、吸引中外企业”", "classic": "★“矿产开发与产业合作”“绿色低碳发展”“数字经济”\n“积极推动中资企业开展对巴矿业投资合作，共同探讨包括矿石深加工在内的矿业产业园区规划”“继续务实、稳健和有序地推进中巴经济走廊能源合作”\n★“瓜达尔港发展研究与专家交流”\n文档签署《关于建立瓜达尔港发展研究专家交流机制的谅解备忘录》，强调 “提升瓜达尔港经济发展能力”\n\n★“围绕基础设施、绿色低碳、资源矿产等议题深化共建‘一带一路’合作研究”\n文档《关于深化共建 “一带一路” 重大问题合作研究的谅解备忘录》明确上述研究方向", "speech": ""}, {"date": "2023-10-21", "name": "中华人民共和国和巴基斯坦伊斯兰共和国联合新闻声明（全文）", "link": "https://www.gov.cn/yaowen/liebiao/202310/content_6910699.htm", "concept": "", "classic": "★“中巴关系是巴外交政策基石，中方将其置于外交优先方向”\n\n★“中巴经济走廊是共建‘一带一路’先行先试项目 / 示范性工程”\n\n★“瓜达尔港是地区互联互通枢纽，加快配套设施建设”\n\n★“深化矿业、农业、数字经济合作，支持巴工业化”\n\n★“共同支持‘一带一路’，推动构建人类命运共同体”", "speech": ""}, {"date": "2023-10-19", "name": "总书记会见巴基斯坦总理卡卡尔", "link": "https://www.gov.cn/yaowen/liebiao/202310/content_6910384.htm", "concept": "", "classic": "", "speech": "总书记指出，中国和巴基斯坦是全天候战略合作伙伴和铁杆朋友，巴历届政府都积极支持和参与“一带一路”合作。10年来，中巴经济走廊取得丰硕成果，有力推动巴基斯坦经济社会发展，成为共建“一带一路”的重要标志性工程。中方愿同巴方弘扬传统友谊，深化互利合作，加快构建新时代更加紧密的中巴命运共同体。\n\n总书记强调，中方赞赏巴方长期以来坚定支持中方核心利益，将一如既往支持巴基斯坦维护国家主权、独立和领土完整，支持巴基斯坦自主选择符合本国国情的发展道路。双方要以今年中巴经济走廊建设10周年为契机，打造增长、民生、创新、绿色、开放的走廊“升级版”，加强产业园区、农业矿业、新能源等领域合作，推动重大互联互通项目早日落地并取得务实成果，欢迎更多巴基斯坦优质农产品对华出口。希望巴方保障在巴中国机构、人员安全。中方愿同巴方加强在联合国、上海合作组织框架内协作，促进地区团结合作，维护发展中国家正当利益。"}, {"date": "2023-08-01", "name": "推动构建新时代更加紧密的中巴命运共同体——总书记主席向中巴经济走廊启动十周年庆祝活动致贺信引发巴基斯坦各界热烈反响", "link": "https://www.gov.cn/yaowen/liebiao/202308/content_6896033.htm", "concept": "★“不论国际风云如何变幻，中方将始终同巴方坚定站在一起开展更高水平、更广范围、更深层次的合作”", "classic": "★“将走廊进一步打造成为高质量共建‘一带一路’的示范性工程坚持高标准、可持续、惠民生目标”\n贺信提出走廊建设的 “三高目标”“为巴基斯坦经济社会发展增添新的动力，为地区互联互通和一体化进程奠定良好基础”", "speech": ""}, {"date": "2022-11-03", "name": "中华人民共和国和巴基斯坦伊斯兰共和国联合声明", "link": "https://www.gov.cn/xinwen/2022-11/03/content_5723916.htm", "concept": "★“中巴友好是两国人民的历史选择，久经考验、历久弥坚”", "classic": "", "speech": ""}, {"date": "2022-11-02", "name": "总书记会见巴基斯坦总理夏巴兹", "link": "https://www.gov.cn/xinwen/2022-11/02/content_5723829.htm", "concept": "★“推动落实全球发展倡议、全球安全倡议，维护多边主义与发展中国家共同利益”\n总书记主席提出 “共同落实全球发展倡议、全球安全倡议”\n\n★总书记主席以 “好朋友、好伙伴、好兄弟” 界定中巴关系，夏巴兹强调 “巴中友谊坚不可摧”“铁杆情谊”", "classic": "★“总书记主席明确 “将巴基斯坦置于周边外交优先方向”，夏巴兹表态 “深化巴中全天候战略合作伙伴关系是巴外交政策基石”\n\n★“拓展数字经济、光伏等新能源合作，扩大巴优质农产品对华出口”三大合作方向", "speech": "总书记强调，中方赞赏巴方坚定推进对华友好合作，感谢巴方在涉及中国核心和重大关切问题上支持中方，将坚定支持巴方维护国家主权和领土完整、发展利益、民族尊严，坚定支持巴基斯坦实现稳定团结、发展繁荣。中方对巴基斯坦人民遭受特大洪灾深表同情，将追加提供紧急援助，帮助巴基斯坦灾后重建，支持巴方恢复灾后农业生产，加强防灾减灾、应对气候变化合作。\n\n总书记介绍了中国共产党第二十次全国代表大会取得的重要成果。总书记指出，中国将继续坚持对外开放基本国策，不断以中国新发展为包括巴基斯坦在内的世界各国提供新机遇。中方愿同巴方深化发展战略对接。双方要用好中巴经济走廊联合合作委员会机制，以更高效率推进中巴经济走廊建设，将其打造成“一带一路”高质量发展示范性工程。要加快推进瓜达尔港配套基础设施建设，发挥港口对地区联通发展的辐射带动作用。双方要共同努力，为早日实施一号铁路干线升级改造项目和卡拉奇环城铁路项目创造条件。中方欢迎巴基斯坦扩大优质农产品对华出口，愿同巴方拓展数字经济、电子商务、光伏等新能源合作，扎实推进农业、科技、民生等领域合作，将继续为巴方稳定金融形势提供力所能及的支持。中方支持中国工业强省同巴方结对子推进产业合作，希望巴方提供良好营商环境。我高度牵挂在巴中国人的安全问题，希望巴方为赴巴基斯坦开展合作的中国机构和人员提供可靠安全环境。\n\n总书记指出，当前，世界之变、时代之变、历史之变正以前所未有的方式展开。面对高度不确定的世界，双方要站在历史正确的一边，保持在国际多边机制中的高水平合作，在重大国际地区问题上密切配合，维护真正的多边主义，维护国际公平正义，维护发展中国家共同利益，为世界提供确定性和正能量。中方愿同巴方一道，推动落实好全球发展倡议和全球安全倡议，推动全球经济治理体系朝着更加公正合理、普惠共赢的方向发展，构建人类命运共同体，为两国发展提供有力保障，为世界和平稳定和共同繁荣作出更多贡献。"}, {"date": "2022-11-01", "name": "专访：期待进一步巩固巴中全天候战略合作伙伴关系——访巴基斯坦总理夏巴兹·谢里夫", "link": "https://www.gov.cn/xinwen/2022-11/01/content_5722889.htm", "concept": "★“铁杆友谊” 与 “牢不可破”“牢固的铁杆友谊”“如铁一般的友谊”“比山高、比海深、比蜜甜” “超越地缘、风雨同舟”", "classic": "★“走廊解决电力短缺、提升互联互通”：夏巴兹在专访中具体提及 “拉合尔到卡拉奇行车时间从 20 小时缩至 12 小时”“缓解电力短缺”\n\n★“走廊向可再生能源、农业等领域拓展”：夏巴兹在专访中提出 “探讨太阳能、风能合作”", "speech": ""}, {"date": "2022-09-16", "name": "总书记会见巴基斯坦总理夏巴兹", "link": "https://www.gov.cn/xinwen/2022-09/16/content_5710255.htm", "concept": "", "classic": "", "speech": "总书记指出，中国和巴基斯坦山水相邻、命运相连，两国历来患难与共、守望相助。无论国际风云如何变幻，中国和巴基斯坦都是彼此值得信赖的战略伙伴。中方愿同巴方一道，推动两国全天候战略合作伙伴关系发展，加快构建新时代更加紧密的中巴命运共同体。\n\n总书记强调，双方要继续坚定相互支持，深化发展战略对接，发挥好中巴经济走廊联委会作用，确保大项目顺利建设运营。要拓展产业、农业、科技、社会民生等领域合作，为走廊建设增添新动能。希望巴方切实保障在巴中国公民和机构安全，保障企业合法权益。中方赞赏巴方率先积极响应全球发展倡议和全球安全倡议，愿同巴方推动倡议落地生根。双方要加强在联合国、上海合作组织等多边平台的沟通和配合，发出发展中国家反对阵营对抗、维护多边主义的正义之声。"}, {"date": "2022-05-23", "name": "中国和巴基斯坦联合声明（全文）", "link": "https://www.gov.cn/xinwen/2022-05/23/content_5691804.htm", "concept": "★声明首次将 “一带一路” 与 “两大全球倡议” 绑定：“共建‘一带一路’是开放包容的国际合作平台和广受欢迎的全球公共产品，支持全球发展倡议、全球安全倡议”", "classic": "★“中巴互信和友谊始终坚如磐石，是地区乃至世界和平、稳定、繁荣的重要因素”\n\n★“中巴是全天候战略合作伙伴”“巴中关系是巴外交政策的基石”\n\n★“安全、顺利、高质量推进中巴经济走廊项目建设，促进经贸、投资、产业、农业、卫生、科技等领域务实合作”", "speech": ""}, {"date": "2022-02-07", "name": "中华人民共和国和巴基斯坦伊斯兰共和国联合声明（全文）", "link": "https://www.gov.cn/xinwen/2022-02/07/content_5672326.htm", "concept": "★声明提及 “这彰显了中巴两国的团结和‘铁杆’兄弟情谊”，“铁杆兄弟” 是中巴关系最具代表性的民间与官方共识，此前多为口头表述，此次写入联合声明", "classic": "★“中巴经济走廊是‘一带一路’倡议的先试先行项目”。", "speech": ""}, {"date": "2022-02-06", "name": "总书记会见巴基斯坦总理伊姆兰·汗", "link": "https://www.gov.cn/xinwen/2022-02/06/content_5672256.htm", "concept": "", "classic": "", "speech": "总书记指出，刚刚过去的2021年对中巴关系意义非凡。两国庆祝建交70周年，回顾历史、总结经验，以更坚定的信心开创中巴关系未来。中方愿同巴方一道，加快构建新时代更加紧密的中巴命运共同体，为两国人民创造福祉，为地区合作提供动力，为世界和平贡献力量。\n\n总书记强调，世界进入动荡变革期，中巴关系战略意义更加突出。中巴两国要弘扬互信互助、携手合作的传统，开展更加广泛深入的战略合作。中方坚定支持巴方捍卫国家独立、主权、尊严，打击恐怖主义，愿同巴方对接发展战略，推进中巴经济走廊建设向深入发展，确保重大项目顺利实施，拓展科技、农业、社会民生等领域合作，建设绿色、健康、数字走廊，支持巴方推进工业化进程，以提升可持续发展能力。中方在国际事务中主持公道正义，不惹事，也不怕事。我们有能力、有信心维护好自身的主权、安全、发展利益。中方愿同巴方加强在联合国等多边场合的协调配合，发出更多正义之声，维护世界和地区和平稳定。双方应该积极推动落实全球发展倡议，构建人类命运共同体。"}, {"date": "2021-07-26", "name": "中国和巴基斯坦第三次外长战略对话联合新闻稿", "link": "https://www.gov.cn/xinwen/2021-07/26/content_5627254.htm", "concept": "★首次系统提出 “健康走廊、产业走廊、贸易走廊、数字走廊、绿色走廊” 五大专项走廊协同建设的概念，标志着中巴经济走廊从 “基础设施建设为主” 向 “多领域综合赋能” 转型\n\n★ “中巴经济走廊（CPEC）进入高质量发展新阶段”，这是中巴首次以官方文件界定走廊的 “阶段属性”\n\n★“将中巴经济走廊打造成地区互联互通枢纽”", "classic": "★“中巴友谊历久弥坚，彰显两国深厚的友谊和牢固的手足之情”\n\n★“聚焦经济社会发展、创造就业和改善民生，加强产业园区、基础设施、科学技术、医疗卫生、农业、人力资源培训等领域合作”", "speech": ""}, {"date": "2021-04-19", "name": "特稿：弘义融利共谋发展 友谊之树根深叶茂——写在总书记主席对巴基斯坦进行国事访问六周年之际", "link": "https://www.gov.cn/xinwen/2021-04/19/content_5600497.htm", "concept": "★“中巴友谊是两国人民的共同财富，是历经时间考验的全天候战略合作伙伴关系的典范”该表述首次将 “人民共同财富”（凸显民间基础）", "classic": "★“中巴经济走廊是‘一带一路’国际合作的旗舰项目，双方将坚持共商共建共享原则，推动走廊高质量发展，聚焦产业合作、民生改善和区域互联互通”", "speech": ""}, {"date": "2020/12", "name": "《中巴经济走廊：共商共建共享 迈向高质量发展》", "link": "https://www.gov.cn/xinwen/2020-12/07/content_5567262.htm", "concept": "★“中巴经济走廊是‘一带一路’国际合作的旗舰项目，是中巴全天候战略合作伙伴关系的重要支撑，是两国共同发展的‘加速器’和‘压舱石’”\n\n★“中巴经济走廊高质量发展，核心是‘提质增效、惠及民生、绿色低碳、开放包容’，重点聚焦产业合作、民生改善、互联互通、数字经济、绿色发展五大领域”\n\n★“确保走廊项目‘不仅建得成，更要运营好、效益优，真正惠及两国人民特别是当地社区’”", "classic": "", "speech": ""}, {"date": "2019-10-09", "name": "总书记会见巴基斯坦总理伊姆兰·汗", "link": "https://www.gov.cn/xinwen/2019-10/09/content_5437560.htm", "concept": "★“独一无二的全天候战略合作伙伴” 定位\n★“新时代更紧密的中巴命运共同体” 目标", "classic": "★中巴经济走廊（CPEC）的 “示范工程” 定位\n★“相互支持核心利益” 的合作基础", "speech": "总书记强调，中国和巴基斯坦是独一无二的全天候战略合作伙伴。无论国际和地区形势如何变化，中巴友谊始终牢不可破、坚如磐石，中巴合作始终保持旺盛生命力、不断拓展深化。中方始终将巴基斯坦置于中国外交优先方向，在涉及巴基斯坦核心利益和重大关切的问题上将继续坚定支持巴方，愿同巴方一道努力，加强战略协作和务实合作，打造新时代更紧密的中巴命运共同体。\n\n总书记指出，今年是新中国成立70周年。我们举行了一系列盛大庆典，这也是一次爱国主义的集中教育。近14亿中国人民人心空前凝聚，爱国热情空前高涨，更坚定了我们排除一切艰难险阻走中国特色社会主义道路、把自己的事情办好、立足世界民族之林的信心和决心。巴基斯坦朋友曾在中国困难的时候提供了无私帮助，现在中国发展起来了，真诚希望帮助巴方更好发展。双方要保持密切高层往来和更紧密的战略沟通，及时就重大问题协调立场。要高标准推进中巴经济走廊建设，建设好、运营好现有能源、交通基础设施、产业园区和民生项目，把走廊打造成高质量共建“一带一路”的示范工程。中方高度赞赏并坚定支持巴方打击恐怖主义的努力。中巴双方要加强在联合国、上海合作组织等多边机制的沟通合作，共同维护地区和平稳定。"}, {"date": "2019-04-28", "name": "总书记会见巴基斯坦总理伊姆兰·汗", "link": "https://www.gov.cn/xinwen/2019-04/28/content_5387091.htm", "concept": "", "classic": "★在共建“一带一路”框架内推动产能、基础设施建设、民生、贸易等领域合作高质量发展", "speech": "总书记指出，巴基斯坦是中国全天候战略合作伙伴。中巴互为“铁杆”朋友，在涉及彼此核心利益问题上始终坚定相互支持。中方把巴基斯坦置于中国外交优先方向。无论国际地区形势如何变化，中方都坚定支持巴方维护国家主权和民族尊严，支持巴方根据本国国情自主选择发展道路，支持巴方打击恐怖和极端主义势力，支持巴方争取良好的外部安全环境，支持巴方在国际和地区事务中发挥建设性作用。\n\n总书记指出，总理先生去年11月访华期间，双方就中巴关系发展达成一系列重要共识。当前，中巴经济走廊建设、金融、贸易等方面合作都取得了重要进展。下阶段，中巴双方要继续努力，把全天候的战略合作不断推向前进。双方要深化高层交往和相互支持，加强战略沟通，在共建“一带一路”框架内推动产能、基础设施建设、民生、贸易等领域合作高质量发展。要继续密切在国际地区事务中协调合作。"}, {"date": "2018/11 /4", "name": "《中华人民共和国和巴基斯坦伊斯兰共和国关于加强中巴全天候战略合作伙伴关系、打造新时代更紧密中巴命运共同体的联合声明》", "link": "https://www.mfa.gov.cn/web/gjhdq_676201/gj_676203/yz_676205/1206_676308/1207_676320/201811/t20181104_9288489.shtml", "concept": "★首次系统提出 “打造新时代更紧密的中巴命运共同体”", "classic": "★“中巴两国是好邻居、好朋友、好兄弟、好伙伴”\n\n★“中巴友谊与合作符合两国和两国人民根本利益，有利于地区和世界的和平、稳定与发展”\n\n★“中巴经济走廊是‘一带一路’的标志性项目，聚焦经济社会发展、创造就业和改善民生”\n\n★“瓜达尔港是跨区域互联互通的重要节点和中巴经济走廊的支柱”", "speech": ""}, {"date": "2015-04-21", "name": "构建中巴命运共同体 开辟合作共赢新征程", "link": "https://paper.people.com.cn/rmrbhwb/html/2015-04/22/content_1556826.htm", "concept": "★中巴经济走廊 “三维价值定位” 概念\n“中巴经济走廊是‘一带一路’倡议的旗舰项目，是连接中国西南地区与南亚、中亚、中东乃至非洲的‘战略通道’，更是中巴全天候战略合作伙伴关系的‘经济纽带’”\n\n★明确 CPEC 的 “三重身份”：“一带一路旗舰”（国际合作定位）、“跨区域战略通道”（地理功能定位）、“中巴关系经济纽带”（双边合作定位）\n\n★“走廊建设不仅要打通‘硬通道’，更要通过能源、交通、民生项目让中巴民众直接受益，实现‘共商共建共享’的早期实践”", "classic": "★ “中巴经济走廊北接中国新疆喀什，南抵巴基斯坦瓜达尔港，将形成‘陆空一体、陆海联动’的互联互通网络，破解中国西南地区‘出海难’与巴基斯坦‘内陆发展滞后’的双重困境”\n\n★“中巴全天候战略合作伙伴关系，在经济走廊建设中体现为‘政治互信为基、务实合作为要’—— 中方将与巴方一道，确保走廊项目‘质量优先、进度可控、惠及民生’”", "speech": ""}, {"date": "2015/4/21", "name": "《中华人民共和国和巴基斯坦伊斯兰共和国关于建立全天候战略合作伙伴关系的联合声明》", "link": "https://www.gov.cn/xinwen/2015-04/21/content_2850064.htm", "concept": "中巴关系史上界定双边关系 “顶层定位” 的里程碑文件\n\n★全球首次在官方双边文件中明确 “中巴全天候战略合作伙伴关系”\n\n★“战略合作” 的领域扩容：首次将合作范围从传统的 “政治互信、安全协作” 拓展至 “经济联动、民生共享、全球治理”\n\n★“伙伴关系” 的目标升级：首次提出 “将中巴关系打造为‘国与国之间相互尊重、平等互利、合作共赢的典范’”", "classic": "★“中巴友谊是两国人民的共同财富，是历经风雨考验、不可动摇的战略资产”\n\n★“双方同意将中巴经济走廊建设作为两国经济合作的旗舰项目，秉持共商共建共享原则，加快推进走廊规划建设，重点加强能源、交通基础设施、产业园区等领域合作，打造连接两国的‘经济大动脉’", "speech": ""}, {"date": "2015/4", "name": "总书记主席访巴期间", "link": "https://www.gov.cn/xinwen/2015-04/19/content_2849229.htm", "concept": "★中巴 “1+4” 合作布局：确定以 “中巴经济走廊建设为中心”，以瓜达尔港、能源、基础设施建设、产业合作为四大重点领域\n★“比山高、比海深、比蜜甜”", "classic": "总书记在巴基斯坦媒体发表署名文章《中巴人民友谊万岁》", "speech": ""}, {"date": "2014/2", "name": "2014 年 2 月巴基斯坦总统侯赛因访华", "link": "/", "concept": "★打造中巴命运共同体", "classic": "/", "speech": ""}, {"date": "2013/5", "name": "国务院总理李克强出访巴基斯坦", "link": "/", "concept": "★中巴全天候友谊\n★巴基斯坦是中国的全天候战略合作伙伴", "classic": "/", "speech": ""}, {"date": "2013", "name": "2013 年中巴总理互访期间", "link": "/", "concept": "★中巴经济走廊", "classic": "/", "speech": ""}, {"date": "1956/10", "name": "《人民日报》-增进中巴友谊的新贡献", "link": "/", "concept": "★中巴友谊", "classic": "/", "speech": ""}]</script>
+<script>
+const DATA=JSON.parse(document.getElementById('data').textContent);
+// 数据里的 "/" 是占位符，表示无内容——统一清洗成空字符串，避免渲染出空的"经典描述"块或指向根目录的假"原文"链接
+DATA.forEach(d=>{for(const k of ['link','concept','classic','speech']){if((d[k]||'').trim()==='/')d[k]='';}});
+document.getElementById('total').textContent=DATA.length;
+const yearOf=d=>(d.date||'').replace('/','-').split('-')[0];
+const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+function pts(txt){
+  if(!txt) return '';
+  let arr=txt.split('★').map(s=>s.trim()).filter(Boolean);
+  if(arr.length===0) return '';
+  return '<ul class="pts">'+arr.map(p=>'<li>'+esc(p).replace(/\n+/g,'<br>')+'</li>').join('')+'</ul>';
+}
+const years=[...new Set(DATA.map(yearOf))].sort((a,b)=>b-a);
+const yc=document.getElementById('years');
+yc.innerHTML='<button class="chip" data-y="all" aria-pressed="true">全部</button>'+
+  years.map(y=>`<button class="chip" data-y="${y}" aria-pressed="false">${y}</button>`).join('');
+let curYear='all', q='', onlyFirst=false;
+function render(){
+  const tl=document.getElementById('tl');
+  let list=DATA.filter(d=>{
+    if(curYear!=='all' && yearOf(d)!==curYear) return false;
+    if(onlyFirst && !d.concept) return false;
+    if(q){const hay=(d.name+d.concept+d.classic+d.speech).toLowerCase();if(!hay.includes(q))return false;}
+    return true;
+  });
+  document.getElementById('count').textContent=list.length+' 条';
+  if(!list.length){tl.innerHTML='<div class="empty">没有匹配的记录</div>';return;}
+  let html='',lastY=null,idx=0;
+  for(const d of list){
+    const y=yearOf(d);
+    if(y!==lastY){html+=`<div class="yr">${y}</div>`;lastY=y;}
+    const first=idx===0 && curYear==='all' && !q && !onlyFirst;idx++;
+    const hasFirst=!!d.concept;
+    const dparts=(d.date||'').replace('/','-').split('-');
+    const dMain=dparts.slice(1).join('-')||y;
+    const title=d.link
+      ? `<a class="title" href="${esc(d.link)}" target="_blank" rel="noopener">${esc(d.name)}</a><a class="src" href="${esc(d.link)}" target="_blank" rel="noopener">原文 &#8599;</a>`
+      : `<span class="title">${esc(d.name)}</span><span class="nolink">（暂无链接）</span>`;
+    html+=`<div class="entry${first?' first':''}">
+      <div class="date"><span class="d">${esc(dMain)}</span></div>
+      <div class="card${hasFirst?' has-first':''}">
+        <div>${title}</div>
+        ${d.concept?`<div class="block"><div class="lbl first">首提概念</div><div class="first-box">${pts(d.concept)}</div></div>`:''}
+        ${d.classic?`<div class="block classic"><div class="lbl classic">经典描述</div>${pts(d.classic)}</div>`:''}
+        ${d.speech?`<div class="block"><div class="lbl speech">书记发言</div><div class="speech-box">${esc(d.speech).replace(/\n+/g,'<br>')}</div></div>`:''}
+      </div></div>`;
+  }
+  tl.innerHTML=html;
+}
+yc.addEventListener('click',e=>{const b=e.target.closest('.chip');if(!b)return;
+  curYear=b.dataset.y;[...yc.children].forEach(c=>c.setAttribute('aria-pressed',c===b));render();});
+document.getElementById('onlyFirst').addEventListener('click',e=>{
+  onlyFirst=!onlyFirst;e.currentTarget.setAttribute('aria-pressed',onlyFirst);render();});
+document.getElementById('q').addEventListener('input',e=>{q=e.target.value.trim().toLowerCase();render();});
+render();
+</script>
+
+</body>
+</html>
