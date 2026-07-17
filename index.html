@@ -26,14 +26,74 @@
     /* ── Layout ── */
     .container { max-width: 1500px; margin: 0 auto; padding: 28px 24px 60px; }
 
-    /* ── Nav Cards ── */
-    .nav-cards {
+    /* ── Hero: 左侧嵌入表单 + 右侧 2×2 跳转卡片 ── */
+    .hero-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      grid-template-columns: minmax(360px, 420px) 1fr;
       gap: 16px;
       margin-bottom: 36px;
+      align-items: stretch;
+    }
+    .nav-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 16px;
+    }
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .nav-cards-grid { grid-template-columns: 1fr; }
     }
 
+    /* 生活用品申请表单（从 supplies_form.html 移植嵌入） */
+    .form-panel {
+      background: #fff;
+      border: 1px solid #e9edf2;
+      border-top: 3px solid #e8720c;
+      border-radius: 12px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+      padding: 18px 22px 22px;
+      display: flex;
+      flex-direction: column;
+    }
+    .form-panel-head { margin-bottom: 16px; }
+    .form-panel-head .nav-card-label { color: #b95a09; margin-bottom: 6px; }
+    .form-panel-title { font-size: 18px; font-weight: 700; margin: 0 0 3px; color: #1d2530; }
+    .form-panel-sub { font-size: 12.5px; color: #6b7280; line-height: 1.5; }
+    .supply-form { display: flex; flex-direction: column; flex: 1; }
+    .supply-form .field { margin-bottom: 16px; }
+    .supply-form label { display: block; font-size: 13px; font-weight: 650; margin-bottom: 7px; color: #1d2530; }
+    .supply-form .req { color: #e8720c; margin-left: 2px; }
+    .supply-form select,
+    .supply-form textarea {
+      width: 100%; padding: 10px 12px; border: 1px solid #e5e9ee; border-radius: 8px;
+      font-size: 14px; font-family: inherit; background: #fff; color: #1d2530;
+    }
+    .supply-form select:focus,
+    .supply-form textarea:focus { outline: none; border-color: #e8720c; }
+    .supply-form textarea { resize: vertical; min-height: 76px; }
+    .house-options { display: flex; flex-wrap: wrap; gap: 9px; }
+    .house-chip {
+      border: 1.5px solid #e5e9ee; background: #fff; color: #6b7785;
+      padding: 8px 15px; border-radius: 20px; font-size: 13px; cursor: pointer;
+      user-select: none; transition: .15s;
+    }
+    .house-chip:hover { border-color: #e8720c; }
+    .house-chip.active { background: #e8720c; color: #fff; border-color: #e8720c; }
+    .submit-btn {
+      width: 100%; padding: 12px; background: #e8720c; color: #fff; border: none;
+      border-radius: 8px; font-size: 15px; font-weight: 700; cursor: pointer;
+      transition: .15s; margin-top: auto;
+    }
+    .submit-btn:hover { background: #b95a09; }
+    .submit-btn:disabled { background: #c9ccd1; cursor: not-allowed; }
+    .supply-form .status {
+      margin-top: 14px; padding: 11px 13px; border-radius: 8px; font-size: 13px; display: none;
+    }
+    .supply-form .status.ok { display: block; background: #eaf7ea; color: #1a7a1a; border: 1px solid #bfe6bf; }
+    .supply-form .status.err { display: block; background: #fdecec; color: #b3261e; border: 1px solid #f5c2c0; }
 
     .nav-card {
       display: block;
@@ -181,38 +241,82 @@
 
 <div class="container">
 
-  <!-- Navigation Cards -->
-  <div class="nav-cards">
-    <a href="industry_index.html" class="nav-card blue">
-      <div class="nav-card-label">通信行业</div>
-      <div class="nav-card-title">通信行业数据</div>
-      <div class="nav-card-desc">PTA 月度用户数据、运营商市场份额、QoS 质量报告</div>
-      <div class="nav-card-arrow">→</div>
-    </a>
-    <a href="macro_index.html" class="nav-card green">
-      <div class="nav-card-label">宏观经济</div>
-      <div class="nav-card-title">宏观经济数据</div>
-      <div class="nav-card-desc">GDP、通胀、汇率、外汇储备、利率等宏观经济指标</div>
-      <div class="nav-card-arrow">→</div>
-    </a>
-    <a href="zong_packages_index.html" class="nav-card lime">
-      <div class="nav-card-label">Zong 套餐</div>
-      <div class="nav-card-title">Zong 套餐清单</div>
-      <div class="nav-card-desc">预付费/后付费全套餐价格与内容，支持搜索与分类筛选</div>
-      <div class="nav-card-arrow">→</div>
-    </a>
-    <a href="supplies_form.html" class="nav-card orange">
-      <div class="nav-card-label">生活用品申请</div>
-      <div class="nav-card-title">中方员工生活用品需求</div>
-      <div class="nav-card-desc">提交生活用品/维修需求，自动登记到台账</div>
-      <div class="nav-card-arrow">→</div>
-    </a>
-    <a href="government_statement.html" class="nav-card red">
-      <div class="nav-card-label">中巴友谊</div>
-      <div class="nav-card-title">中巴友谊政府通告声明</div>
-      <div class="nav-card-desc">1956–2025 官方声明中的首提概念、经典表述与总书记发言要点</div>
-      <div class="nav-card-arrow">→</div>
-    </a>
+  <!-- Hero: 左侧中方员工生活用品申请表单 + 右侧 2×2 数据看板跳转卡片 -->
+  <div class="hero-grid">
+    <section class="form-panel">
+      <div class="form-panel-head">
+        <div class="nav-card-label">生活用品申请</div>
+        <div class="form-panel-title">中方员工生活用品需求</div>
+        <div class="form-panel-sub">Necessities Application · 提交后直接写入登记表</div>
+      </div>
+      <form id="supplyForm" class="supply-form">
+        <div class="field">
+          <label>姓名<span class="req">*</span></label>
+          <select id="nameSelect" required>
+            <option value="" disabled selected>请选择</option>
+            <option>Huo Junli</option>
+            <option>Wang Yong</option>
+            <option>Huang Zhidong</option>
+            <option>Mao Weiliang</option>
+            <option>Wu Jianhe</option>
+            <option>Leng Xing</option>
+            <option>Fan Jing</option>
+            <option>Zhang Lei</option>
+            <option>Jiang Jisuo</option>
+            <option>Fan Jiehuan</option>
+            <option>Li Xiaowei</option>
+            <option>Jing Xiuming</option>
+            <option>Yang Chao</option>
+            <option>Yan Mingqiang</option>
+            <option>Zhao Feilong</option>
+            <option>Lu Weidong</option>
+            <option>Hu Wenxiao</option>
+            <option>Wei Lin</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>物品需求<span class="req">*</span></label>
+          <textarea id="necessityInput" placeholder="请描述需要的物品，例如：拖把、微波炉、会议室空调故障维修等" required></textarea>
+        </div>
+        <div class="field">
+          <label>所属房屋<span class="req">*</span></label>
+          <div class="house-options" id="houseOptions">
+            <div class="house-chip" data-v="CEO House">CEO House</div>
+            <div class="house-chip" data-v="CTO House">CTO House</div>
+            <div class="house-chip" data-v="Expat Kitchen House">Expat Kitchen House</div>
+          </div>
+        </div>
+        <button type="submit" class="submit-btn" id="submitBtn">提交申请</button>
+        <div class="status" id="statusMsg"></div>
+      </form>
+    </section>
+
+    <div class="nav-cards-grid">
+      <a href="industry_index.html" class="nav-card blue">
+        <div class="nav-card-label">通信行业</div>
+        <div class="nav-card-title">通信行业数据</div>
+        <div class="nav-card-desc">PTA 月度用户数据、运营商市场份额、QoS 质量报告</div>
+        <div class="nav-card-arrow">→</div>
+      </a>
+      <a href="macro_index.html" class="nav-card green">
+        <div class="nav-card-label">宏观经济</div>
+        <div class="nav-card-title">宏观经济数据</div>
+        <div class="nav-card-desc">GDP、通胀、汇率、外汇储备、利率等宏观经济指标</div>
+        <div class="nav-card-arrow">→</div>
+      </a>
+      <a href="zong_packages_index.html" class="nav-card lime">
+        <div class="nav-card-label">Zong 套餐</div>
+        <div class="nav-card-title">Zong 套餐清单</div>
+        <div class="nav-card-desc">预付费/后付费全套餐价格与内容，支持搜索与分类筛选</div>
+        <div class="nav-card-arrow">→</div>
+      </a>
+      <a href="government_statement.html" class="nav-card red">
+        <div class="nav-card-label">中巴友谊</div>
+        <div class="nav-card-title">中巴友谊政府通告声明</div>
+        <div class="nav-card-desc">1956–2026 官方声明中的首提概念、经典表述与领导人发言要点</div>
+        <div class="nav-card-arrow">→</div>
+      </a>
+    </div>
   </div>
 
   <!-- News Calendar -->
@@ -227,6 +331,61 @@
   <div id="newsEmpty" class="news-empty" style="display:none">没有匹配的新闻</div>
 
 </div>
+
+<!-- 生活用品申请表单逻辑（从 supplies_form.html 移植；POST 到 Google Apps Script，后端不在本仓库） -->
+<script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDUArzBIbwyMgpZAZ9l-J1AXkhsrhIonyw2nwVaXXBWgAy2IRzs58cVire3y73fXNu/exec";
+
+let selectedHouse = "";
+document.querySelectorAll(".house-chip").forEach(chip => {
+  chip.addEventListener("click", () => {
+    document.querySelectorAll(".house-chip").forEach(c => c.classList.remove("active"));
+    chip.classList.add("active");
+    selectedHouse = chip.dataset.v;
+  });
+});
+
+const supplyForm = document.getElementById("supplyForm");
+const supplySubmitBtn = document.getElementById("submitBtn");
+const supplyStatus = document.getElementById("statusMsg");
+
+supplyForm.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  supplyStatus.className = "status";
+  supplyStatus.textContent = "";
+
+  const name = document.getElementById("nameSelect").value;
+  const necessity = document.getElementById("necessityInput").value.trim();
+
+  if (!name || !necessity || !selectedHouse) {
+    supplyStatus.className = "status err";
+    supplyStatus.textContent = "请完整填写姓名、物品需求和所属房屋。";
+    return;
+  }
+
+  supplySubmitBtn.disabled = true;
+  supplySubmitBtn.textContent = "提交中…";
+
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      body: new URLSearchParams({ name, necessity, house: selectedHouse }),
+    });
+    supplyStatus.className = "status ok";
+    supplyStatus.textContent = "提交成功，已记录到登记表。";
+    supplyForm.reset();
+    document.querySelectorAll(".house-chip").forEach(c => c.classList.remove("active"));
+    selectedHouse = "";
+  } catch (err) {
+    supplyStatus.className = "status err";
+    supplyStatus.textContent = "提交失败，请稍后重试或联系管理员。";
+  } finally {
+    supplySubmitBtn.disabled = false;
+    supplySubmitBtn.textContent = "提交申请";
+  }
+});
+</script>
 
 <script>
 const SOURCE_CONFIG = {
