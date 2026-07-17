@@ -34,7 +34,7 @@ playwright install chromium
 
 无测试框架、无 lint/build 步骤——三个页面均为纯静态 HTML，脚本靠运行后检查 `scripts/update_log.txt` / `scripts/macro_update_log.txt` / `scripts/news_update_log.txt` 验证效果。
 
-## 五页面架构
+## 六页面架构
 
 | 文件 | 定位 | 更新脚本 |
 |------|------|----------|
@@ -43,6 +43,7 @@ playwright install chromium
 | `macro_index.html` | 宏观经济：利率/储备/汇率/侨汇/CPI 自动更新　·　GDP/财政/产业结构/贸易人工维护 | `update_macro_dashboard.py`（部分板块，见下方"宏观年度数据维护"） |
 | `zong_packages_index.html` | Zong 预付费/后付费套餐清单（含国际漫游/IDD、Apna Shehr/Area Play 地区套餐），支持搜索与分类筛选 | `update_zong_packages.py`，每两个月全量抓取 zong.com.pk（见下方"Zong 套餐清单自动化"） |
 | `supplies_form.html` | 中方员工生活用品需求申请表单，从 `index.html` 导航卡片进入 | 无脚本；纯前端表单，`fetch()` POST 到 Google Apps Script（`APPS_SCRIPT_URL` 常量），后端在 Apps Script 侧，不在本仓库 |
+| `government_statement.html` | 中巴友谊政府通告声明：时间轴形式收录 1956–2026 年中巴官方声明的首提概念/经典描述/领导人发言要点，支持搜索、年份筛选、只看首提概念，从 `index.html` 导航卡片进入 | 无脚本；数据内嵌于页面 `<script id="data">` 的 JSON，人工维护（新增记录直接改该 JSON 数组；`/` 为无内容占位符，前端加载时清洗成空） |
 
 ## JS 数据注入机制
 
