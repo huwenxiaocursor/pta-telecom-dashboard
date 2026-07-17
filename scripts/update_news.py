@@ -527,9 +527,10 @@ def summarize(title: str, url: str, article_text: str = "") -> dict:
 
 
 def llm_dedup_groups(items: list) -> list:
-    """Ask DeepSeek to group same-day titles that report the same underlying
-    event with different wording (the cheap string-similarity dedup in main()
-    only catches near-identical titles). Returns a list of index groups, e.g.
+    """Ask DeepSeek to group titles (from the recent DEDUP_LOOKBACK_DAYS window,
+    possibly spanning several days) that report the same underlying event with
+    different wording (the cheap string-similarity dedup in main() only catches
+    near-identical titles). Returns a list of index groups, e.g.
     [[0, 3], [5, 7]]; [] on error or when nothing matches. This is the main
     recall pass but is non-deterministic — mark_duplicates() unions it with the
     deterministic entity_overlap_groups() fallback so an occasional LLM miss
@@ -544,8 +545,8 @@ def llm_dedup_groups(items: list) -> list:
             {
                 "role": "system",
                 "content": (
-                    "你是新闻编辑助手。下面是同一天抓取到的新闻标题列表（编号从0开始），"
-                    "可能来自不同网站，同一新闻事件常被不同网站用不同措辞报道。"
+                    "你是新闻编辑助手。下面是最近几天抓取到的新闻标题列表（编号从0开始，可能跨越不同日期），"
+                    "可能来自不同网站，同一新闻事件常被不同网站、在不同日期用不同措辞报道。"
                     "判断是否同一事件的标准：同一主体 + 同一动作 + 同一对象，"
                     "即使措辞不同也算同一事件——注意识别：\n"
                     "· 缩写与全称（如 CPO = Chief People Officer，MoU = 谅解备忘录）；\n"
@@ -623,10 +624,12 @@ def entity_overlap_groups(items: list) -> list:
 
 def mark_duplicates(cache: list) -> None:
     """Persist *only the deterministic* entity-overlap dedup decisions onto the
-    cache: within each of the last DEDUP_LOOKBACK_DAYS days, tag every non-best
-    copy of an entity-overlap group with `dup_of` (the URL of the kept item);
-    display skips tagged items. Persisting the decision (vs recomputing every
-    run) is what stops an already-deduped story from resurfacing.
+    cache: across the last DEDUP_LOOKBACK_DAYS days pooled together (so a
+    duplicate straddling two days is caught, not just same-day repeats), tag
+    every non-best copy of an entity-overlap group with `dup_of` (the URL of the
+    kept item); display skips tagged items. Persisting the decision (vs
+    recomputing every run) is what stops an already-deduped story from
+    resurfacing.
 
     Deliberately does NOT persist the LLM grouping: the LLM is non-deterministic
     and, worse, sometimes over-merges different stories on the same topic (e.g.
@@ -638,24 +641,33 @@ def mark_duplicates(cache: list) -> None:
     it is safe and keeps decisions idempotent."""
     from collections import defaultdict
     cutoff = (datetime.date.today() - datetime.timedelta(days=DEDUP_LOOKBACK_DAYS)).isoformat()
-    by_day: dict = defaultdict(list)
-    for it in cache:
-        if it.get("date", "") >= cutoff and it.get("summary_zh", "").strip():
-            by_day[it["date"]].append(it)
+
+    # Pool the whole DEDUP_LOOKBACK_DAYS window into one set (this previously ran
+    # one day at a time, so it could only catch same-day repeats). Pooling makes
+    # the deterministic pass cross-day: an event first reported on an earlier day
+    # and reworded by another outlet on a later day collapses onto the earlier
+    # copy. df is computed over the window, so a topic word shared across many
+    # days becomes high-frequency and drops out of the rare-token test — the
+    # >= ENTITY_OVERLAP_MIN_RARE rare-shared-token bar stays exactly as
+    # conservative as the old same-day pass and still never merges different
+    # developments of one rolling story.
+    active = [it for it in cache
+              if it.get("date", "") >= cutoff and it.get("summary_zh", "").strip()
+              and not it.get("dup_of")]
 
     total_tagged = 0
-    for day, day_items in by_day.items():
-        active = [it for it in day_items if not it.get("dup_of")]
-        if len(active) < 2:
-            continue
+    if len(active) >= 2:
+        # Earliest date first so a cross-day duplicate keeps the copy already
+        # shown on the earlier day; within one date, best (importance, source).
         active.sort(key=lambda x: (
+            x.get("date", ""),
             IMPORTANCE_PRIORITY.get(x.get("importance", "中"), 1),
             SOURCE_PRIORITY.get(x.get("source", ""), 99),
         ))
         groups = entity_overlap_groups(active)
 
-        # Union all groups into connected components so LLM and entity groupings
-        # that overlap collapse to one; keep the lowest index (best-ranked).
+        # Union all groups into connected components; keep the lowest index
+        # (earliest date, then best-ranked).
         parent = list(range(len(active)))
 
         def find(x):
@@ -825,6 +837,30 @@ def main() -> None:
     # baked onto the cache, so it only filters the current run's display.
     dedup_cutoff = (datetime.date.today() - datetime.timedelta(days=DEDUP_LOOKBACK_DAYS)).isoformat()
 
+    # Run the LLM same-event dedup once over the whole recent window rather than
+    # one day at a time, so it also catches a story reworded by a different
+    # outlet the *next day* — the common cross-day duplicate (e.g. TechJuice's
+    # "PTA Fines Jazz, Zong, Ufone and Telenor Rs740 Million" one day and
+    # BusinessRecorder's "PTA imposes Rs740m penalties on four cellular mobile
+    # operators" the next). Those two share < ENTITY_OVERLAP_MIN_RARE rare tokens,
+    # so the deterministic entity pass can't merge them; only the LLM can. Kept
+    # non-persisted on purpose: an occasional LLM over-merge only affects this
+    # one run's display and self-corrects next run, so it can never permanently
+    # drop a distinct story (same rationale as mark_duplicates). Sorted earliest
+    # first so the copy already shown on the earlier day is the one kept.
+    _llm_drop_urls: set = set()
+    _recent = [it for _d0 in _by_day for it in _by_day[_d0] if _d0 >= dedup_cutoff]
+    if len(_recent) > 1:
+        _recent.sort(key=lambda x: (
+            x.get("date", ""),
+            IMPORTANCE_PRIORITY.get(x.get("importance", "中"), 1),
+            SOURCE_PRIORITY.get(x.get("source", ""), 99),
+        ))
+        for _grp in llm_dedup_groups(_recent):
+            _valid = sorted(i for i in _grp if isinstance(i, int) and 0 <= i < len(_recent))
+            for _i in _valid[1:]:  # keep earliest-day (lowest index), drop the rest
+                _llm_drop_urls.add(_recent[_i].get("url", ""))
+
     display: list = []
     for _d in sorted(_by_day.keys(), reverse=True):
         day_sorted = sorted(
@@ -843,18 +879,10 @@ def main() -> None:
                 seen_titles.add(_key)
                 deduped.append(_it)
 
-        # LLM same-event dedup as a per-run (non-persisted) display filter for
-        # recent days — catches wording-very-different duplicates the persisted
-        # entity-overlap pass misses. deduped is already sorted by (importance,
-        # source), so keeping the lowest index in each group keeps the best copy.
-        if _d >= dedup_cutoff and len(deduped) > 1:
-            _drop: set = set()
-            for _grp in llm_dedup_groups(deduped):
-                _valid = sorted(i for i in _grp if isinstance(i, int) and 0 <= i < len(deduped))
-                if len(_valid) >= 2:
-                    _drop.update(_valid[1:])
-            if _drop:
-                deduped = [it for i, it in enumerate(deduped) if i not in _drop]
+        # Drop items the cross-day LLM pass (computed once over the whole recent
+        # window, above) flagged as same-event repeats of an earlier-day story.
+        if _llm_drop_urls:
+            deduped = [it for it in deduped if it.get("url", "") not in _llm_drop_urls]
 
         # The display cap itself scales with how many distinct sources the day
         # actually has to offer: a day where only 1-2 outlets published
