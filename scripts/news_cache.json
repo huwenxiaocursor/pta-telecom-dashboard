@@ -1,5 +1,134 @@
 [
   {
+    "source": "SBP",
+    "title": "SBP keeps policy rate unchanged at 11.5%",
+    "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxOWnk0SThybFN3SjNyOHFhSVNSV25KRlotclVSWU9vZ3FQYTM4Nk9ydnBuZFpMRmpKckxYbnlNZzNFbC01VVlMUk9CdzFma01wNkM4MVhicGQzdUdpMlcyclRyeDhsXzVKUDZramNuRFpSZE51T3U3MVNUN0VXX1o2bQ?oc=5",
+    "date": "2026-06-15",
+    "summary_zh": "巴基斯坦国家银行（SBP）宣布维持政策利率在11.5%不变，这是继此前连续降息后的首次暂停。该决定基于通胀压力缓解但仍需观察的考量，旨在平衡经济增长与物价稳定。【SBP维持利率不变，结束降息周期】\n\n此举对巴基斯坦电信行业构成间接利好，因运营商融资成本将保持稳定，有利于网络投资计划的持续推进。同时，宏观经济层面，利率稳定有助于抑制通胀预期，为卢比汇率提供支撑，但经济增长动力仍显不足。【利率稳定利好电信投资，但经济增长仍面临挑战】",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistan’s Mobile Phone Imports Cross $1.8 Billion in FY26",
+    "url": "https://propakistani.pk/2026/07/17/pakistans-mobile-phone-imports-cross-1-8-billion-in-fy26/",
+    "date": "2026-07-17",
+    "summary_zh": "巴基斯坦在FY2025-26财年进口了价值18.89亿美元的移动电话，同比增长26.55%，上一财年为14.92亿美元。以本币计算，进口额达5304.92亿卢比，同比增长27.24%。2026年6月，移动电话进口额环比增长11.88%至1.4156亿美元，同比增长2.62%。此前FY2024-25财年进口额曾下降21.31%。同期，电信总进口额增长27.97%至26.9亿美元。\n\n尽管进口增长，本地组装设备仍主导市场。2026年前5个月，本地生产了1117万部手机，而商业进口仅191万部。其中，本地生产的智能手机为492万部，2G功能机625万部。2026年5月，本地组装了101,005部5G智能手机。据PTA数据，巴基斯坦网络中72.3%的设备为智能手机，27.7%为2G手机。进口增长反映需求回升，但本地化生产比例高，对运营商竞争格局影响有限。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP Reserves Crash After Big Debt Payment",
+    "url": "https://propakistani.pk/2026/07/16/sbp-reserves-crash-after-big-debt-payment/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦国家银行（SBP）数据显示，截至2026年7月10日当周，其外汇储备因偿还外债大幅下降12.45亿美元，从18.471亿美元降至17.226亿美元。此前一周曾增加19.44亿美元。截至7月10日，巴基斯坦总流动外汇储备为226.76亿美元，其中SBP持有172.26亿美元，商业银行持有54.50亿美元。\n\n【SBP外汇储备单周下降12.45亿美元】至172.26亿美元，主要受外债偿还影响。此次下降逆转了前一周的大部分增幅，显示巴基斯坦外部偿付压力较大。尽管总储备仍超220亿美元，但【储备波动加剧可能影响市场对巴基斯坦偿债能力的信心】，对电信行业等依赖进口设备和外汇的领域构成潜在风险。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Issues Massive Rs. 74 Crore Fine on Telecom Operators",
+    "url": "https://propakistani.pk/2026/07/16/pta-issues-massive-rs-74-crore-fine-on-telecom-operators/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）对四家主要移动运营商开出总额7.4亿卢比（约7400万卢比）的罚款，原因是它们在未获得国民身份证持有人同意的情况下发放SIM卡，严重违反SIM发行规定。其中，Ufone被罚最多，达2.334亿卢比；Zong被罚1.556亿卢比；Jazz和Telenor各被罚1.167亿卢比。PTA强调运营商需对其特许经营商的违规行为负责，并指出其未能有效监控特许网络和生物识别验证系统，导致未经授权的SIM注册。\n\n此次罚款是PTA对SIM发行违规的严厉执法行动，【罚款总额高达7.4亿卢比】，凸显监管机构对消费者保护和网络安全的重视。对运营商而言，【Ufone被罚金额最大】，可能影响其短期财务状况；同时，PTA明确运营商需对特许经营商负责，将促使四大运营商加强内部监控和合规管理，长期来看有助于提升行业规范性和安全性，但短期内可能增加运营成本。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Chairman Wants Starlink, Amazon Satellite Services in Pakistan",
+    "url": "https://propakistani.pk/2026/07/16/pta-chairman-wants-starlink-amazon-satellite-services-in-pakistan/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）主席哈菲兹·乌尔·拉赫曼少将（退役）向参议院内阁秘书委员会建议，向Starlink、OneWeb和亚马逊的Project Kuiper等卫星互联网运营商发放许可证，以改善偏远地区和高速公路的互联网连接。PTA已完成技术和监管准备工作，并将建议提交给信息技术与电信部。主席以尼泊尔为例，说明卫星互联网服务已成功用于改善全国连接。卫星运营商需先向空间活动监管委员会注册，再由PTA发放电信许可证，以在巴基斯坦开始商业运营。\n\n【PTA推动卫星互联网牌照发放】旨在扩大高速互联网覆盖范围，缩小城乡数字鸿沟。此举将引入国际卫星运营商，可能对现有移动运营商（如Jazz、Zong、Telenor、Ufone）形成竞争压力，尤其是在偏远地区。然而，卫星宽带目前主要作为地面网络的补充，短期内对主流移动运营商的竞争格局影响有限，但长期可能改变市场结构。宏观经济层面，改善偏远地区连接性有助于促进数字经济发展和包容性增长。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "You Can Transfer eSIMs to New Phones Up to 10 Times for Free: PTA",
+    "url": "https://propakistani.pk/2026/07/16/you-can-transfer-esims-to-new-phones-up-to-10-times-for-free-pta/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）主席哈菲兹·乌尔·雷赫曼少将（退役）在参议院内阁秘书处常设委员会简报会上澄清，用户可免费将eSIM从一部兼容设备转移至另一部，最多10次。此举旨在提升eSIM采用便利性，配合用户升级或更换手机。PTA近期还披露，正与移动运营商协商将eSIM发行费从当前的2000卢比降至1000至1500卢比，并预期随着采用率提高价格将进一步下降。\n\n【eSIM免费转移最多10次】的政策降低了用户切换设备的成本，有望加速巴基斯坦eSIM普及。若发行费成功下调50%，将直接降低用户入门门槛，推动运营商优化数字服务。此举与PTA鼓励eSIM技术应用的方向一致，可能促进电信市场竞争，但短期内对四大主流运营商（Jazz、Zong、Telenor、Ufone）的营收影响有限，属于常规监管推动措施。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA is Making eSIMs 50% Cheaper in Pakistan",
+    "url": "https://propakistani.pk/2026/07/16/pta-is-making-esims-50-cheaper-in-pakistan/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）正与移动运营商合作，计划将eSIM价格降低50%，当前费用为2000卢比，目标降至1000-1500卢比。PTA主席在参议院常务委员会上表示，此举旨在鼓励eSIM采用，并指出需求增长将推动价格进一步下降。同时，PTA澄清其无权对手机征税，该职责属于联邦税务局（FBR），并警告高额手机税可能阻碍5G服务推广。\n\n【eSIM价格降低50%】有望显著提升巴基斯坦eSIM普及率，推动数字连接和5G服务采用。然而，评论指出eSIM本质无成本，运营商收费不合理，且与手机高额税费形成对比，可能削弱政策效果。对电信行业而言，此举是PTA促进技术升级的积极信号，但需配合更广泛的税收改革和运营商合作，才能实现长期市场影响。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "3 Arrested in PTA Crackdown Against Illegal Sale of Telecom User Data",
+    "url": "https://propakistani.pk/2026/07/16/3-arrested-in-pta-crackdown-against-illegal-sale-of-telecom-user-data/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）针对非法出售电信用户数据的行为采取行动，向国家网络犯罪调查局（NCCIA）拉合尔分局投诉，指控有人运营非法网络。NCCIA随后开展执法行动，逮捕3名嫌疑人，并缴获5部手机、8台生物特征验证系统（BVS）设备和43张可疑SIM卡。法医分析显示，查获设备中的WhatsApp聊天记录涉及未经授权出售敏感电信用户信息，包括通话详细记录（CDR）、用户及IMEI数据、位置信息、指纹和CNIC记录，以及相关财务交易证据。目前警方已立案调查，以确定该网络的全貌并追查其他涉案人员。\n\n此次行动凸显PTA对保护用户数据隐私的承诺，但事件本身不涉及主流运营商或重大政策变动，对巴基斯坦电信行业竞争格局和宏观经济影响有限。PTA与执法机构的合作有助于遏制数据泄露，但【该事件属于常规执法行动】，未改变市场结构或监管框架。因此，【对行业整体影响较小】，重要性为低。",
+    "importance": "低"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Heavy debt repayments: Forex reserves drop by over USD1bn",
+    "url": "https://www.brecorder.com/news/40430453/heavy-debt-repayments-forex-reserves-drop-by-over-usd1bn",
+    "date": "2026-07-17",
+    "summary_zh": "巴基斯坦外汇储备因巨额债务偿还而大幅下降，减少超过10亿美元。这一变化反映了该国面临的外部支付压力，主要源于到期债务的集中偿付。巴基斯坦国家银行（SBP）数据显示，外汇储备的下降可能进一步削弱市场对巴基斯坦卢比的信心，并增加进口支付和外部融资的难度。\n\n【外汇储备下降超10亿美元】对巴基斯坦宏观经济构成显著压力，可能加剧国际收支失衡，推高通胀预期，并影响主权信用评级。短期内，政府需依赖外部援助或贷款来补充储备，但长期来看，债务可持续性仍是关键挑战。电信行业作为依赖进口设备和外汇的领域，可能面临成本上升和投资放缓的风险。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Annual sales turnover enhanced: SBP revises regulations for SMEs financing",
+    "url": "https://www.brecorder.com/news/40430456/annual-sales-turnover-enhanced-sbp-revises-regulations-for-smes-financing",
+    "date": "2026-07-17",
+    "summary_zh": "巴基斯坦国家银行（SBP）修订了中小企业（SMEs）融资监管规定，提高了年度销售额门槛，以扩大中小企业获得融资的资格范围。此举旨在简化融资流程，降低中小企业贷款门槛，促进其业务增长。\n\n【SBP修订中小企业融资规定】将有助于缓解巴基斯坦中小企业融资难问题，推动私营部门发展，进而对宏观经济产生积极影响。中小企业是巴基斯坦经济的重要支柱，此举有望提升就业和产出，但具体效果取决于银行执行力度和中小企业自身信用状况。",
+    "importance": "中"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP-held foreign exchange reserves fall $1.245bn on external debt repayments",
+    "url": "https://www.brecorder.com/news/40430370/sbp-held-foreign-exchange-reserves-fall-1245bn-on-external-debt-repayments",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦国家银行（SBP）持有的外汇储备因偿还外债而减少12.45亿美元。这一变动反映了巴基斯坦在履行国际债务义务方面的持续压力，外汇储备的下降可能加剧市场对巴基斯坦外部融资能力的担忧。\n\n外汇储备的减少对巴基斯坦电信行业的影响较为间接，但宏观经济层面的压力可能通过汇率波动和进口成本上升传导至电信运营商。若储备持续下降，可能导致卢比贬值，增加运营商对进口设备（如网络基础设施）的采购成本，并可能影响其国际融资能力。此外，宏观经济不确定性可能抑制消费者支出，对电信服务需求产生负面影响。总体而言，该事件对电信行业竞争格局的直接影响有限，但需关注后续宏观政策调整。",
+    "importance": "中",
+    "dup_of": "https://www.techjuice.pk/sbp-foreign-exchange-reserves-fall-1-25-billion-after-debt-repayments/"
+  },
+  {
+    "source": "TechJuice",
+    "title": "SBP Foreign Exchange Reserves Fall $1.25 Billion After Debt Repayments",
+    "url": "https://www.techjuice.pk/sbp-foreign-exchange-reserves-fall-1-25-billion-after-debt-repayments/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦国家银行（SBP）公布的数据显示，截至2026年7月10日当周，SBP持有的外汇储备因偿还外债而大幅下降12.45亿美元，至172.26亿美元，前一周为184.71亿美元。尽管SBP储备减少，但巴基斯坦总流动性外汇储备仍达226.76亿美元，其中包括SBP持有的172.26亿美元和商业银行持有的54.50亿美元。此次下降逆转了前一周19.44亿美元的大部分增幅，凸显了外债偿还对该国外汇状况的持续影响。\n\n【外汇储备是衡量巴基斯坦外部金融稳定性的关键指标】。储备的急剧下降可能加剧市场对巴基斯坦偿债能力和进口支付能力的担忧，【对电信行业等依赖进口设备和服务的行业构成潜在压力】。若储备持续承压，可能影响SBP的货币政策空间，进而推高融资成本，对电信运营商的资本支出和运营成本产生间接影响。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan 5G Launch: Existing Data Packages Likely to Continue Initially",
+    "url": "https://www.techjuice.pk/pakistan-5g-launch-existing-data-packages-likely-to-continue-initially/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）文件显示，5G商用初期，运营商将沿用现有预付费和后付费数据套餐提供5G服务，用户无需更换SIM卡或购买专属套餐。PTA强调，此举旨在推动5G技术普及，未来可能随需求增长推出高端套餐。近期质量测试显示，Ufone、Jazz和Zong的5G平均下载速度分别为135.42 Mbps、133.65 Mbps和108.66 Mbps。\n\n【PTA明确5G初期不涨价】的策略将降低用户迁移门槛，加速5G渗透率提升，但可能延缓运营商短期收入增长。PTA呼吁政府降低手机税费以解决【高设备成本限制数字包容性】的问题，这对农村和低收入群体尤为关键。若政策配合，5G商用有望推动巴基斯坦电信行业从4G向5G平稳过渡，但长期盈利仍依赖频谱投资和差异化服务。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan Nears One Million Locally Assembled 5G Smartphones Ahead of 5G Rollout",
+    "url": "https://www.techjuice.pk/pakistan-nears-one-million-locally-assembled-5g-smartphones-ahead-of-5g-rollout/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦手机制造业已组装近100万部5G智能手机，截至2026年5月底官方数据显示产量达961,326部。三星通过Lucky Motor Corporation Ltd组装396,268部，占比超41%居首；Vivo通过Coastal Jade Technology组装248,508部；Infinix和Tecno由Inovi Telecom生产216,560部；Oppo通过Exert Tech组装96,900部；Nubia（ZTE）生产3,090部。该增长得益于移动设备制造政策，吸引国际品牌通过本地合作建立组装业务。\n\n【本地5G手机产量接近100万部】为巴基斯坦即将启动的5G商用奠定了设备基础，有望加速5G服务普及。【减少进口依赖并改善消费者对先进技术的获取】。三星、Vivo和传音集团（Infinix/Tecno）主导本地生产，【加剧了未来5G市场的竞争格局】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Pushes for Rs. 1,000 e-SIMs & Starlink Satellite Internet in Pakistan",
+    "url": "https://www.techjuice.pk/pta-pushes-for-rs-1000-e-sims-starlink-satellite-internet-in-pakistan/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦参议院内阁秘书委员会会议聚焦消费者技术政策，PTA主席就e-SIM定价、移动税收及卫星互联网接入进行说明。目前e-SIM初始价格为2000卢比，PTA正与运营商协商降至【1000至1500卢比】；用户可免费转移e-SIM最多10次。关于5G部署，PTA主席明确税收由FBR管辖，并警告对高端手机（如三星、苹果）的【高额税收将阻碍5G普及】。巴基斯坦年产2500万部手机，进口高端机税负沉重。\n\nPTA强调卫星互联网是解决偏远地区及高速公路网络覆盖不足的迫切需求，已完成框架并提交IT部，呼吁尽快向Starlink、OneWeb及亚马逊等公司发放牌照。此举有望【显著改善巴基斯坦偏远地区及交通干线的网络连接】，但需先通过航天活动监管委员会注册。若成功落地，将打破现有移动网络的地域限制，对电信行业竞争格局产生结构性影响，尤其利好未覆盖区域的用户。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Chairman Admits Discovering Telecom Act Amendments Via Social Media",
+    "url": "https://www.techjuice.pk/pta-chairman-admits-discovering-telecom-act-amendments-via-social-media/",
+    "date": "2026-07-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）主席在参议院常设委员会会议上承认，他通过社交媒体才得知《电信法修正案》的相关内容，并称PTA对谁提出该修正案完全不知情，甚至需要向员工询问PTA在拟议立法中的角色。此外，主席透露，成功获得5G频谱的公司已将其基站出售给其他运营公司。会议还就服务质量问题发生激烈争论，Jazz公共政策主管指出，服务差的根本原因是缺乏基础设施，尤其是卡拉奇地区难以获得“路权”安装设备；但参议员批评运营商在广告上投入巨大却服务不佳，并明确禁止在私人住宅强制安装基站。\n\n【PTA主席通过社交媒体才得知电信法修正案】暴露了监管机构与立法进程的严重脱节，可能影响巴基斯坦电信行业政策制定的透明度和协调性。同时，【5G频谱中标方出售基站】的行为可能削弱其网络建设能力，进而影响5G部署进度。政府已决定由信息技术部牵头，在三个月内制定确保电信行业不间断供电的方案，这有助于缓解基础设施瓶颈，但路权争议和运营商与政府间的信任缺失仍是长期挑战。",
+    "importance": "高"
+  },
+  {
     "source": "ProPakistani",
     "title": "PTA Says Pakistan Now Has 3.81 Million 5G Ready Smartphones",
     "url": "https://propakistani.pk/2026/07/15/pta-says-pakistan-now-has-3-81-million-5g-ready-smartphones/",
