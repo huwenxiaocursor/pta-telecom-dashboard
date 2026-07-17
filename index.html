@@ -41,7 +41,7 @@
       .nav-cards-row { grid-template-columns: 1fr; }
     }
 
-    /* 生活用品申请表单（从 supplies_form.html 移植嵌入） */
+    /* 生活用品申请表单（内嵌于门户页 hero 第一行） */
     .form-panel {
       background: #fff;
       border: 1px solid #e9edf2;
@@ -327,7 +327,7 @@
 
 </div>
 
-<!-- 生活用品申请表单逻辑（从 supplies_form.html 移植；POST 到 Google Apps Script，后端不在本仓库） -->
+<!-- 生活用品申请表单逻辑；POST 到 Google Apps Script（APPS_SCRIPT_URL），后端不在本仓库 -->
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyDUArzBIbwyMgpZAZ9l-J1AXkhsrhIonyw2nwVaXXBWgAy2IRzs58cVire3y73fXNu/exec";
 

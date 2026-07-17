@@ -34,15 +34,14 @@ playwright install chromium
 
 无测试框架、无 lint/build 步骤——三个页面均为纯静态 HTML，脚本靠运行后检查 `scripts/update_log.txt` / `scripts/macro_update_log.txt` / `scripts/news_update_log.txt` 验证效果。
 
-## 六页面架构
+## 五页面架构
 
 | 文件 | 定位 | 更新脚本 |
 |------|------|----------|
-| `index.html` | 门户页：顶部 hero（左侧内嵌生活用品申请表单 + 右侧 2×2 数据看板跳转卡片）+ 新闻聚合 | `update_news.py` |
+| `index.html` | 门户页：顶部 hero（第一行内嵌「中方员工生活用品需求」申请表单，字段横排；第二行 4 个数据看板跳转卡片横排）+ 新闻聚合。**表单为纯前端**，`fetch()` POST 到 Google Apps Script（`APPS_SCRIPT_URL` 常量），后端在 Apps Script 侧、不在本仓库；原独立页 `supplies_form.html` 已删除，此处为唯一版本 | `update_news.py`（仅新闻区，表单无脚本） |
 | `industry_index.html` | 电信数据：用户趋势、市场份额、QoS | `update_pta_dashboard.py` |
 | `macro_index.html` | 宏观经济：利率/储备/汇率/侨汇/CPI 自动更新　·　GDP/财政/产业结构/贸易人工维护 | `update_macro_dashboard.py`（部分板块，见下方"宏观年度数据维护"） |
 | `zong_packages_index.html` | Zong 预付费/后付费套餐清单（含国际漫游/IDD、Apna Shehr/Area Play 地区套餐），支持搜索与分类筛选 | `update_zong_packages.py`，每两个月全量抓取 zong.com.pk（见下方"Zong 套餐清单自动化"） |
-| `supplies_form.html` | 中方员工生活用品需求申请表单（独立整页版）。**同一份表单已内嵌进 `index.html` 门户页 hero 左侧**，两处共用同一个 `APPS_SCRIPT_URL` 与提交逻辑，改字段/选项/端点时两个文件要同步改 | 无脚本；纯前端表单，`fetch()` POST 到 Google Apps Script（`APPS_SCRIPT_URL` 常量），后端在 Apps Script 侧，不在本仓库 |
 | `government_statement.html` | 中巴友谊政府通告声明：时间轴形式收录 1956–2026 年中巴官方声明的首提概念/经典描述/领导人发言要点，支持搜索、年份筛选、只看首提概念，从 `index.html` 导航卡片进入 | 无脚本；数据内嵌于页面 `<script id="data">` 的 JSON，人工维护（新增记录直接改该 JSON 数组；`/` 为无内容占位符，前端加载时清洗成空） |
 
 ## JS 数据注入机制
