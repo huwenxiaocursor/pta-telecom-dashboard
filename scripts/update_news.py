@@ -53,7 +53,8 @@ LOW_DIVERSITY_CAP    = 5
 CUTOFF_DATE          = "2026-01-01"
 
 # Source priority for per-day display ranking (lower = higher priority)
-SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "BusinessRecorder": 3, "TechJuice": 4}
+SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "Dawn": 3,
+                   "BusinessRecorder": 4, "TechJuice": 5}
 
 # Importance ranking for per-day display (lower = shown first); see summarize()
 IMPORTANCE_PRIORITY = {"高": 0, "中": 1, "低": 2}
@@ -229,26 +230,72 @@ def fetch(url: str, timeout: int = 20) -> str:
         return ""
 
 
+_BROWSER = None  # lazily launched, reused across calls, closed by main()
+
+
+def fetch_article_text_browser(url: str, max_chars: int = 3000) -> str:
+    """Playwright fallback for sites that reject plain HTTP requests.
+    brecorder.com answers 403 to urllib no matter what headers we send (bot
+    protection keyed on TLS fingerprint / JS challenge, not User-Agent — full
+    browser headers, the AMP host and third-party proxies were all tried and
+    all fail), but loads fine in a real browser, which is why this exists.
+    Playwright is already a project dependency (send_daily_digest.py renders
+    the digest PNG with it); if it is somehow unavailable we degrade to "" and
+    the caller falls back to title-only summarisation as before."""
+    global _BROWSER
+    try:
+        from playwright.sync_api import sync_playwright
+        if _BROWSER is None:
+            _BROWSER = sync_playwright().start().chromium.launch()
+        page = _BROWSER.new_page(user_agent=HEADERS["User-Agent"])
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=45000)
+            text = re.sub(r"\s+", " ", page.inner_text("body")).strip()
+            # Google News RSS links are JS-redirect interstitials: at
+            # domcontentloaded the body is still the near-empty bounce page, so
+            # a short read means "probably not there yet", not "no content".
+            # Wait once and re-read to land on the publisher's actual article.
+            if len(text) < 200:
+                page.wait_for_timeout(6000)
+                text = re.sub(r"\s+", " ", page.inner_text("body")).strip()
+        finally:
+            page.close()
+        return text[:max_chars] if len(text) >= 200 else ""
+    except Exception as e:
+        log(f"  Browser fetch failed ({url}): {e}")
+        return ""
+
+
+def close_browser() -> None:
+    global _BROWSER
+    if _BROWSER is not None:
+        try:
+            _BROWSER.close()
+        except Exception:
+            pass
+        _BROWSER = None
+
+
 def fetch_article_text(url: str, max_chars: int = 3000) -> str:
     """Best-effort extraction of visible article text from a live page, so
     summarize() can ground its summary in real content instead of guessing
-    from the title alone. Returns "" on any failure or if the page yields
+    from the title alone. Tries a plain HTTP GET first (fast, covers most
+    sources) and falls back to a real browser for sites that block scripted
+    requests. Returns "" only when both routes fail or the page yields
     implausibly little text — callers must treat empty as 'no content
     available, fall back to title-only summarization'."""
     try:
         html = fetch(url, timeout=15)
-        if not html:
-            return ""
-        html = re.sub(r"<(script|style|nav|footer|header)\b[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
-        text = re.sub(r"<[^>]+>", " ", html)
-        text = html_lib.unescape(text)
-        text = re.sub(r"\s+", " ", text).strip()
-        if len(text) < 200:
-            return ""
-        return text[:max_chars]
+        if html:
+            html = re.sub(r"<(script|style|nav|footer|header)\b[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
+            text = re.sub(r"<[^>]+>", " ", html)
+            text = html_lib.unescape(text)
+            text = re.sub(r"\s+", " ", text).strip()
+            if len(text) >= 200:
+                return text[:max_chars]
     except Exception as e:
         log(f"  Article content fetch failed ({url}): {e}")
-        return ""
+    return fetch_article_text_browser(url, max_chars)
 
 
 def clean(text: str) -> str:
@@ -308,6 +355,13 @@ def fetch_google_news(query: str, source_label: str) -> list:
                 pass
 
         if pub_date < CUTOFF_DATE:
+            continue
+
+        # Filter here like every other fetcher does. Without this, irrelevant
+        # headlines reached summarize() and only got dropped by the pre-save
+        # is_relevant() rescan — same final cache, but one wasted DeepSeek call
+        # each (6 of 10 new items on the 2026-07-19 run).
+        if not is_relevant(title):
             continue
 
         seen.add(article_url)
@@ -373,30 +427,56 @@ def fetch_propakistani() -> list:
     return fetch_wp_recent("https://propakistani.pk", "ProPakistani")
 
 
-def fetch_business_recorder() -> list:
-    """Business Recorder's Business & Finance RSS — Pakistan's oldest financial
-    daily, replaced PhoneWorld (2026-07-02) after a quality complaint: PhoneWorld
-    was found to occasionally republish stale/outdated stories under a fresh
-    date (e.g. an article claiming the 5G spectrum auction "hadn't happened yet"
-    months after it actually concluded in March 2026). This is a general
-    business/finance feed (not telecom-specific), so is_relevant() filtering
-    matters a lot here — most items are unrelated (forex, gold, general markets)."""
-    log("Fetching Business Recorder RSS …")
+CONTENT_ENCODED = "{http://purl.org/rss/1.0/modules/content/}encoded"
+
+
+def rss_body(entry, max_chars: int = 3000) -> str:
+    """Article body carried inline in an RSS <item>, stripped of markup.
+    Same contract as fetch_article_text(): returns "" when the feed gives us
+    too little to ground a summary on, so summarize() falls back to
+    title-only mode rather than summarising a one-line teaser as if it were
+    the whole story."""
+    for tag in (CONTENT_ENCODED, "description"):
+        el = entry.find(tag)
+        if el is None or not el.text:
+            continue
+        text = re.sub(r"<[^>]+>", " ", html_lib.unescape(el.text))
+        text = re.sub(r"\s+", " ", text).strip()
+        if len(text) >= 200:
+            return text[:max_chars]
+    return ""
+
+
+def fetch_rss_feed(feed_url: str, source_label: str, display_name: str) -> list:
+    """Generic RSS 2.0 <channel><item> reader — used by the general-purpose
+    business/finance dailies (Business Recorder, Dawn). These are NOT
+    telecom-specific feeds, so is_relevant() filtering matters a lot here: most
+    items are unrelated (forex, gold, general markets) and both papers carry
+    Reuters/AFP wire copy about other countries, which the geo check in
+    is_relevant() is there to reject.
+
+    Both feeds ship the FULL article body in <description>/<content:encoded>,
+    which we stash as a transient "article_text" key. This is not an
+    optimisation — brecorder.com answers 403 to fetch_article_text() on every
+    article page (bot protection; the feed itself stays open), so without this
+    every Business Recorder item silently fell through to title-only
+    summarisation and DeepSeek invented the details. See main()."""
+    log(f"Fetching {display_name} RSS …")
     items = []
-    xml_str = fetch("https://www.brecorder.com/feeds/business")
+    xml_str = fetch(feed_url)
     if not xml_str:
-        log("  Business Recorder: 0 items found")
+        log(f"  {display_name}: 0 items found")
         return items
 
     try:
         root = ET.fromstring(xml_str)
     except ET.ParseError as e:
-        log(f"  Business Recorder XML parse error: {e}")
+        log(f"  {display_name} XML parse error: {e}")
         return items
 
     channel = root.find("channel")
     if channel is None:
-        log("  Business Recorder: 0 items found")
+        log(f"  {display_name}: 0 items found")
         return items
 
     for entry in channel.findall("item"):
@@ -423,12 +503,31 @@ def fetch_business_recorder() -> list:
             except Exception:
                 pass
 
-        items.append({"source": "BusinessRecorder", "title": title, "url": url, "date": pub_date})
+        items.append({"source": source_label, "title": title, "url": url,
+                      "date": pub_date, "article_text": rss_body(entry)})
         if len(items) >= MAX_ITEMS_PER_SOURCE:
             break
 
-    log(f"  Business Recorder: {len(items)} items found")
+    log(f"  {display_name}: {len(items)} items found")
     return items[:MAX_ITEMS_PER_SOURCE]
+
+
+def fetch_business_recorder() -> list:
+    """Business Recorder's Business & Finance RSS — Pakistan's oldest financial
+    daily, replaced PhoneWorld (2026-07-02) after a quality complaint: PhoneWorld
+    was found to occasionally republish stale/outdated stories under a fresh
+    date (e.g. an article claiming the 5G spectrum auction "hadn't happened yet"
+    months after it actually concluded in March 2026)."""
+    return fetch_rss_feed("https://www.brecorder.com/feeds/business",
+                          "BusinessRecorder", "Business Recorder")
+
+
+def fetch_dawn() -> list:
+    """Dawn's Business RSS — Pakistan's paper of record in English (added
+    2026-07-19). Editorially the most authoritative of the non-regulator
+    sources, but low telecom volume: most of the feed is general macro/markets
+    coverage, so expect only a handful of items per run after is_relevant()."""
+    return fetch_rss_feed("https://www.dawn.com/feeds/business", "Dawn", "Dawn")
 
 
 def fetch_techjuice() -> list:
@@ -761,8 +860,8 @@ def main() -> None:
     known  = {item["url"] for item in cache}
     log(f"Cache: {len(cache)} existing items")
 
-    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_business_recorder,
-                fetch_techjuice]
+    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_dawn,
+                fetch_business_recorder, fetch_techjuice]
     new_items: list = []
 
     for fn in fetchers:
@@ -793,7 +892,13 @@ def main() -> None:
 
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
-        article_text = fetch_article_text(item["url"])
+        # pop, not get: the RSS body is only needed for this one summarize()
+        # call and must not be persisted into news_cache.json. Sources whose
+        # feed carries the full text (Dawn, Business Recorder) supply it here;
+        # everyone else falls back to scraping the live page.
+        article_text = item.pop("article_text", "") or fetch_article_text(item["url"])
+        if not article_text:
+            log(f"    ! no article text — title-only summary (may be unreliable)")
         result = summarize(item["title"], item["url"], article_text)
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
@@ -920,6 +1025,7 @@ def main() -> None:
     display = display[:MAX_DISPLAY_ITEMS]
     inject_into_html(display)
 
+    close_browser()
     log("News update complete")
     log("=" * 50)
 

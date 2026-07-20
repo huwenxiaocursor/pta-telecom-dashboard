@@ -48,8 +48,8 @@ SOURCE_COLORS = {
     "PTA":              "#1c63d4",
     "SBP":              "#01652e",
     "ProPakistani":     "#ef7a15",
+    "Dawn":             "#b91c1c",
     "BusinessRecorder": "#7c3aed",
-    "PhoneWorld":       "#d71920",  # 历史数据仍可能命中旧日期，保留配色
     "TechJuice":        "#0ea5e9",
 }
 
@@ -169,7 +169,7 @@ body{{
 </div>
 <div class="body">{cards}</div>
 <div class="footer">
-  <span class="footer-left">数据来源：PTA · ProPakistani · SBP · Business Recorder · TechJuice &nbsp;|&nbsp; 每日自动更新</span>
+  <span class="footer-left">数据来源：PTA · ProPakistani · SBP · Dawn · Business Recorder · TechJuice &nbsp;|&nbsp; 每日自动更新</span>
 </div>
 </body></html>"""
 
