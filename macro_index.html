@@ -17,6 +17,10 @@
     --border:#e3e7ec;
     --up:#c0392b;
     --down:#1e8e3e;
+    /* 栏宽与左右留白：页头/正文/页脚共用，保证三者左右边缘对齐 */
+    --shell:1500px;
+    --gutter:24px;
+    --shell-pad:max(var(--gutter), calc((100% - var(--shell)) / 2 + var(--gutter)));
   }
   *{box-sizing:border-box;}
   body{
@@ -28,7 +32,7 @@
   header.hero{
     background:linear-gradient(120deg,var(--green) 0%,#024d23 60%,#03331a 100%);
     color:#fff;
-    padding:36px 6vw 28px;
+    padding:36px var(--shell-pad) 28px;
   }
   .hero-top{
     display:flex;
@@ -62,9 +66,9 @@
     margin-left:6px;
   }
   main{
-    max-width:1180px;
+    max-width:var(--shell);
     margin:0 auto;
-    padding:30px 6vw 60px;
+    padding:30px var(--gutter) 60px;
   }
   section.block{margin-bottom:34px;}
   .block-head{
@@ -186,7 +190,7 @@
   }
   .chart-card .chart-wrap{
     position:relative;
-    height:220px;
+    height:280px;
   }
   .data-table{
     width:100%;
@@ -254,7 +258,7 @@
   footer{
     background:#fff;
     border-top:1px solid var(--border);
-    padding:24px 6vw 40px;
+    padding:24px var(--shell-pad) 40px;
     font-size:12.5px;
     color:var(--muted);
   }
