@@ -80,6 +80,11 @@ DEDUP_LOOKBACK_DAYS = 3
 # than wrongly merge two different stories on the same topic).
 ENTITY_OVERLAP_MIN_RARE = 3
 ENTITY_RARE_DF_MAX      = 3
+# How much of each summary_zh goes into the LLM dedup prompt. Long enough to
+# carry the lede's subject/verb/object and its first figures (that is what makes
+# same-event obvious when the headlines don't), short enough that the whole
+# recent window stays a cheap single call.
+DEDUP_SUMMARY_CHARS = 100
 _DEDUP_STOP = {
     "the", "a", "an", "of", "to", "in", "on", "for", "and", "or", "after",
     "before", "will", "can", "could", "may", "might", "be", "is", "are", "was",
@@ -88,6 +93,26 @@ _DEDUP_STOP = {
     "than", "more", "less", "how", "what", "why", "when", "who", "until",
     "further", "notice", "existing", "continue", "expected", "rise", "change",
     "pakistan", "pakistani", "pakistans",
+    # Generic beat vocabulary. These are *topic* words, not the person/org names
+    # the rare-token test is meant to key on, but in a 3-day window an ordinary
+    # topic can stay under ENTITY_RARE_DF_MAX and get treated as a high-signal
+    # entity. Real over-merge (2026-07-22): Dawn "Mobile phone imports top
+    # Rs520bn in FY26" and ProPakistani "Customs Rejects Claims of Surge in
+    # Finished Mobile Phone Imports" shared exactly {mobile, phone, imports} —
+    # hitting the bar of 3 — and the second story is Customs *rebutting* the
+    # first, so persisting that merge silently deleted the original report.
+    # Distinctive figures (rs740m, 900000) and names stay in play; only the
+    # generic nouns drop out, which keeps this layer as conservative as its
+    # docstring claims.
+    "mobile", "phone", "phones", "smartphone", "smartphones", "handset",
+    "handsets", "import", "imports", "export", "exports", "telecom", "telecoms",
+    "telco", "telcos", "cellular", "internet", "broadband", "network",
+    "networks", "spectrum", "data", "user", "users", "subscriber", "subscribers",
+    "customer", "customers", "service", "services", "market", "markets",
+    "price", "prices", "tariff", "tariffs", "rate", "rates", "revenue",
+    "growth", "surge", "claims", "report", "reports", "says", "said",
+    "million", "billion", "percent", "industry", "sector", "company",
+    "companies", "firm", "firms", "operator", "operators",
 }
 
 # Compound/specific telecom terms — substring match is safe for these
@@ -633,28 +658,63 @@ def llm_dedup_groups(items: list) -> list:
     [[0, 3], [5, 7]]; [] on error or when nothing matches. This is the main
     recall pass but is non-deterministic — mark_duplicates() unions it with the
     deterministic entity_overlap_groups() fallback so an occasional LLM miss
-    doesn't let a duplicate through."""
+    doesn't let a duplicate through.
+
+    Each entry carries a DEDUP_SUMMARY_CHARS-long excerpt of summary_zh, not just
+    the title (2026-07-22): all three dedup layers used to judge on titles alone,
+    so two outlets headlining the same story from different angles slipped
+    through every one of them. Real case: ProPakistani "Pakistan Gives Telcos New
+    Spectrum for Faster 5G Rollout" vs TechJuice "New 5G Rules Push Telecom Firms
+    Toward Fiber Expansion" — 18% title similarity (subject, verb and object all
+    differ, so judging them distinct was *correct* on the titles), yet the
+    summaries are the same E-Band spectrum allocation down to the same figures
+    (480 MHz March auction, 17.9% fiberisation, Jazz 22% / Zong 19% / Telenor 16%
+    / Ufone 9%). The body text is where sameness is visible, so it has to be in
+    the prompt."""
     if len(items) < 2 or not DEEPSEEK_API_KEY:
         return []
 
-    listing = "\n".join(f"{i}. [{it['source']}] {it['title']}" for i, it in enumerate(items))
+    def _entry(i: int, it: dict) -> str:
+        line = f"{i}. [{it['source']}] {it['title']}"
+        excerpt = (it.get("summary_zh") or "").strip().replace("\n", " ")
+        if excerpt:
+            line += f"\n   摘要：{excerpt[:DEDUP_SUMMARY_CHARS]}"
+        return line
+
+    listing = "\n".join(_entry(i, it) for i, it in enumerate(items))
     payload = json.dumps({
         "model": "deepseek-chat",
         "messages": [
             {
                 "role": "system",
                 "content": (
-                    "你是新闻编辑助手。下面是最近几天抓取到的新闻标题列表（编号从0开始，可能跨越不同日期），"
-                    "可能来自不同网站，同一新闻事件常被不同网站、在不同日期用不同措辞报道。"
-                    "判断是否同一事件的标准：同一主体 + 同一动作 + 同一对象，"
-                    "即使措辞不同也算同一事件——注意识别：\n"
+                    "你是新闻编辑助手。下面是最近几天抓取到的新闻列表（编号从0开始，可能跨越不同日期），"
+                    "每条包含【标题】和【摘要】两行，可能来自不同网站，"
+                    "同一新闻事件常被不同网站、在不同日期用不同措辞报道。\n"
+                    "【重要】判断时以摘要描述的核心事实为准，标题只作参考——"
+                    "不同媒体常给同一条新闻起完全不同角度的标题，只看标题会漏判。"
+                    "若两条摘要讲的是同一件事（同一主体+同一动作+同一对象，"
+                    "或引用了同一组关键数字/金额/百分比），即为同一事件。\n"
+                    "同时注意识别：\n"
                     "· 缩写与全称（如 CPO = Chief People Officer，MoU = 谅解备忘录）；\n"
                     "· 同义动词（Joins / Appointed to / Named to / Elected to 表示同一任命）；\n"
                     "· 主动被动、词序调整、增删修饰语。\n"
                     "示例：「PTCL's Chief People Officer Umer Farid Joins PSTD Board of Governors」"
                     "与「PTCL CPO Umer Farid Appointed to PSTD Board of Governors」是同一事件；"
-                    "「IHC Clears Telenor's Merger Into Ufone」与「IHC Approves Telenor-Ufone Merger」是同一事件。"
-                    "但同一话题下的不同角度（如合并后的『资费上涨』与『员工裁员』）不是同一事件。\n"
+                    "「IHC Clears Telenor's Merger Into Ufone」与「IHC Approves Telenor-Ufone Merger」是同一事件；"
+                    "「Pakistan Gives Telcos New Spectrum for Faster 5G Rollout」"
+                    "与「New 5G Rules Push Telecom Firms Toward Fiber Expansion」标题看似无关，"
+                    "但摘要都是政府分配E-Band频谱、且引用同一组光纤化率数字，属同一事件。\n"
+                    "但下列情况【不是】同一事件，必须全部保留：\n"
+                    "· 同一话题下的不同角度（如合并后的『资费上涨』与『员工裁员』）；\n"
+                    "· 一条是对另一条报道的反驳、澄清、更正或官方回应——"
+                    "例如「Mobile phone imports top Rs520bn in FY26」（媒体报道进口额大增）"
+                    "与「Customs Rejects Claims of Surge in Finished Mobile Phone Imports」"
+                    "（海关出面驳斥该报道、称统计口径被误读）虽然围绕同一组数据，"
+                    "但后者是事件的新进展和对立观点，是最有价值的信息，绝不能当作重复删掉；\n"
+                    "· 同一指标在不同时间点的更新（如上月与本月的储备数据）。\n"
+                    "判断要点：若两条的核心事实一致、只是措辞不同 → 重复；"
+                    "若其中一条提供了新的立场、否定、进展或后续动作 → 不是重复。\n"
                     "请找出描述同一事件的条目，按分组返回编号（每组至少2条），"
                     "完全没有重复事件时返回空数组。"
                     '严格按JSON格式输出：{"duplicate_groups": [[0,3],[5,7]]}'
@@ -679,10 +739,64 @@ def llm_dedup_groups(items: list) -> list:
         with urllib.request.urlopen(req, timeout=30) as resp:
             result = json.loads(resp.read().decode("utf-8"))
             content = json.loads(result["choices"][0]["message"]["content"])
-            return content.get("duplicate_groups", [])
+            groups = content.get("duplicate_groups", [])
     except Exception as e:
         log(f"  DeepSeek dedup error: {e}")
         return []
+
+    return _split_rebuttal_groups(groups, items)
+
+
+# Words marking a story as *disputing* another one rather than retelling it.
+# Matched against the headline and the opening of the summary only — a rebuttal
+# announces itself there. Scanning the whole summary produced false positives on
+# ordinary reporting: "PTA 要求运营商采取纠正措施" (corrective measures) and
+# "议员引用帖子反驳" (someone inside the story disputing someone else) both
+# tripped it, neither being a rebuttal *of another article*.
+_REBUTTAL_MARKERS_EN = (
+    "reject", "denies", "denied", "deny", "refute", "rebut", "dismisses",
+    "disputes", "clarifies", "clarification", "debunk", "no truth", "not true",
+)
+_REBUTTAL_MARKERS_ZH = ("驳斥", "否认", "澄清", "辟谣", "不实", "误读", "误解")
+REBUTTAL_LEAD_CHARS = 60
+
+
+def _is_rebuttal(item: dict) -> bool:
+    title = (item.get("title") or "").lower()
+    if any(m in title for m in _REBUTTAL_MARKERS_EN):
+        return True
+    lead = (item.get("summary_zh") or "")[:REBUTTAL_LEAD_CHARS]
+    return any(m in lead for m in _REBUTTAL_MARKERS_ZH)
+
+
+def _split_rebuttal_groups(groups: list, items: list) -> list:
+    """Drop LLM groups that mix a report with a rebuttal of that report.
+
+    Feeding summaries to the model (see llm_dedup_groups) made it much better at
+    spotting reworded duplicates, but it also started merging a story with the
+    story *denying* it — both summaries cite the same figures, so on content
+    alone they look identical. Real case (2026-07-22): Dawn "Mobile phone imports
+    top Rs520bn in FY26" merged with ProPakistani "Customs Rejects Claims of
+    Surge in Finished Mobile Phone Imports", where Customs is disputing exactly
+    that report. Prompt wording did not fix it — the model returned the same
+    merge on repeated runs at temperature 0 — so the rule is enforced in code.
+
+    A group is only split when it *mixes* the two kinds: if every member is a
+    rebuttal, several outlets are covering the same denial and merging is right.
+    Losing the dissenting take is far worse than showing one extra item, so this
+    errs toward keeping both."""
+    out = []
+    for grp in groups:
+        idx = [i for i in grp if isinstance(i, int) and 0 <= i < len(items)]
+        if len(idx) < 2:
+            continue
+        flags = [_is_rebuttal(items[i]) for i in idx]
+        if any(flags) and not all(flags):
+            kept = [items[i].get("title", "")[:60] for i in idx]
+            log(f"  Dedup: kept report+rebuttal apart — {' | '.join(kept)}")
+            continue
+        out.append(idx)
+    return out
 
 
 def _title_tokens(title: str) -> set:
