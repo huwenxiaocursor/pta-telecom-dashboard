@@ -1,5 +1,77 @@
 [
   {
+    "source": "PTA",
+    "title": "Pakistan poised to launch 5G services before Eid-ul-Fitr",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNUWJrUGxrMW1PbHJlT1RfcXNzTU9nb2xaRHo2RVRxdnItd195QTNUbWQzWDVhTG5oR25tMzl0eFhrc09vUURpYjhfWjZvdXdES1BxejByMV9GOTFMNDNYVGhZQ0J1elVlX25EUThIU0NtdFJvRTFoN1ptZTVMa0kyLWF2VW4tS1J0N0syLUJaRzNsOXNEOHc?oc=5",
+    "date": "2026-03-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）预计将于下周向电信运营商发放5G牌照，目标是在开斋节前让全国移动用户享受5G服务。此前，巴基斯坦已完成5G频谱拍卖，筹集资金5.1亿美元。运营商需提交1500万美元银行担保作为许可条件，其中一家已满足要求，其余两家预计很快提交。牌照可能同时发放，以协调全国5G商用部署。\n\n【5G服务有望在开斋节前推出】，将显著提升巴基斯坦的互联网速度和网络可靠性，【主要城市用户将率先受益】。PTA将密切监控服务质量，确保运营商合规运营。此举有望推动巴基斯坦数字基础设施转型，对电信行业竞争格局和用户体验产生积极影响。",
+    "importance": "高"
+  },
+  {
+    "source": "SBP",
+    "title": "SBP announces monetary policy today; interest rate likely to be slashed into single digit",
+    "url": "https://news.google.com/rss/articles/CBMiuwFBVV95cUxPWkV3ajRhRjFPRlR3YlFFTmlmS2xCMmtpcDdWTXg3dnpnREdNeW5HUmFlMGNHNDdmVDRKWmhHVHRrZ0dvcDkxVENrQThycFRPYnlXNzhZMzVUY0dyakxGOWpmb1BEcDdBSloyQXNPYWZRT21WREVBR2hLb2ZWSnoybmVKekg0WVppcXRyNC1XWXZqbXZ5V0QtbzF4c2JsUlBCb042QTg4MEk2eTNLdVlPaER3WXVxSHk0cmlB?oc=5",
+    "date": "2026-01-26",
+    "summary_zh": "巴基斯坦国家银行（SBP）将于2026年1月26日公布今年首次货币政策，市场普遍预期基准利率可能被下调至个位数，这将是四年来首次。此前在2025年最后一次政策会议上，SBP已将利率下调50个基点至10.5%。近期国债拍卖显示政府借贷成本已降至个位数，外汇储备稳定、通胀受控以及侨汇收入增长为降息提供了支撑。经济学家预计本次可能降息50至100个基点。\n\n若利率降至个位数，将显著降低企业和消费者借贷成本，有望刺激经济活动与投资，为巴基斯坦2026年上半年的经济增长奠定基调。此举对电信行业而言，可能降低运营商融资成本，有利于网络基础设施投资，但具体影响需关注后续信贷传导效果。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "JazzWorld Wins Best InsureTech Award, Outlines Vision for Pakistan’s Digital Financial and Insurance Ecosystem",
+    "url": "https://propakistani.pk/2026/07/21/jazzworld-wins-best-insuretech-award-outlines-vision-for-pakistans-digital-financial-and-insurance-ecosystem/",
+    "date": "2026-07-21",
+    "summary_zh": "JazzWorld在2026年巴基斯坦保险协会与精算师学会国际保险会议上荣获最佳保险科技奖，表彰其在推动数字保险和金融包容性方面的贡献。JazzWorld首席财务官Farrukh H. Khan指出，巴基斯坦保险渗透率不足GDP的1%，存在巨大保障缺口。公司正从电信运营商转型为智能驱动的服务公司，通过整合连接、金融服务、数字平台和企业解决方案，将保险嵌入用户日常数字体验。其数字保险平台FikrFree已与8家保险公司合作提供30多种产品，并利用AI推荐简化购买流程。近期收购TPL Insurance进一步强化了数字分销、支付、客户参与与承保能力的结合。\n\n该奖项凸显了JazzWorld在巴基斯坦保险业数字化转型中的领导地位。通过将保险无缝融入JazzCash、Tamasha等生态平台，JazzWorld有望显著提升保险可及性，推动数百万巴基斯坦人进入正规金融与保障体系。此举不仅巩固了JazzWorld作为综合数字服务商的竞争优势，还可能加速巴基斯坦保险渗透率的提升，对电信行业跨界金融科技和保险科技的趋势具有标杆意义。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP Likely to Keep Interest Rate Unchanged",
+    "url": "https://propakistani.pk/2026/07/21/sbp-likely-to-keep-interest-rate-unchanged/",
+    "date": "2026-07-21",
+    "summary_zh": "根据Topline Securities的调查，绝大多数市场参与者（97%）预计巴基斯坦国家银行（SBP）将在7月27日的货币政策委员会（MPC）会议上维持基准政策利率在【11.5%】不变，仅3%预期降息100个基点。此前6月15日会议已维持利率不变，但随后因地缘政治紧张局势缓解和油价下跌，市场一度预期未来两至三次会议累计降息100-150个基点；然而近期美伊关系再度紧张推高油价，投资者缩减了降息预期。六个月的国库券收益率从上次会议前的12.46%降至7月初的11.30%，近10天又回升至约11.50%，同期KIBOR约为11.67%。\n\n若利率维持不变，电信行业融资成本将保持高位，可能抑制运营商在5G网络建设等资本密集型项目上的投资意愿。宏观经济方面，利率稳定有助于控制通胀预期，调查显示多数受访者预计FY2026-27平均通胀在7-10%之间，Topline预估为7-8%；同时卢比汇率预计稳定在【280-285】兑1美元区间，这有利于电信设备进口成本的可预测性。总体而言，利率不变对电信行业竞争格局影响中性，但为宏观经济提供了稳定性。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistan Gives Telcos New Spectrum for Faster 5G Rollout",
+    "url": "https://propakistani.pk/2026/07/21/pakistan-gives-telcos-new-spectrum-for-faster-5g-rollout/",
+    "date": "2026-07-21",
+    "summary_zh": "巴基斯坦政府已向蜂窝移动运营商（CMOs）分配E-Band频谱，以支持5G服务推出后的高容量无线回传。此前，巴基斯坦电信管理局（PTA）于3月拍卖了480 MHz频谱用于下一代移动服务。目前，巴基斯坦移动行业铁塔光纤化率约为【17.9%】，其中Jazz最高（22%），其次为CMPak/Zong（19%）、Telenor（16%）和Ufone（9%）。根据5G许可条件，所有CMOs需在2026-28年第一阶段实现至少【20%】的光纤到站（FTTS）比率，并在2032-35年第四阶段逐步提升至35%。\n\nE-Band频谱的分配旨在帮助运营商在光纤不可用区域快速部署5G网络，无需在每个地点铺设光纤。运营商可自行选择光纤或E-Band无线回传方案，且无需支付额外频谱费用。此举结合光纤基础设施的扩展，预计将加强巴基斯坦的5G基础设施，并加速网络部署。然而，当前光纤化水平较低（尤其是Ufone仅9%），可能对运营商满足5G回传容量需求构成挑战。",
+    "importance": "高"
+  },
+  {
+    "source": "Dawn",
+    "title": "Mobile phone imports top Rs520bn in FY26",
+    "url": "https://www.dawn.com/news/2017427/mobile-phone-imports-top-rs520bn-in-fy26",
+    "date": "2026-07-22",
+    "summary_zh": "巴基斯坦海关数据显示，2026财年手机进口量同比增长258.6%，其中智能手机进口从2025财年的约29万部增至104万部，增加约75万部。海关指出，60%至70%的增长来自全新和二手的苹果iPhone及谷歌Pixel设备，这些品牌未在巴基斯坦本地组装，进口增长反映消费者对非本地组装产品的真实需求，而非本地组装政策逆转。2026财年手机进口总额达5200亿卢比，其中约4200亿卢比（五分之四）为本地组装商进口的CKD/SKD套件，仅约1000亿卢比（不到五分之一）为整机进口。\n\n【手机进口量激增258.6%】主要受高端品牌需求驱动，但【进口总额中80%为组装套件】，表明本地组装仍是主流。关税收入增长36%至1210亿卢比，整机关税收入翻倍，显示灰色市场向正规渠道转移。对电信行业而言，高端手机进口增加可能推动数据消费和增值服务需求，但本地组装商面临高端机型缺失的竞争压力；宏观经济上，关税收入增长有助于财政，但进口支出扩大可能加剧贸易逆差压力。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Enhances Tariff Transparency for Telecom Consumers",
+    "url": "https://www.techjuice.pk/pta-enhances-tariff-transparency-for-telecom-consumers/",
+    "date": "2026-07-22",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在其官网“消费者意识”板块推出增强版资费透明度功能，重点展示Jazz、Ufone、Telenor和Zong四大运营商前15款“混合”和“纯数据”套餐的季度价格、年度涨幅、有效期及优惠信息。消费者可通过更新后的资费表直接比较各运营商套餐，做出更明智的选择。\n\n此举是PTA持续推动消费者权益保护和行业透明化的重要举措，有助于降低信息不对称，促进运营商之间的良性竞争。通过公开价格趋势，消费者能更有效地评估套餐性价比，从而倒逼运营商优化定价策略，对巴基斯坦电信市场的长期健康发展具有积极意义。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "New 5G Rules Push Telecom Firms Toward Fiber Expansion",
+    "url": "https://www.techjuice.pk/new-5g-rules-push-telecom-firms-toward-fiber-expansion/",
+    "date": "2026-07-21",
+    "summary_zh": "巴基斯坦政府已向移动运营商分配E-Band频谱，用于支持5G网络的高容量无线回传。此前，巴基斯坦电信管理局（PTA）于3月拍卖了480 MHz频谱用于下一代移动服务。目前，基站光纤化率约为【17.9%】，其中Jazz以22%领先，CMPak/Zong为19%，Telenor为16%，Ufone为9%。根据NGMS/5G牌照要求，所有移动运营商需在2026-2028年第一阶段实现至少【20%】的光纤到站比例，并在2032-2035年第四阶段逐步提升至35%。\n\n此举旨在帮助运营商满足5G服务对回传容量的需求。政府正通过政策和行政措施简化路权审批，加速网络部署。运营商可在光纤未覆盖区域部署E-Band频谱，其高容量无线链路可承载5G大流量，且无需额外频谱费用。结合光纤扩展与E-Band无线回传，预计将增强巴基斯坦5G基础设施，提升下一代移动服务的质量与覆盖。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA QoS Survey Q2 2026: The Best & Worst Broadband Providers Revealed",
+    "url": "https://www.techjuice.pk/pta-qos-survey-q2-2026-the-best-worst-broadband-providers-revealed/",
+    "date": "2026-07-21",
+    "summary_zh": "巴基斯坦电信管理局（PTA）发布了2026年第二季度服务质量（QoS）调查，评估了24个主要城市的34家固定宽带运营商，在43个测试点中，29个点完全合规。但多家运营商未达标：Prime Broadband、Net Cloud、Pace Telecom和PTCL的核心节点可用性未达到99.9%的基准；Net Cloud的接入节点可用性未达99%。PTCL和NTC的下载速度（最低4 Mbps）和上传速度（最低2 Mbps）均未达标；PTCL、Kot Jameel Network和NTC存在严重本地延迟问题，NTC和Mansoorah Telecommunication的国际延迟也偏高；Air Touch Wireless、PTCL、NTC和Kot Jameel Network的抖动超过15毫秒上限。\n\n此次调查暴露了巴基斯坦宽带行业在基础设施和网络质量上的显著短板，尤其是PTCL和NTC等大型运营商的性能不达标，可能影响用户对固定宽带服务的信心。PTA已要求所有不合规运营商立即采取纠正措施，包括提升容量、优化路由和增强网络弹性。这体现了监管机构对服务质量的严格监督，短期内可能增加运营商的合规成本，但长期有助于提升行业整体服务水平和用户体验，对电信行业竞争格局产生积极影响。",
+    "importance": "中"
+  },
+  {
     "source": "ProPakistani",
     "title": "Did PTA Just Ban TikTok Live in Pakistan?",
     "url": "https://propakistani.pk/2026/07/20/did-pta-just-ban-tiktok-live-in-pakistan/",
@@ -28,7 +100,7 @@
     "title": "Govt weighs activating fuel saving plans as Mideast tensions put pressure on oil prices, forex reserves",
     "url": "https://www.dawn.com/news/2016948/govt-weighs-activating-fuel-saving-plans-as-mideast-tensions-put-pressure-on-oil-prices-forex-reserves",
     "date": "2026-07-20",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦政府可能于本周或下周重新启动燃料节约和紧缩措施，以应对中东紧张局势对油价和外汇储备的压力。此举旨在将进口覆盖储备至少维持三个月。同时，汽油和高速柴油价格将改为仅在工作日调整（周一至周五），周末不调整，这被描述为向放松管制和每日定价迈出的一步。石油部门将在每个工作日傍晚公布零售价格，周五公布的价格将适用于周六、周日和周一。政府官员表示，当正式转向燃料节约措施后，价格调整可能减少至每周四天。总理谢赫巴兹·谢里夫已在上周讨论相关措施，本周可能提交联邦内阁正式决定。\n\n【此举对巴基斯坦宏观经济影响重大】。中东冲突推高油价，直接威胁巴基斯坦本已脆弱的外汇储备，政府通过节约措施和价格调整频率变化来缓解压力，但【每日定价机制可能增加市场不确定性】。对电信行业而言，燃料成本上升将推高运营成本，但新闻未直接涉及电信监管或运营商，因此对行业竞争格局影响有限。",
     "importance": "中"
   },
   {
