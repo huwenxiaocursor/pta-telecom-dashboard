@@ -1,0 +1,2 @@
+检测到PTA可能发布了新的QoS季度调查报告PDF，以下链接尚未被收录进仪表盘，请人工确认是否为新一季度报告，并让Claude读取后更新HTML的'季度信号质量测试结果'部分：
+  - https://www.pta.gov.pk/assets/media/Call Center Survey Q4 2025-Final.pdf
