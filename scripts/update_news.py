@@ -12,9 +12,10 @@ import json
 import os
 import pathlib
 import re
+import subprocess
 import time
-import urllib.request
 import xml.etree.ElementTree as ET
+from typing import Union
 
 BASE_DIR   = pathlib.Path(__file__).resolve().parent
 CACHE_FILE = BASE_DIR / "news_cache.json"
@@ -25,6 +26,12 @@ NEWS_START = "// ===AUTO-NEWS-START==="
 NEWS_END   = "// ===AUTO-NEWS-END==="
 
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
+
+# —— VPN 代理配置（curl 原生支持 HTTP_PROXY / HTTPS_PROXY 环境变量）——
+_proxy_url = os.environ.get("HTTPS_PROXY") or os.environ.get("HTTP_PROXY") or ""
+if _proxy_url:
+    os.environ.setdefault("HTTP_PROXY", _proxy_url)
+    os.environ.setdefault("HTTPS_PROXY", _proxy_url)
 
 HEADERS = {
     "User-Agent": (
@@ -241,17 +248,83 @@ def today() -> str:
     return datetime.date.today().isoformat()
 
 
-def fetch(url: str, timeout: int = 20) -> str:
-    req = urllib.request.Request(url, headers=HEADERS)
+def _curl_fetch(url: str, timeout: int = 20, data: bytes = None,
+                extra_headers: dict = None, return_raw: bool = False) -> Union[bytes, str]:
+    """Use curl subprocess for HTTP(S) requests — avoids Python SSL issues on some networks."""
+    cmd = ["curl", "-sS", "--connect-timeout", str(timeout), "-L"]
+    # Headers
+    all_headers = dict(HEADERS)
+    if extra_headers:
+        all_headers.update(extra_headers)
+    for k, v in all_headers.items():
+        cmd += ["-H", f"{k}: {v}"]
+    # POST data
+    if data is not None:
+        cmd += ["-X", "POST", "-d", data.decode("utf-8")]
+    cmd.append(url)
     try:
-        with urllib.request.urlopen(req, timeout=timeout) as resp:
-            charset = "utf-8"
-            ct = resp.headers.get_content_charset()
-            if ct:
-                charset = ct
-            return resp.read().decode(charset, errors="replace")
+        result = subprocess.run(cmd, capture_output=True, timeout=timeout + 5)
+        if result.returncode != 0:
+            err = result.stderr.decode("utf-8", errors="replace").strip()[:200]
+            raise OSError(f"curl exit {result.returncode}: {err}")
+        if return_raw:
+            return result.stdout
+        charset = "utf-8"
+        return result.stdout.decode(charset, errors="replace")
     except Exception as e:
         log(f"  FETCH ERROR [{url}]: {e}")
+        return b"" if return_raw else ""
+
+
+def fetch(url: str, timeout: int = 20) -> str:
+    return _curl_fetch(url, timeout=timeout)  # type: ignore[return-value]
+
+
+_CLOUDFLARE_MARKER = "challenges.cloudflare.com"
+
+
+def _is_cloudflare(content: str) -> bool:
+    """Detect Cloudflare JS challenge / 'Just a moment...' interstitial."""
+    return len(content) < 8000 and _CLOUDFLARE_MARKER in content
+
+
+def fetch_with_browser_fallback(url: str, timeout: int = 20) -> str:
+    """Try curl first; if Cloudflare challenge detected, retry with Playwright."""
+    content = fetch(url, timeout=timeout)
+    if not _is_cloudflare(content):
+        return content
+    log(f"  Cloudflare challenge detected, retrying with real browser …")
+    browser_content = _fetch_page_source_browser(url)
+    return browser_content if browser_content else content
+
+
+def _fetch_page_source_browser(url: str, timeout: int = 30000) -> str:
+    """Use Playwright to fetch page content (for sites behind Cloudflare).
+    Uses innerText for JSON endpoints (Chrome wraps application/json in <pre>)
+    and full page content for XML/HTML pages."""
+    global _BROWSER
+    try:
+        from playwright.sync_api import sync_playwright
+        if _BROWSER is None:
+            launch_kwargs = {}
+            if _proxy_url:
+                launch_kwargs["proxy"] = {"server": _proxy_url}
+            _BROWSER = sync_playwright().start().chromium.launch(**launch_kwargs)
+        page = _BROWSER.new_page(user_agent=HEADERS["User-Agent"])
+        try:
+            page.goto(url, wait_until="domcontentloaded", timeout=timeout)
+            page.wait_for_timeout(8000)
+            content = page.content()
+            # Chrome wraps JSON responses in <html><body><pre> — extract raw text
+            if '<pre>' in content and ('</pre>' in content):
+                raw = page.evaluate("() => document.body.innerText")
+                if raw.strip():
+                    return raw.strip()
+            return content
+        finally:
+            page.close()
+    except Exception as e:
+        log(f"  Browser page fetch failed ({url}): {e}")
         return ""
 
 
@@ -271,7 +344,10 @@ def fetch_article_text_browser(url: str, max_chars: int = 3000) -> str:
     try:
         from playwright.sync_api import sync_playwright
         if _BROWSER is None:
-            _BROWSER = sync_playwright().start().chromium.launch()
+            launch_kwargs = {}
+            if _proxy_url:
+                launch_kwargs["proxy"] = {"server": _proxy_url}
+            _BROWSER = sync_playwright().start().chromium.launch(**launch_kwargs)
         page = _BROWSER.new_page(user_agent=HEADERS["User-Agent"])
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=45000)
@@ -423,9 +499,15 @@ def fetch_wp_recent(base_url: str, source_label: str) -> list:
                f"?per_page=20&page={page}&after={after}"
                f"&_fields=title,link,date")
         try:
-            req = urllib.request.Request(url, headers=HEADERS)
-            with urllib.request.urlopen(req, timeout=15) as resp:
-                posts = json.loads(resp.read().decode("utf-8"))
+            raw = fetch_with_browser_fallback(url, timeout=15)
+            if not raw:
+                break
+            # If Cloudflare fallback returned but parsing fails, skip
+            try:
+                posts = json.loads(raw)
+            except json.JSONDecodeError:
+                log(f"  {source_label} WP API returned non-JSON (likely still blocked)")
+                break
             if not posts:
                 break
             for p in posts:
@@ -488,7 +570,7 @@ def fetch_rss_feed(feed_url: str, source_label: str, display_name: str) -> list:
     summarisation and DeepSeek invented the details. See main()."""
     log(f"Fetching {display_name} RSS …")
     items = []
-    xml_str = fetch(feed_url)
+    xml_str = fetch_with_browser_fallback(feed_url)
     if not xml_str:
         log(f"  {display_name}: 0 items found")
         return items
@@ -640,24 +722,24 @@ def summarize(title: str, url: str, article_text: str = "") -> dict:
         "temperature": 0.1,
     }).encode("utf-8")
 
-    req = urllib.request.Request(
-        "https://api.deepseek.com/chat/completions",
-        data=payload,
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        },
-    )
-
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            result = json.loads(resp.read().decode("utf-8"))
-            content = json.loads(result["choices"][0]["message"]["content"])
-            summary = content.get("summary_zh", "").strip()
-            importance = content.get("importance", "中").strip()
-            if importance not in IMPORTANCE_PRIORITY:
-                importance = "中"
-            return {"summary_zh": summary, "importance": importance}
+        raw = _curl_fetch(
+            "https://api.deepseek.com/chat/completions",
+            timeout=30, data=payload,
+            extra_headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            },
+        )
+        if not raw:
+            return fallback
+        result = json.loads(raw)
+        content = json.loads(result["choices"][0]["message"]["content"])
+        summary = content.get("summary_zh", "").strip()
+        importance = content.get("importance", "中").strip()
+        if importance not in IMPORTANCE_PRIORITY:
+            importance = "中"
+        return {"summary_zh": summary, "importance": importance}
     except Exception as e:
         log(f"  DeepSeek error: {e}")
         return fallback
@@ -740,19 +822,20 @@ def llm_dedup_groups(items: list) -> list:
         "temperature": 0,
     }).encode("utf-8")
 
-    req = urllib.request.Request(
-        "https://api.deepseek.com/chat/completions",
-        data=payload,
-        headers={
-            "Content-Type": "application/json",
-            "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
-        },
-    )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            result = json.loads(resp.read().decode("utf-8"))
-            content = json.loads(result["choices"][0]["message"]["content"])
-            groups = content.get("duplicate_groups", [])
+        raw = _curl_fetch(
+            "https://api.deepseek.com/chat/completions",
+            timeout=30, data=payload,
+            extra_headers={
+                "Content-Type": "application/json",
+                "Authorization": f"Bearer {DEEPSEEK_API_KEY}",
+            },
+        )
+        if not raw:
+            return []
+        result = json.loads(raw)
+        content = json.loads(result["choices"][0]["message"]["content"])
+        groups = content.get("duplicate_groups", [])
     except Exception as e:
         log(f"  DeepSeek dedup error: {e}")
         return []
