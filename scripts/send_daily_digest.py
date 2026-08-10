@@ -19,7 +19,7 @@ INDEX_FILE    = BASE_DIR.parent / "index.html"
 DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
 
 # 当天无新增新闻（只能回退到旧日期）时，不生成日报草稿，改为只给本人发一封
-# 提醒邮件（收件人栏，不密送 18 人），提示今日无新增、已跳过。
+# 提醒邮件（收件人栏，不密送 BCC_EMAILS 全员），提示今日无新增、已跳过。
 NOTIFY_EMAIL = "huwenxiao@zong.com.pk"
 
 # 密送收件人名单（草稿只填密送栏，不填"收件人"栏）
@@ -42,6 +42,7 @@ BCC_EMAILS = [
     "luweidong@zong.com.pk",
     "huwenxiao@zong.com.pk",
     "weilin@zong.com.pk",
+    "xiaerhong@zong.com.pk",
 ]
 
 SOURCE_COLORS = {
