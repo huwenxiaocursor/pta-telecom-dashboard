@@ -28,10 +28,27 @@ NEWS_END   = "// ===AUTO-NEWS-END==="
 DEEPSEEK_API_KEY = os.environ.get("DEEPSEEK_API_KEY", "")
 
 # —— VPN 代理配置（curl 原生支持 HTTP_PROXY / HTTPS_PROXY 环境变量）——
+# 如果代理不可达则自动跳过，避免 VPN 没开时连 TechJuice 也抓不了
 _proxy_url = os.environ.get("HTTPS_PROXY") or os.environ.get("HTTP_PROXY") or ""
 if _proxy_url:
-    os.environ.setdefault("HTTP_PROXY", _proxy_url)
-    os.environ.setdefault("HTTPS_PROXY", _proxy_url)
+    import socket
+    _proxy_host = _proxy_url.split("://")[-1].split(":")[0]
+    _proxy_port = int(_proxy_url.split(":")[-1])
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(2)
+        s.connect((_proxy_host, _proxy_port))
+        s.close()
+        os.environ.setdefault("HTTP_PROXY", _proxy_url)
+        os.environ.setdefault("HTTPS_PROXY", _proxy_url)
+    except Exception:
+        # 代理不可用 → 直连。必须同时从 os.environ 移除，否则 curl 子进程
+        # 仍会继承 HTTP_PROXY/HTTPS_PROXY 去连不存在的代理端口（exit 7）
+        _proxy_url = ""
+        os.environ.pop("HTTP_PROXY", None)
+        os.environ.pop("HTTPS_PROXY", None)
+        os.environ.pop("http_proxy", None)
+        os.environ.pop("https_proxy", None)
 
 HEADERS = {
     "User-Agent": (
