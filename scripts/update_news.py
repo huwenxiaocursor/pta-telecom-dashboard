@@ -224,16 +224,96 @@ _FOREIGN = {
 # US inflation rate") that _FOREIGN's substring set misses.
 _FOREIGN_WB = {"us", "u.s.", "u.s", "uk", "u.k.", "eu", "opec"}
 
+# 地缘政治 → 输入性通胀的传导链（2026-08-11 加）。看板关心的是"外部冲击如何推高
+# 巴基斯坦的物价/汇率/进口成本"，不是国际大宗行情本身。这些词全球通用，外电里满天飞，
+# 所以命中它们**必须**同时带巴基斯坦标识才算相关——比下面 _FOREIGN 那道闸更严：
+# 那道只在标题出现外国词时才要求，这道无条件要求。
+# 例：'Oil price surge pushes Pakistan inflation higher' 收；
+#     'Middle East conflict sends crude to $100' 不收（没点名巴基斯坦）。
+_GEO_MACRO = {
+    "oil price", "crude oil", "crude price", "fuel price", "petrol price",
+    "diesel price", "energy price", "gas price", "lng price",
+    "commodity price", "wheat price", "food price", "food inflation",
+    "import bill", "trade deficit", "import cost",
+    "geopolitic", "sanctions", "trade war", "tariff war", "import tariff",
+    "supply chain", "shipping cost", "freight cost", "freight rate",
+    "middle east", "gulf war",
+    "rupee depreciation", "rupee devaluation", "currency depreciation",
+}
+
+# 人事任命（2026-08-11 加）：金融/银行系统的高管任免与通信行业无关
+# （触发案例：'Govt Appoints Muhammad Ali Malik as SBP Deputy Governor'，
+# 靠 _TELECOM_WB 里的 sbp 混进来）。**只排任命，不排辞职/免职**——央行行长突然
+# 去职属于重大宏观变故，与常规履新不是一回事。且标题只要带电信实体就不排，
+# 所以 PTA 主席任命、PTCL 高管进 PSTD 理事会这类仍然收得到。
+_APPOINTMENT = {
+    "appoint", "named as", "takes charge", "takes oath", "sworn in",
+    "assumes charge", "assumes office", "new deputy governor",
+    "board of governors", "board of directors",
+}
+
+# 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
+_TELECOM_ENTITY = {
+    "pta", "telecom", "telco", "jazz", "zong", "ufone", "telenor", "ptcl",
+    "moitt", "spectrum", "frequency", "5g", "4g", "sim ", "internet",
+    "broadband", "mobile", "fiber", "cellular",
+}
+
+# 次要运营商 / 非主要竞争对手（2026-08-11 加）：中小固网、宽带、军方及手机分销商。
+# 它们自身的财务重组、股本变动、产品动态不影响行业竞争格局
+# （触发案例：'WorldCall Telecom Completes Capital Reduction and Stock Split'）。
+# 但"PTA 处罚 WorldCall"这类**监管动作**仍要收——所以只在标题不涉及四大运营商
+# 和监管机构时才排除，见 _is_minor_operator_only()。
+_MINOR_OPERATORS = {
+    "worldcall", "wateen", "nayatel", "transworld", "multinet", "cybernet",
+    "stormfiber", "supernet", "circle net", "airlink", "optix",
+}
+_MINOR_OPERATORS_WB = {"sco", "nrtc"}
+
+# 出现这些就说明新闻涉及主流玩家或监管层，不算"只讲小运营商自己的事"
+_MAJOR_PLAYERS = {
+    "jazz", "zong", "ufone", "telenor", "ptcl", "jazzworld", "pmcl",
+    "pta", "sbp", "moitt", "ccp", "government", "govt", "cabinet",
+    "senate", "court", "regulator",
+}
+
+
+def _wb_hit(kw: str, tw: str) -> bool:
+    """整词匹配：kw 必须以独立单词出现在已两端补空格的 tw 里。"""
+    return " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
+
+
+def _is_finance_appointment(t: str) -> bool:
+    """非电信口的人事任命 → 丢弃。"""
+    if not any(kw in t for kw in _APPOINTMENT):
+        return False
+    return not any(kw in t for kw in _TELECOM_ENTITY)
+
+
+def _is_minor_operator_only(t: str, tw: str) -> bool:
+    """只讲次要运营商自己的事（不涉及四大/监管）→ 丢弃。"""
+    hit = any(kw in t for kw in _MINOR_OPERATORS) or any(
+        _wb_hit(kw, tw) for kw in _MINOR_OPERATORS_WB)
+    if not hit:
+        return False
+    return not any(kw in t for kw in _MAJOR_PLAYERS)
+
 
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
     if any(kw in tw for kw in _EXCLUDE):
         return False
+    if _is_finance_appointment(t):
+        return False
+    if _is_minor_operator_only(t, tw):
+        return False
     matched = any(kw in t for kw in _TELECOM_SUB) or any(
         " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
         for kw in _TELECOM_WB)
-    if not matched:
+    # 地缘/大宗是一条**附加**的通过路径，且必须点名巴基斯坦（见 _GEO_MACRO 注释）
+    geo_ok = any(kw in t for kw in _GEO_MACRO) and any(m in t for m in _PK_MARKERS)
+    if not (matched or geo_ok):
         return False
     # Geography gate: the telecom/macro keywords also match other countries' wire
     # stories. If the headline is clearly about a foreign country and never mentions
