@@ -260,11 +260,18 @@ def save_notice_via_apple_mail(subject: str, body: str) -> None:
 
 
 def main() -> None:
-    date_str = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
+    # 默认 T-1（launchd 每天 10:10 跑的就是这条路径）。补发或当天临时重发时可传
+    # 日期覆盖：python3 scripts/send_daily_digest.py 2026-08-11
+    if len(sys.argv) > 1:
+        date_str = datetime.date.fromisoformat(sys.argv[1]).isoformat()
+        label    = "指定"
+    else:
+        date_str = (datetime.date.today() - datetime.timedelta(days=1)).isoformat()
+        label    = "T-1"
     dt       = datetime.date.fromisoformat(date_str)
     date_cn  = f"{dt.year}年{dt.month}月{dt.day}日"
 
-    print(f"[digest] 日期（T-1）：{date_str}")
+    print(f"[digest] 日期（{label}）：{date_str}")
     items = load_today_news(date_str)
 
     if not items:

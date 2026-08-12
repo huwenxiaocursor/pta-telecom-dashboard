@@ -190,6 +190,15 @@ _EXCLUDE = {
     "account freezing",
     "job openings", "new job openings", "hiring", "recruitment drive",
     "career opportunities", "vacancies announced",
+    # 休市/放假/停业等例行公告（2026-08-11 加）：交易所与银行的节假日安排对电信
+    # 行业和宏观经济都无实质影响，纯日程通知。触发案例：
+    # 'PSX, SBP to remain closed on August 14'（独立日休市），靠 sbp 整词匹配混入。
+    # 一律用**复合短语**，不能只写 holiday —— 否则会误伤 'holiday package' 这类漫游/
+    # 节日资费套餐新闻。
+    "remain closed", "remains closed", "to remain shut", "will remain close",
+    "public holiday", "bank holiday", "trading holiday", "market holiday",
+    "holiday notice", "closure notice", "closed for eid", "holiday schedule",
+    "observed as holiday", "declared holiday", "declares holiday",
 }
 
 
