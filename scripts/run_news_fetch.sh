@@ -21,8 +21,10 @@ git pull --rebase origin main --quiet >> "$LOG" 2>&1
 # 抓取新闻并生成中文摘要
 python3 scripts/update_news.py >> "$LOG" 2>&1
 
-# 有变更则 commit + push
-git add index.html scripts/news_cache.json
+# 有变更则 commit + push。**必须带上 news_update_log.txt**：它是被跟踪文件，
+# 每次运行都会改，漏掉它工作区就一直是脏的，下次 git pull --rebase 会直接罢工
+# （"cannot pull with rebase: You have unstaged changes"，2026-08-12 查实）。
+git add index.html scripts/news_cache.json scripts/news_update_log.txt
 if ! git diff --cached --quiet; then
     git -c user.name="cmpak-bot" -c user.email="bot@cmpak.local" \
         commit -m "News refresh $(date '+%Y-%m-%d')" >> "$LOG" 2>&1

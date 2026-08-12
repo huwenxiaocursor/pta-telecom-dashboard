@@ -173,11 +173,19 @@ Google News RSS 的链接是 **JS 跳转中转页**，`domcontentloaded` 时 bod
 | 宏观经济数据更新 | 每月10日、25日 10:00 PKT | GitHub Actions `.github/workflows/update.yml`（`update-macro` job） |
 | Zong 套餐清单全量刷新 | 每两个月（1/3/5/7/9/11月）10日 10:00 PKT | GitHub Actions `.github/workflows/update_zong.yml`（`update-zong` job，独立 workflow 因 cron 不同） |
 | 新闻抓取 + 摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-news-fetch.plist` → `scripts/run_news_fetch.sh` |
+| 手动补跑（抓新闻 + 日报草稿，一步到位） | 人工触发 | 双击 `抓新闻并发邮件.command`，或 `./scripts/run_manual.sh [日期] [--no-mail]` |
+| 启停上面两个定时任务 | 人工触发 | `./scripts/schedule.sh {on\|off\|status}` |
 | 日报图片邮件草稿（T-1 日新闻，密送多人，人工确认后手动发送） | 每天 10:10 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-digest.plist` → `scripts/run_digest.sh` |
 
 > `update-industry` 与 `update-macro` 是同一个 workflow 文件里的两个独立 job，共用同一个 cron，但各自独立 `git add`/`commit`/`push`/建 Issue/发邮件，互不影响、互不阻塞——一个失败不影响另一个正常更新，出问题时也能立刻定位是哪个页面的脚本挂了。两个 job 都在推送前 `git pull --rebase`，避免并发写 `main` 冲突。
 >
 > 新闻抓取已从 GitHub Actions 迁移到本地 launchd（`update_news.yml` 现仅保留 `workflow_dispatch` 手动触发），因为 DeepSeek Key 改为本地 `scripts/.env.local` 管理，且需要在同一次运行中 `git pull --rebase` + `commit` + `push`。`send_daily_digest.py` 默认读取昨天（T-1）的 `news_cache.json`（实际读取的是 `index.html` 里已经排好序/去重/过滤空摘要的 `NEWS_DATA`，不是直接读 `news_cache.json` 重新计算，见脚本 `load_today_news()` 注释）。**2026-07-13起改为：若 T-1 当天无新增新闻，不再回退到旧日期把旧新闻当日报再发一遍**——此时跳过日报草稿，改为只给本人（`NOTIFY_EMAIL`，收件人栏，不密送 BCC_EMAILS 全员、不带附图）在草稿箱生成一封纯文字提醒邮件（说明当天无新增、最近有数据的日期），同样只 `save` 不 `send`。摘要图片由脚本内建的 HTML 模板渲染（非 `index.html` 截图）。**2026-07-04起改为生成邮件草稿而非自动发送**：通过 AppleScript 把 `scripts/send_daily_digest.py` 里 `BCC_EMAILS` 列表全员放进密送栏，只 `save` 到 Apple Mail 的草稿箱，不调用 `send`——由用户在草稿箱人工确认后手动发送。
+
+> **代理策略（2026-08-12 定）：自动任务永不碰代理，只有手动脚本探测代理。** `scripts/.env.local` 里**刻意不配** `HTTP_PROXY`/`HTTPS_PROXY`——launchd 的自动任务只负责巴基斯坦本地直连的场景，配了反而会在代理没开时整轮失败。人在国内需要代理时，自己先挂好 Clash，再手动跑 `run_manual.sh`（或双击 `抓新闻并发邮件.command`），该脚本探测 `127.0.0.1:7890`，探到就 `export` 给 curl 和 git 一起用，探不到就直连。
+>
+> 踩过的两个坑，别再退回去：(1) `update_news.py` 内部有"代理不通就降级直连"的逻辑，**但 git 没有**——`.env.local` 一旦配上代理，`source` 它的 shell 脚本里的 `git pull/push` 就会撞死在 127.0.0.1:7890，而同一轮的新闻却抓得好好的，症状极具迷惑性。(2) `git add` **必须带 `scripts/news_update_log.txt`**：它是被跟踪文件、每次运行都变，漏掉它工作区就常年是脏的，下次 `git pull --rebase` 直接罢工（`cannot pull with rebase: You have unstaged changes`），而这个报错只写进 `/tmp/telecom_news_fetch.log`，页面照常更新，很难发现。
+>
+> **launchd 按本机时区触发**，plist 里没有也设不了固定时区。人在巴基斯坦时 09:30 = 09:30 PKT；回国后 Mac 切到 CST，09:30 CST = 06:30 PKT，巴基斯坦媒体当天还没发稿，新闻会系统性滞后一天（不丢，只是隔天才入库）。回国要么把两个 plist 的 Hour 各 +3，要么 `./scripts/schedule.sh off` 改成全手动。
 
 `update.yml` 的两个 job 在各自页面数据变更时都会自动创建 GitHub Issue 并发送邮件通知（收件人 `shawn.hwx@gmail.com`）。
 
