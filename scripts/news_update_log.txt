@@ -2479,3 +2479,23 @@ Call log:
 [2026-08-13 00:27:13]   Injected 301 items into index.html
 [2026-08-13 00:27:13] News update complete
 [2026-08-13 00:27:13] ==================================================
+[2026-08-13 00:30:18] ==================================================
+[2026-08-13 00:30:18] News update started
+[2026-08-13 00:30:18] Cache: 401 existing items
+[2026-08-13 00:30:18] Fetching Google News [PTA] …
+[2026-08-13 00:30:19]   Google News [PTA]: 46 items found
+[2026-08-13 00:30:20] Fetching Google News [SBP] …
+[2026-08-13 00:30:21]   Google News [SBP]: 32 items found
+[2026-08-13 00:30:22] Fetching ProPakistani via WP REST API …
+[2026-08-13 00:30:24]   ProPakistani: 1 items found
+[2026-08-13 00:30:25] Fetching Dawn RSS …
+[2026-08-13 00:30:25]   Dawn: 2 items found
+[2026-08-13 00:30:26] Fetching Business Recorder RSS …
+[2026-08-13 00:30:28]   Business Recorder: 2 items found
+[2026-08-13 00:30:29] Fetching TechJuice via WP REST API …
+[2026-08-13 00:30:33]   TechJuice: 5 items found
+[2026-08-13 00:30:34] New items: 0
+[2026-08-13 00:30:35] Cache saved: 401 total items
+[2026-08-13 00:30:37]   Injected 301 items into index.html
+[2026-08-13 00:30:37] News update complete
+[2026-08-13 00:30:37] ==================================================
