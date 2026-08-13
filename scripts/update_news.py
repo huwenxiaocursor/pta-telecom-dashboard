@@ -84,6 +84,10 @@ LOW_DIVERSITY_CAP    = 5
 # 涌进来，而用户只要 8 月及以后的。已入库的历史条目不受影响（过滤只作用于新抓取）。
 CUTOFF_DATE          = "2026-08-01"
 
+# RSS 给的日期与文章自带发布时间相差超过这个天数，就以文章为准（见 main()）。
+# 留 2 天余量：跨时区和"发布/更新时间"的正常差异都在这个范围内。
+STALE_DATE_TOLERANCE_DAYS = 2
+
 # Source priority for per-day display ranking (lower = higher priority)
 SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "Dawn": 3,
                    "BusinessRecorder": 4, "TechJuice": 5}
@@ -563,6 +567,7 @@ def fetch_article_text_browser(url: str, max_chars: int = 3000) -> str:
         try:
             page.goto(url, wait_until="domcontentloaded", timeout=45000)
             text = re.sub(r"\s+", " ", page.inner_text("body")).strip()
+            globals()["_LAST_PUB_DATE"] = _extract_pub_date(page.content())
             # Google News RSS links are JS-redirect interstitials: at
             # domcontentloaded the body is still the near-empty bounce page, so
             # a short read means "probably not there yet", not "no content".
@@ -570,6 +575,8 @@ def fetch_article_text_browser(url: str, max_chars: int = 3000) -> str:
             if len(text) < 200:
                 page.wait_for_timeout(6000)
                 text = re.sub(r"\s+", " ", page.inner_text("body")).strip()
+                # 跳转前读到的是 Google 中转页，日期也要跟着重读一次
+                globals()["_LAST_PUB_DATE"] = _extract_pub_date(page.content())
         finally:
             page.close()
         return text[:max_chars] if len(text) >= 200 else ""
@@ -596,9 +603,11 @@ def fetch_article_text(url: str, max_chars: int = 3000) -> str:
     requests. Returns "" only when both routes fail or the page yields
     implausibly little text — callers must treat empty as 'no content
     available, fall back to title-only summarization'."""
+    globals()["_LAST_PUB_DATE"] = ""
     try:
         html = fetch(url, timeout=15)
         if html:
+            globals()["_LAST_PUB_DATE"] = _extract_pub_date(html)
             html = re.sub(r"<(script|style|nav|footer|header)\b[^>]*>.*?</\1>", " ", html, flags=re.S | re.I)
             text = re.sub(r"<[^>]+>", " ", html)
             text = html_lib.unescape(text)
@@ -608,6 +617,28 @@ def fetch_article_text(url: str, max_chars: int = 3000) -> str:
     except Exception as e:
         log(f"  Article content fetch failed ({url}): {e}")
     return fetch_article_text_browser(url, max_chars)
+
+
+# 抓正文时顺带解析到的文章自身发布日期（"YYYY-MM-DD"），供 main() 校验 RSS 日期。
+# 用模块级变量而非改函数签名：fetch_article_text 有多个调用点和一条浏览器兜底
+# 路径，改返回类型牵动面大；抓取是严格单线程顺序执行的，读取时机紧跟调用之后。
+_LAST_PUB_DATE = ""
+
+# 文章页里表示发布时间的常见位置，按可信度排序（JSON-LD > OpenGraph > <time>）。
+_PUB_DATE_PATTERNS = (
+    r'"datePublished"\s*:\s*"(\d{4}-\d{2}-\d{2})',
+    r'property=["\']article:published_time["\']\s+content=["\'](\d{4}-\d{2}-\d{2})',
+    r'name=["\']publish(?:ed)?[-_]?date["\']\s+content=["\'](\d{4}-\d{2}-\d{2})',
+    r'<time[^>]+datetime=["\'](\d{4}-\d{2}-\d{2})',
+)
+
+
+def _extract_pub_date(html: str) -> str:
+    for pat in _PUB_DATE_PATTERNS:
+        m = re.search(pat, html, re.I)
+        if m:
+            return m.group(1)
+    return ""
 
 
 def clean(text: str) -> str:
@@ -1584,6 +1615,7 @@ def main() -> None:
         item["importance"] = result["importance"]
         time.sleep(0.5)
 
+    stale: list = []
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
         # pop, not get: the RSS body is only needed for this one summarize()
@@ -1593,10 +1625,30 @@ def main() -> None:
         article_text = item.pop("article_text", "") or fetch_article_text(item["url"])
         if not article_text:
             log(f"    ! no article text — title-only summary (may be unreliable)")
+
+        # 用文章自带的发布时间校正 RSS 日期。Google News 会把重新推广的旧文
+        # 标上当天日期：2026-08-13 抓到 TechJuice《Which Mobile Phones Support
+        # Jazz 5G in Pakistan Right Now?》标为当天，原文其实是 03-18 的，摘要
+        # 里"即将在本周正式启动 5G"在 5G 已运行五个月后完全失真。这类旧文当新闻
+        # 正是 PhoneWorld 被移出信源的原因，不能只防那一家。
+        real = _LAST_PUB_DATE
+        if real and abs((datetime.date.fromisoformat(real)
+                         - datetime.date.fromisoformat(item["date"])).days) > STALE_DATE_TOLERANCE_DAYS:
+            log(f"    ! 日期不符：RSS 标 {item['date']}，原文为 {real} → 以原文为准")
+            item["date"] = real
+            if real < CUTOFF_DATE:
+                log(f"    ! 早于 {CUTOFF_DATE}，丢弃")
+                stale.append(item)
+                continue
+
         result = summarize(item["title"], item["url"], article_text)
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
+
+    if stale:
+        new_items = [i for i in new_items if i not in stale]
+        log(f"  按原文日期丢弃过期条目 {len(stale)} 条")
 
     # Prepend new items and save
     cache = new_items + cache
