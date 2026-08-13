@@ -2499,3 +2499,28 @@ Call log:
 [2026-08-13 00:30:37]   Injected 301 items into index.html
 [2026-08-13 00:30:37] News update complete
 [2026-08-13 00:30:37] ==================================================
+[2026-08-13 09:30:02] ==================================================
+[2026-08-13 09:30:02] News update started
+[2026-08-13 09:30:02] Cache: 401 existing items
+[2026-08-13 09:30:02] Fetching Google News [PTA] …
+[2026-08-13 09:30:02]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+regulation+spectrum+operator+2026&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-13 09:30:03] Fetching Google News [SBP] …
+[2026-08-13 09:30:03]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+interest+rate+inflation+reserves+2026&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-13 09:30:05] Fetching ProPakistani via WP REST API …
+[2026-08-13 09:30:05]   FETCH ERROR [https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-07-14T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: propakistani.pk
+[2026-08-13 09:30:05]   ProPakistani: 0 items found
+[2026-08-13 09:30:06] Fetching Dawn RSS …
+[2026-08-13 09:30:06]   FETCH ERROR [https://www.dawn.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.dawn.com
+[2026-08-13 09:30:06]   Dawn: 0 items found
+[2026-08-13 09:30:07] Fetching Business Recorder RSS …
+[2026-08-13 09:30:07]   FETCH ERROR [https://www.brecorder.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.brecorder.com
+[2026-08-13 09:30:07]   Business Recorder: 0 items found
+[2026-08-13 09:30:08] Fetching TechJuice via WP REST API …
+[2026-08-13 09:30:08]   FETCH ERROR [https://www.techjuice.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-07-14T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-08-13 09:30:08]   TechJuice: 0 items found
+[2026-08-13 09:30:09] New items: 0
+[2026-08-13 09:30:09] Cache saved: 401 total items
+[2026-08-13 09:30:09]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-08-13 09:30:09]   Injected 304 items into index.html
+[2026-08-13 09:30:09] News update complete
+[2026-08-13 09:30:09] ==================================================
