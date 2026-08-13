@@ -627,8 +627,125 @@ def save_cache(items: list) -> None:
 
 # ─── Scrapers ─────────────────────────────────────────────────────────────────
 
+# PTA 官网自己发布的公告栏目（2026-08-13 加）。此前"PTA"这个来源标签挂的是
+# Google News 搜出来的**媒体报道**，点开链接落到 ProPakistani/TechJuice，名不副实；
+# 用户要的是 pta.gov.pk 官方原文。招标（/category/tenders）是采购信息，与看板无关，
+# 不抓。
+PTA_SECTIONS = [
+    ("https://www.pta.gov.pk/category/press-releases", "新闻稿"),
+    ("https://www.pta.gov.pk/category/news-updates",   "新闻/更新"),
+    ("https://www.pta.gov.pk/category/public-notices", "公告"),
+]
+
+
+def _get_browser():
+    """惰性启动并复用 Playwright 浏览器（由 main() 末尾的 close_browser 关闭）。"""
+    global _BROWSER
+    if _BROWSER is None:
+        from playwright.sync_api import sync_playwright
+        launch_kwargs = {}
+        if _proxy_url:
+            launch_kwargs["proxy"] = {"server": _proxy_url}
+        _BROWSER = sync_playwright().start().chromium.launch(**launch_kwargs)
+    return _BROWSER
+
+
+def fetch_pta_official() -> list:
+    """抓 pta.gov.pk 官网的新闻稿 / 新闻更新 / 公告。
+
+    **必须用真浏览器**：纯 HTTP 拿到的 141KB 里只有页面外壳，条目列表全由 JS 渲染
+    （站点是 SPA），首页之外的路径对 curl 直接 302。渲染后每条是
+    `<div class="border-b"><a href="…">标题</a>` 加一行 "August 07, 2026" 形式的
+    日期；文章 URL 也长在 /category/ 下（与栏目页同前缀），按路径前缀过滤会把文章
+    一起滤掉——探查时就这么栽过一次。
+    """
+    items, seen = [], set()
+    try:
+        browser = _get_browser()
+    except Exception as e:
+        log(f"  PTA 官网：浏览器不可用，跳过（{e}）")
+        return []
+
+    for url, label in PTA_SECTIONS:
+        log(f"Fetching PTA official [{label}] …")
+        try:
+            page = browser.new_page(user_agent=HEADERS["User-Agent"])
+            try:
+                page.goto(url, wait_until="networkidle", timeout=60000)
+                page.wait_for_timeout(2500)
+                rows = page.evaluate("""() => Array.from(
+                    document.querySelectorAll('div.border-b')).map(d => {
+                        const a = d.querySelector('a[href]');
+                        return a ? [a.href, (a.innerText||'').trim(),
+                                   (d.innerText||'').trim()] : null;
+                    }).filter(Boolean)""")
+            finally:
+                page.close()
+        except Exception as e:
+            log(f"  PTA 官网 [{label}] 抓取失败：{e}")
+            continue
+
+        found = 0
+        for href, title, block in rows:
+            title = clean(title)
+            if not title or len(title) < 15 or href in seen:
+                continue
+            # 日期在同一块里，形如 "August 07, 2026"；URL 末尾也带 -2026-08-08，
+            # 但那是发布时间戳、偶尔比正文日期晚一天，以块内日期为准。
+            m = re.search(r"([A-Z][a-z]+)\s+(\d{1,2}),\s*(20\d\d)", block)
+            if not m:
+                continue
+            try:
+                pub = datetime.datetime.strptime(
+                    f"{m.group(1)} {m.group(2)} {m.group(3)}", "%B %d %Y"
+                ).strftime("%Y-%m-%d")
+            except ValueError:
+                continue
+            if pub < CUTOFF_DATE:
+                continue
+            if not is_relevant(title):
+                continue
+            seen.add(href)
+            found += 1
+            items.append({"source": "PTA", "title": title, "url": href, "date": pub})
+        log(f"  PTA official [{label}]: {found} items found")
+
+    return items[:MAX_ITEMS_PER_SOURCE]
+
+
+# Google News 的 <source> 名 → 本看板的来源标签。没列到的媒体保留原名，
+# 前端 SOURCE_CONFIG 查不到时会退到灰色标签，不会出错。
+_GN_PUBLISHER_MAP = {
+    "techjuice": "TechJuice",
+    "propakistani": "ProPakistani",
+    "business recorder": "BusinessRecorder",
+    "brecorder": "BusinessRecorder",
+    "dawn": "Dawn",
+    "dawn.com": "Dawn",
+}
+# PhoneWorld 于 2026-07-02 因"把过时新闻当新内容重新发布"被移出信源，
+# 2026-07-19 彻底清除。Google News 会把它的稿子一起搜出来，这里挡掉。
+_GN_PUBLISHER_BLOCK = {"phoneworld"}
+
+
+def _gn_publisher(block: str, fallback: str) -> str:
+    """从 RSS item 里取真实发布方；取不到就退回 fallback。"""
+    m = re.search(r"<source[^>]*>(.*?)</source>", block, re.S)
+    if not m:
+        return fallback
+    name = clean(html_lib.unescape(m.group(1))).lstrip("| ").strip()
+    if not name:
+        return fallback
+    return _GN_PUBLISHER_MAP.get(name.lower(), name)
+
+
 def fetch_google_news(query: str, source_label: str) -> list:
-    """Fetch news via Google News RSS. Used for PTA and SBP whose official sites block scrapers."""
+    """Fetch news via Google News RSS. Used for PTA and SBP whose official sites block scrapers.
+
+    `source_label` 只是这一路查询的名字，**不作为条目的来源**——条目按 RSS 里的
+    `<source>` 标真实发布方。2026-08-13 用户发现看板上标着 PTA 的新闻点开是
+    ProPakistani：此前这里把整批搜索结果一律标成查询名，而 PTA/SBP 是**检索关键词**
+    不是发布方。真正的 PTA 官方原文由 fetch_pta_official() 抓 pta.gov.pk。"""
     encoded = query.replace(" ", "+")
     url = f"https://news.google.com/rss/search?q={encoded}&hl=en-PK&gl=PK&ceid=PK:en"
     log(f"Fetching Google News [{source_label}] …")
@@ -675,8 +792,12 @@ def fetch_google_news(query: str, source_label: str) -> list:
         if not is_relevant(title):
             continue
 
+        publisher = _gn_publisher(block, source_label)
+        if publisher.lower() in _GN_PUBLISHER_BLOCK:
+            continue
+
         seen.add(article_url)
-        items.append({"source": source_label, "title": title, "url": article_url, "date": pub_date})
+        items.append({"source": publisher, "title": title, "url": article_url, "date": pub_date})
 
     # **必须先按日期倒序再截断。** Google News RSS 按*相关性*排序，不是按时间：
     # 2026-08-13 查出 PTA 源自 5 月起再没进过新条目——那次返回 47 条，取前 20 条
@@ -1422,8 +1543,10 @@ def main() -> None:
     known  = {item["url"] for item in cache}
     log(f"Cache: {len(cache)} existing items")
 
-    fetchers = [fetch_pta, fetch_sbp, fetch_propakistani, fetch_dawn,
-                fetch_business_recorder, fetch_techjuice]
+    # fetch_pta_official 排在最前：它是 pta.gov.pk 的官方原文，同一事件若被媒体
+    # 转述，先入库的官方那条会成为去重时的保留条。
+    fetchers = [fetch_pta_official, fetch_pta, fetch_sbp, fetch_propakistani,
+                fetch_dawn, fetch_business_recorder, fetch_techjuice]
     new_items: list = []
 
     for fn in fetchers:
