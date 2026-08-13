@@ -2572,3 +2572,27 @@ Call log:
 [2026-08-13 18:02:31]   Injected 302 items into index.html
 [2026-08-13 18:02:31] News update complete
 [2026-08-13 18:02:31] ==================================================
+[2026-08-13 18:41:30]   Dedup: 重要性不一致，判为不同事件保留 — 高:Regional war drives global food inflation, p | 中:SBP warns of price spirals due to geopolitic
+[2026-08-13 18:41:48] ==================================================
+[2026-08-13 18:41:48] News update started
+[2026-08-13 18:41:48] Cache: 404 existing items
+[2026-08-13 18:41:48] Fetching Google News [PTA] …
+[2026-08-13 18:41:49]   Google News [PTA]: 47 items found
+[2026-08-13 18:41:50] Fetching Google News [SBP] …
+[2026-08-13 18:41:52]   Google News [SBP]: 31 items found
+[2026-08-13 18:41:53] Fetching ProPakistani via WP REST API …
+[2026-08-13 18:41:56]   ProPakistani: 1 items found
+[2026-08-13 18:41:57] Fetching Dawn RSS …
+[2026-08-13 18:41:57]   Dawn: 3 items found
+[2026-08-13 18:41:58] Fetching Business Recorder RSS …
+[2026-08-13 18:41:58]   Business Recorder: 1 items found
+[2026-08-13 18:41:59] Fetching TechJuice via WP REST API …
+[2026-08-13 18:42:05]   TechJuice: 4 items found
+[2026-08-13 18:42:06] New items: 0
+[2026-08-13 18:42:06] Cache saved: 404 total items
+[2026-08-13 18:42:07]   Dedup: 重要性不一致，判为不同事件保留 — 高:SBP Tightens Oversight of Rs88 Billion Expor | 中:SBP Sets New Rules To Strictly Monitor Rs. 8
+[2026-08-13 18:42:07]   Dedup: 重要性不一致，判为不同事件保留 — 中:SBP expects FY27 activity pickup, flags key  | 高:Regional war drives global food inflation, p
+[2026-08-13 18:42:07]   Dedup: 重要性不一致，判为不同事件保留 — 高:Pakistan Telcos Could Increase Data Charges  | 高:Cheap data, rising costs put Pakistan’s tele | 中:Pakistan’s Cheap Data Model Faces Pressure a
+[2026-08-13 18:42:07]   Injected 306 items into index.html
+[2026-08-13 18:42:07] News update complete
+[2026-08-13 18:42:07] ==================================================
