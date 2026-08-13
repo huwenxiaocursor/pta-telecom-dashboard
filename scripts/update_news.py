@@ -6,6 +6,7 @@ generates Chinese summaries via DeepSeek, and injects NEWS_DATA into index.html.
 Sources: PTA, SBP, PBS, ProPakistani (RSS), Business Recorder
 """
 
+import collections
 import datetime
 import html as html_lib
 import json
@@ -723,9 +724,12 @@ _GN_PUBLISHER_MAP = {
     "dawn": "Dawn",
     "dawn.com": "Dawn",
 }
-# PhoneWorld 于 2026-07-02 因"把过时新闻当新内容重新发布"被移出信源，
-# 2026-07-19 彻底清除。Google News 会把它的稿子一起搜出来，这里挡掉。
-_GN_PUBLISHER_BLOCK = {"phoneworld"}
+# **Google News 只是打开既定目标媒体的通道，不是引进新媒体的入口**（2026-08-13
+# 用户明确）。搜索结果里 Mettis Global、ARYnews.tv、Bloom Pakistan、Daily Pakistan
+# 等十几家未经评估的媒体一律丢弃，只保留 SOURCE_PRIORITY 里定义的目标来源。
+# 这样也顺带挡住了 PhoneWorld —— 它 2026-07-02 因"把过时新闻当新内容重新发布"
+# 被移出信源、07-19 彻底清除，但 Google 搜索仍会把它的稿子带出来。
+_GN_ALLOWED_PUBLISHERS = set(SOURCE_PRIORITY)
 
 
 def _gn_publisher(block: str, fallback: str) -> str:
@@ -755,6 +759,7 @@ def fetch_google_news(query: str, source_label: str) -> list:
 
     items = []
     seen  = set()
+    skipped_pub: dict = collections.Counter()
 
     # Google News RSS has quirky <link> placement; use regex for reliability
     for block in re.findall(r"<item>(.*?)</item>", raw, re.S):
@@ -793,7 +798,8 @@ def fetch_google_news(query: str, source_label: str) -> list:
             continue
 
         publisher = _gn_publisher(block, source_label)
-        if publisher.lower() in _GN_PUBLISHER_BLOCK:
+        if publisher not in _GN_ALLOWED_PUBLISHERS:
+            skipped_pub[publisher] += 1
             continue
 
         seen.add(article_url)
@@ -807,6 +813,9 @@ def fetch_google_news(query: str, source_label: str) -> list:
     items.sort(key=lambda x: x["date"], reverse=True)
     log(f"  Google News [{source_label}]: {len(items)} items found"
         f"（取最新 {min(len(items), MAX_ITEMS_PER_SOURCE)} 条）")
+    if skipped_pub:
+        log("    非目标来源已跳过：" + "、".join(
+            f"{k}×{v}" for k, v in skipped_pub.most_common(8)))
     return items[:MAX_ITEMS_PER_SOURCE]
 
 
