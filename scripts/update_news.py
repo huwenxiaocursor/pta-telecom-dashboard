@@ -59,6 +59,10 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+# 默认 False：改过滤规则只影响以后抓到的新闻，不回溯清洗历史缓存。
+# 命令行加 --reclean 才会按当前规则重筛整份 news_cache.json。
+RECLEAN_CACHE = False
+
 MAX_ITEMS_PER_SOURCE = 20
 MAX_DISPLAY_ITEMS    = 400
 MAX_PER_DAY          = 8
@@ -256,6 +260,19 @@ _GEO_MACRO = {
 # ——否则 'Indian rupee depreciation hits import bill' 会靠 rupee 骗过地域校验。
 _PK_MARKERS_WEAK = {"rupee", "pkr", "psx", "fbr", "nepra", "ogra"}
 
+# 燃油调价的"大幅"门槛（2026-08-13 定）。巴基斯坦油价约 250–280 卢比/升，
+# 每升 10 卢比 ≈ 4%，与 5% 的百分比门槛量级一致。见 _is_routine_fuel_price()。
+_FUEL_PRICE_HINT = {
+    "petrol price", "diesel price", "fuel price", "petroleum price",
+    "petrol & diesel", "petrol and diesel", "petrol, diesel",
+}
+FUEL_BIG_MOVE_RS  = 10.0   # 每升卢比
+FUEL_BIG_MOVE_PCT = 5.0    # 或百分比
+
+# "Rs15"/"Rs. 22.50"/"PKR" 这类卢比金额也算弱巴基斯坦标识。必须用正则：
+# 裸写 "rs" 做子串会命中 yea-rs、operato-rs，整词匹配又够不着紧跟数字的 "Rs15"。
+_PK_WEAK_RE = re.compile(r"\brs\.?\s*\d|\bpkr\b")
+
 # 人事任命（2026-08-11 加）：金融/银行系统的高管任免与通信行业无关
 # （触发案例：'Govt Appoints Muhammad Ali Malik as SBP Deputy Governor'，
 # 靠 _TELECOM_WB 里的 sbp 混进来）。**只排任命，不排辞职/免职**——央行行长突然
@@ -328,6 +345,30 @@ def _is_finance_appointment(t: str) -> bool:
     return not any(kw in t for kw in _TELECOM_ENTITY)
 
 
+def _is_routine_fuel_price(t: str) -> bool:
+    """燃油调价：只留大幅调整，例行播报丢弃。
+
+    巴基斯坦每半月调一次油价，'OGRA Announces New Petrol & Diesel Prices for
+    Today' 这种例行公告会反复刷屏；但大幅调整确实是通胀先行指标，要留。
+    判据是**标题里有没有写出调整幅度**——媒体报大幅调价必然把数字放进标题
+    （'hiked by Rs15 per litre'），例行公告则只说"新价格已公布"。
+    刻意只认 'by Rs<n>' / '<n>pc' 这类**变动幅度**，不认绝对价格：
+    'Petrol price now Rs280 per litre' 里的 280 是价位不是涨幅，仍属例行播报。
+    """
+    if not any(k in t for k in _FUEL_PRICE_HINT):
+        return False
+    for pat in (r"by\s+rs\.?\s*(\d+(?:\.\d+)?)",
+                r"rs\.?\s*(\d+(?:\.\d+)?)\s*(?:per\s*l(?:it|)re\s*)?"
+                r"(?:hike|increase|raise|cut|reduction|drop|decrease)"):
+        for m in re.finditer(pat, t):
+            if float(m.group(1)) >= FUEL_BIG_MOVE_RS:
+                return False
+    for m in re.finditer(r"(?:by\s+)?(\d+(?:\.\d+)?)\s*(?:pc\b|%|percent)", t):
+        if float(m.group(1)) >= FUEL_BIG_MOVE_PCT:
+            return False
+    return True
+
+
 def _is_commercial_bank_news(t: str, tw: str) -> bool:
     """单家商业银行的经营动态 → 丢弃；只保留宏观经济环境类新闻。"""
     hit = any(b in t for b in _COMMERCIAL_BANKS) or any(
@@ -355,16 +396,25 @@ def is_relevant(title: str) -> bool:
         return False
     if _is_commercial_bank_news(t, tw):
         return False
+    if _is_routine_fuel_price(t):
+        return False
     if _is_minor_operator_only(t, tw):
         return False
     matched = any(kw in t for kw in _TELECOM_SUB) or any(
         " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
         for kw in _TELECOM_WB)
     # 地缘/大宗是一条**附加**的通过路径，且必须点名巴基斯坦（见 _GEO_MACRO 注释）。
-    # 这里连弱标识（rupee/PKR/PSX…）也认，但弱标识不参与下面的地域豁免。
-    geo_ok = any(kw in t for kw in _GEO_MACRO) and any(
-        m in t for m in (_PK_MARKERS | _PK_MARKERS_WEAK))
-    if not (matched or geo_ok):
+    # 这里连弱标识（rupee/PKR/PSX/OGRA、以及 "Rs15" 这样的卢比金额）也认，
+    # 但弱标识不参与下面的地域豁免。
+    pk_any = any(m in t for m in _PK_MARKERS) \
+        or any(m in t for m in _PK_MARKERS_WEAK) \
+        or _PK_WEAK_RE.search(t) is not None
+    geo_ok = any(kw in t for kw in _GEO_MACRO) and pk_any
+    # 大幅燃油调价单独放行：OGRA 调价本身就是国内事件，主题已由 _FUEL_PRICE_HINT
+    # 锁定，不必再强求标题写出 Pakistan（'Petrol price up by 9pc' 是常见写法）。
+    # 外国油价新闻仍会被下面的地域校验拦住。
+    fuel_big = any(k in t for k in _FUEL_PRICE_HINT) and not _is_routine_fuel_price(t)
+    if not (matched or geo_ok or fuel_big):
         return False
     # Geography gate: the telecom/macro keywords also match other countries' wire
     # stories. If the headline is clearly about a foreign country and never mentions
@@ -1264,8 +1314,15 @@ def main() -> None:
 
     # Prepend new items and save
     cache = new_items + cache
-    # Drop irrelevant articles that slipped into cache previously
-    cache = [i for i in cache if is_relevant(i.get("title", ""))]
+    # 过滤规则**只作用于新抓取的条目**，不回溯清洗历史缓存（2026-08-13 用户明确）。
+    # 以前这里每次运行都拿最新规则把整份 cache 重筛一遍（"历史残留自愈清除"），
+    # 副作用是：调一次关键词就可能悄悄抹掉若干条早已展示过的旧新闻，而且改规则
+    # 必须跑一整轮抓取才能生效。现在改成默认不动历史，需要按新规则清理旧数据时
+    # 显式加 --reclean（见文件末尾 argv 处理）。
+    if RECLEAN_CACHE:
+        before = len(cache)
+        cache = [i for i in cache if is_relevant(i.get("title", ""))]
+        log(f"  --reclean: 按当前规则回扫历史，剔除 {before - len(cache)} 条")
     save_cache(cache)
     log(f"Cache saved: {len(cache)} total items")
 
@@ -1389,4 +1446,8 @@ def main() -> None:
 
 
 if __name__ == "__main__":
+    import sys
+    # --reclean：按当前过滤规则回扫整份历史缓存并剔除不合规条目。
+    # 平时不要用——改规则默认只影响以后抓到的新闻（见 main() 里的说明）。
+    RECLEAN_CACHE = "--reclean" in sys.argv
     main()
