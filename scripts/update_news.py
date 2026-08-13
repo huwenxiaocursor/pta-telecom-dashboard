@@ -92,7 +92,10 @@ IMPORTANCE_PRIORITY = {"高": 0, "中": 1, "低": 2}
 
 # Titles mentioning PTA are front-loaded in the per-day display, but capped so
 # they don't crowd out every other source when PTA has a busy news day.
-MAX_PTA_PER_DAY = 3
+# 2026-08-13 从 3 提到 5（用户要求）：修好 Google News 取数后 PTA 源恢复正常，
+# 8-12 那天有 9 条 PTA 候选却只排上 2 条。每日总数仍是 MAX_PER_DAY(8)，
+# 所以最多占 5 席、至少给其他来源留 3 席。
+MAX_PTA_PER_DAY = 5
 
 # Only run the cross-source dedup pass (see mark_duplicates()) on days within
 # this many days of today, to bound API cost as the cache grows.
@@ -1057,7 +1060,8 @@ def llm_dedup_groups(items: list) -> list:
         return []
 
     return _split_importance_mismatch_groups(
-        _split_rebuttal_groups(groups, items), items)
+        _split_disconnected_groups(
+            _split_rebuttal_groups(groups, items), items), items)
 
 
 # Words marking a story as *disputing* another one rather than retelling it.
@@ -1162,6 +1166,85 @@ def _group_shares_entity(idx: list, items: list) -> bool:
     toks = [_title_tokens(items[i].get("title", "")) for i in idx]
     return any(toks[a] & toks[b]
                for a in range(len(toks)) for b in range(a + 1, len(toks)))
+
+
+def _dedup_entity_tokens(item: dict) -> set:
+    """标题 + 摘要前 DEDUP_SUMMARY_CHARS 字的实体词。
+
+    摘要是必需的：同一事件被不同媒体改写后，标题可能一个共同词都不剩
+    （'PTA imposes Rs77.8mn fine on CM Pak' vs 'Zong slapped with Rs77Million
+    penalty over Illegal BVS Device Operation'），但摘要里的金额、机构名对得上。
+    中文摘要不做分词，`_title_tokens` 的 [a-z0-9]+ 正好把数字和英文专名捞出来
+    （"7780万卢比" → 7780），足够判定同一性。"""
+    return _title_tokens(item.get("title", "")) | _title_tokens(
+        (item.get("summary_zh") or "")[:DEDUP_SUMMARY_CHARS])
+
+
+# 本看板几乎每条新闻都会出现的机构/主体词。它们不携带"同一事件"的信息，
+# 靠它们连边会把整天的新闻串成一个巨型连通块。（不放进 _DEDUP_STOP，那张表
+# 服务于确定性去重层，动它会改变已验证过的合并行为。）
+_LINK_GENERIC = {"pta", "sbp", "ptcl", "psx", "ogra", "nepra", "govt",
+                 "government", "authority", "regulator"}
+
+
+def _strong_link(a: set, b: set) -> bool:
+    """两条新闻是否强相关：剔除通用主体词后还有共享实体，就算。
+
+    早先的写法是"共享 ≥2 个词或含数字词"，把《Telcos Could Increase Data
+    Charges for Survival》从数据资费那组拆了出去——它与同组另两条只共享
+    `arpu` 一个词，但 arpu 恰恰是指向性很强的专业术语，不该按"只有一个词"
+    否掉。真正没有信息量的是 `pta`/`sbp` 这类主体词：事故组里"取消手机税"
+    与三条罚款新闻的全部交集就是一个 `pta`。所以按**词的分量**过滤，而不是
+    数个数。"""
+    return bool((a & b) - _LINK_GENERIC)
+
+
+def _split_disconnected_groups(groups: list, items: list) -> list:
+    """把 LLM 合并组按"强相关"连通性拆成若干子组。
+
+    候选变多以后（2026-08-13 接入 PTA/SBP 两个 Google News 源，单日候选从个位
+    数涨到 19 条），LLM 开始把不相干的新闻并进同一组。真实事故：
+      保留 《Pakistan Government Considers Abolishing Mobile Phone Taxes》
+      丢弃 《PTA imposes Rs77.8mn fine on CM Pak for SIM geo-fencing breach》
+      丢弃 《PTA Imposes Rs. 77.8 Million Fine on China Mobile Pakistan》
+      丢弃 《Zong slapped with Rs77Million penalty over Illegal BVS Device Operation》
+    "政府考虑取消手机税"和"Zong 被罚 7780 万卢比"是毫不相干的两件事，结果当天
+    与本公司直接相关的处罚新闻整个从看板消失。
+
+    组内按 _strong_link 建图取连通分量：上例拆成 {取消手机税} 和 {三条罚款}，
+    罚款仍正确合并成一条展示。取舍与 _split_rebuttal_groups 一致——拆错了不过是
+    多展示一条重复，不拆则可能静默丢掉一条重要新闻。"""
+    out = []
+    for grp in groups:
+        idx = [i for i in grp if isinstance(i, int) and 0 <= i < len(items)]
+        if len(idx) < 2:
+            continue
+        toks = {i: _dedup_entity_tokens(items[i]) for i in idx}
+        parent = {i: i for i in idx}
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        for a in range(len(idx)):
+            for b in range(a + 1, len(idx)):
+                i, j = idx[a], idx[b]
+                if _strong_link(toks[i], toks[j]):
+                    ri, rj = find(i), find(j)
+                    if ri != rj:
+                        parent[ri] = rj
+
+        comps: dict = {}
+        for i in idx:
+            comps.setdefault(find(i), []).append(i)
+        if len(comps) > 1:
+            log(f"  Dedup: 组内实体不连通，拆成 {len(comps)} 组 — "
+                + " ‖ ".join("/".join(items[i].get("title", "")[:34] for i in c)
+                             for c in comps.values()))
+        out.extend(sorted(c) for c in comps.values() if len(c) >= 2)
+    return out
 
 
 def _title_tokens(title: str) -> set:
