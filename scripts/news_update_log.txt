@@ -2730,3 +2730,29 @@ Call log:
 [2026-08-13 22:34:29]   Injected 310 items into index.html
 [2026-08-13 22:34:29] News update complete
 [2026-08-13 22:34:29] ==================================================
+[2026-08-13 22:56:16]   Dedup: 组内实体不连通，拆成 2 组 — Pakistan Government Considers Abol ‖ PTA imposes Rs77.8mn fine on CM Pa/PTA Imposes Rs. 77.8 Million Fine /Zong slapped with Rs77Million pena
+[2026-08-13 22:56:16]   Dedup: 组内实体不连通，拆成 2 组 — Telcos Could Increase Data Charges ‖ Pakistan’s Cheap Data Model Faces /Cheap data, rising costs put Pakis
+[2026-08-13 22:58:56]   Dedup: 组内实体不连通，拆成 2 组 — Pakistan Government Considers Abol ‖ PTA imposes Rs77.8mn fine on CM Pa/PTA Imposes Rs. 77.8 Million Fine /Zong slapped with Rs77Million pena
+[2026-08-13 22:58:56]   Dedup: 组内实体不连通，拆成 2 组 — Regional war drives global food in ‖ SBP projects Pakistan FX reserves 
+[2026-08-13 22:59:15] ==================================================
+[2026-08-13 22:59:15] News update started
+[2026-08-13 22:59:15] Cache: 448 existing items
+[2026-08-13 22:59:15] Fetching Google News [PTA] …
+[2026-08-13 22:59:15]   Google News [PTA]: 45 items found（取最新 20 条）
+[2026-08-13 22:59:16] Fetching Google News [SBP] …
+[2026-08-13 22:59:17]   Google News [SBP]: 30 items found（取最新 20 条）
+[2026-08-13 22:59:18] Fetching ProPakistani via WP REST API …
+[2026-08-13 22:59:24]   ProPakistani: 4 items found
+[2026-08-13 22:59:25] Fetching Dawn RSS …
+[2026-08-13 22:59:26]   Dawn: 3 items found
+[2026-08-13 22:59:27] Fetching Business Recorder RSS …
+[2026-08-13 22:59:28]   Business Recorder: 1 items found
+[2026-08-13 22:59:29] Fetching TechJuice via WP REST API …
+[2026-08-13 22:59:41]   TechJuice: 3 items found
+[2026-08-13 22:59:42] New items: 0
+[2026-08-13 22:59:42] Cache saved: 448 total items
+[2026-08-13 22:59:44]   Dedup: 组内实体不连通，拆成 2 组 — PTA Received Nearly 5,000 Complain ‖ PTA Content Crackdown: 1.54 Millio
+[2026-08-13 22:59:44]   Dedup: 组内实体不连通，拆成 2 组 — Pakistan Government Considers Abol ‖ PTA imposes Rs77.8mn fine on CM Pa/PTA Imposes Rs. 77.8 Million Fine /Zong slapped with Rs77Million pena
+[2026-08-13 22:59:44]   Injected 312 items into index.html
+[2026-08-13 22:59:44] News update complete
+[2026-08-13 22:59:44] ==================================================
