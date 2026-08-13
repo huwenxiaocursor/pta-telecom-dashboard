@@ -1044,7 +1044,8 @@ def llm_dedup_groups(items: list) -> list:
         log(f"  DeepSeek dedup error: {e}")
         return []
 
-    return _split_rebuttal_groups(groups, items)
+    return _split_importance_mismatch_groups(
+        _split_rebuttal_groups(groups, items), items)
 
 
 # Words marking a story as *disputing* another one rather than retelling it.
@@ -1097,6 +1098,58 @@ def _split_rebuttal_groups(groups: list, items: list) -> list:
             continue
         out.append(idx)
     return out
+
+
+def _split_importance_mismatch_groups(groups: list, items: list) -> list:
+    """把重要性不一致的 LLM 合并组拆开——只在组里混有"高"时才拆。
+
+    同一事件的两篇报道，分量应该是一样的：`summarize()` 对同一件事给出的
+    重要性判定高度一致（实测 PTA 罚 Zong 那组两家媒体都判"中"，DIRBS 升级
+    跨天那组也都是"中"）。所以组内重要性不一致，本身就是"这压根不是同一件事"
+    的信号。
+
+    真实事故（2026-08-13）：Dawn《Regional war drives global food inflation,
+    poses risks for Pakistan》（判"高"）被并进前一天 Dawn《SBP warns of price
+    spirals due to geopolitical developments in Middle East》（判"中"）。两条
+    都在讲"地缘政治推高物价"，喂了摘要的 LLM 看内容确实近似，但一条是 SBP
+    货币政策报告、一条是战争对全球粮价的专题分析，是不同事件；结果当天分量
+    最重的一条被静默丢掉，日报里也跟着少了。
+
+    **必须两个信号同时成立才拆**：重要性不一致 **且** 组内没有任何两条共享标题
+    实体词。单看任一个都会误判：
+      · 只看重要性——首版就是这样，当场误拆了两组真同事件报道：
+        《SBP Tightens Oversight of Rs88 Billion Export Subsidies》(高) 与
+        《SBP Sets New Rules To Strictly Monitor Rs. 88 Billion Export Subsidies》(中)
+        讲的是同一件事，只是 summarize() 给的分量不同。同事件报道的重要性
+        **并不总是一致**，从一个案例推出的判据在别处立刻崩掉。
+      · 只看共同实体——会误伤本文件注释里记录在案的正确合并：ProPakistani
+        《Pakistan Gives Telcos New Spectrum for Faster 5G Rollout》与 TechJuice
+        《New 5G Rules Push Telecom Firms Toward Fiber Expansion》零共同实体词，
+        却确实是同一件事，那正是 LLM 层存在的意义。
+    两个独立信号都指向"不是同一事件"时才动手，误拆概率低得多。
+
+    与 _split_rebuttal_groups 同一取舍：丢掉一条重要新闻的代价，远大于多展示
+    一条重复的。"""
+    out = []
+    for grp in groups:
+        idx = [i for i in grp if isinstance(i, int) and 0 <= i < len(items)]
+        if len(idx) < 2:
+            continue
+        imps = {(items[i].get("importance") or "中") for i in idx}
+        if "高" in imps and len(imps) > 1 and not _group_shares_entity(idx, items):
+            kept = [f"{items[i].get('importance') or '中'}:{items[i].get('title','')[:44]}"
+                    for i in idx]
+            log(f"  Dedup: 重要性不一致且标题无共同实体，判为不同事件保留 — {' | '.join(kept)}")
+            continue
+        out.append(idx)
+    return out
+
+
+def _group_shares_entity(idx: list, items: list) -> bool:
+    """组内是否存在任意两条共享标题实体词（`_title_tokens` 已剔除停用词）。"""
+    toks = [_title_tokens(items[i].get("title", "")) for i in idx]
+    return any(toks[a] & toks[b]
+               for a in range(len(toks)) for b in range(a + 1, len(toks)))
 
 
 def _title_tokens(title: str) -> set:
