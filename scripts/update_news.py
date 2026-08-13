@@ -250,6 +250,12 @@ _GEO_MACRO = {
     "rupee depreciation", "rupee devaluation", "currency depreciation",
 }
 
+# 弱巴基斯坦标识：只够给 _GEO_MACRO 放行，**不参与** _FOREIGN 的地域豁免。
+# 'Rupee depreciation raises import bill' 这类标题不写 Pakistan/SBP，但在巴基斯坦
+# 媒体语境里就是 PKR；而印度/斯里兰卡也用 rupee，所以不能升格为正式 _PK_MARKERS
+# ——否则 'Indian rupee depreciation hits import bill' 会靠 rupee 骗过地域校验。
+_PK_MARKERS_WEAK = {"rupee", "pkr", "psx", "fbr", "nepra", "ogra"}
+
 # 人事任命（2026-08-11 加）：金融/银行系统的高管任免与通信行业无关
 # （触发案例：'Govt Appoints Muhammad Ali Malik as SBP Deputy Governor'，
 # 靠 _TELECOM_WB 里的 sbp 混进来）。**只排任命，不排辞职/免职**——央行行长突然
@@ -257,9 +263,32 @@ _GEO_MACRO = {
 # 所以 PTA 主席任命、PTCL 高管进 PSTD 理事会这类仍然收得到。
 _APPOINTMENT = {
     "appoint", "named as", "takes charge", "takes oath", "sworn in",
-    "assumes charge", "assumes office", "new deputy governor",
+    "assumes charge", "assumes office", "assume charge", "assume office",
+    "takes over as", "elevated to", "ceo charge", "new deputy governor",
+    "new ceo", "new chief executive", "new managing director",
     "board of governors", "board of directors",
 }
+
+# 具体商业银行（2026-08-13 加）：看板只要**巴基斯坦经济环境**（SBP 货币政策、
+# 利率、通胀、外汇储备、IMF、汇率、财政），不要单家银行的经营动态——高管履新、
+# 开分行、发财报、推产品都与电信行业和宏观环境无关。
+# 触发案例：'Adil Salahuddin to assume Standard Chartered Pakistan CEO charge
+# after SBP clearance'（渣打 CEO 履新，靠 sbp 混入；且因 assume 与 charge 中间
+# 隔了四个词，_APPOINTMENT 的短语匹配也够不着）。
+# 例外同样是电信实体：'PTCL to acquire Easypaisa from Telenor Microfinance Bank'
+# 这类必须保留，见 _is_commercial_bank_news()。
+_COMMERCIAL_BANKS = {
+    "standard chartered", "habib bank", "united bank", "allied bank",
+    "muslim commercial", "bank alfalah", "meezan bank", "faysal bank",
+    "askari bank", "js bank", "soneri bank", "summit bank", "silkbank",
+    "bank of punjab", "bank of khyber", "sindh bank", "samba bank",
+    "dubai islamic bank", "bankislami", "al baraka", "first women bank",
+    "khushhali", "u microfinance", "mobilink microfinance",
+    "national bank of pakistan", "bank makramah", "zarai taraqiati",
+}
+# 缩写必须整词匹配：子串会灾难性误伤——"ubl" 命中 p-ubl-ic（public holiday／
+# public sector），"abl" 命中 avail-abl-e／t-abl-e／st-abl-e。
+_COMMERCIAL_BANKS_WB = {"hbl", "ubl", "mcb", "abl", "bop", "nbp", "jsbl", "bafl"}
 
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
@@ -299,6 +328,15 @@ def _is_finance_appointment(t: str) -> bool:
     return not any(kw in t for kw in _TELECOM_ENTITY)
 
 
+def _is_commercial_bank_news(t: str, tw: str) -> bool:
+    """单家商业银行的经营动态 → 丢弃；只保留宏观经济环境类新闻。"""
+    hit = any(b in t for b in _COMMERCIAL_BANKS) or any(
+        _wb_hit(b, tw) for b in _COMMERCIAL_BANKS_WB)
+    if not hit:
+        return False
+    return not any(kw in t for kw in _TELECOM_ENTITY)
+
+
 def _is_minor_operator_only(t: str, tw: str) -> bool:
     """只讲次要运营商自己的事（不涉及四大/监管）→ 丢弃。"""
     hit = any(kw in t for kw in _MINOR_OPERATORS) or any(
@@ -315,13 +353,17 @@ def is_relevant(title: str) -> bool:
         return False
     if _is_finance_appointment(t):
         return False
+    if _is_commercial_bank_news(t, tw):
+        return False
     if _is_minor_operator_only(t, tw):
         return False
     matched = any(kw in t for kw in _TELECOM_SUB) or any(
         " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
         for kw in _TELECOM_WB)
-    # 地缘/大宗是一条**附加**的通过路径，且必须点名巴基斯坦（见 _GEO_MACRO 注释）
-    geo_ok = any(kw in t for kw in _GEO_MACRO) and any(m in t for m in _PK_MARKERS)
+    # 地缘/大宗是一条**附加**的通过路径，且必须点名巴基斯坦（见 _GEO_MACRO 注释）。
+    # 这里连弱标识（rupee/PKR/PSX…）也认，但弱标识不参与下面的地域豁免。
+    geo_ok = any(kw in t for kw in _GEO_MACRO) and any(
+        m in t for m in (_PK_MARKERS | _PK_MARKERS_WEAK))
     if not (matched or geo_ok):
         return False
     # Geography gate: the telecom/macro keywords also match other countries' wire
