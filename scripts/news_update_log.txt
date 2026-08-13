@@ -2807,3 +2807,29 @@ Call log:
 [2026-08-13 23:23:33]   Injected 322 items into index.html
 [2026-08-13 23:23:34] News update complete
 [2026-08-13 23:23:34] ==================================================
+[2026-08-13 23:27:04] ==================================================
+[2026-08-13 23:27:04] News update started
+[2026-08-13 23:27:04] Cache: 456 existing items
+[2026-08-13 23:27:06] Fetching PTA official [新闻稿] …
+[2026-08-13 23:27:13]   PTA official [新闻稿]: 3 items found
+[2026-08-13 23:27:13] Fetching PTA official [新闻/更新] …
+[2026-08-13 23:27:18]   PTA official [新闻/更新]: 0 items found
+[2026-08-13 23:27:18] Fetching PTA official [公告] …
+[2026-08-13 23:27:23]   PTA official [公告]: 0 items found
+[2026-08-13 23:27:24] Fetching Google News [PTA] …
+[2026-08-13 23:27:25]   Google News [PTA]: 32 items found（取最新 20 条）
+[2026-08-13 23:27:26] Fetching Google News [SBP] …
+[2026-08-13 23:27:26]   Google News [SBP]: 30 items found（取最新 20 条）
+[2026-08-13 23:27:27] Fetching ProPakistani via WP REST API …
+[2026-08-13 23:27:30]   ProPakistani: 4 items found
+[2026-08-13 23:27:31] Fetching Dawn RSS …
+[2026-08-13 23:27:31]   Dawn: 3 items found
+[2026-08-13 23:27:32] Fetching Business Recorder RSS …
+[2026-08-13 23:27:32]   Business Recorder: 1 items found
+[2026-08-13 23:27:33] Fetching TechJuice via WP REST API …
+[2026-08-13 23:27:38]   TechJuice: 4 items found
+[2026-08-13 23:27:39] New items: 0
+[2026-08-13 23:27:39] Cache saved: 456 total items
+[2026-08-13 23:27:41]   Injected 319 items into index.html
+[2026-08-13 23:27:41] News update complete
+[2026-08-13 23:27:41] ==================================================
