@@ -2596,3 +2596,24 @@ Call log:
 [2026-08-13 18:42:07]   Injected 306 items into index.html
 [2026-08-13 18:42:07] News update complete
 [2026-08-13 18:42:07] ==================================================
+[2026-08-13 18:44:28]   Dedup: 重要性不一致且标题无共同实体，判为不同事件保留 — 高:Regional war drives global food inflation, p | 中:SBP warns of price spirals due to geopolitic
+[2026-08-13 18:44:51] ==================================================
+[2026-08-13 18:44:51] News update started
+[2026-08-13 18:44:51] Cache: 404 existing items
+[2026-08-13 18:44:51] Fetching Google News [PTA] …
+[2026-08-13 18:44:52]   Google News [PTA]: 47 items found
+[2026-08-13 18:44:53] Fetching Google News [SBP] …
+[2026-08-13 18:44:54]   Google News [SBP]: 31 items found
+[2026-08-13 18:44:55] Fetching ProPakistani via WP REST API …
+[2026-08-13 18:44:57]   ProPakistani: 1 items found
+[2026-08-13 18:44:58] Fetching Dawn RSS …
+[2026-08-13 18:44:58]   Dawn: 3 items found
+[2026-08-13 18:44:59] Fetching Business Recorder RSS …
+[2026-08-13 18:45:00]   Business Recorder: 1 items found
+[2026-08-13 18:45:01] Fetching TechJuice via WP REST API …
+[2026-08-13 18:45:06]   TechJuice: 4 items found
+[2026-08-13 18:45:07] New items: 0
+[2026-08-13 18:45:07] Cache saved: 404 total items
+[2026-08-13 18:45:08]   Injected 303 items into index.html
+[2026-08-13 18:45:08] News update complete
+[2026-08-13 18:45:08] ==================================================
