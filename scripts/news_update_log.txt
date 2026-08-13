@@ -2902,3 +2902,35 @@ Call log:
 [2026-08-13 23:42:14]   Injected 321 items into index.html
 [2026-08-13 23:42:14] News update complete
 [2026-08-13 23:42:14] ==================================================
+[2026-08-13 23:53:48] ==================================================
+[2026-08-13 23:53:48] News update started
+[2026-08-13 23:53:48] Cache: 440 existing items
+[2026-08-13 23:53:50] Fetching PTA official [新闻稿] …
+[2026-08-13 23:53:57]   PTA official [新闻稿]: 3 items found
+[2026-08-13 23:53:57] Fetching PTA official [新闻/更新] …
+[2026-08-13 23:54:03]   PTA official [新闻/更新]: 0 items found
+[2026-08-13 23:54:03] Fetching PTA official [公告] …
+[2026-08-13 23:54:08]   PTA official [公告]: 0 items found
+[2026-08-13 23:54:09] Fetching Google News [PTA] …
+[2026-08-13 23:54:10]   Google News [PTA]: 23 items found（取最新 20 条）
+[2026-08-13 23:54:10]     非目标来源已跳过：PhoneWorld×12、Pakistan Connect×2、247news.com.pk×2、Bloom Pakistan×2、Mettis Global×1、Associated Press Of Pakistan×1、Dunya News×1、Pakistan Observer×1
+[2026-08-13 23:54:11] Fetching Google News [SBP] …
+[2026-08-13 23:54:13]   Google News [SBP]: 10 items found（取最新 10 条）
+[2026-08-13 23:54:13]     非目标来源已跳过：Mettis Global×4、The Express Tribune×2、MM News×2、Pkrevenue.com×2、The News Pakistan×1、24NewsHD×1、Profit by Pakistan Today×1、Pakistan Observer×1
+[2026-08-13 23:54:14] Fetching ProPakistani via WP REST API …
+[2026-08-13 23:54:16]   ProPakistani: 4 items found
+[2026-08-13 23:54:17] Fetching Dawn RSS …
+[2026-08-13 23:54:17]   Dawn: 3 items found
+[2026-08-13 23:54:18] Fetching Business Recorder RSS …
+[2026-08-13 23:54:18]   Business Recorder: 1 items found
+[2026-08-13 23:54:19] Fetching TechJuice via WP REST API …
+[2026-08-13 23:54:24]   TechJuice: 4 items found
+[2026-08-13 23:54:25] New items: 1
+[2026-08-13 23:54:25]   Summarising: Which Mobile Phones Support Jazz 5G in Pakistan Right Now? …
+[2026-08-13 23:54:35]     ! 日期不符：RSS 标 2026-08-13，原文为 2026-03-18 → 以原文为准
+[2026-08-13 23:54:35]     ! 早于 2026-08-01，丢弃
+[2026-08-13 23:54:35]   按原文日期丢弃过期条目 1 条
+[2026-08-13 23:54:35] Cache saved: 440 total items
+[2026-08-13 23:54:37]   Injected 321 items into index.html
+[2026-08-13 23:54:37] News update complete
+[2026-08-13 23:54:37] ==================================================
