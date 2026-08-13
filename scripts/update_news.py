@@ -229,6 +229,10 @@ _FOREIGN = {
     # Region/market phrases in Reuters/AFP wire reprints (substring-safe)
     "asian stock", "asian market", "asian share", "wall street", "us inflation",
     "us economy", "us fed", "federal reserve", "us treasury", "us stock",
+    # 国际油价基准与产油国组织（2026-08-13 加）：国外油价新闻一律不要。
+    # 带这些词又没有强巴基斯坦标识的，一律判为国际行情报道。
+    "brent", "wti crude", "opec+", "global oil", "world oil", "international oil",
+    "global crude", "global fuel", "oil market",
 }
 
 # Foreign markers that are short abbreviations — must be matched as whole words,
@@ -410,11 +414,13 @@ def is_relevant(title: str) -> bool:
         or any(m in t for m in _PK_MARKERS_WEAK) \
         or _PK_WEAK_RE.search(t) is not None
     geo_ok = any(kw in t for kw in _GEO_MACRO) and pk_any
-    # 大幅燃油调价单独放行：OGRA 调价本身就是国内事件，主题已由 _FUEL_PRICE_HINT
-    # 锁定，不必再强求标题写出 Pakistan（'Petrol price up by 9pc' 是常见写法）。
-    # 外国油价新闻仍会被下面的地域校验拦住。
-    fuel_big = any(k in t for k in _FUEL_PRICE_HINT) and not _is_routine_fuel_price(t)
-    if not (matched or geo_ok or fuel_big):
+    # 注意：燃油调价**不设**绕过 pk_any 的放行通道。曾经为了收 'Petrol price up
+    # by 9pc' 这种不写国名的标题开过一个口子，但那会顺带放进国际油价新闻
+    # （'Global oil prices push petrol up by 12pc' 无任何国名，地域校验也拦不住）。
+    # 用户 2026-08-13 明确：国外油价一律不要。宁可漏收本国那种不写标识的写法，
+    # 也不放国际行情进来——实际上巴基斯坦媒体报本国油价，标题基本都带 Rs 金额
+    # 或 OGRA/Govt，pk_any 里的弱标识已经覆盖。
+    if not (matched or geo_ok):
         return False
     # Geography gate: the telecom/macro keywords also match other countries' wire
     # stories. If the headline is clearly about a foreign country and never mentions
