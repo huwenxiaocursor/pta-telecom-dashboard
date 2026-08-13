@@ -2934,3 +2934,79 @@ Call log:
 [2026-08-13 23:54:37]   Injected 321 items into index.html
 [2026-08-13 23:54:37] News update complete
 [2026-08-13 23:54:37] ==================================================
+[2026-08-14 00:01:36]   Browser fetch failed (https://news.google.com/rss/articles/CBMimwFBVV95cUxQQ1dnNktMYTNQOWYtd1NWVVFmTDVscjBUSDV1WTM1SG0zVGpRcGZyZE04MGRrQzdrOEc3VDl2TlNBSWNtVHR6RFRNQzVFZmM4ZjA5QWVFZzJpWkZkc1pBaklMaDJqa2tfdlpFQVlHUWdoTmhQLS1NNXFzc3loZ3ZBV0VfTjdJWjJ2dDAzemdRaHgxbjJvNms3Y2RhVdIBoAFBVV95cUxQZFd0dC04T24zTE1QcTVScDZ6QzY2cUVGTHk0MmNVNU54M2pGc2ZlV1plczZxU3NITGs5Zi1sT3FIem5PbUtYVmU3RFR6Qk05MXVkMjJqZjBCOFVXcUNHNllLVTVCMUI1N0VYM0dtc0VtRkNKY3hSZFNwWVNrODVmRV9KZHRWeEdRWmlTdUg1eWFXb0pEX3huTEZiR3pLNjdm?oc=5): Page.inner_text: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("body")
+
+[2026-08-14 00:02:30]   Browser fetch failed (https://news.google.com/rss/articles/CBMiiwFBVV95cUxPYm12ZDFfSmd1NVVTV0V4aGVOV2ZqbnVzcExVTDVTNnZwY0xNeUNseEo2b1RRbncwV3A5eG40Tkl6S05aUE5vZHQ5emd2U05ZYzhHaGNOdVdHYnVHcWg2NG44OEtfQ3hLWTZaLTJ4ZjlGTGpDbHFhd0ViNTJNOEM3MF9walMtcVhqVF9F0gHkAkFVX3lxTE5kMHNFcWdGWXRoQ3JOWWJ0OW1vQTFPUmZNSXhCTlNUNGxmem5INFZqUVRhNDN1UUh6YW1HTDk0M0hlR1FEbTJJQkVOM3hRWGtlbnVhNmtKZEVuUWdYYm44cDNxdjRZUUpGZnNpM0FpRXlhMThmQ1JqOUFEUzhBbmdCWXhsQUlnNGg0R3RJM3FVcnQ0cmNoU1pmZlVzV1VSaWVGbHV6LThhOE5rRExZYjBaaXVNMlc2N2VwZ01MVjBEay1oeEJrdEhoTjhUNzNqTUNsOWJsOFh0X3lYVDRxYVpBUUJudGxON1U4RnBobmZOdXprYmE1R3hsUXYxcy0wcDY3WWpWZmg5XzhBN3lPWEVBNkd4VmhyZ2V1YWx2UzJUTWloOHpzUjUzanJzQ21sZms2azVWRWt1RVhwRkh6YTV1dTRtQVNGQ3c2ODVFOTJqa1hwTU8yekpCaUhjTXhmQzlPRXF6?oc=5): Page.inner_text: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("body")
+
+[2026-08-14 00:03:10]   Browser fetch failed (https://news.google.com/rss/articles/CBMiSkFVX3lxTFBOSzlKby1zNVlZeDZfUHlvQ1ZIZzNtN3NYTWxoREhsZXJENE01Sk01U2VISDlSSXFlWWdkel9qOTBrdjVxZUo1UFpn0gGQAUFVX3lxTE5wYnVPSDF3bDdjR1V1RzEzeEh0b2c4VFZ4eWtKNm9BRHVMYjlScWsyNWpBbEFSZlhSSlBWSHRoOTJzV2YtMlRGOEVRdkVoTUxyRFVHcmszb1JsZGF2RzRQcUNKakZibDg5WTcxcm05SURjWEpfaGRFYno5MGZHVU1SazNtSjZETWxfWklraG5xVQ?oc=5): Page.inner_text: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("body")
+
+[2026-08-14 00:24:41] ==================================================
+[2026-08-14 00:24:41] News update started
+[2026-08-14 00:24:41] Cache: 431 existing items
+[2026-08-14 00:24:44] Fetching PTA official [新闻稿] …
+[2026-08-14 00:24:51]   PTA official [新闻稿]: 3 items found
+[2026-08-14 00:24:51] Fetching PTA official [新闻/更新] …
+[2026-08-14 00:24:57]   PTA official [新闻/更新]: 0 items found
+[2026-08-14 00:24:57] Fetching PTA official [公告] …
+[2026-08-14 00:25:02]   PTA official [公告]: 0 items found
+[2026-08-14 00:25:03] Fetching Google News [PTA] …
+[2026-08-14 00:25:04]   Google News [PTA]: 23 items found（取最新 20 条）
+[2026-08-14 00:25:04]     非目标来源已跳过：PhoneWorld×13、Pakistan Connect×2、247news.com.pk×2、Bloom Pakistan×2、Mettis Global×1、Dunya News×1、Pakistan Observer×1、en.dailypakistan.com.pk×1
+[2026-08-14 00:25:05] Fetching Google News [SBP] …
+[2026-08-14 00:25:06]   Google News [SBP]: 10 items found（取最新 10 条）
+[2026-08-14 00:25:06]     非目标来源已跳过：Mettis Global×4、The Express Tribune×2、MM News×2、Pkrevenue.com×2、The News Pakistan×1、24NewsHD×1、Profit by Pakistan Today×1、Pakistan Observer×1
+[2026-08-14 00:25:07] Fetching ProPakistani via WP REST API …
+[2026-08-14 00:25:43]   FETCH ERROR [https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=2&after=2026-08-01T00:00:00&_fields=title,link,date]: Command '['curl', '-sS', '--connect-timeout', '15', '-L', '-H', 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', '-H', 'Accept-Language: en-US,en;q=0.9', 'https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=2&after=2026-08-01T00:00:00&_fields=title,link,date']' timed out after 20 seconds
+[2026-08-14 00:25:43]   ProPakistani: 1 items found
+[2026-08-14 00:25:44] Fetching Dawn RSS …
+[2026-08-14 00:25:44]   Dawn: 3 items found
+[2026-08-14 00:25:45] Fetching Business Recorder RSS …
+[2026-08-14 00:25:46]   Business Recorder: 1 items found
+[2026-08-14 00:25:47] Fetching TechJuice via WP REST API …
+[2026-08-14 00:25:52]   TechJuice: 4 items found
+[2026-08-14 00:25:53] New items: 11
+[2026-08-14 00:25:53]   Summarising: PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape …
+[2026-08-14 00:26:02]     ! 日期不符：RSS 标 2026-08-11，原文为 2026-03-19 → 以原文为准
+[2026-08-14 00:26:02]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:02]   Summarising: Telenor Pakistan to Cease Operations as Separate Entity Following Merg …
+[2026-08-14 00:26:12]     ! 日期不符：RSS 标 2026-08-11，原文为 2026-02-17 → 以原文为准
+[2026-08-14 00:26:12]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:12]   Summarising: PTA Proposes Strict New Rollout Mandates for Telecom Tower Companies …
+[2026-08-14 00:26:21]     ! 日期不符：RSS 标 2026-08-11，原文为 2026-04-22 → 以原文为准
+[2026-08-14 00:26:21]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:21]   Summarising: Pakistan Government Considers Abolishing Mobile Phone Taxes …
+[2026-08-14 00:26:31]     ! 日期不符：RSS 标 2026-08-11，原文为 2026-05-08 → 以原文为准
+[2026-08-14 00:26:31]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:31]   Summarising: Telenor to Merge into Ufone as PTA Clears Deal, Court Approval Pending …
+[2026-08-14 00:26:40]     ! 日期不符：RSS 标 2026-08-10，原文为 2026-04-22 → 以原文为准
+[2026-08-14 00:26:40]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:40]   Summarising: iPhone 5G is Officially Live in Pakistan on Zong &amp; Jazz Networks …
+[2026-08-14 00:26:49]     ! 日期不符：RSS 标 2026-08-10，原文为 2026-05-13 → 以原文为准
+[2026-08-14 00:26:49]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:49]   Summarising: Which Mobile Phones Support Jazz 5G in Pakistan Right Now? …
+[2026-08-14 00:26:59]     ! 日期不符：RSS 标 2026-08-09，原文为 2026-03-18 → 以原文为准
+[2026-08-14 00:26:59]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:26:59]   Summarising: A New Telecom Giant Just Emerged in Pakistan: e&amp; Pakistan …
+[2026-08-14 00:27:08]     ! 日期不符：RSS 标 2026-08-09，原文为 2026-07-01 → 以原文为准
+[2026-08-14 00:27:08]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:27:08]   Summarising: Will SBP Issue Fresh Bank Notes for Eid ul Fitr 2026? State Bank Clari …
+[2026-08-14 00:27:18]     ! 日期不符：RSS 标 2026-08-11，原文为 2026-03-04 → 以原文为准
+[2026-08-14 00:27:18]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:27:18]   Summarising: KIBOR Jumps Up to 99 Bps After SBP Hikes Policy Rate to 11.5% …
+[2026-08-14 00:27:27]     ! 日期不符：RSS 标 2026-08-08，原文为 2026-04-28 → 以原文为准
+[2026-08-14 00:27:27]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:27:27]   Summarising: SBP Relaxes Mortgage Rules Under Wazir-e-Azam’s Apna Ghar Program …
+[2026-08-14 00:27:36]     ! 日期不符：RSS 标 2026-08-08，原文为 2026-04-29 → 以原文为准
+[2026-08-14 00:27:36]     ! 早于 2026-08-01，丢弃
+[2026-08-14 00:27:36]   按原文日期丢弃过期条目 11 条
+[2026-08-14 00:27:36] Cache saved: 431 total items
+[2026-08-14 00:27:36]   Cross-source dedup: tagged 1 duplicate-event item(s) with dup_of
+[2026-08-14 00:27:37]   Injected 316 items into index.html
+[2026-08-14 00:27:37] News update complete
+[2026-08-14 00:27:37] ==================================================

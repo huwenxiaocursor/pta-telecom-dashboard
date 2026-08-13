@@ -40,22 +40,6 @@
     "importance": "中"
   },
   {
-    "source": "TechJuice",
-    "title": "KIBOR Jumps Up to 99 Bps After SBP Hikes Policy Rate to 11.5%",
-    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxPNzZMZW8zMlZHeFZpM2Q3NDF2Z2YydE45M3RFTVVVamMwTTROUzZIcUFFYURaakRreUJLamhaUWtkNGU1cWZXaTZKbjZrcDdINmtmdVFNRnZvVnAwS1FxQ3JiM1R3d0FTXzNSY1U1dmthTEpjaUNRWTg3dmtJSXVVX3JQUlpYdHpOZUJqR2h5UQ?oc=5",
-    "date": "2026-08-08",
-    "summary_zh": "巴基斯坦国家银行（SBP）将政策利率上调100个基点至11.5%，【卡拉奇银行间同业拆借利率（KIBOR）随之大幅上升】，其中1周和2周期限利率上涨近99个基点，1个月期上涨94个基点，而6个月和1年期利率分别上涨约43和34个基点。央行称加息主要因通胀风险上升、全球能源价格高企及地缘政治不确定性，3月总体通胀率为7.3%，核心通胀率为7.8%，预计未来数月通胀将超过10%。此外，中东紧张局势推高油价、运费和保险费，构成外部风险。尽管通胀压力存在，巴基斯坦经济表现出韧性，第二季度（FY26）增长3.9%，经常账户因侨汇盈余而改善，外汇储备增强。此次政策调整也符合国际货币基金组织的建议。\n\n此次加息导致KIBOR上升，【短期内将推高企业和消费者的借贷成本】，并加剧融资条件压力。对电信行业而言，运营商依赖债务融资进行网络扩张和运营，利率上升可能【增加其财务负担】，影响资本支出计划。然而，若通胀得到有效控制，长期看【有利于宏观经济稳定】，为电信行业创造更可预测的运营环境。总体而言，此举反映了央行对抗通胀的决心，但短期内对依赖信贷的行业构成挑战。",
-    "importance": "高"
-  },
-  {
-    "source": "TechJuice",
-    "title": "SBP Relaxes Mortgage Rules Under Wazir-e-Azam’s Apna Ghar Program",
-    "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNeGJVdHpkeEs0RU1QVnRhVW1pVkU3MXIxaFRnQWd0MXhZS3lmalJsMEF5RDl2SV9vU1VmWmhMbU9mR3B3NjFsZW5JZXc2N2wyeHgxd3dPc08xVFhfb2lFZ2lDVHlaZ1IyWmdDakNfNFVvbHVET2d3Z1ZBVHRNU2g2Y1hxLUthRGhwYU5lZUFCYkdHS1VL?oc=5",
-    "date": "2026-08-08",
-    "summary_zh": "巴基斯坦国家银行（SBP）于2026年4月29日发布通告，为落实“Wazir-e-Azam’s Apna Ghar Program”住房计划，正式放宽住房金融审慎监管要求。新规将借款人债务负担比率上限提高至【净可支配收入的65%】，并简化房产估值流程：价值不超过【500万卢比】的房产可由银行或HBFCL内部估值，更高价值房产则需PBA认可评估师至少一次正式估值。此外，SBP要求金融机构在收到完整申请后【15个工作日内】完成信贷审批，并明确放宽HF-3和HF-7审慎条例以配合实施。",
-    "importance": "中"
-  },
-  {
     "source": "ProPakistani",
     "title": "SBP Unveils Incentives for Digital Payments at Petrol Pumps",
     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQQ1dnNktMYTNQOWYtd1NWVVFmTDVscjBUSDV1WTM1SG0zVGpRcGZyZE04MGRrQzdrOEc3VDl2TlNBSWNtVHR6RFRNQzVFZmM4ZjA5QWVFZzJpWkZkc1pBaklMaDJqa2tfdlpFQVlHUWdoTmhQLS1NNXFzc3loZ3ZBV0VfTjdJWjJ2dDAzemdRaHgxbjJvNms3Y2RhVdIBoAFBVV95cUxQZFd0dC04T24zTE1QcTVScDZ6QzY2cUVGTHk0MmNVNU54M2pGc2ZlV1plczZxU3NITGs5Zi1sT3FIem5PbUtYVmU3RFR6Qk05MXVkMjJqZjBCOFVXcUNHNllLVTVCMUI1N0VYM0dtc0VtRkNKY3hSZFNwWVNrODVmRV9KZHRWeEdRWmlTdUg1eWFXb0pEX3huTEZiR3pLNjdm?oc=5",
@@ -86,14 +70,6 @@
     "date": "2026-08-06",
     "summary_zh": "2026年8月5日，巴基斯坦电信管理局（PTA）与TikTok在伊斯兰堡联合举办了社区准则培训研讨会，【超过100名参与者】包括PTA高级官员、政府机构、学术界、民间社会及数字领域代表。TikTok信任与安全团队专家就平台社区准则、内容审核框架、举报机制及用户安全措施进行了全面培训。PTA主席哈菲兹·乌尔·拉赫曼少将强调，确保安全、可信、负责任的数字环境需要监管机构、数字平台及所有利益相关方的持续合作。\n\n此次研讨会反映了PTA与数字平台加强合作的承诺，旨在提升数字素养和在线安全。尽管该活动不直接涉及电信运营商或重大政策变动，但【有助于促进巴基斯坦数字生态系统的规范化发展】，并可能为未来监管机构与社交媒体平台的协作奠定基础。短期来看，此举【增强多方对平台治理的理解】，长期看有利于营造更安全的网络环境，但对电信行业竞争格局影响有限。",
     "importance": "低"
-  },
-  {
-    "source": "TechJuice",
-    "title": "A New Telecom Giant Just Emerged in Pakistan: e&amp; Pakistan",
-    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNQ2NCX2s4ZE55T2FsZGw0T0Z1X0VRX283d1RfRGxlMjlnQ0FUTHNGWThQRjVJSDlwckh0bUVUWXpUQnFRbGNEdlNWanRIQklRbG4wbXBHN3hkXzI0TDIyZmpWRVZJQy1ya0JiWF9ZRDExdXEwbUtiNTJ1Qy1JSkZmZUxKTGJsUndtc1N0bA?oc=5",
-    "date": "2026-08-09",
-    "summary_zh": "巴基斯坦电信行业迎来重大整合，Ufone与Telenor Pakistan的合并已获得伊斯兰堡高等法院的最终法律批准，并取得巴基斯坦电信管理局（PTA）颁发的最后无异议证书（NOC）。合并后的实体将采用阿联酋e&集团的品牌，取代原有的Ufone和Telenor品牌，标志着Telenor在巴基斯坦近二十年的运营名称终结。新公司将成为巴基斯坦第二大移动运营商，拥有约【7000万用户】，与市场领导者Jazz形成更激烈竞争。\n\n此次合并由PTCL集团收购Telenor Pakistan促成，是巴基斯坦电信领域最大交易之一。合并将整合频谱、铁塔、传输系统和数字平台，打造全国最大的网络基础设施。短期内，用户服务不受影响，但运营整合复杂，需数月完成。长期看，此举【重塑巴基斯坦电信竞争格局】，并【强化e&集团的全球品牌战略】，可能推动行业进一步整合和效率提升。",
-    "importance": "高"
   },
   {
     "source": "TechJuice",
@@ -163,44 +139,11 @@
     "dup_of": "https://news.google.com/rss/articles/CBMiowFBVV95cUxPVHQxR0c2b2MwdzNPUE1NV2FvdkUzazNrbzVxMmE1SndrNmdpTzZKZUJ4WDR0ZzJJQkxSN2x0SXktTXI5X1hiMUVSZDczUnQ1UEdVZHRhSmhra2xVZEJPYndFYjRhaE1rb0l5ZWI2SU5tVnp5Wm16ZjZncV9vdlZVWTMyZkdfLW1Qc3czS3cxRXpvR0lIM19SaUxCSmp6UlFRWkxZ0gFWQVVfeXFMTVFGZ1FRVTRrWnZEa1B0MERGSXIzbHZNZEJnM09hU3BSOVdoWFk4bFpuWUdqOUFOQmhVWXEzU3pyNmliNi1ndDkwbmhselNJNk9FbG15THc?oc=5"
   },
   {
-    "source": "TechJuice",
-    "title": "PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape",
-    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQU2FvRGdHYnN3bXEyV3IxQkNLSkluOFlYY01YdDJLQ051M254clF4TDBrNjlpWlJFYlVpejNIV1dPQzFSckRPNF9WcXhlTUV1bVRpVGN6emhCSEtsVVRpVUZqdG9RS1BxdmRES3c0cm9SaVFoOS1Xd1NQNUdfUWNwb1hRcFJLMkdIMmphaEhqbWU?oc=5",
-    "date": "2026-08-11",
-    "summary_zh": "巴基斯坦电信管理局（PTA）已正式批准Ufone与Telenor Pakistan的合并，结束了数月来因频谱拍卖和竞争担忧导致的监管审查。该交易旨在打造一个更强大的市场参与者，预计将减少主要移动运营商数量，改变市场格局。监管机构确认交易符合竞争和消费者保护要求，并确保数百万用户的服务连续性。\n\n合并后的实体将拥有更大的频谱组合和用户基础，有望提升服务质量和网络覆盖，同时通过消除基础设施重复建设来降低成本。分析师认为，此举【增强合并实体的市场竞争力】，尤其在5G时代，但【需警惕市场集中度上升带来的监管挑战】。在巴基斯坦推进数字化转型和5G部署的关键时期，该合并被视为行业整合的重要一步，未来几周将进行整合规划和可能的品牌重塑。",
-    "importance": "高"
-  },
-  {
     "source": "ProPakistani",
     "title": "PTA Received Nearly 5,000 Complaints Against Telcos in June Alone",
     "url": "https://news.google.com/rss/articles/CBMiogFBVV95cUxQb1RQOG9SMkNMbnlZX3d1ZzZ2YnU3YXY3cHRfbExUVjg5WG9KYlpaQi0wdUFxQkFPZVlZdXdJbTVlUVdPTTVIZWM4dmZVRHFVSlN0NlBZSzVUT3RiZGhzM2s4YV9sWE1fd0JQY05INzNPemtaV1F3RHM5emVYUXRiM0pPNmlycVZyNWtNOFZYNzFQbmFYTU5WSW9HNE9nako4OUHSAacBQVVfeXFMTWtsTG1fdVlNbEtXNGVJUnMyNGFieFFlR3FLWUc5U2NqaUVJWGtjVXhsMHYtbFZ3XzUtRi1DVmFXWmRJRHNpc0dUQjlaOHlpTm5hSjVXZ0hQclc2MG50a1k0UVVwNVRiSEJyb25KV1ZyNnlCOWZCY2pvVUJGa2RSTVdPdnJxTkFnSEtPWXRWeXltZG1UT0xnUzlEMjhLWk1rWDBlRmJLbmc?oc=5",
     "date": "2026-08-11",
     "summary_zh": "巴基斯坦电信管理局（PTA）2026年6月收到针对电信运营商的消费者投诉【共计4901起】，其中【4611起已解决】，整体解决率为94.08%。移动蜂窝电话投诉量最高，达4188起，解决率95.13%；互联网服务投诉581起，解决率88.3%，为四类中最低；固定电话投诉109起，解决率85.32%；无线本地环路（WLL）投诉23起，解决率91.3%。\n\n投诉数据反映消费者对移动服务质量的关注度持续较高，但高解决率表明PTA的投诉处理机制较为有效。尽管投诉量较大，但未涉及重大违规或市场结构性问题，【对运营商竞争格局影响有限】。不过，互联网服务解决率偏低可能【促使PTA加强对宽带服务质量的监管】，进而推动运营商优化网络与服务，长期有利于提升行业整体服务水平。",
-    "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Telenor Pakistan to Cease Operations as Separate Entity Following Merger with Ufone",
-    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxNQ1l5YkJTcFpOTTZleFJFdFozdURNYmpUbkQwV3ZKVVZZeGxUX3Fhckpsc09PTDRqZ3JMZ0xCdHc2aXRSSzdRMWNZTENadTRRVjVtVllLRGpsd0ZYQ2NNZzVVSlJhbkFJV0RvTXE5ZmlqSk1pcGtmZDRXanZBYkh4SjNBS3pMUVBtQmk2NUN5YVZkQ3VOckpsZXJvZ2VXVW9Ma2puUTduOTcwWHRJNGc?oc=5",
-    "date": "2026-08-11",
-    "summary_zh": "巴基斯坦电信管理局（PTA）已正式启动监管程序，处理将Telenor Pakistan（Private）Limited的牌照转让给巴基斯坦电信移动有限公司（PTML，即Ufone）的申请。转让完成后，两家实体将完全合并，【PTML（Ufone）作为存续实体】，而Telenor Pakistan将不再作为独立持牌公司运营。所有移动蜂窝牌照、运营、资产、负债、权利和义务将全面转移至PTML，覆盖巴基斯坦、阿扎德查谟和克什米尔（AJ&K）及吉尔吉特-巴尔蒂斯坦（GB）所有地区。PTA已邀请消费者和利益相关方在通知发布后【7天内】提交书面意见。\n\n此次合并将重塑巴基斯坦电信市场竞争格局，【显著减少主流运营商数量】，可能提高行业集中度。短期内，合并过程可能带来运营整合的不确定性，但长期看，【有利于资源优化配置和网络效率提升】。对消费者而言，市场竞争减弱可能影响资费和服务选择，但合并后的实体有望提供更广泛的覆盖和更稳定的服务。此举也反映了巴基斯坦电信行业整合趋势，可能对宏观经济产生积极影响，通过吸引投资和促进数字化发展。",
-    "importance": "中",
-    "dup_of": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQU2FvRGdHYnN3bXEyV3IxQkNLSkluOFlYY01YdDJLQ051M254clF4TDBrNjlpWlJFYlVpejNIV1dPQzFSckRPNF9WcXhlTUV1bVRpVGN6emhCSEtsVVRpVUZqdG9RS1BxdmRES3c0cm9SaVFoOS1Xd1NQNUdfUWNwb1hRcFJLMkdIMmphaEhqbWU?oc=5"
-  },
-  {
-    "source": "TechJuice",
-    "title": "PTA Proposes Strict New Rollout Mandates for Telecom Tower Companies",
-    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQNXdWbEQxb05ZM0p2cFFZa3JrbE1sTndCOVBDZnlKYkE0RTlEY3dIOEF1QkdhUkcwYkZRWGQ1aVR4eXlGejB3SVVwXzRWUkhJWG56MjMwaWxHUkdjaG4wenZWYUh0N2tIMkdiNXdzVEdRTmpVcHY0VDdteGlJamhKcVE0Z1ZaTzlFUlAwdzVNT3NnNnNKNl9WSDNR?oc=5",
-    "date": "2026-08-11",
-    "summary_zh": "巴基斯坦电信管理局（PTA）近日提议对电信基础设施（铁塔）提供商（TTP）实施严格的强制部署义务，以打击“投机性持牌”行为。目前，PTA共发放了【15张有效TTP牌照】，但仅有9家公司实际运营，其中只有6家部署了50座以上铁塔，意味着【近60%的持牌商未取得实质进展】。根据新规，持牌商需在五年内每年建设10座铁塔或5套分布式天线系统（DAS），该框架依据《1996年巴基斯坦电信（重组）法》制定，并已与LDI、LL、TIP等其他电信牌照的部署要求对齐。PTA已要求相关方在2026年5月4日前提交反馈，截止日期临近，新规最终将成为所有现有及未来TTP持牌商的强制性条件。\n\n此举将迫使不活跃的持牌商要么合规、要么合作、要么退出市场，可能【触发铁塔行业的整合潮】。从积极面看，铁塔部署的推进将改善网络覆盖、减少掉话并提升网速，为4G和5G发展奠定基础。然而，运营商面临严峻的经济挑战，包括高昂的前期资本投入、巴基斯坦宏观经济疲软、货币波动及融资成本高企，这些因素【显著增加合规难度】。总体而言，该政策若落地，将重塑巴基斯坦电信基础设施格局，但短期内可能加剧行业财务压力，长期则有利于提升频谱效率和宽带普及率。",
-    "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Pakistan Government Considers Abolishing Mobile Phone Taxes",
-    "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQQ05IMWs3UDVZdmRjcXdSZ0hMOXdXZlFObG1YbW1pVXpRS0xUbU9kTDRhXzZub1pTSnJIbjNzWnp0VGp5NUdacVhVNnduRXBqTlJYZ2ZGaVo3UnNzMHlYeVZGYVBXOWg1SlJxV0V3Q2NCbEcyN016QVg2eXFqUGtpSlY0SHFNTlRpX1VTVnpB?oc=5",
-    "date": "2026-08-11",
-    "summary_zh": "巴基斯坦政府正正式考虑废除手机税提案。内政国务部长Tariq Fazal Chaudhry在参议院会议上透露，此前因形势所迫实施该税，现当局积极寻求逆转。目前【巴基斯坦电信管理局（PTA）正在审议相关提案】，旨在为消费者减负，并便利海外巴基斯坦人。当前从国外带入的手机在数周后会被自动封锁，因需在本地网络注册，政府正努力解决此问题，以简化流程。\n\n此举若落地，将【直接降低消费者购机成本】，刺激手机进口与更新换代，利好电信运营商用户增长。同时，解决海外手机注册问题可提升用户体验，减少因封锁导致的投诉。长期看，【有助于规范设备注册流程】，促进电信市场活跃度，但需关注税收减少对财政的影响。总体而言，该政策对行业是积极信号，但具体影响取决于实施细节。",
     "importance": "中"
   },
   {
@@ -210,14 +153,6 @@
     "date": "2026-08-10",
     "summary_zh": "巴基斯坦电信管理局（PTA）公布数据显示，截至2026年7月，其共处理【1,726,303条URL】，其中【89.37%被屏蔽】。在各类别中，“体面与道德”类别处理量最大，达1,075,762条，屏蔽率为99.06%；“恐怖主义”类别处理179,285条，屏蔽率79.15%；“反伊斯兰荣耀”类别处理136,891条，屏蔽率82.17%；“反巴基斯坦安全与国防”类别处理125,427条。此外，“宗派/仇恨言论”处理76,526条，“杂项”处理67,778条。\n\n从屏蔽率看，【代理相关URL屏蔽率最高，达99.99%】，而“诽谤/冒充”类别屏蔽率最低，仅39.27%。PTA还处理了76,874条待审URL和106,629条被拒URL。\n\n此举显示巴基斯坦网络内容监管力度持续加大，【高屏蔽率反映政府对网络内容的严格管控】，可能影响跨境通信和VPN使用，对电信运营商的网络管理提出更高要求。长期看，【监管趋严或抑制部分互联网服务创新】，但有助于维护国家安全和社会稳定。",
     "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Telenor to Merge into Ufone as PTA Clears Deal, Court Approval Pending",
-    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOTlNkdVlkN2g1dFdSWHFvYXdKbURla2NDM2dSWjk3Y2J4RzZoMWItT09pNFNWTl9YcmtUZ2xrSWVLeHdnSWhHZkUyVDhJNGFUbXo2dkZON0JHc2h5M01EdE81MjVVQmJIaHpoUGYtVFEyY1BKMjZ0Z1BIVkc5Y3Q2bUxuMERpQ3d4bVFaVWVxTkMzUVp0cklYbkZTNA?oc=5",
-    "date": "2026-08-10",
-    "summary_zh": "巴基斯坦电信管理局（PTA）已正式为Ufone与Telenor的合并颁发最终无异议证书（NOC），但巴基斯坦电信公司（PTCL）仍需获得法院批准。PTCL首席执行官Hatim Bamatraf确认了这一进展。合并完成后，Telenor品牌将永久消失，但需先完成长达数月的运营整合。合并后的新公司将拥有【7300万用户】，其中大部分为预付费4G用户，并控制全国最大的网络基础设施。新品牌名称尚未确定，将在获得所有监管和法律批准后决定。\n\n此次合并将【重塑巴基斯坦电信市场竞争格局】，使新实体成为用户规模最大的运营商，可能加剧市场集中度。短期内，运营整合和品牌过渡可能带来服务波动，但长期看，合并有助于【提升网络投资效率和盈利能力】，并可能引发监管机构对市场支配地位的关注。对消费者而言，竞争减少可能导致资费上升，但网络覆盖和服务质量有望改善。",
-    "importance": "高"
   },
   {
     "source": "Dawn",
@@ -250,14 +185,6 @@
     "date": "2026-08-11",
     "summary_zh": "巴基斯坦国家银行（SBP）在最新货币政策报告中预测，尽管能源成本高企和供应中断，2027财年实际GDP增速预计为【3.5%至4.5%】。增长支撑因素包括税收措施、2025-2030年国家关税政策下的关税下调、甘蔗增产以及私营部门信贷扩张。关税下调尤其利好汽车、纺织、制药和食用油等进口依赖型制造业。商业信心改善，6月和7月采购经理人指数走强，高频经济指标在冲突后于6月恢复。经常账户赤字预计将扩大，但保持在GDP的0至1%之间。SBP预计官方资金流入将推动外汇储备在2026年12月底达到【200.2亿美元】目标。通胀短期内因能源价格高企而保持高位，但预计到2027财年末将逐步回落至5%-7%目标区间上端。\n\n\nSBP的预测显示巴基斯坦经济正从近期冲击中复苏，但风险犹存，包括中东地缘政治、全球能源价格、气候风险及改革延迟。对电信行业而言，宏观经济改善和通胀回落有望【增强消费者购买力和企业投资意愿】，但能源成本高企仍是运营压力。SBP的货币政策应对和结构性改革进展将决定增长可持续性，若改革延迟，可能【削弱经济韧性并影响电信等行业的长期发展环境】。",
     "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Will SBP Issue Fresh Bank Notes for Eid ul Fitr 2026? State Bank Clarifies Viral Claim",
-    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOR3VQdkhNamM0eUFyOTlTQ2N0Y2JDU1JVSnRJcFViQ1A4U1hzUURUbkktQnVGdC1WZG5sLUVINVhWd1RBOVlWMDdjNnBUQmdDSzFGSi1Hd3YxQmdOeTN2SzhMQVVER3kxV25QVlZTTFhyTFBUakstVU1JbmdmUzRqM0h3RkpYaHY0TTRHY3BwUnRhbEZEZ3BaMERSMlZjeDhRWlI2US1mWVdmZG9UM2VKbQ?oc=5",
-    "date": "2026-08-11",
-    "summary_zh": "巴基斯坦国家银行（SBP）近日否认了关于2026年开斋节期间不发行新钞的传闻。此前，社交媒体上流传一封伪造信函，声称央行今年不会分发新钞，且短信服务将停用，呼吁民众仅依赖数字支付。SBP发言人表示，该机构未发布任何题为“2026年开斋节新钞不可用”的通知，并强调官方公告仅通过正式新闻稿和官方渠道发布。央行提醒公众，任何未经官方平台确认的信息均应视为不实，并呼吁民众勿传播未经核实的消息。开斋节期间，新钞需求通常较高，家庭会向儿童和亲属发放“Eidi”。SBP表示，任何关于新钞发行的官方更新将通过其验证渠道传达。",
-    "importance": "低"
   },
   {
     "source": "BusinessRecorder",
@@ -347,7 +274,8 @@
     "url": "https://propakistani.pk/2026/08/12/ptas-dirbs-system-to-get-ai-upgrade/",
     "date": "2026-08-12",
     "summary_zh": "巴基斯坦电信管理局（PTA）计划对其设备识别、注册与屏蔽系统（DIRBS）进行人工智能升级，提出建设“AI驱动的DIRBS数字智能系统”。根据项目文件，该系统旨在通过更先进的数字基础设施，为现有设备注册框架引入更高程度的自动化与智能，核心要求是开发能够处理所有常规DIRBS任务的功能性软件。项目文件还包含报告要求，并规定项目相关的数据库、软件及支持记录须交付给PTA，且这些材料将成为PTA的财产，并在合同条款下保密。\n\n此次升级有望推动巴基斯坦设备注册基础设施向【更智能化的方向发展】，但文件未明确具体使用的AI模型、算法或功能，实际能力取决于最终技术实现。短期内，该系统主要【提升设备管理的自动化水平】，对运营商和用户的直接影响有限；长期看，若AI功能有效落地，可能【增强PTA对非法设备的监管能力】，但当前缺乏细节，对行业竞争格局的实质性影响尚不明确。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZdIBgAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZQ?oc=5"
   },
   {
     "source": "BusinessRecorder",
