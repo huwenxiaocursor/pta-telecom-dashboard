@@ -78,7 +78,10 @@ MIN_SOURCES_PER_DAY  = 3
 # don't invent extra items to reach it, and don't force distinct sources that
 # don't exist that day.
 LOW_DIVERSITY_CAP    = 5
-CUTOFF_DATE          = "2026-01-01"
+# 抓取日期下限：早于这天的一律不收。2026-08-13 从 2026-01-01 上调到 2026-08-01
+# ——修好 Google News 的排序/时间窗问题后，PTA、SBP 两个源积压的历史条目会一次性
+# 涌进来，而用户只要 8 月及以后的。已入库的历史条目不受影响（过滤只作用于新抓取）。
+CUTOFF_DATE          = "2026-08-01"
 
 # Source priority for per-day display ranking (lower = higher priority)
 SOURCE_PRIORITY = {"PTA": 0, "ProPakistani": 1, "SBP": 2, "Dawn": 3,
@@ -672,24 +675,33 @@ def fetch_google_news(query: str, source_label: str) -> list:
         seen.add(article_url)
         items.append({"source": source_label, "title": title, "url": article_url, "date": pub_date})
 
-    log(f"  Google News [{source_label}]: {len(items)} items found")
+    # **必须先按日期倒序再截断。** Google News RSS 按*相关性*排序，不是按时间：
+    # 2026-08-13 查出 PTA 源自 5 月起再没进过新条目——那次返回 47 条，取前 20 条
+    # 的日期全落在 2026-01-08 ~ 05-13，全是早已入库的旧文章，新闻永远排在 20 名
+    # 开外被 MAX_ITEMS_PER_SOURCE 切掉。日志里"47 items found"照常打印，缓存却
+    # 一条不涨，所以三个月没被发现。SBP 源同理（停在 7-27）。
+    items.sort(key=lambda x: x["date"], reverse=True)
+    log(f"  Google News [{source_label}]: {len(items)} items found"
+        f"（取最新 {min(len(items), MAX_ITEMS_PER_SOURCE)} 条）")
     return items[:MAX_ITEMS_PER_SOURCE]
 
 
+# Google News 查询的两条硬经验（2026-08-13 查 PTA 源三个月无新条目时得出）：
+#   1. **必须带 `when:Nd`**。不带的话 Google 按相关性返回一批历史文章，实测
+#      原查询 50 条里最新的一条停在 6-24、8 月以来 0 条；加上 when:14d 后
+#      64 条里 60 条是 8 月的。
+#   2. **查询词要少**。词堆多了结果集反而急剧缩小："PTA Pakistan telecom
+#      regulation spectrum operator when:14d" 只剩 10 条，砍成 "PTA Pakistan
+#      telecom when:14d" 有 64 条。宁可放宽召回，噪音交给 is_relevant() 拦。
+# 窗口取 14 天而不是 7 天，留出连续数天没跑（出差、代理没挂）的余量。
 def fetch_pta() -> list:
     # PTA website is a JS SPA that blocks scrapers; use Google News instead
-    return fetch_google_news(
-        "PTA Pakistan telecom regulation spectrum operator 2026",
-        "PTA",
-    )
+    return fetch_google_news("PTA Pakistan telecom when:14d", "PTA")
 
 
 def fetch_sbp() -> list:
     # SBP official site blocks scrapers; use Google News instead
-    return fetch_google_news(
-        "SBP Pakistan monetary policy interest rate inflation reserves 2026",
-        "SBP",
-    )
+    return fetch_google_news("SBP Pakistan monetary policy when:14d", "SBP")
 
 
 def fetch_wp_recent(base_url: str, source_label: str) -> list:
