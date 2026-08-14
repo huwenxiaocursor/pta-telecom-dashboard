@@ -3076,3 +3076,8 @@ Call log:
 [2026-08-14 09:33:12]   Injected 317 items into index.html
 [2026-08-14 09:33:13] News update complete
 [2026-08-14 09:33:13] ==================================================
+[2026-08-14 12:12:58]   FETCH ERROR [https://propakistani.pk/2026/08/13/jazzworld-brings-the-spirit-of-independence-to-workplace-and-community/]: Command '['curl', '-sS', '--connect-timeout', '15', '-L', '-H', 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', '-H', 'Accept-Language: en-US,en;q=0.9', 'https://propakistani.pk/2026/08/13/jazzworld-brings-the-spirit-of-independence-to-workplace-and-community/']' timed out after 20 seconds
+[2026-08-14 12:13:45]   Browser fetch failed (https://propakistani.pk/2026/08/13/jazzworld-brings-the-spirit-of-independence-to-workplace-and-community/): Page.goto: Timeout 45000ms exceeded.
+Call log:
+  - navigating to "https://propakistani.pk/2026/08/13/jazzworld-brings-the-spirit-of-independence-to-workplace-and-community/", waiting until "domcontentloaded"
+
