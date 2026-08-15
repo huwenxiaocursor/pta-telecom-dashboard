@@ -3081,3 +3081,90 @@ Call log:
 Call log:
   - navigating to "https://propakistani.pk/2026/08/13/jazzworld-brings-the-spirit-of-independence-to-workplace-and-community/", waiting until "domcontentloaded"
 
+[2026-08-15 09:35:04] ==================================================
+[2026-08-15 09:35:04] News update started
+[2026-08-15 09:35:04] Cache: 432 existing items
+[2026-08-15 09:35:07]   PTA 官网：浏览器不可用，跳过（BrowserType.launch: Executable doesn't exist at /Users/huwenxiao/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell
+╔════════════════════════════════════════════════════════════╗
+║ Looks like Playwright was just installed or updated.       ║
+║ Please run the following command to download new browsers: ║
+║                                                            ║
+║     playwright install                                     ║
+║                                                            ║
+║ <3 Playwright Team                                         ║
+╚════════════════════════════════════════════════════════════╝）
+[2026-08-15 09:35:09] Fetching Google News [PTA] …
+[2026-08-15 09:35:11]   Google News [PTA]: 25 items found（取最新 20 条）
+[2026-08-15 09:35:11]     非目标来源已跳过：PhoneWorld×13、Pakistan Connect×4、Bloom Pakistan×2、Associated Press Of Pakistan×1、Mshale×1、Profit by Pakistan Today×1、Daily Pakistan×1
+[2026-08-15 09:35:12] Fetching Google News [SBP] …
+[2026-08-15 09:35:13]   Google News [SBP]: 9 items found（取最新 9 条）
+[2026-08-15 09:35:13]     非目标来源已跳过：Mettis Global×5、The News Pakistan×2、Profit by Pakistan Today×2、Pakistan Observer×2、mmnews.tv×2、The Express Tribune×1、24NewsHD×1、Daily Times×1
+[2026-08-15 09:35:14] Fetching ProPakistani via WP REST API …
+[2026-08-15 09:35:19]   ProPakistani: 4 items found
+[2026-08-15 09:35:20] Fetching Dawn RSS …
+[2026-08-15 09:35:21]   Dawn: 4 items found
+[2026-08-15 09:35:22] Fetching Business Recorder RSS …
+[2026-08-15 09:35:23]   Business Recorder: 1 items found
+[2026-08-15 09:35:24] Fetching TechJuice via WP REST API …
+[2026-08-15 09:35:30]   TechJuice: 3 items found
+[2026-08-15 09:35:32] New items: 16
+[2026-08-15 09:35:32]   Summarising: Cheap data, rising costs put Pakistan’s telecom economics in focus …
+[2026-08-15 09:35:33]   Browser fetch failed (https://news.google.com/rss/articles/CBMiVkFVX3lxTFBKLUZNd3NjN0tSQ0s0Vkxrb3F5RGdfR1dFZHdkeW9fYWMtRG9BY1dsekFTSGFDb256LXViTl9fcl9lNndWR1lfU2o3VWJHV1VkYWt0T01R0gFWQVVfeXFMUEotRk13c2M3S1JDSzRWTGtvcXlEZ19HV0Vkd2R5b19hYy1Eb0FjV2x6QVNIYUNvbnotdWJOX19yX2U2d1ZHWV9TajdVYkdXVWRha3RPTVE?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:35:33]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:35:37]   Summarising: PTA Set to Announce Decision on Ufone-Telenor Merger on Wednesday …
+[2026-08-15 09:35:39]   Browser fetch failed (https://news.google.com/rss/articles/CBMilgFBVV95cUxNVGZWejdOeGNzWXZscDhMM1FNb2dpWUVsZTVTSUsxX0sxamxUYzJrRHRWUWtFV1NyNTZTSWNJOWpoeXhNUWdDYks5ZGtIMzhyZXpfVUFnT3lTRzdWcjZLOW8xMVNkc3kzWXVNU3lMdXV2Z1gyZHMweXo1UXJhRDI2aWdxQjhYMXJyTDFUR0pjN0NRRmRMZ3c?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:35:39]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:35:43]   Summarising: Which Mobile Phones Support Jazz 5G in Pakistan Right Now? …
+[2026-08-15 09:35:44]   Browser fetch failed (https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:35:44]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:35:49]   Summarising: PTA’s DIRBs System to Get AI Upgrade …
+[2026-08-15 09:35:50]   Browser fetch failed (https://news.google.com/rss/articles/CBMie0FVX3lxTE53eU93Z29mT2QxZXd4RHQxMGV3dlpJR3NYU3FRZTY4QWo2TkpZM1Y3dUcxUkZ5eHZnZ3FyaFp6UDdySHJGVVB3TFYxTTRqSXBlQ2x2eXVkUHEzcGJGRFJOcm1mdmFWZnZfazBRaDJod0pkSExIaUZ2cG1CMNIBgAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZQ?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:35:50]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:35:54]   Summarising: PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape …
+[2026-08-15 09:35:55]   Browser fetch failed (https://news.google.com/rss/articles/CBMikAFBVV95cUxQU2FvRGdHYnN3bXEyV3IxQkNLSkluOFlYY01YdDJLQ051M254clF4TDBrNjlpWlJFYlVpejNIV1dPQzFSckRPNF9WcXhlTUV1bVRpVGN6emhCSEtsVVRpVUZqdG9RS1BxdmRES3c0cm9SaVFoOS1Xd1NQNUdfUWNwb1hRcFJLMkdIMmphaEhqbWU?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:35:55]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:00]   Summarising: PTA Proposes Strict New Rollout Mandates for Telecom Tower Companies …
+[2026-08-15 09:36:03]   Browser fetch failed (https://news.google.com/rss/articles/CBMimgFBVV95cUxQNXdWbEQxb05ZM0p2cFFZa3JrbE1sTndCOVBDZnlKYkE0RTlEY3dIOEF1QkdhUkcwYkZRWGQ1aVR4eXlGejB3SVVwXzRWUkhJWG56MjMwaWxHUkdjaG4wenZWYUh0N2tIMkdiNXdzVEdRTmpVcHY0VDdteGlJamhKcVE0Z1ZaTzlFUlAwdzVNT3NnNnNKNl9WSDNR?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:03]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:06]   Summarising: Telenor to Merge into Ufone as PTA Clears Deal, Court Approval Pending …
+[2026-08-15 09:36:08]   Browser fetch failed (https://news.google.com/rss/articles/CBMimwFBVV95cUxOTlNkdVlkN2g1dFdSWHFvYXdKbURla2NDM2dSWjk3Y2J4RzZoMWItT09pNFNWTl9YcmtUZ2xrSWVLeHdnSWhHZkUyVDhJNGFUbXo2dkZON0JHc2h5M01EdE81MjVVQmJIaHpoUGYtVFEyY1BKMjZ0Z1BIVkc5Y3Q2bUxuMERpQ3d4bVFaVWVxTkMzUVp0cklYbkZTNA?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:08]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:11]   Summarising: NA Finance Committee Backs 20pc Cut in Smartphone Taxes, Recommends Ab …
+[2026-08-15 09:36:13]   Browser fetch failed (https://news.google.com/rss/articles/CBMipwFBVV95cUxQSFAxSElfMjlnN1dBeDMwcm01NUdNeklOaU1LMXFodnlYSkEwamVvTENMc2k3Y2FUTllGX0dsMEVVOUM0YjF3UklQbG5lVk1GTTNpbU1rUFUwQUdPa0hveXlYWkRBeExZcWVVMDNwUENHQTBzQzZBRExValBoWE9rNHhZY0U1NzZWV3dsOW5taXFKWTcwYkRibzVuQXZBQUctd1ZNSG5RYw?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:13]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:16]   Summarising: PTA Proposes Lifetime Validity for Prepaid Mobile Balance …
+[2026-08-15 09:36:17]   Browser fetch failed (https://news.google.com/rss/articles/CBMiiwFBVV95cUxPa1c0YmlwR09jUHpvUkZ2UzZQeHYyWjMwUl9VZ0FLVmRFTTRJWGlWSjlfSmhWZFQ0RHJKRkpLM1JQQlRZWGQ5RjdDemE4UXZqazExTVB6aEJuYkxzQVlEYzQ1TE1ucWlqYWt6U29SS2tWcnkycmI4c2N3bHZRM0dXWmNOaGVMSzdNM3Zr?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:17]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:20]   Summarising: A New Telecom Giant Just Emerged in Pakistan: e&amp; Pakistan …
+[2026-08-15 09:36:22]   Browser fetch failed (https://news.google.com/rss/articles/CBMijAFBVV95cUxNQ2NCX2s4ZE55T2FsZGw0T0Z1X0VRX283d1RfRGxlMjlnQ0FUTHNGWThQRjVJSDlwckh0bUVUWXpUQnFRbGNEdlNWanRIQklRbG4wbXBHN3hkXzI0TDIyZmpWRVZJQy1ya0JiWF9ZRDExdXEwbUtiNTJ1Qy1JSkZmZUxKTGJsUndtc1N0bA?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:22]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:26]   Summarising: SBP highlights progress towards economic stability …
+[2026-08-15 09:36:28]   Browser fetch failed (https://news.google.com/rss/articles/CBMiUEFVX3lxTE1fYnNPcDFwWm1IRnNqQWxOeTg2ZGxMUEpNdXhWX1FRQVZPeDNJOW0xOFhrcnFjQjIxWjlrRmJyRm93ZS1yWWVXYmw4M3ZZMjNY0gFWQVVfeXFMTTRnejRpbjFKY2picDZTbkw1LVdQUm54NkRaRTFiZk5jSTByVVFiNjlGWW9YSGgyOEtHM3N0WU4zWWx3NENtWjhhNWlmUVdJd1ExZFNLQmc?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:28]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:31]   Summarising: SBP governor vows focus on stability, reforms and export growth …
+[2026-08-15 09:36:32]   Browser fetch failed (https://news.google.com/rss/articles/CBMiVkFVX3lxTE1ZbW9WU0xfN2V3STNDdmx1VC13MS1MeGFaaFhpMUJ0VFpOWFduVy1SeVltb3FkMFNyRnY4WEQxdEpxZDZkSjB4dkNIQzEzY2tUeG80VFBB0gFWQVVfeXFMTVltb1ZTTF83ZXdJM0N2bHVULXcxLUx4YVpoWGkxQnRUWk5YV25XLVJ5WW1vcWQwU3JGdjhYRDF0SnFkNmRKMHh2Q0hDMTNja1R4bzRUUEE?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:32]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:36]   Summarising: Will SBP Issue Fresh Bank Notes for Eid ul Fitr 2026? State Bank Clari …
+[2026-08-15 09:36:37]   Browser fetch failed (https://news.google.com/rss/articles/CBMisAFBVV95cUxOR3VQdkhNamM0eUFyOTlTQ2N0Y2JDU1JVSnRJcFViQ1A4U1hzUURUbkktQnVGdC1WZG5sLUVINVhWd1RBOVlWMDdjNnBUQmdDSzFGSi1Hd3YxQmdOeTN2SzhMQVVER3kxV25QVlZTTFhyTFBUakstVU1JbmdmUzRqM0h3RkpYaHY0TTRHY3BwUnRhbEZEZ3BaMERSMlZjeDhRWlI2US1mWVdmZG9UM2VKbQ?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-15 09:36:37]     ! no article text — title-only summary (may be unreliable)
+[2026-08-15 09:36:40]   Summarising: Stability paves way for sustainable growth: SBP chief …
+[2026-08-15 09:36:44]   Summarising: PSX closes lower as geopolitical uncertainty weighs …
+[2026-08-15 09:36:50]   Summarising: SBP governor vows focus on stability, reforms and export growth …
+[2026-08-15 09:36:54] Cache saved: 448 total items
+[2026-08-15 09:36:54]   Cross-source dedup: tagged 3 duplicate-event item(s) with dup_of
+[2026-08-15 09:36:55]   Injected 327 items into index.html
+[2026-08-15 09:36:55] News update complete
+[2026-08-15 09:36:55] ==================================================

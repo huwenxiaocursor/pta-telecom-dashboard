@@ -1,5 +1,135 @@
 [
   {
+    "source": "BusinessRecorder",
+    "title": "Cheap data, rising costs put Pakistan’s telecom economics in focus",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBKLUZNd3NjN0tSQ0s0Vkxrb3F5RGdfR1dFZHdkeW9fYWMtRG9BY1dsekFTSGFDb256LXViTl9fcl9lNndWR1lfU2o3VWJHV1VkYWt0T01R0gFWQVVfeXFMUEotRk13c2M3S1JDSzRWTGtvcXlEZ19HV0Vkd2R5b19hYy1Eb0FjV2x6QVNIYUNvbnotdWJOX19yX2U2d1ZHWV9TajdVYkdXVWRha3RPTVE?oc=5",
+    "date": "2026-08-13",
+    "summary_zh": "巴基斯坦电信行业正面临【廉价数据与成本上升】的双重压力，行业经济性成为关注焦点。报道指出，运营商在激烈竞争下持续压低数据资费，但网络扩容、能源及设备维护等成本不断攀升，导致【利润空间受到挤压】。分析认为，当前资费水平难以覆盖长期投资需求，可能影响网络质量与5G部署进度。行业观察人士呼吁监管机构与运营商重新评估定价策略，以平衡用户可负担性与行业可持续发展。",
+    "importance": "中",
+    "dup_of": "https://www.brecorder.com/news/40434646/cheap-data-rising-costs-put-pakistans-telecom-economics-in-focus"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Set to Announce Decision on Ufone-Telenor Merger on Wednesday",
+    "url": "https://news.google.com/rss/articles/CBMilgFBVV95cUxNVGZWejdOeGNzWXZscDhMM1FNb2dpWUVsZTVTSUsxX0sxamxUYzJrRHRWUWtFV1NyNTZTSWNJOWpoeXhNUWdDYks5ZGtIMzhyZXpfVUFnT3lTRzdWcjZLOW8xMVNkc3kzWXVNU3lMdXV2Z1gyZHMweXo1UXJhRDI2aWdxQjhYMXJyTDFUR0pjN0NRRmRMZ3c?oc=5",
+    "date": "2026-08-13",
+    "summary_zh": "巴基斯坦电信管理局（PTA）将于周三宣布关于【Ufone与Telenor合并】的决定。该合并案涉及巴基斯坦两大移动运营商，若获批将显著改变市场格局。PTA此前已对合并案进行审查，并考虑竞争与消费者影响。市场关注该决定是否附带条件，如频谱归还或市场份额限制。合并双方尚未公开回应，但业内预计若获批，新实体将成为巴基斯坦第二大移动运营商。PTA的声明将明确合并的最终条件或否决理由。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Which Mobile Phones Support Jazz 5G in Pakistan Right Now?",
+    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5",
+    "date": "2026-08-13",
+    "summary_zh": "巴基斯坦电信运营商Jazz已推出5G服务，目前支持Jazz 5G的手机型号包括【iPhone 12及更新机型】、三星Galaxy S21及更新机型、小米11及更新机型、OPPO Find X3及更新机型、vivo X60及更新机型等。用户需确保手机支持5G频段（如n1、n3、n8、n28、n40、n78），并更新至最新系统版本。Jazz建议用户通过【发送短信至5050】或访问官网查询手机兼容性。此外，用户需将SIM卡更换为5G SIM，并确保所在区域覆盖5G网络。Jazz表示，5G服务目前已在【主要城市】提供，未来将逐步扩展至更多地区。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA’s DIRBs System to Get AI Upgrade",
+    "url": "https://news.google.com/rss/articles/CBMie0FVX3lxTE53eU93Z29mT2QxZXd4RHQxMGV3dlpJR3NYU3FRZTY4QWo2TkpZM1Y3dUcxUkZ5eHZnZ3FyaFp6UDdySHJGVVB3TFYxTTRqSXBlQ2x2eXVkUHEzcGJGRFJOcm1mdmFWZnZfazBRaDJod0pkSExIaUZ2cG1CMNIBgAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZQ?oc=5",
+    "date": "2026-08-12",
+    "summary_zh": "巴基斯坦电信管理局（PTA）宣布其【DIRBs系统将进行人工智能升级】。DIRBs是PTA用于管理设备识别、注册与屏蔽的数据库系统，此次升级旨在利用AI技术增强系统的数据处理与分析能力。PTA表示，升级后的系统将更高效地识别和追踪非法或未注册设备，提升网络安全管理水平。该举措是PTA持续推动电信行业数字化和智能化的一部分，预计将改善监管效率并支持国家数字经济发展。目前，PTA尚未公布具体的升级时间表或技术细节，但强调此举将有助于加强电信基础设施的完整性和安全性。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape",
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQU2FvRGdHYnN3bXEyV3IxQkNLSkluOFlYY01YdDJLQ051M254clF4TDBrNjlpWlJFYlVpejNIV1dPQzFSckRPNF9WcXhlTUV1bVRpVGN6emhCSEtsVVRpVUZqdG9RS1BxdmRES3c0cm9SaVFoOS1Xd1NQNUdfUWNwb1hRcFJLMkdIMmphaEhqbWU?oc=5",
+    "date": "2026-08-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已批准【Ufone与Telenor合并】，此举将重塑该国电信行业格局。合并后，Ufone将整合Telenor巴基斯坦业务，用户规模显著扩大，成为市场主要运营商之一。该交易此前已获竞争委员会批准，PTA的最终许可标志着监管流程完成。合并旨在提升网络覆盖与服务效率，应对市场竞争压力。两家公司表示，将确保过渡期服务不中断，并逐步整合运营。分析认为，此举将加剧与Jazz、Zong的竞争，可能推动行业整合趋势。具体财务条款未披露，但预计合并将带来成本协同效应。PTA强调，合并须符合许可条件，保障消费者权益。未来，新实体将面临频谱优化与市场份额争夺的挑战。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Proposes Strict New Rollout Mandates for Telecom Tower Companies",
+    "url": "https://news.google.com/rss/articles/CBMimgFBVV95cUxQNXdWbEQxb05ZM0p2cFFZa3JrbE1sTndCOVBDZnlKYkE0RTlEY3dIOEF1QkdhUkcwYkZRWGQ1aVR4eXlGejB3SVVwXzRWUkhJWG56MjMwaWxHUkdjaG4wenZWYUh0N2tIMkdiNXdzVEdRTmpVcHY0VDdteGlJamhKcVE0Z1ZaTzlFUlAwdzVNT3NnNnNKNl9WSDNR?oc=5",
+    "date": "2026-08-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）提议对电信塔公司实施严格的新铺设任务规定。该提案旨在加强电信基础设施的部署要求，确保网络覆盖的扩展和质量的提升。具体细节尚未公布，但预计将涉及塔公司的建设时间表、覆盖范围和技术标准等方面。此举可能影响电信运营商的网络扩展计划，并推动行业基础设施的现代化。PTA表示，新规定将有助于改善巴基斯坦的电信服务质量，并促进偏远地区的连接性。相关利益方预计将在未来几周内提交反馈意见。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Telenor to Merge into Ufone as PTA Clears Deal, Court Approval Pending",
+    "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxOTlNkdVlkN2g1dFdSWHFvYXdKbURla2NDM2dSWjk3Y2J4RzZoMWItT09pNFNWTl9YcmtUZ2xrSWVLeHdnSWhHZkUyVDhJNGFUbXo2dkZON0JHc2h5M01EdE81MjVVQmJIaHpoUGYtVFEyY1BKMjZ0Z1BIVkc5Y3Q2bUxuMERpQ3d4bVFaVWVxTkMzUVp0cklYbkZTNA?oc=5",
+    "date": "2026-08-10",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已批准Telenor与Ufone的合并交易，【PTA已批准合并交易】，但该交易仍需获得法院批准。此次合并将把Telenor巴基斯坦业务并入Ufone，【合并后用户总数将超过1亿】，成为巴基斯坦第二大移动运营商。两家公司表示，合并将提升网络覆盖和服务质量，【预计在2023年底前完成交易】。法院听证会定于近期举行，以最终确认合并方案。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "NA Finance Committee Backs 20pc Cut in Smartphone Taxes, Recommends Abolition of Regulatory Duty",
+    "url": "https://news.google.com/rss/articles/CBMipwFBVV95cUxQSFAxSElfMjlnN1dBeDMwcm01NUdNeklOaU1LMXFodnlYSkEwamVvTENMc2k3Y2FUTllGX0dsMEVVOUM0YjF3UklQbG5lVk1GTTNpbU1rUFUwQUdPa0hveXlYWkRBeExZcWVVMDNwUENHQTBzQzZBRExValBoWE9rNHhZY0U1NzZWV3dsOW5taXFKWTcwYkRibzVuQXZBQUctd1ZNSG5RYw?oc=5",
+    "date": "2026-08-10",
+    "summary_zh": "巴基斯坦国民议会财政委员会支持将智能手机税率削减【20%】，并建议废除监管税。该委员会认为此举旨在降低智能手机价格，促进数字包容性。目前巴基斯坦智能手机税率较高，影响了消费者购买力。委员会建议政府调整税收政策，以推动电信行业发展。具体实施细节和生效时间尚未公布。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Proposes Lifetime Validity for Prepaid Mobile Balance",
+    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPa1c0YmlwR09jUHpvUkZ2UzZQeHYyWjMwUl9VZ0FLVmRFTTRJWGlWSjlfSmhWZFQ0RHJKRkpLM1JQQlRZWGQ5RjdDemE4UXZqazExTVB6aEJuYkxzQVlEYzQ1TE1ucWlqYWt6U29SS2tWcnkycmI4c2N3bHZRM0dXWmNOaGVMSzdNM3Zr?oc=5",
+    "date": "2026-08-09",
+    "summary_zh": "巴基斯坦电信管理局（PTA）提议为预付费移动余额引入【终身有效期】。该提案旨在改变当前预付费余额在特定时间内未使用即失效的规则，使消费者能够无限期保留其余额。PTA表示，此举将提升用户权益，并可能要求运营商调整其计费系统以支持新政策。目前提案尚处于公众咨询阶段，具体实施时间表尚未公布。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "A New Telecom Giant Just Emerged in Pakistan: e&amp; Pakistan",
+    "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNQ2NCX2s4ZE55T2FsZGw0T0Z1X0VRX283d1RfRGxlMjlnQ0FUTHNGWThQRjVJSDlwckh0bUVUWXpUQnFRbGNEdlNWanRIQklRbG4wbXBHN3hkXzI0TDIyZmpWRVZJQy1ya0JiWF9ZRDExdXEwbUtiNTJ1Qy1JSkZmZUxKTGJsUndtc1N0bA?oc=5",
+    "date": "2026-08-09",
+    "summary_zh": "巴基斯坦电信市场出现新的巨头，【e& Pakistan】正式成立。该公司由阿联酋电信集团（e&）与巴基斯坦相关方整合而成，标志着该国电信行业格局发生重大变化。e& Pakistan的诞生源于此前e&对巴基斯坦电信运营商【巴基斯坦电信（PTCL）】及其子公司【Ufone】的整合重组，旨在打造一家集固网、移动、数字服务于一体的综合电信运营商。新公司将在巴基斯坦提供更广泛的通信服务，并有望提升该国网络基础设施水平。此次整合使e& Pakistan成为巴基斯坦电信市场的重要参与者，与Jazz、Zong等现有运营商形成竞争。分析认为，这一举措将加剧市场竞争，可能推动行业服务质量和价格优化。e&集团表示，将依托其全球技术经验，助力巴基斯坦数字化转型。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP highlights progress towards economic stability",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE1fYnNPcDFwWm1IRnNqQWxOeTg2ZGxMUEpNdXhWX1FRQVZPeDNJOW0xOFhrcnFjQjIxWjlrRmJyRm93ZS1yWWVXYmw4M3ZZMjNY0gFWQVVfeXFMTTRnejRpbjFKY2picDZTbkw1LVdQUm54NkRaRTFiZk5jSTByVVFiNjlGWW9YSGgyOEtHM3N0WU4zWWx3NENtWjhhNWlmUVdJd1ExZFNLQmc?oc=5",
+    "date": "2026-08-15",
+    "summary_zh": "巴基斯坦国家银行（SBP）近日发布声明，【强调在实现经济稳定方面取得的进展】。声明指出，通过一系列政策措施，巴基斯坦经济正逐步走向稳定。SBP表示，将继续关注通胀、外汇储备及财政状况等关键指标，以巩固当前的经济复苏势头。该行呼吁各方保持政策一致性，确保经济稳定成果得以持续。具体数据未在标题中披露。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP governor vows focus on stability, reforms and export growth",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1ZbW9WU0xfN2V3STNDdmx1VC13MS1MeGFaaFhpMUJ0VFpOWFduVy1SeVltb3FkMFNyRnY4WEQxdEpxZDZkSjB4dkNIQzEzY2tUeG80VFBB0gFWQVVfeXFMTVltb1ZTTF83ZXdJM0N2bHVULXcxLUx4YVpoWGkxQnRUWk5YV25XLVJ5WW1vcWQwU3JGdjhYRDF0SnFkNmRKMHh2Q0hDMTNja1R4bzRUUEE?oc=5",
+    "date": "2026-08-14",
+    "summary_zh": "巴基斯坦国家银行（SBP）行长在近期表态中强调，未来工作将【聚焦于稳定性、改革与出口增长】。行长指出，央行将优先确保经济稳定，推进结构性改革，并着力促进出口以改善国际收支。他表示，这些举措旨在为长期经济增长奠定基础，同时应对当前经济挑战。行长还提到，央行将继续采取审慎的货币政策，并支持生产性部门的发展。此次表态反映了SBP对经济复苏和可持续增长的承诺，但未透露具体政策细节或时间表。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Will SBP Issue Fresh Bank Notes for Eid ul Fitr 2026? State Bank Clarifies Viral Claim",
+    "url": "https://news.google.com/rss/articles/CBMisAFBVV95cUxOR3VQdkhNamM0eUFyOTlTQ2N0Y2JDU1JVSnRJcFViQ1A4U1hzUURUbkktQnVGdC1WZG5sLUVINVhWd1RBOVlWMDdjNnBUQmdDSzFGSi1Hd3YxQmdOeTN2SzhMQVVER3kxV25QVlZTTFhyTFBUakstVU1JbmdmUzRqM0h3RkpYaHY0TTRHY3BwUnRhbEZEZ3BaMERSMlZjeDhRWlI2US1mWVdmZG9UM2VKbQ?oc=5",
+    "date": "2026-08-11",
+    "summary_zh": "巴基斯坦国家银行（SBP）就2026年开斋节期间是否发行新钞的传闻作出澄清。此前社交媒体上流传关于SBP将发行新钞的说法，SBP对此予以否认，并明确表示【未计划发行新钞】。该行呼吁公众勿信谣言，并强调现有流通货币供应充足。SBP同时提醒民众通过正规渠道获取信息，避免被不实消息误导。目前，关于开斋节货币供应的具体安排尚未公布，但SBP的表态旨在平息公众疑虑，确保节日期间金融秩序稳定。",
+    "importance": "低"
+  },
+  {
+    "source": "Dawn",
+    "title": "Stability paves way for sustainable growth: SBP chief",
+    "url": "https://www.dawn.com/news/2022941/stability-paves-way-for-sustainable-growth-sbp-chief",
+    "date": "2026-08-15",
+    "summary_zh": "巴基斯坦国家银行（SBP）行长贾米尔·艾哈迈德在独立日升旗仪式上表示，巴基斯坦正从经济稳定迈向可持续增长，预计【FY27 GDP增长可达4.5%】。他指出，过去一年在加强经济纪律的推动下，经济取得重要稳定进展，审慎的财政和货币政策支撑了【FY26经济增长3.7%】，并预计FY27增长在3.5%至4.5%之间。海外巴基斯坦人通过创纪录的汇款表达了对经济进展的信心，【FY26汇款超过410亿美元】，预计FY27将达440亿美元。外汇储备在FY26末达到184亿美元，预计FY27将超过210亿美元。FY26平均通胀率为7.1%，央行认为当前货币政策立场适合将通胀维持在5%-7%的中期目标内。他还提到，PRISM+的推出使大额支付更快速安全，零售数字交易量从约100亿笔增至120亿笔，并推出InvestPak平台促进公众投资，同时继续推动伊斯兰金融、绿色金融、网络安全和金融科技发展。",
+    "importance": "高"
+  },
+  {
+    "source": "Dawn",
+    "title": "PSX closes lower as geopolitical uncertainty weighs",
+    "url": "https://www.dawn.com/news/2022938/psx-closes-lower-as-geopolitical-uncertainty-weighs",
+    "date": "2026-08-15",
+    "summary_zh": "卡拉奇：巴基斯坦证券交易所（PSX）在刚结束的短周内收低，因美国与伊朗可能达成协议及霍尔木兹海峡重新开放的不确定性令投资者保持谨慎，而油价上涨继续打压市场情绪。据Arif Habib Ltd（AHL）数据，【KSE-100指数周环比下跌0.73%】，即1325点，收于180104点。Topline Securities Ltd指出，由于美伊谈判进展有限且缺乏新的市场触发因素，指数基本呈横盘走势。AKD Securities Ltd称，本周布伦特原油价格突破每桶90美元，上周为84美元，随后回落至约86美元。尽管市场表现低迷，交易活动有所改善，【日均成交量环比上升14%至8.533亿股】，日均成交额增长13%至1.37亿美元。市场主要支撑来自勘探与生产（E&P）、炼油、皮革及制革等行业，其中E&P贡献297点，炼油贡献159点。主要拖累来自电力、科技、水泥、投行和保险板块，分别贡献负445、236、234、172和59点。个股中，Hub Power为最大负面贡献者，拖累指数435点，其次是Lucky Cement、Engro Holdings、Systems Ltd和United Bank。Habib Bank为最大正面贡献者，贡献280点。外资流向不一，个人为最大净买家，净买入1630万美元，企业为最大净卖家，净卖出520万美元。汽车销量方面，7月销量同比大增近80%至19818辆，但环比下降13%。7月工人汇款同比增长13%、环比增长5%至36亿美元。截至7月，Roshan Digital Account总流入达136.47亿美元，其中21.18亿美元已汇回，86.03亿美元在本地使用。据财政部经济报告，【本财年财政赤字为3.313万亿卢比，占GDP的2.6%】，为2018财年以来最低，基本盈余创纪录达GDP的2.9%。FBR税收同比增长11%。",
+    "importance": "中"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP governor vows focus on stability, reforms and export growth",
+    "url": "https://www.brecorder.com/news/40434815/sbp-governor-vows-focus-on-stability-reforms-and-export-growth",
+    "date": "2026-08-14",
+    "summary_zh": "巴基斯坦国家银行（SBP）行长贾米尔·艾哈迈德在卡拉奇举行的巴基斯坦独立79周年升旗仪式上表示，SBP的工作重点将放在【价格稳定、政策改革】以及为更高生产率、出口增长和就业创造有利经济环境上。他指出，过去一年巴基斯坦经济在审慎财政和货币政策支持下已取得重要稳定进展，【FY26平均通胀率为7.1%】，当前货币政策立场适合将通胀维持在5-7%的中期目标内。FY26经济增长率为3.7%，预计FY27将保持在3.5-4.5%之间。海外汇款在FY26超过410亿美元，预计FY27达440亿美元；外汇储备在FY26末达到184亿美元，预计FY27将超过210亿美元。SBP成功推出PRISM+，使大额支付结算更快速安全，零售数字交易量从约100亿笔增至120亿笔。行长强调经济自力更生、制度强化和法治对实现独立精神至关重要。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE1ZbW9WU0xfN2V3STNDdmx1VC13MS1MeGFaaFhpMUJ0VFpOWFduVy1SeVltb3FkMFNyRnY4WEQxdEpxZDZkSjB4dkNIQzEzY2tUeG80VFBB0gFWQVVfeXFMTVltb1ZTTF83ZXdJM0N2bHVULXcxLUx4YVpoWGkxQnRUWk5YV25XLVJ5WW1vcWQwU3JGdjhYRDF0SnFkNmRKMHh2Q0hDMTNja1R4bzRUUEE?oc=5"
+  },
+  {
     "source": "TechJuice",
     "title": "MoITT &amp; CCP Dispute Stalls Pakistan’s Telecom Competition Rules",
     "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxNTWVsUkhqVk9xSlFkNGNYOUNNVE5PTXBVUEVzYkhzS0ZnN3NGbjEtcE1xTVAtWXMwZnlOVTBpbDFEOVQ4V09rTXUwNW1QYlpHSW1zU2dMalJRMnZYMkRGeXAzUjJES2pZY3ZGSWlZcGUzNk5RS1J6ckJJNUFUSkJ2aUtSZU8zVExPM1hnOWZ0Yw?oc=5",
@@ -135,7 +265,8 @@
     "url": "https://news.google.com/rss/articles/CBMigAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZdIBgAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZQ?oc=5",
     "date": "2026-08-12",
     "summary_zh": "巴基斯坦电信管理局（PTA）计划对其设备识别、注册与屏蔽系统（DIRBS）进行人工智能升级，打造“AI驱动的DIRBS数字智能系统”。根据项目文件，该计划旨在通过更先进的数字基础设施，为日常DIRBS任务引入更高程度的自动化与智能化，核心要求是开发能够处理常规DIRBS功能的功能性软件系统。项目还包含报告要求，并将项目相关数据库、软件及支持记录移交PTA，这些材料将成为管理局财产，且需按合同条款保密。\n\n此次升级有望推动巴基斯坦设备注册基础设施向【更智能化的方向发展】，但项目文件未明确具体AI模型或算法，实际能力取决于最终技术实施。短期内，该系统升级【主要影响设备管理效率】，对运营商和用户的直接影响尚不明确；长期看，若AI功能有效落地，【可能提升设备追踪与屏蔽的精准度】，但需关注数据安全与隐私问题。整体而言，该举措属于监管技术升级，对行业竞争格局影响有限。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMie0FVX3lxTE53eU93Z29mT2QxZXd4RHQxMGV3dlpJR3NYU3FRZTY4QWo2TkpZM1Y3dUcxUkZ5eHZnZ3FyaFp6UDdySHJGVVB3TFYxTTRqSXBlQ2x2eXVkUHEzcGJGRFJOcm1mdmFWZnZfazBRaDJod0pkSExIaUZ2cG1CMNIBgAFBVV95cUxNS0xaZkNaR29STy1NWWtMU1lhYjZQMXVHcHJuUnVNWlY0S2lzT2ZHSjZkS0lTS1Jvd2hQU1dRMW1jTjhSenVhd2VHOGFWY1NTdFFJNXo2Um5lN0pWQk1HU1lYSHJYS2dKY0VWaG1oVmNpZGhla0ZwSkRpRlVfQWZtZQ?oc=5"
   },
   {
     "source": "TechJuice",
