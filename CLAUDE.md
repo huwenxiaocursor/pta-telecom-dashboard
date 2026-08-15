@@ -32,7 +32,7 @@ pip install playwright requests pymupdf openpyxl
 playwright install chromium
 ```
 
-无测试框架、无 lint/build 步骤——三个页面均为纯静态 HTML，脚本靠运行后检查 `scripts/update_log.txt` / `scripts/macro_update_log.txt` / `scripts/news_update_log.txt` 验证效果。
+无测试框架、无 lint/build 步骤——五个页面均为纯静态 HTML（GitHub Pages 直接托管仓库根目录），脚本靠运行后检查 `scripts/update_log.txt` / `scripts/macro_update_log.txt` / `scripts/news_update_log.txt` 验证效果。
 
 ## 五页面架构
 
@@ -110,11 +110,14 @@ macro_history.json  ←── 核心数据，勿删，永久保留供回溯
     ↓ rebuild_series 取各图表滚动窗口
 macro_index.html（sentinel 替换 MACRO_DATA，renderMacroData() 现场渲染）
 
-Google News RSS / WordPress REST API / Dawn + Business Recorder RSS
-    ↓ is_relevant() 关键词过滤
+pta.gov.pk 官网三个栏目（Playwright 渲染）/ Google News RSS / WordPress REST API
+  / Dawn + Business Recorder RSS
+    ↓ is_relevant() 关键词过滤 + CUTOFF_DATE(2026-08-01) 日期下限
     ↓ fetch_article_text()：抓取文章正文（best-effort，失败则空字符串）
+    ↓ 顺带解析文章自带发布时间（_LAST_PUB_DATE），与 RSS 日期差 >
+    ↓ STALE_DATE_TOLERANCE_DAYS(2) 天时以文章为准，早于 CUTOFF_DATE 直接丢弃
 update_news.py
-    ↓ DeepSeek Chat API（200-300字中文摘要 + 重要性分级，同一次调用完成）
+    ↓ DeepSeek Chat API（中文摘要 + 重要性分级，同一次调用完成）
 news_cache.json（永久缓存，含 summary_zh、importance、dup_of）
     ↓ mark_duplicates()：确定性实体重叠去重（跨天窗口，见下），命中即写 dup_of 持久化
     ↓ 按日期分组（跳过 dup_of 条目）；字符串近似去重(逐天) + LLM当次语义去重(对最近
@@ -126,6 +129,20 @@ news_cache.json（永久缓存，含 summary_zh、importance、dup_of）
     ↓ 强凑（候选本身来源不够时如实展示，不会为了凑数/凑渠道编造数据）
 index.html（sentinel 替换）
 ```
+
+## 新闻源构成（2026-08-13 大改，勿退回旧模型）
+
+- **PTA 官方原文由 `fetch_pta_official()` 直抓 `pta.gov.pk`**（press-releases / news-updates / public-notices 三个栏目，`PTA_SECTIONS`）。此前"PTA"这个来源标签挂的是 Google News 搜出来的**媒体报道**，点开落到 ProPakistani/TechJuice，名不副实。该站是 SPA，**必须用真浏览器**：纯 HTTP 只拿到页面外壳，条目全由 JS 渲染，栏目页之外的路径对 curl 直接 302；且文章 URL 也长在 `/category/` 下（与栏目页同前缀），**按路径前缀过滤会把文章一起滤掉**（探查时栽过一次）。招标栏目（`/category/tenders`）是采购信息，刻意不抓。
+- **Google News 只是打开既定目标媒体的通道，不是引进新媒体的入口**（用户明确）。`fetch_google_news(query, source_label)` 的 `source_label` 只是这一路查询的名字，**不作为条目来源**——`_gn_publisher()` 从 RSS 的 `<source>` 取真实发布方，经 `_GN_PUBLISHER_MAP` 归一化后，不在 `_GN_ALLOWED_PUBLISHERS`（即 `SOURCE_PRIORITY` 的键）里的一律丢弃。Mettis Global、ARYnews、Bloom Pakistan 等未经评估的媒体不收，这也顺带挡住了已被移出信源的 PhoneWorld。
+- **`CUTOFF_DATE`（当前 `2026-08-01`）是抓取日期下限**，早于该日的新条目一律不收。2026-08-13 从 `2026-01-01` 上调：修好 Google News 的排序/时间窗问题后，PTA、SBP 两源积压的历史条目会一次性涌进来。已入库的历史条目不受影响（过滤只作用于新抓取，同 `--reclean` 那条约定）。
+- **RSS 日期不可尽信，用文章自带发布时间校正**：`fetch_article_text()` 抓正文时顺手用 `_extract_pub_date()` 解析 JSON-LD `datePublished` / OpenGraph `article:published_time` / `<time datetime>`（按可信度排序），存进模块级 `_LAST_PUB_DATE`（刻意不改函数签名——该函数有多个调用点和一条浏览器兜底路径；抓取严格单线程顺序执行，紧跟调用之后读取）。与 RSS 日期相差超过 `STALE_DATE_TOLERANCE_DAYS`(2) 天就以文章为准，校正后早于 `CUTOFF_DATE` 的直接丢弃——拦的是媒体把旧文重新推送当新闻。校正逻辑收在 `_apply_real_pub_date(item) -> bool`（返回 `False` 即该条应丢弃），**`main()` 的 new_items 和 retry_items 两条路径都必须调用它**，且必须紧跟在 `fetch_article_text()` 之后（它读的 `_LAST_PUB_DATE` 就是那次抓取的副产物）。
+  > **2026-08-15 补的洞**：`retry_items` 分支此前不做日期校正，而它处理的恰恰是"上次没抓到正文"的条目——上次拿不到正文就等于上次的日期从未被校正过，正是最可能混着旧文的一批。当天 Playwright 浏览器二进制被清掉（见下条），13 条走了 title-only 入库，补跑重摘要时这条路径一开就暴露：**其中 9 条根本是 2～7 月的旧文**被 TechJuice/Google News 重新推送，标题极具迷惑性（《PTA approves Ufone-Telenor Merger》标成 08-11，原文 03-19；《PTA Proposes Lifetime Validity for Prepaid Mobile Balance》标成 08-09，原文 02-27）。补上校正后这 9 条全部被丢弃。
+- **不要删 `~/Library/Caches/ms-playwright/`——它不是缓存垃圾，是本项目的运行依赖**。2026-08-14 晚它被人工当作缓存清掉（用户排查别的问题时手动删除；playwright 包本身没动，仍是 6-24 装的 1.60.0），次日两个定时任务全线受影响。这个目录名字长在 `Caches` 下、体积约 200MB、不属于任何已安装 App，看起来极像垃圾，但 `fetch_pta_official()`、正文抓取的浏览器兜底、日报出图全靠它。误删后重装：`python3 -m playwright install chromium`。
+- **浏览器一没，故障是静默的——排查任何"新闻不对劲"先查这个**。后果分两半，**只有一半会报错**：
+  - 10:10 的日报任务直接崩在 `html_to_png()` 的 `p.chromium.launch()`，`/tmp/telecom_digest.log` 里有完整 traceback，草稿根本没生成——这半容易发现。
+  - 09:30 的抓新闻任务**照常跑完、照常 commit/push、退出码 0**：PTA 官网整源被 `fetch_pta_official()` 的 try/except 吞掉（只留一行"浏览器不可用，跳过"），Google News 的 JS 中转页拿不到正文全部降级 title-only，**日期校正也随之失效**（`_LAST_PUB_DATE` 是抓正文的副产物），于是旧文当新闻一路混进库。
+  - 排查入口：`launchctl list | grep cmpak` 看退出码只能发现前一半；真正该 grep 的是 `scripts/news_update_log.txt` 里的 `浏览器不可用` 和 `no article text`。修复：`python3 -m playwright install chromium`（约 92MB）。
+- **Cloudflare 挑战有浏览器兜底**：`fetch_with_browser_fallback()` 先 curl，`_is_cloudflare()`（响应 < 8KB 且含 `challenges.cloudflare.com`）判定为挑战页时改用 Playwright 重取。`_fetch_page_source_browser()` 对 JSON 端点取 `innerText`（Chrome 会把 `application/json` 包进 `<pre>`），HTML/XML 取 `page.content()`。
 
 **重要**：`summarize()` 必须传入 `fetch_article_text()` 抓到的正文（`article_text` 参数）。
 DeepSeek 的 Chat API 本身无法访问URL，如果只传标题，它会"脑补"出一篇像模像样但数字/日期
@@ -241,19 +258,22 @@ PTA 官网部分年度指标图表（`ANNUAL_SOURCES` 里的6类：营收、投�
 - 本地推送前先 `git pull --rebase`，避免与 GitHub Actions 自动提交冲突。
 - `is_relevant()` 关键词过滤带**地域校验**（2026-07-12 加）：命中电信/宏观关键词后，若标题明显在讲外国（`_FOREIGN`：Thai/India/China 等国家词，子串匹配；外加 `_FOREIGN_WB`：`us`/`uk`/`eu`/`opec` 等**缩写按整词匹配**——2026-07-16 补，否则 `us` 会误伤 `business`/`focus`）且完全不含巴基斯坦标识（`_PK_MARKERS`：Pakistan/SBP/PTA/Karachi 及四大运营商等）则否掉。因为 `_TELECOM_SUB` 里的宏观词（`central bank`/`inflation rate`/`interest rate`/`monetary policy`…）是全球通用的，而 BusinessRecorder 会转发 Reuters/AFP 的外国新闻（真实事故：泰国"central bank chief"通胀新闻因命中 `central bank` 混进看板；2026-07-16 又发现"Asian stocks gain on drop in US inflation rate"因 `_FOREIGN` 当时不含美式缩写 `US`/`asian stock` 而漏拦——已补 `_FOREIGN_WB` + `asian stock/market`、`wall street`、`us inflation/fed/treasury` 等短语）。这类被 `is_relevant()` 否掉的条目在抓取入口就被拒收。**但不回溯清洗历史缓存**（2026-08-13 用户明确改的）：以前每次运行都拿最新规则把整份 `news_cache.json` 重筛一遍（美其名曰"历史残留自愈清除"），副作用是调一次关键词就可能悄悄抹掉若干条早已展示过的旧新闻，而且改规则必须跑一整轮抓取才生效。现在默认只影响以后抓到的新闻；确实要按新规则清理旧数据时，显式跑 `python3 scripts/update_news.py --reclean`（对应模块级 `RECLEAN_CACHE`，默认 `False`）。反过来，宏观词覆盖也要留意漏收：IMF 相关只列了 `imf program/review/tranche/loan/talks/funding/disbursement/bailout` 这些**相邻短语**，`IMF approves…disbursement` 这种词被隔开的仍匹配不上——发现漏收的正当新闻时优先补 `_TELECOM_SUB` 关键词，别去松动地域校验。
 - **休市/放假/停业等例行公告**（2026-08-11 加，直接进 `_EXCLUDE` 无条件排除）：`PSX, SBP to remain closed on August 14`（独立日休市）靠 `sbp` 整词匹配混入，但交易所与银行的节假日安排对电信和宏观都无实质影响。关键词一律用**复合短语**（`remain closed`/`public holiday`/`trading holiday`…），**不能只写 `holiday`**——否则会误伤 `Jazz launches new holiday package` 这类漫游/节日资费套餐新闻。
-- **两类定向排除（2026-08-11 加，用户指定）**，都在 `is_relevant()` 开头、关键词匹配**之前**判定，且都带"例外"机制，避免把有价值的监管新闻一起砍掉：
+- **四类定向排除（用户指定）**，都在 `is_relevant()` 开头、关键词匹配**之前**判定，且都带"例外"机制，避免把有价值的监管新闻一起砍掉。前三类的例外统一是"标题含 `_TELECOM_ENTITY`"：
   1. **非电信口的人事任命**（`_is_finance_appointment()`）：`Govt Appoints Muhammad Ali Malik as SBP Deputy Governor` 靠 `_TELECOM_WB` 里的 `sbp` 混进来，但金融系统高管履新与通信行业无关。命中 `_APPOINTMENT`（appoint / named as / sworn in / board of governors…）且标题**不含** `_TELECOM_ENTITY`（pta/telecom/jazz/zong/ufone/telenor/ptcl/spectrum/frequency…）才排除——所以"PTA 任命新主席"、"PTCL 高管进 PSTD 理事会"仍收得到。**刻意只排任命、不排辞职/免职**：央行行长突然去职属重大宏观变故，与常规履新不是一回事，`resign`/`steps down` 不在 `_APPOINTMENT` 里。
   2. **次要运营商自身动态**（`_is_minor_operator_only()`）：`WorldCall Telecom Completes Capital Reduction and Stock Split` 这类中小固网/宽带/军方运营商的财务重组、产品发布不影响竞争格局。`_MINOR_OPERATORS`（worldcall/wateen/nayatel/transworld/multinet/cybernet/stormfiber/supernet/optix/airlink）子串匹配 + `_MINOR_OPERATORS_WB`（sco/nrtc）整词匹配，命中后还要标题**不含** `_MAJOR_PLAYERS`（四大运营商 + PTA/SBP/MoITT/CCP/govt/court/regulator）才排除——所以"PTA 处罚 WorldCall"这类监管动作照收。注意 `airlink` 原本在 `_TELECOM_SUB` 里，现由此规则拦下其自身业务新闻（该公司实为手机分销商，历史条目多是 HVAC 合同、电动车组装厂这类无关内容）。
+  3. **单家商业银行的经营动态**（`_is_commercial_bank_news()`，2026-08-13 加）：只保留宏观经济环境类新闻。触发案例 `Standard Chartered CEO to assume charge after SBP clearance`——靠 `sbp` 混入，且 `assume` 与 `charge` 中间隔了四个词，`_APPOINTMENT` 的短语匹配也够不着。`_COMMERCIAL_BANKS`（standard chartered / habib bank / meezan bank…）子串匹配 + `_COMMERCIAL_BANKS_WB`（hbl/ubl/mcb/abl/bop/nbp…）**整词**匹配——缩写用子串会灾难性误伤：`ubl` 命中 p**ubl**ic（public holiday / public sector）、`abl` 命中 avail**abl**e / t**abl**e / st**abl**e。例外仍是电信实体，所以 `PTCL to acquire Easypaisa from Telenor Microfinance Bank` 照收。
+  4. **例行燃油调价**（`_is_routine_fuel_price()`）：巴基斯坦每半月调一次油价，`OGRA Announces New Petrol & Diesel Prices for Today` 会反复刷屏；但**大幅**调整是通胀先行指标，要留。判据是**标题里有没有写出调整幅度**——媒体报大幅调价必然把数字放进标题（`hiked by Rs15 per litre`），例行公告只说"新价格已公布"。命中 `_FUEL_PRICE_HINT` 后，幅度 ≥ `FUEL_BIG_MOVE_RS`(10 卢比/升) 或 `FUEL_BIG_MOVE_PCT`(5%) 就放行。**刻意只认 `by Rs<n>` / `<n>pc` 这类变动幅度，不认绝对价格**：`Petrol price now Rs280 per litre` 里的 280 是价位不是涨幅，仍属例行播报。
 - **地缘政治 → 输入性通胀（`_GEO_MACRO`，2026-08-11 加）**：看板要的是"外部冲击如何推高巴基斯坦物价/汇率/进口成本"，不是国际大宗行情本身。它是一条**附加的**通过路径（`matched or geo_ok`），不改动原有匹配；但命中后**无条件**要求标题带 `_PK_MARKERS`，比 `_FOREIGN` 那道闸更严（那道只在出现外国词时才要求）。于是 `Oil price surge pushes Pakistan inflation higher` 收，`Middle East conflict sends crude to $100` 不收。
 
   > **教训（当天就踩到）**：首版把 `freight` 和 `sanction` 直接写进 `_GEO_MACRO`，重跑立刻误收 `Russia and Pakistan to Launch First Direct Freight Rail Service`——中俄巴货运铁路是地缘经济新闻，但与通胀无关，且旧规则本来收不到（标题无任何电信/宏观词）。已收窄为 `freight cost`/`freight rate`（只有**运费**上涨才是通胀传导），`sanction` 改复数 `sanctions`（单数会误伤 `ECC sanctioned Rs5bn…` 的"核准"义项）。**往 `_GEO_MACRO` 加词必须是复合短语**，单个通用名词一定会漏进无关新闻——与 `_DEDUP_STOP` 那条"稀有词必须是专名"同源。
   >
   > 改 `is_relevant()` 后**先拿全库标题跑回归再重跑抓取**：`json.load(news_cache.json)` 逐条过 `is_relevant()`，列出将被剔除的条目人工过目一遍。这次 402 条里剔除 14 条，除用户点名的 4 条外，另有 7 条小运营商业务动态、1 条 HBL/上合组织（此 SCO 非彼 SCO，碰巧拦对）、2 条 SCO 审计违规（`Audit Uncovers Rs9 Billion in Irregularities in SCO Operations`、`AGP Flags Rs. 885 Million Irregularities In SCO Data Center Project` —— 事件本身有分量，但主体是边缘运营商，**已向用户确认随大类剔除、不设例外**，不要再往 `_MAJOR_PLAYERS` 补 `audit`/`agp` 把它们放回来）。
-- 新闻源优先级（高→低）：PTA > ProPakistani > SBP > Dawn > BusinessRecorder > TechJuice，同日相似标题会去重（保留排序更靠前的一条，即重要性更高、来源优先级更高的）。Dawn 于2026-07-19加入（`fetch_dawn()`，Business RSS），排在 BusinessRecorder 之前——巴基斯坦英文报纸中的权威大报，但电信稿量小，`is_relevant()` 过滤后每次通常只有个位数条目。PhoneWorld 已于2026-07-02因质量问题（会把过时新闻当新内容重新发布）被 Business Recorder 替换，**2026-07-19 起彻底移除**：配色常量、`news_cache.json` 与 `index.html` 里残留的2条历史条目一并删除（`industry_index.html` 的 QoS 历史排名出处引用保留，那是对既有报道的事实标注，不是新闻源配置）。
+- 新闻源优先级（高→低，即 `SOURCE_PRIORITY`，同时也是 `_GN_ALLOWED_PUBLISHERS` 白名单）：PTA（自 2026-08-13 起指 pta.gov.pk 官方原文）> ProPakistani > SBP > Dawn > BusinessRecorder > TechJuice，同日相似标题会去重（保留排序更靠前的一条，即重要性更高、来源优先级更高的）。Dawn 于2026-07-19加入（`fetch_dawn()`，Business RSS），排在 BusinessRecorder 之前——巴基斯坦英文报纸中的权威大报，但电信稿量小，`is_relevant()` 过滤后每次通常只有个位数条目。PhoneWorld 已于2026-07-02因质量问题（会把过时新闻当新内容重新发布）被 Business Recorder 替换，**2026-07-19 起彻底移除**：配色常量、`news_cache.json` 与 `index.html` 里残留的2条历史条目一并删除（`industry_index.html` 的 QoS 历史排名出处引用保留，那是对既有报道的事实标注，不是新闻源配置）。
 - `fetch_google_news()` 过去**不做 `is_relevant()` 过滤**（其他所有 fetcher 都做），不相关标题会一路走到 `summarize()`，白烧一次 DeepSeek 调用，最后才被入库前的全量回扫剔掉——2026-07-19 的一次运行里 10 条新条目有 6 条如此。已在该函数内补上过滤，最终缓存内容不变，只是不再浪费调用。
 - Dawn 和 Business Recorder 都是**综合财经 RSS**（`fetch_rss_feed()` 共用解析），不是电信垂直源，大部分条目与看板无关且都会转发 Reuters/AFP 的外国新闻，因此 `is_relevant()` 的地域校验对这两家尤其关键（见上一条）。新增同类 RSS 源时直接复用 `fetch_rss_feed(feed_url, source_label, display_name)`，不要再复制一份解析逻辑。
-- 新闻重要性分级：`summarize()` 让 DeepSeek 在生成摘要的同时判定"高/中/低"，标准是 (1) 是否涉及四大主流运营商（Jazz/Zong/Telenor/Ufone）或SBP/PTA监管动作，完全不涉及（如中小ISP、SCO等边缘运营商）判"低"；(2) 即使涉及主流运营商/监管机构，若只是常规新闻（非监管处罚/并购/财报/重大政策）也判"中"而非"高"。每日展示时PTA标题新闻优先前置（封顶`MAX_PTA_PER_DAY`3条），同级再按重要性、来源排序，"低"重要性新闻常因当天候选超过展示上限（`MAX_PER_DAY`8条，或来源不够3个时降级为`LOW_DIVERSITY_CAP`5条）被挤出展示，但仍完整保留在 `news_cache.json` 里。旧缓存中没有 `importance` 字段的条目不会被批量回填，排序时按"中"处理。
-- 标题含"PTA"的新闻在每日展示中优先前置，但封顶 `MAX_PTA_PER_DAY`（3条/5条），避免PTA新闻多的时候把其他来源全部挤掉；超出封顶的PTA新闻会和非PTA新闻放在一起按重要性/来源优先级重新竞争剩余名额。
+- **摘要只做内容转述，不做评价**（2026-08-14 用户明确，改 `summarize()` 的 prompt 时勿退回）：此前要求写 2 段、第 2 段是"对电信行业或宏观经济的影响与判断"，产出的多是"属于企业社会责任范畴，重要性较低""不会改变市场竞争态势"这类空泛套话，占一半篇幅却不提供信息。现在**不分段**，只写谁、何时、做了什么、涉及哪些数字与机构、当事方怎么说；影响分析/意义评价/前景展望/元描述一律禁止。**篇幅按素材给，两头都要在 prompt 里讲明**：有正文时写满 200～300 字并转述细节，只有标题时据实写短（五六十字也可以）——写死字数会让抓不到正文的条目拿评述凑篇幅（恰是本次要去掉的东西），只说"可以写短"则有正文的条目会缩到一百来字丢掉细节；title-only 降级分支另外重申一次禁令，模型在信息不足时格外容易靠评述灌水。字数上限是软约束，招标细则这类信息密集的新闻仍会写到 400 字上下。`importance` 字段照常判定（排序和每日配额要用），但**只存字段、不写进正文**。重点标注（`【】`，U+3010/U+3011）改为全文 2～3 处。历史摘要不重新生成，只对以后抓取的新闻生效。
+- 新闻重要性分级：`summarize()` 让 DeepSeek 在生成摘要的同时判定"高/中/低"，标准是 (1) 是否涉及四大主流运营商（Jazz/Zong/Telenor/Ufone）或SBP/PTA监管动作，完全不涉及（如中小ISP、SCO等边缘运营商）判"低"；(2) 即使涉及主流运营商/监管机构，若只是常规新闻（非监管处罚/并购/财报/重大政策）也判"中"而非"高"。每日展示时PTA标题新闻优先前置（封顶`MAX_PTA_PER_DAY`5条），同级再按重要性、来源排序，"低"重要性新闻常因当天候选超过展示上限（`MAX_PER_DAY`8条，或来源不够3个时降级为`LOW_DIVERSITY_CAP`5条）被挤出展示，但仍完整保留在 `news_cache.json` 里。旧缓存中没有 `importance` 字段的条目不会被批量回填，排序时按"中"处理。
+- 标题含"PTA"的新闻在每日展示中优先前置，但封顶 `MAX_PTA_PER_DAY`（2026-08-13 从 3 提到 5：修好 Google News 取数后 PTA 源恢复正常，8-12 那天有 9 条 PTA 候选却只排上 2 条；每日总数仍是 `MAX_PER_DAY`(8)，所以最多占 5 席、至少给其他来源留 3 席），避免PTA新闻多的时候把其他来源全部挤掉；超出封顶的PTA新闻会和非PTA新闻放在一起按重要性/来源优先级重新竞争剩余名额。
 - 跨源同事件去重是**三层**（都只处理最近 `DEDUP_LOOKBACK_DAYS`(3天)内的新闻；第1、2层作用于整个窗口即**跨天**，第3层仍逐天；同一事件保留**日期更早**的一条——即昨天已展示过的那条，今天重复的那条被标记去掉，符合"当天和前一天比对去重"）：
   1. **`mark_duplicates()` 确定性实体重叠去重（唯一持久化的一层，跨天）**：把最近 `DEDUP_LOOKBACK_DAYS` 天的候选**汇成一个池**（而非逐天），提取标题里窗口内低频的显著词（人名/机构缩写等，出现文档数 ≤ `ENTITY_RARE_DF_MAX`，排除 Ufone/Telenor/merger 这类高频话题词），两条共享的稀有词 ≥ `ENTITY_OVERLAP_MIN_RARE`(3) 即判为同一事件，给日期更晚的一条写 `dup_of`（保留条即较早那条的url）存进 `news_cache.json`。df 按整窗口算，所以跨多天共现的话题词自然变高频被排除，跨天阈值和原来逐天一样保守，绝不会把滚动事件的不同进展误合并。**决策一旦落盘就固定**，展示时直接跳过 `dup_of` 条目——防止"已去重的新闻下次又冒出来"。幂等：重复运行结果一致，已标记的不复算。
   2. **`llm_dedup_groups()` LLM语义去重（当次展示用，不持久化，跨天）**：对最近 `DEDUP_LOOKBACK_DAYS` 天窗口**整体跑一次**（非逐天），用DeepSeek识别措辞差异大、实体兜底抓不到的**跨天同事件重复**——这正是常见的跨天重复形态（不同媒体隔天用不同措辞报同一事件，共享稀有词 < 3，确定性层抓不到，只有LLM能识别；例如 TechJuice "PTA Fines Jazz, Zong, Ufone and Telenor Rs740 Million" 与次日 BusinessRecorder "PTA imposes Rs740m penalties on four cellular mobile operators"）。保留较早一天、去掉较晚一天，只过滤当次展示。**刻意不持久化**：DeepSeek 即使 `temperature=0` 也非确定性，且偶尔会把同话题不同角度的新闻（如合并后的"资费上涨"vs"员工裁员"vs"暂停改名"）**过度合并**成一条——跨天窗口更容易踩到这种误判，若落盘会永久误删不同新闻，所以只让它影响单次展示、下次自我纠正。
@@ -264,6 +284,11 @@ PTA 官网部分年度指标图表（`ANNUAL_SOURCES` 里的6类：营收、投�
   > **随之而来的新风险：报道 vs 驳斥被合并。** 给 LLM 摘要后，它开始把一条新闻和"驳斥该新闻"的新闻并成一条——两者摘要引用同一组数字，内容层面看几乎一样。真实案例（同日）：Dawn "Mobile phone imports top Rs520bn in FY26" 与 ProPakistani "Customs Rejects Claims of Surge in Finished Mobile Phone Imports"，后者正是海关驳斥前者、称统计口径被误读。**这是一条热点新闻的争议双方，最有价值的信息，绝不能合并。** 改 prompt 措辞无效（temperature=0 下重复运行返回同样的错误合并），故在代码里强制：`_split_rebuttal_groups()` 拆掉"一条是反驳、另一条不是"的组；全是反驳则说明多家媒体在报同一个澄清，允许合并。
   >
   > `_is_rebuttal()` 只在**标题**（英文词 reject/denies/refutes/clarifies…）和**摘要前 `REBUTTAL_LEAD_CHARS`(60) 字**（中文词 驳斥/否认/澄清/辟谣/不实/误读）里匹配——反驳型新闻一定在开头亮明立场。曾用全篇摘要匹配，误报严重："PTA 要求运营商采取**纠正**措施"、"议员引用帖子**反驳**"都会中招，前者是常规业务词、后者是新闻内部情节，都不是"对另一篇报道的反驳"。收紧后全库 312 条只命中 6 条，全部为真实的官方澄清/驳斥类新闻。
+  >
+  > **LLM 分组共有三道拆分守卫**（都在 `llm_dedup_groups()` 之后依次跑，取舍一致——**拆错了不过是多展示一条重复，不拆则可能静默丢掉一条重要新闻**）：
+  > 1. `_split_rebuttal_groups()`——报道 vs 驳斥（见上）。
+  > 2. `_split_importance_mismatch_groups()`（2026-08-13 加）——组内 `importance` 不一致**且混有"高"**时拆开。同一事件的两篇报道分量应当相同（实测 PTA 罚 Zong、DIRBS 升级跨天两组都各自一致），所以不一致本身就是"这压根不是同一件事"的信号。事故：Dawn《Regional war drives global food inflation, poses risks for Pakistan》（"高"）被并进前一天 Dawn《SBP warns of price spirals due to geopolitical developments in Middle East》（"中"）——一条是 SBP 货币政策报告、一条是战争对全球粮价的专题分析，结果当天分量最重的一条被静默丢掉，日报也跟着少了。
+  > 3. `_split_disconnected_groups()`（2026-08-13 加）——组内按 `_strong_link` 建图取**连通分量**再拆。候选变多后（接入 PTA/SBP 两个 Google News 源，单日候选从个位数涨到 19 条）LLM 开始把不相干的新闻并进一组。事故：《Pakistan Government Considers Abolishing Mobile Phone Taxes》保留，而三条 PTA 罚 CM Pak/Zong 7780 万卢比的新闻被当作重复丢弃——**与本公司直接相关的处罚新闻整个从看板消失**。拆后成 {取消手机税} 和 {三条罚款} 两组，罚款仍正确合并成一条。
   >
   > **同期修订 `_DEDUP_STOP`**：确定性层（第1层）曾把上述 Dawn 报道与海关驳斥合并并**持久化**（共享 `mobile`/`phone`/`imports` 恰好 3 个词，达标），静默删掉了原始报道。根因是这些**通用行业名词**在 3 天窗口里碰巧低频（df ≤ `ENTITY_RARE_DF_MAX`），被当成了本该是人名/机构缩写的"高信号实体"。已把 mobile/phone/imports/telecom/spectrum/users/tariff/operators 等一批通用词加入停用表；显著数字（rs740m、900000）和专名不受影响。回归验证：历史 12 组正确合并中 11 组仍由确定性层保持，2 组降到门槛以下改由 LLM 层负责（其中 PTA Rs740m 那组本就是文档中注明"只有LLM能识别"的案例）。
   >

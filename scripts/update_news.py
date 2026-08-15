@@ -641,6 +641,31 @@ def _extract_pub_date(html: str) -> str:
     return ""
 
 
+def _apply_real_pub_date(item: dict) -> bool:
+    """用文章自带的发布时间校正 item 的 RSS 日期；返回 False 表示该条应丢弃。
+
+    必须紧跟在 fetch_article_text() 之后调用——它读的 _LAST_PUB_DATE 是那次抓取
+    顺带解析出来的（见该变量注释）。
+
+    Google News 会把重新推广的旧文标上当天日期：2026-08-13 抓到 TechJuice
+    《Which Mobile Phones Support Jazz 5G in Pakistan Right Now?》标为当天，原文
+    其实是 03-18 的，摘要里"即将在本周正式启动 5G"在 5G 已运行五个月后完全失真。
+    这类旧文当新闻正是 PhoneWorld 被移出信源的原因，不能只防那一家。
+    """
+    real = _LAST_PUB_DATE
+    if not real:
+        return True
+    if abs((datetime.date.fromisoformat(real)
+            - datetime.date.fromisoformat(item["date"])).days) <= STALE_DATE_TOLERANCE_DAYS:
+        return True
+    log(f"    ! 日期不符：原标 {item['date']}，原文为 {real} → 以原文为准")
+    item["date"] = real
+    if real < CUTOFF_DATE:
+        log(f"    ! 早于 {CUTOFF_DATE}，丢弃")
+        return False
+    return True
+
+
 def clean(text: str) -> str:
     return re.sub(r"\s+", " ", text).strip()
 
@@ -1623,13 +1648,28 @@ def main() -> None:
     retry_items = [i for i in cache if not i.get("summary_zh", "").strip()]
     if retry_items:
         log(f"Re-summarising {len(retry_items)} cached items with empty summaries …")
+    retry_stale: list = []
     for item in retry_items:
         log(f"  Re-summarising: {item['title'][:70]} …")
         article_text = fetch_article_text(item["url"])
+        # 这一路同样要做日期校正（2026-08-15 加）。入这个分支的条目恰恰是上次
+        # **没抓到正文**的那批，而日期校正依赖 fetch_article_text 顺带解析出的
+        # _LAST_PUB_DATE——上次拿不到正文，就等于上次的日期从未被校正过，正是
+        # 最可能混着"旧文当新闻"的一批。真实事故：8-15 那轮 Playwright 浏览器
+        # 二进制被清掉，13 条走了 title-only，其中 TechJuice《Which Mobile
+        # Phones Support Jazz 5G》原文是 03-18，被标成 08-13 入库；此前 08-13
+        # 那次它是被 new_items 分支的同一段逻辑拦下的。
+        if not _apply_real_pub_date(item):
+            retry_stale.append(item)
+            continue
         result = summarize(item["title"], item["url"], article_text)
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
+
+    if retry_stale:
+        cache = [i for i in cache if i not in retry_stale]
+        log(f"  重摘要时按原文日期丢弃过期条目 {len(retry_stale)} 条")
 
     stale: list = []
     for item in new_items:
@@ -1642,20 +1682,9 @@ def main() -> None:
         if not article_text:
             log(f"    ! no article text — title-only summary (may be unreliable)")
 
-        # 用文章自带的发布时间校正 RSS 日期。Google News 会把重新推广的旧文
-        # 标上当天日期：2026-08-13 抓到 TechJuice《Which Mobile Phones Support
-        # Jazz 5G in Pakistan Right Now?》标为当天，原文其实是 03-18 的，摘要
-        # 里"即将在本周正式启动 5G"在 5G 已运行五个月后完全失真。这类旧文当新闻
-        # 正是 PhoneWorld 被移出信源的原因，不能只防那一家。
-        real = _LAST_PUB_DATE
-        if real and abs((datetime.date.fromisoformat(real)
-                         - datetime.date.fromisoformat(item["date"])).days) > STALE_DATE_TOLERANCE_DAYS:
-            log(f"    ! 日期不符：RSS 标 {item['date']}，原文为 {real} → 以原文为准")
-            item["date"] = real
-            if real < CUTOFF_DATE:
-                log(f"    ! 早于 {CUTOFF_DATE}，丢弃")
-                stale.append(item)
-                continue
+        if not _apply_real_pub_date(item):
+            stale.append(item)
+            continue
 
         result = summarize(item["title"], item["url"], article_text)
         item["summary_zh"] = result["summary_zh"]
