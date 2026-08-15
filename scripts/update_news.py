@@ -123,7 +123,11 @@ ENTITY_RARE_DF_MAX      = 3
 # carry the lede's subject/verb/object and its first figures (that is what makes
 # same-event obvious when the headlines don't), short enough that the whole
 # recent window stays a cheap single call.
+# **只管 LLM 那一层的 token 预算**：`_dedup_entity_tokens()` 曾借用这个上限做
+# 实体比对窗口，2026-08-15 起改成读整篇摘要（原因见该函数注释）。这里维持 100
+# 是因为它面对的约束完全不同——窗口内每条都要塞进同一个 prompt。
 DEDUP_SUMMARY_CHARS = 100
+
 _DEDUP_STOP = {
     "the", "a", "an", "of", "to", "in", "on", "for", "and", "or", "after",
     "before", "will", "can", "could", "may", "might", "be", "is", "are", "was",
@@ -322,6 +326,24 @@ _COMMERCIAL_BANKS = {
 # public sector），"abl" 命中 avail-abl-e／t-abl-e／st-abl-e。
 _COMMERCIAL_BANKS_WB = {"hbl", "ubl", "mcb", "abl", "bop", "nbp", "jsbl", "bafl"}
 
+# 股市行情（2026-08-15 加）。全部是复合短语——见 _is_stock_market() 里为什么
+# 不能只写 stocks/shares/index/market。
+_STOCK_MARKET = {
+    "psx closes", "psx close", "psx ends", "psx end", "psx gains", "psx loses",
+    "psx sheds", "psx rallies", "psx rally", "psx surges", "psx plunges",
+    "psx tumbles", "psx slumps", "psx recovers", "psx rebounds",
+    "kse-100", "kse 100", "100 index", "benchmark index", "share index",
+    "stocks close", "stocks end", "stocks gain", "stocks fall", "stocks rise",
+    "stocks slump", "stocks rally", "stocks surge", "stocks plunge",
+    "shares close", "shares end", "equities close", "equity market close",
+    "market closes", "market ends", "index closes", "index ends",
+    "index gains", "index sheds", "index loses", "trading session",
+    "intraday trading", "stock market", "bearish trend", "bullish trend",
+    "investor sentiment",
+}
+# 整词：bourse 单独成词就是"证券交易所"，无歧义。
+_STOCK_MARKET_WB = {"bourse", "bourses"}
+
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
     "pta", "telecom", "telco", "jazz", "zong", "ufone", "telenor", "ptcl",
@@ -393,6 +415,28 @@ def _is_commercial_bank_news(t: str, tw: str) -> bool:
     return not any(kw in t for kw in _TELECOM_ENTITY)
 
 
+def _is_stock_market(t: str, tw: str) -> bool:
+    """股市行情 → 丢弃。2026-08-15 用户明确：以后都不收，不分涨跌幅大小。
+
+    触发案例 'PSX closes lower as geopolitical uncertainty weighs'：靠
+    `_PK_MARKERS_WEAK` 里的 `psx` 当弱标识、又命中 `_GEO_MACRO` 的地缘词进来的。
+    每日收盘行情对电信和宏观都不提供决策信息，而巴基斯坦财经媒体天天发。
+
+    与 `_is_routine_fuel_price()` 的**区别是刻意的**：油价按幅度分流（大幅调整是
+    通胀先行指标，要留），股市一律不收——指数涨跌不像油价那样直接传导到物价。
+
+    关键词全用复合短语或整词，别退回单个通用名词：`stocks`/`shares`/`index`/
+    `market` 单用会误伤 'Pakistan's telecom market grows'、'PTA market share
+    data' 这类正当新闻。例外照旧是电信实体，所以 'PTCL shares surge after
+    merger approval' 仍然收得到。
+    """
+    hit = any(k in t for k in _STOCK_MARKET) or any(
+        _wb_hit(k, tw) for k in _STOCK_MARKET_WB)
+    if not hit:
+        return False
+    return not any(kw in t for kw in _TELECOM_ENTITY)
+
+
 def _is_minor_operator_only(t: str, tw: str) -> bool:
     """只讲次要运营商自己的事（不涉及四大/监管）→ 丢弃。"""
     hit = any(kw in t for kw in _MINOR_OPERATORS) or any(
@@ -412,6 +456,8 @@ def is_relevant(title: str) -> bool:
     if _is_commercial_bank_news(t, tw):
         return False
     if _is_routine_fuel_price(t):
+        return False
+    if _is_stock_market(t, tw):
         return False
     if _is_minor_operator_only(t, tw):
         return False
@@ -1371,22 +1417,39 @@ def _group_shares_entity(idx: list, items: list) -> bool:
 
 
 def _dedup_entity_tokens(item: dict) -> set:
-    """标题 + 摘要前 DEDUP_SUMMARY_CHARS 字的实体词。
+    """标题 + **整篇**摘要的实体词。
 
     摘要是必需的：同一事件被不同媒体改写后，标题可能一个共同词都不剩
     （'PTA imposes Rs77.8mn fine on CM Pak' vs 'Zong slapped with Rs77Million
     penalty over Illegal BVS Device Operation'），但摘要里的金额、机构名对得上。
     中文摘要不做分词，`_title_tokens` 的 [a-z0-9]+ 正好把数字和英文专名捞出来
-    （"7780万卢比" → 7780），足够判定同一性。"""
+    （"7780万卢比" → 7780），足够判定同一性。
+
+    **用整篇而非前 DEDUP_SUMMARY_CHARS 字**（2026-08-15 用户改）：那个 100 字
+    上限是给 `llm_dedup_groups()` 控 token 用的，被这里顺手借用，结果两条同事件
+    新闻的共同证据全落在 100 字以外，`_split_disconnected_groups()` 把 LLM 已经
+    正确合并的组又拆开了。真实事故：8-14《SBP governor vows focus on stability》
+    与 8-15《State Bank Says Current Interest Rate is Right》讲的是同一位行长的
+    同一批数字，但前 100 字的交集只有一个 `sbp`——而 `sbp` 恰恰在 `_LINK_GENERIC`
+    里被剔除，于是交集为空判成两件事，日报里同一条新闻连着两天出现。放开到整篇
+    后，两条共享 prism/410/184/440/210 等强实体，正常连通。
+    注意别名归一化（State Bank → SBP）对这类案例**无效**：归一化后仍是 `sbp`，
+    照样被 `_LINK_GENERIC` 剔掉，能救回来的只有摘要正文里的数字和专名。"""
     return _title_tokens(item.get("title", "")) | _title_tokens(
-        (item.get("summary_zh") or "")[:DEDUP_SUMMARY_CHARS])
+        item.get("summary_zh") or "")
 
 
-# 本看板几乎每条新闻都会出现的机构/主体词。它们不携带"同一事件"的信息，
-# 靠它们连边会把整天的新闻串成一个巨型连通块。（不放进 _DEDUP_STOP，那张表
-# 服务于确定性去重层，动它会改变已验证过的合并行为。）
+# 本看板几乎每条新闻都会出现的机构/主体词与时间标签。它们不携带"同一事件"的
+# 信息，靠它们连边会把整天的新闻串成一个巨型连通块。（不放进 _DEDUP_STOP，那张
+# 表服务于确定性去重层，动它会改变已验证过的合并行为。）
+# 财年/年份是 2026-08-15 把比对窗口放开到整篇摘要后补的：窗口一开，`fy26`/`fy27`
+# 这类标签立刻成了高频"共同实体"——实测《Regional war drives global food
+# inflation》与《SBP warns of price spirals》（文档记载的**必须拆开**案例）就是
+# 只靠 fy26/fy27 连上的。它们和 `sbp` 一样，是背景板不是事件标识。
 _LINK_GENERIC = {"pta", "sbp", "ptcl", "psx", "ogra", "nepra", "govt",
-                 "government", "authority", "regulator"}
+                 "government", "authority", "regulator",
+                 "fy24", "fy25", "fy26", "fy27", "fy28",
+                 "2024", "2025", "2026", "2027", "2028"}
 
 
 def _strong_link(a: set, b: set) -> bool:
