@@ -314,7 +314,7 @@ _APPOINTMENT = {
 # after SBP clearance'（渣打 CEO 履新，靠 sbp 混入；且因 assume 与 charge 中间
 # 隔了四个词，_APPOINTMENT 的短语匹配也够不着）。
 # 例外同样是电信实体：'PTCL to acquire Easypaisa from Telenor Microfinance Bank'
-# 这类必须保留，见 _is_commercial_bank_news()。
+# 这类必须保留，见 _is_single_finance_firm_news()。
 _COMMERCIAL_BANKS = {
     "standard chartered", "habib bank", "united bank", "allied bank",
     "muslim commercial", "bank alfalah", "meezan bank", "faysal bank",
@@ -345,6 +345,17 @@ _STOCK_MARKET = {
 }
 # 整词：bourse 单独成词就是"证券交易所"，无歧义。
 _STOCK_MARKET_WB = {"bourse", "bourses"}
+
+# 兑换公司/汇兑商（2026-08-19 用户指定排除）。SBP 吊销某家兑换公司牌照属于
+# 金融个体监管，与通信行业无关，而这类稿件 SBP 几乎每月都发、各家媒体齐发
+# （库里一次就攒了 6 条）。
+# **必须用复合短语**：只写 exchange 会直接毁掉汇率新闻——exchange rate 是本
+# 看板的核心宏观指标之一。这里每个词都带 company/firm/changer/dealer 限定。
+_FOREX_DEALERS = {
+    "exchange company", "exchange companies", "exchange firm", "exchange firms",
+    "money changer", "money changers", "currency dealer", "currency dealers",
+    "money exchange", "forex company", "forex companies",
+}
 
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
@@ -408,10 +419,20 @@ def _is_routine_fuel_price(t: str) -> bool:
     return True
 
 
-def _is_commercial_bank_news(t: str, tw: str) -> bool:
-    """单家商业银行的经营动态 → 丢弃；只保留宏观经济环境类新闻。"""
-    hit = any(b in t for b in _COMMERCIAL_BANKS) or any(
-        _wb_hit(b, tw) for b in _COMMERCIAL_BANKS_WB)
+def _is_single_finance_firm_news(t: str, tw: str) -> bool:
+    """**单家**金融机构（商业银行、兑换公司）的经营/监管动态 → 丢弃。
+
+    只保留宏观经济环境类新闻：SBP 的货币政策、利率、储备、汇率照收，但"某家
+    银行换 CEO""SBP 吊销某兑换公司牌照"这类个体事件与电信看板无关。
+
+    2026-08-19 扩到兑换商：`SBP cancels licence of exchange company` 这类稿子
+    SBP 几乎每月发、各媒体齐发，库里一次攒了 6 条。例外机制同商业银行——标题
+    带电信实体就不排，所以 `PTCL to acquire Easypaisa from Telenor Microfinance
+    Bank` 照收。
+    """
+    hit = (any(b in t for b in _COMMERCIAL_BANKS)
+           or any(b in t for b in _FOREX_DEALERS)
+           or any(_wb_hit(b, tw) for b in _COMMERCIAL_BANKS_WB))
     if not hit:
         return False
     return not any(kw in t for kw in _TELECOM_ENTITY)
@@ -455,7 +476,7 @@ def is_relevant(title: str) -> bool:
         return False
     if _is_finance_appointment(t):
         return False
-    if _is_commercial_bank_news(t, tw):
+    if _is_single_finance_firm_news(t, tw):
         return False
     if _is_routine_fuel_price(t):
         return False
