@@ -3,3 +3,4 @@
 scripts/launchd_stdout.log
 scripts/launchd_stderr.log
 scripts/.env.local
+scripts/fetch_status.json

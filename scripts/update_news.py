@@ -1834,8 +1834,6 @@ def main() -> None:
         time.sleep(1)
 
     log(f"New items: {len(new_items)}")
-    health = _diagnose_fetch_health(source_yield, len(new_items))
-    save_fetch_status(health)
 
     # Re-summarise cached items that have an empty summary_zh (unrelated to the
     # importance tag — old cached items without "importance" are left as-is;
@@ -1889,6 +1887,12 @@ def main() -> None:
     if stale:
         new_items = [i for i in new_items if i not in stale]
         log(f"  按原文日期丢弃过期条目 {len(stale)} 条")
+
+    # 诊断必须放在**所有 summarize 调用之后**：它要读 _LLM_STAT 才能判出
+    # "抓到了但摘要全挂"那一档。放在抓取循环后面看似更顺，但那时摘要一次都
+    # 还没跑，统计恒为 0，这一档永远不会触发——恰恰是 2026-08-18 真实发生的
+    # 那次故障（DeepSeek 余额耗尽），机制本身却抓不到。
+    save_fetch_status(_diagnose_fetch_health(source_yield, len(new_items)))
 
     # Prepend new items and save
     cache = new_items + cache

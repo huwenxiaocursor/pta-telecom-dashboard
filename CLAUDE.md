@@ -160,6 +160,8 @@ index.html（sentinel 替换）
 - **断网空转**：8-17、8-18 两天 09:30 的任务准时触发，但全部源 `Could not resolve host`、Playwright 报 `ERR_INTERNET_DISCONNECTED`——Mac 刚唤醒、Wi-Fi 还没连上。当天页面显示"无新闻"，实际补跑后抓回 24 条，其中包括 PTA 罚运营商 34.1 亿卢比、5G 频谱拍卖 5.07 亿美元这类重头新闻。
 - **DeepSeek 余额耗尽**：补跑把新闻抓回来了，但摘要一条都没生成。**DeepSeek 出错时照样返回 HTTP 200，错误在 body 里**（`{"error":{"message":"Insufficient Balance"}}`），`summarize()` 原先直接取 `result["choices"]`，上层只看到 `KeyError: 'choices'`，完全看不出是没钱了。现在 `summarize()` 显式检查 `error` 字段并把原文存进 `_LLM_STAT["last_error"]`，诊断层再据此给出"余额不足/Key 无效/触发限流"的具体指引。**空摘要条目不展示但已入库**，`retry_items` 分支下次运行会自动补摘要，不必重抓。
 
+> **`_diagnose_fetch_health()` 必须在所有 `summarize()` 调用之后执行**，否则 `_LLM_STAT` 恒为 0、`summary` 档永远不触发。首版把它放在抓取循环后面（读起来更顺），结果恰恰漏掉了当天真实发生的那次余额耗尽——机制建好了却抓不到它本该抓的故障。状态文件 `scripts/fetch_status.json` 是运行时产物，已 gitignore。
+
 > `summary` 档刻意排在最前面判定：这种情况下 `total_items > 0` 看起来一切正常，但页面同样空白，而处理办法（充值）与其他几档截然不同。
 
 **重要**：`summarize()` 必须传入 `fetch_article_text()` 抓到的正文（`article_text` 参数）。

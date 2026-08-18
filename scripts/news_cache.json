@@ -4,7 +4,7 @@
     "title": "PTA Warns WhatsApp Accounts on Inactive SIMs May Be Blocked",
     "url": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQRzBMWE45M3dyQk9HVzVlQlFJQlhfQXVUNGo5WC1kZUgtQW52cENFbmpka3pkRG9ONXpxR28tMy1JcWcyZ2Y3akE1N3EtNTZ6VWV0R3BOcXdrOTdkTktLS0d2clowdEItS1V4TmZwREZOeERnODRMUU5aNDRkMzJHRXhteXAzS2MxOVB4dUdqY2F3a1Q0ZUFFMy12MNIBoAFBVV95cUxOdmFTMlRiYVoxREJaeDFxc3FKNE5JR0g5aEx6U1VzOVdmSEdQRTByamxjS1c3LXRNYjNQMnB6WVNjYVJ3cjlaZEhhZUFaOEVELWxGbExaRnRpUkE1T2tvanVhalRXTm9nak9sYUg2NE5EcmlxZGs5OEdtRUxGUVBMX1BPRU5CUVlDRkFuTUhfZG82SklvWUZDc2RVdzlSRlpQ?oc=5",
     "date": "2026-08-17",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年8月17日发布警告称，与不活跃、已注销或不再使用的SIM卡关联的WhatsApp账户可能随时面临封禁。此举旨在打击利用不活跃SIM卡关联的WhatsApp账户进行的欺诈和其他非法活动。PTA再次通知用户，确保其WhatsApp账户与当前持有并使用的活跃SIM卡保持关联。PTA表示，注册在不活跃SIM卡上的WhatsApp账户可能引发安全隐患，因为相关手机号码可能不再由原用户控制，这些号码之后可能被重新分配给其他用户，从而造成账户及其数据被滥用的风险。PTA建议手机号码已不活跃或注销的用户更新其WhatsApp账户为当前活跃号码，并建议更换手机号码的用户及时使用WhatsApp的号码变更功能，以保持对账户的控制。PTA称，该措施旨在解决通过不活跃SIM卡关联的WhatsApp账户进行的欺诈活动，并提升数字安全。用户被敦促核实其SIM卡状态并及时采取行动，因为关联不活跃号码的WhatsApp账户可能开始面临封禁。",
     "importance": "中"
   },
   {
@@ -12,15 +12,16 @@
     "title": "PTA Slaps Telecom Operators with Rs. 3.41 Billion Fine for Poor Service",
     "url": "https://news.google.com/rss/articles/CBMinAFBVV95cUxPd3pUcURzVkNTUjd6VW5zVzJXQXh3OXpFaXROMGpQLVltUjNkWERvOGlXanJUWlU5a3A0ak9CUGhtWUN1cklwbDFyQkEwS1NVcmhyelpOdDEtRmQtMmZlOTdWTUVLUFRYemU2OWtnZ2c5dzc4MFFXbXpBMTM2X010N2E4NDgzVUU1UE93SlF1bWg0WnZPbHZxM3MtTmY?oc=5",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦电信管理局（PTA）在过去四年中对电信运营商处以【总额34.1亿卢比的罚款】，原因是运营商违反了服务质量（QoS）义务。信息技术与电信部长Shaza Fatima Khawaja在国民议会的书面答复中确认了这些行动。PTA进行了超过500次城乡QoS调查，并监控了高速公路、机动车道和铁路走廊，还开展了200多次基于投诉的调查。监管机构在最终罚款前发出了20封警告信和86份说明原因通知。消费者对Bannu等欠发达地区的网络覆盖差、网速慢和服务中断表示不满，运营商被指按全价收费却提供劣质服务。Khawaja确认Jazz、Ufone和Zong等主要运营商按广告资费收费，因此有责任维持规定的服务质量。政府排除了制定额外罚款政策的可能性，现有法律框架已足够，PTA依据《1996年巴基斯坦电信（重组）法》及相关法规执行处罚。政府还通过修订NGMS牌照条件和频谱拍卖，加强了覆盖义务和4G/5G站点部署要求。",
+    "importance": "中",
+    "dup_of": "https://www.techjuice.pk/pta-slaps-telecom-operators-with-rs-3-41-billion-fine-for-poor-service/"
   },
   {
     "source": "TechJuice",
     "title": "Telecom Operators Halt Expansion in Islamabad’s I-16 Over Low ROI",
     "url": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNaTNYM0pkeHRKZGNwZDIwZWNVLWZRa0U1N0lHQ1J0ZEdIWHB3TjhBTGNrMTVCQmRGRGVTVGNWcDF3SUllWGstOVlwSl9GV1lzSEo3eFBWRmFWU2F0ZC1ZVnVKTWMxbm8tX2I2OXc3R19jQ2dyd0Y4YnZxckxsYmpvZmxTMjZ2Q0p3Tkk0ODdlNmc3S0x3?oc=5",
     "date": "2026-08-17",
-    "summary_zh": "",
+    "summary_zh": "由于人口密度低、商业可行性有限且投资回报率不佳，电信运营商暂停了在伊斯兰堡I-16区的网络扩张。内阁部近日向国民议会通报，I-16区缺乏专用蜂窝基站是导致该区移动覆盖薄弱甚至无覆盖的主要原因。目前，没有任何运营商计划在该区立即进行站点扩张或技术升级，也没有5G部署计划。Ufone表示只有在完成与Telenor的合并后才会考虑未来扩张。I-14和I-16是新建区域，其中I-16是伊斯兰堡人口最少的区域。目前两个区域共有【12个专用蜂窝基站】，较此前报告的9个有所增加。I-14区覆盖部分至充足，其中Jazz运营3个站点，Zong运营3个，Telenor运营2个，Ufone运营1个，且Zong已在I-14启动5G服务。而I-16区【专用站点为零】，仅靠Jazz、Zong和Ufone从区域边缘的相邻站点延伸覆盖，导致信号弱、质量差。政府澄清所有边缘站点运行正常，服务差完全因缺乏专用站点。针对投诉，巴基斯坦电信管理局（PTA）已正式与所有相关移动运营商交涉，要求其分析覆盖缺陷、进行网络优化并探索可行方案以改善I-16的语音和数据服务。政府表示PTA将继续与所有运营商沟通，但大幅改善覆盖仍需运营商有足够的商业理由进行新投资。",
     "importance": "中"
   },
   {
@@ -28,7 +29,7 @@
     "title": "PTA Blocks 1.54M URLs by July 2026 With 89% Takedown Rate",
     "url": "https://news.google.com/rss/articles/CBMijAFBVV95cUxNMEE5RzkzdmNISDMycklyVjJrTU45MkhQaWctNUNZOHVlLWMwSjZQZ2FsaThSSzJOaWlTMVFvSWtVclpVeU44RmZSZ0dKWnBjY3pvQ2F6RHJUOTViYngxdXV4dU4tamVXbU91bmIxNVc5aWlRZkIyVk5JcjJCT0hhRlB1eDJpNTFJVC1neg?oc=5",
     "date": "2026-08-06",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦电信管理局（PTA）截至2026年7月已屏蔽超过154万个在线URL，官方数据显示下架率为89.4%。PTA共处理1,726,303个URL，其中1,542,800个被屏蔽，76,874个仍在审查中，另有106,629个投诉被完全驳回。【“其他/杂项”类别屏蔽数量最多，达891,772个URL】，屏蔽率高达99.15%，该类别涵盖主要社交平台之外的内容，但PTA未公开具体分类。在社交平台中，Facebook被屏蔽的URL数量最多，达230,270个；TikTok紧随其后，为170,231个；X（原推特）为74,236个；YouTube的屏蔽率最高，达88.6%；WhatsApp为50,165个，屏蔽率90.53%；Instagram为45,510个，屏蔽率83.76%。SnackVideo、Bigo和Likee等较小平台也分别有数千个URL被屏蔽。PTA未披露其采用自动过滤还是人工审核机制。近期，PTA与Meta签署了数字安全意向书，伊斯兰堡高等法院和拉合尔高等法院也在审理关于未成年人社交媒体监管的请愿。PTA的监管方式仍以被动响应为主，逐个屏蔽URL，而非像欧盟《数字服务法》那样要求平台主动审核内容。",
     "importance": "中"
   },
   {
@@ -36,7 +37,7 @@
     "title": "SBP Tightens Prize Bond Reporting Rules for Banks",
     "url": "https://news.google.com/rss/articles/CBMijgFBVV95cUxQWnFELU5JYzVnR3RHb0Z3RHBfbVQwVkFKNXBITHBqbE9BV2ZtaW53XzFwX1BWa2d4Tl82M1VwZ0FXQjBvZzFFX1I0a2JYT3U5ekZqVHVtY25mUmV1d3JPbWV3NTU4eHNzdXpQX3VvcnFQMmo5cFlRTTEzQ3l2T0tXS0Q2NzJnVUsxLU1KanRn0gGTAUFVX3lxTE1KUTVUM1hkME1TVU5pZGlDdUZHRHlzOXoxeGQwdWJWenM1RW9iSDVGa3l2eVVEc0YtTW9kRXlyWUVWS1BfQ243X3FpNlFNaWNwb0lVbVNtYmxzVWc4UncwR2FQTUVlczM4bkpSeW82MWJYd1JZM1lTdktIQkRmR0hvTmNZWmM0NEx0a3gtdF9zUFl2Yw?oc=5",
     "date": "2026-08-07",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦国家银行（SBP）已指示商业银行在【同日结算所有溢价储蓄债券（PPB）销售交易】，并推出修订后的报告与结算机制以提高运营效率。根据新框架，银行须在规定时间内通过【数据采集门户（DAP）】报告PPB销售交易。基于报告销售额，SBP银行服务公司（SBP BSC）将每日从相应银行账户中扣款。央行表示，未能同日结算销售收益的银行将被要求支付延迟使用资金费用，费用按延迟期间适用的【SBP隔夜逆回购上限利率】计算。根据通告，SBP BSC卡拉奇办事处将计算并通过借记相关银行账户、贷记中央（非食品）账户来收回费用。SBP还表示，因未报告、延迟报告或错误报告PPB销售、兑现或转账交易而导致错误支付的任何利润或奖金，银行将承担全部金额责任，并在适用情况下调整所得税。",
     "importance": "中"
   },
   {
@@ -44,31 +45,31 @@
     "title": "JazzWorld Inspires Young Minds Through Kids’ Day at Office",
     "url": "https://propakistani.pk/2026/08/17/jazzworld-inspires-young-minds-through-kids-day-at-office/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "JazzWorld在伊斯兰堡总部举办了“办公室儿童日”活动，邀请员工子女参加为期两天的体验，旨在让儿童了解父母的工作场所，并参与科技、创意和娱乐活动。活动按年龄分组，分别为4至8岁和9至11岁的儿童设计了不同项目。孩子们通过“迷你工作日”体验了团队协作和创意开发过程，并通过互动环节接触了技术和人工智能，了解技术如何应用于日常生活。活动还包括乐高搭建、黏土模型、创意站、嘉年华游戏和现场表演等。JazzWorld首席人事官Tazeen Shahid表示，员工是公司的核心，家庭是社区的重要部分，希望活动能鼓励孩子们保持好奇心并探索新想法。活动提供了儿童餐食和零食，每位参与儿童还获得了特别礼包。该活动体现了JazzWorld对员工及其家庭关怀的企业文化。",
+    "importance": "低"
   },
   {
     "source": "ProPakistani",
     "title": "SBP Bans Another Exchange Company in Pakistan",
     "url": "https://propakistani.pk/2026/08/17/sbp-bans-another-exchange-company-in-pakistan/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦国家银行（SBP）已【取消Al Rahim Exchange Company (Pvt.) Limited的授权和许可证】，自即日起生效，原因是该公司【严重违反央行监管指令】。取消后，该公司被禁止以任何身份从事任何外汇相关业务活动，禁令适用于其总部及所有分支机构，实质上终止了其授权的外汇业务。SBP在通知中未提供导致取消的具体违规细节。",
+    "importance": "低"
   },
   {
     "source": "ProPakistani",
     "title": "Zong and Zindigi Launch Z-Wallet, Bringing Embedded Banking to Millions of My Zong App Users",
     "url": "https://propakistani.pk/2026/08/17/zong-and-zindigi-launch-z-wallet-bringing-embedded-banking-to-millions-of-my-zong-app-users/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦电信企业Zong与JS银行旗下的Zindigi合作推出Z-Wallet，通过Zindigi的银行即服务（BaaS）基础设施，将受监管的数字金融服务直接嵌入My Zong App（MZA），采用嵌入式金融模式。发布活动出席者包括联邦信息与广播部长Attaullah Tarar、财政与铁路国务部长Bilal Azhar Kayani等政府官员。My Zong App拥有【超过2200万月活跃用户】，用户无需下载单独银行应用即可使用银行服务。Z-Wallet基于Zindigi的受监管银行基础设施，并遵循巴基斯坦国家银行（SBP）的监管框架，提供通过RAAST向巴基斯坦任何银行转账、水电及互联网账单支付、手机充值等服务，单次登录和PIN即可操作。未来计划扩展至纳米贷款、Z-Debit卡及专属Zong套餐。Tarar表示，该合作是电信与金融科技结合以扩大数字金融服务获取的积极范例，支持政府“数字巴基斯坦”愿景。",
+    "importance": "高"
   },
   {
     "source": "ProPakistani",
     "title": "PTCL Onboards IRM to Deliver Ba-Ikhtiar’s Digital Literacy Component Across 22 Districts",
     "url": "https://propakistani.pk/2026/08/17/ptcl-onboards-irm-to-deliver-ba-ikhtiars-digital-literacy-component-across-22-districts/",
     "date": "2026-08-17",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦电信有限公司（PTCL）与巴基斯坦扶贫基金（PPAF）合作，正在其Ba-Ikhtiar项目覆盖的22个地区推出数字素养培训部分。该培训由农村管理学院（IRM）负责实施，旨在为【2100名女性】提供实用的数字技能和工具，帮助她们更自信地参与数字经济活动。培训内容包括智能手机使用、数字素养、在线沟通、互联网安全以及获取基本数字服务。PTCL还将向参与者提供智能手机，以便她们在培训结束后继续学习和应用所学技能。PTCL首席营销官Amad Khan表示，数字技能在日常生活中日益重要，通过Ba-Ikhtiar项目，他们与PPAF和IRM合作，帮助女性建立以有意义的方式使用技术的信心。IRM高级项目经理Anwar Ul Haq表示，IRM高度赞赏PPAF和PTCL的贡献与合作，认为Ba-Ikhtiar项目是巴基斯坦包容性技能发展和女性经济赋权的宝贵模式，并建议继续扩大此类举措。该数字素养部分的推出反映了PTCL通过战略伙伴关系推进数字包容和女性赋权的承诺。",
     "importance": "中"
   },
   {
@@ -76,55 +77,58 @@
     "title": "PTA Warns WhatsApp Accounts on Inactive SIMs May Be Blocked",
     "url": "https://propakistani.pk/2026/08/17/pta-warns-whatsapp-accounts-on-inactive-sims-may-be-blocked/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦电信管理局（PTA）警告称，与不活跃、已注销或不再使用的SIM卡关联的WhatsApp账户可能随时面临封禁。此举源于PTA决定对与不活跃手机号码关联、被滥用于欺诈及其他非法活动的WhatsApp账户采取行动。PTA已再次向用户发布通知，建议确保其WhatsApp账户与当前持有并使用的活跃SIM卡保持关联。但最新通知不应被视为“最终通知”，因为管理局一直在就与不活跃SIM卡关联的账户发布建议并采取措施。PTA表示，在不活跃SIM卡上注册的WhatsApp账户可能引发安全隐患，因为相关手机号码可能不再受原用户控制，此类号码日后可能被重新分配给其他用户，从而造成WhatsApp账户及其数据被滥用的可能。管理局建议手机号码已不活跃或注销的用户，将其WhatsApp账户更新为当前活跃号码；更换手机号码的用户也应立即使用WhatsApp的号码变更选项，以确保持续控制账户。PTA称，此举旨在解决通过不活跃SIM卡关联的WhatsApp账户进行的欺诈及其他活动，并提升数字安全。用户被敦促核实其SIM卡状态并及时采取行动，因为与不活跃号码关联的WhatsApp账户可能开始面临封禁，不再另行通知。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMimwFBVV95cUxQRzBMWE45M3dyQk9HVzVlQlFJQlhfQXVUNGo5WC1kZUgtQW52cENFbmpka3pkRG9ONXpxR28tMy1JcWcyZ2Y3akE1N3EtNTZ6VWV0R3BOcXdrOTdkTktLS0d2clowdEItS1V4TmZwREZOeERnODRMUU5aNDRkMzJHRXhteXAzS2MxOVB4dUdqY2F3a1Q0ZUFFMy12MNIBoAFBVV95cUxOdmFTMlRiYVoxREJaeDFxc3FKNE5JR0g5aEx6U1VzOVdmSEdQRTByamxjS1c3LXRNYjNQMnB6WVNjYVJ3cjlaZEhhZUFaOEVELWxGbExaRnRpUkE1T2tvanVhalRXTm9nak9sYUg2NE5EcmlxZGs5OEdtRUxGUVBMX1BPRU5CUVlDRkFuTUhfZG82SklvWUZDc2RVdzlSRlpQ?oc=5"
   },
   {
     "source": "Dawn",
     "title": "SBP cancels exchange firm’s licence over violations of regulatory instructions",
     "url": "https://www.dawn.com/news/2023625/sbp-cancels-exchange-firms-licence-over-violations-of-regulatory-instructions",
     "date": "2026-08-18",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦国家银行（SBP）于2026年8月18日宣布，因【Al-Rahim Exchange Company (Pvt) Ltd】严重违反监管指令，已取消其授权/许可证。该兑换公司及其总部和所有分支机构被【禁止从事任何外汇相关业务活动】。此决定自公告之日起生效。SBP表示，此举旨在维护外汇市场的合规性与稳定性。",
+    "importance": "低"
   },
   {
     "source": "BusinessRecorder",
     "title": "SBP cancels licence of exchange company",
     "url": "https://www.brecorder.com/news/40435252/sbp-cancels-licence-of-exchange-company",
     "date": "2026-08-18",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦国家银行（SBP）于2026年8月18日宣布，已取消一家兑换公司的经营许可证。该决定依据相关监管规定作出，但具体公司名称及取消原因未在报道中披露。此举是SBP对兑换行业加强监管的一部分，旨在确保合规运营。报道未提供更多细节，如涉及金额或具体违规行为。",
+    "importance": "低"
   },
   {
     "source": "TechJuice",
     "title": "Telecom Operators Halt Expansion in Islamabad’s I-16 Over Low ROI",
     "url": "https://www.techjuice.pk/telecom-operators-halt-expansion-in-islamabads-i-16-over-low-roi/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "电信运营商因投资回报率低而暂停在伊斯兰堡I-16区的网络扩展。据内阁部向国民议会通报，I-14和I-16区人口密度低、商业可行性有限，导致投资回报不佳，因此目前没有运营商计划在I-16区进行站点扩展或技术升级，也没有5G部署计划。I-16区没有专用蜂窝站点，导致移动覆盖薄弱甚至无覆盖。目前两区共有12个专用蜂窝站点在运营，较此前报告的9个有所增加。I-14区覆盖部分至充足，其中【Jazz运营3个站点，Zong运营3个，Telenor运营2个，Ufone运营1个】，且Zong已在I-14启动5G服务。而I-16区零专用站点，仅靠Jazz、Zong和Ufone从邻近边缘站点延伸覆盖，导致信号质量差。政府澄清边缘站点运行正常，问题源于缺乏专用站点。巴基斯坦电信管理局（PTA）已介入，指示运营商分析覆盖缺陷、进行网络优化并探索可行方案以改善I-16的语音和数据服务。政府表示PTA将继续与所有CMO沟通，但运营商需先有足够的商业理由才会进行新投资。内阁部负责部长在书面答复中建议居民使用经批准的信号增强器来改善室内信号。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMilAFBVV95cUxNaTNYM0pkeHRKZGNwZDIwZWNVLWZRa0U1N0lHQ1J0ZEdIWHB3TjhBTGNrMTVCQmRGRGVTVGNWcDF3SUllWGstOVlwSl9GV1lzSEo3eFBWRmFWU2F0ZC1ZVnVKTWMxbm8tX2I2OXc3R19jQ2dyd0Y4YnZxckxsYmpvZmxTMjZ2Q0p3Tkk0ODdlNmc3S0x3?oc=5"
   },
   {
     "source": "TechJuice",
     "title": "Zindigi & Zong Launch Z-Wallet: Embedded Banking Reaches Millions in Pakistan",
     "url": "https://www.techjuice.pk/zindigi-zong-launch-z-wallet-embedded-banking-reaches-millions-in-pakistan/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "Zindigi与Zong在伊斯兰堡正式推出Z-Wallet，采用嵌入式金融模式，通过Zindigi的银行即服务（BaaS）基础设施，将受监管的数字金融服务直接嵌入Zong的My Zong应用，该应用拥有【超过2200万月活跃用户】。用户无需下载独立金融应用即可使用银行服务，目前支持通过RAAST进行跨行转账、支付水电及网络账单、购买手机充值等。Zindigi由JS Bank提供支持，并严格遵守巴基斯坦国家银行（SBP）的监管框架。Zindigi联合创始人Noman Azhar表示，金融包容性的下一章不是建立更多银行网点，而是将银行服务嵌入用户已有的生态系统中。信息部长Attaullah Tarar称赞该举措支持了政府的数字巴基斯坦愿景。Zong市场负责人Sajid Munir强调，将全球技术专长与Zindigi的金融能力相结合，可在单一平台上实现连接、技术与金融的融合。Zindigi计划近期推出【小额贷款、Z-Debit卡】及专属连接套餐，并已在软启动后获得显著的有机增长。",
+    "importance": "中",
+    "dup_of": "https://propakistani.pk/2026/08/17/zong-and-zindigi-launch-z-wallet-bringing-embedded-banking-to-millions-of-my-zong-app-users/"
   },
   {
     "source": "TechJuice",
     "title": "PTA Slaps Telecom Operators with Rs. 3.41 Billion Fine for Poor Service",
     "url": "https://www.techjuice.pk/pta-slaps-telecom-operators-with-rs-3-41-billion-fine-for-poor-service/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦电信管理局（PTA）因运营商服务质量不佳，在过去四年间累计处以【34.1亿卢比罚款】。信息技术与电信部长Shaza Fatima Khawaja在国民议会书面答复中确认，PTA开展了超过500次城乡服务质量调查，并监测高速公路、快速路及铁路走廊，另进行了200多次投诉调查，共发出20封警告信和86份说明原因通知。消费者投诉集中在欠发达地区如Bannu，用户反映运营商按全价收费但网络覆盖弱、网速慢且服务中断频繁。部长承认Jazz、Ufone和Zong等主要运营商按广告资费收费，须依牌照条件保证服务质量，但部分区域套餐基于商业考量。政府目前不考虑另行制定罚款政策，现有法律框架已足够，PTA依据1996年《巴基斯坦电信（重组）法》及服务质量法规执法。政府近期通过修订NGMS牌照条件和频谱拍卖，强化了覆盖义务，要求运营商部署更多4G和5G站点，并达到更高服务质量基准。",
+    "importance": "高"
   },
   {
     "source": "TechJuice",
     "title": "SBP Cancels License of Al-Rahim Exchange Company Over Severe Violations",
     "url": "https://www.techjuice.pk/sbp-cancels-license-of-al-rahim-exchange-company-over-severe-violations/",
     "date": "2026-08-17",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦国家银行（SBP）近日采取严格监管行动，【以严重违反监管规定为由】，宣布立即取消M/S Al-Rahim Exchange Company (Pvt.) Limited的授权和经营许可证。该公司成立于2004年，总部位于卡拉奇，是巴基斯坦【‘A’类货币兑换公司】，在主要城市设有广泛分支机构，提供外币兑换和汇款服务。SBP在当天发布的新闻稿中确认了这些违规行为，但未具体说明违规性质。监管机构认为违规情节严重，足以立即吊销其营业执照。许可证被取消后，该公司核心业务全面停止，【被禁止以任何身份开展外汇相关活动】，该禁令覆盖公司总部及所有分支机构的全部外汇业务。",
     "importance": "中"
   },
   {
@@ -132,23 +136,24 @@
     "title": "Govt Reviews Right of Way Amendments in Pakistan Telecom Bill 2026",
     "url": "https://www.techjuice.pk/govt-reviews-right-of-way-amendments-in-pakistan-telecom-bill-2026/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦联邦政府已启动对《2026年巴基斯坦电信（重组）修正法案》中【路权（RoW）条款】的详细审查，旨在平衡电信基础设施快速扩张与私人财产权保护。联邦法律与司法部长【阿扎姆·纳泽尔·塔拉尔】主持了在伊斯兰堡举行的高级别委员会会议，联邦信息技术与电信部长沙扎·法蒂玛及两部门高级官员出席。会议重点界定联邦、省和地方当局对公共、共有开发及私人财产的【法律管辖权】，并明确了电信运营商在私人土地上安装基础设施前必须获得业主书面同意的机制。政府计划制定公平补偿和路权合法使用的明确规则，电信公司还将承担保护、维护及在设备安装后完全恢复财产的新义务。塔拉尔强调数字连接扩展不得损害公民财产权，消除法律歧义对建立透明可行的框架至关重要。委员会还审议了将新兴技术纳入严格监管的新提案，并指示信息技术与电信部（MoITT）解决潜在法律和实际障碍，完成立法草案并提交委员会最终批准。",
+    "importance": "高"
   },
   {
     "source": "TechJuice",
     "title": "PTCL Onboards IRM to Deliver Ba-Ikhtiar’s Digital Literacy Component Across 22 Districts",
     "url": "https://www.techjuice.pk/ptcl-onboards-irm-to-deliver-ba-ikhtiars-digital-literacy-component-across-22-districts/",
     "date": "2026-08-17",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦电信公司（PTCL）与巴基斯坦扶贫基金（PPAF）合作，正在其Ba-Ikhtiar项目覆盖的22个地区推出数字素养培训部分，由农村管理研究所（IRM）负责实施。IRM将为【2100名女性】提供实用数字技能培训，内容涵盖智能手机使用、数字素养、在线沟通、网络安全及获取基本数字服务。PTCL还将向参与者提供智能手机，以便她们在培训后继续学习和应用技能。PTCL首席营销官Amad Khan表示，数字技能在日常生活中日益重要，通过Ba-Ikhtiar项目，他们与PPAF和IRM合作，帮助女性建立以有意义的方式使用技术的信心。IRM高级项目经理Anwar Ul Haq表示，IRM高度赞赏PPAF和PTCL的贡献与合作，认为Ba-Ikhtiar倡议是巴基斯坦包容性技能发展和女性经济赋权的宝贵模式，建议继续并扩大此类举措。该数字素养部分的推出反映了PTCL通过战略伙伴关系推进数字包容和女性赋权的承诺。",
+    "importance": "低",
+    "dup_of": "https://propakistani.pk/2026/08/17/ptcl-onboards-irm-to-deliver-ba-ikhtiars-digital-literacy-component-across-22-districts/"
   },
   {
     "source": "TechJuice",
     "title": "Zong Slips Back Into Mobile Money With Z Wallet, Three Years After Killing PayMax",
     "url": "https://www.techjuice.pk/zong-z-wallet-paymax-failure-fintech/",
     "date": "2026-08-17",
-    "summary_zh": "",
+    "summary_zh": "Zong 4G 在关闭其电子货币机构（EMI）业务三年后，重新进入移动金融领域，推出了内置于 My Zong 应用中的虚拟钱包 Z Wallet。该钱包由 CMPak 与金融科技公司 Zindigi（JS Bank 旗下）合作提供，所有银行服务由 JS Bank 通过 Zindigi 提供。Zong 不持有支付牌照，不承担资本要求和直接监管风险。此前，Zong 于 2023 年 10 月放弃 EMI 牌照并停止 TimePay（后更名为 PayMax）运营，PayMax 是仅有的四家获得 EMI 牌照的公司之一，但作为“唯一商业运营的 EMI”在推出不到一年后退出市场。行业分析认为，单位经济效应不佳、SBP 降低借记卡交易利润率、监管开销高、通胀飙升和卢比贬值等因素导致其失败。Zong 此次采用轻资产模式，避免直接监管负担，但无法完全掌控产品策略。相比之下，SadaPay 于 2024 年被土耳其金融科技公司 Papara 以 5000 万美元收购，NayaPay 作为巴基斯坦首家 SBP 许可的 EMI 也在市场中获得成功。",
     "importance": "中"
   },
   {
@@ -156,7 +161,7 @@
     "title": "Cheap data, rising costs put Pakistan’s telecom economics in focus",
     "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE12eEplU3dnbUw1cnR0b1c4cFRkVVZqWS1PTkNRVTcydGMzVmNhSlpCU0FRZjk4eFJsX0pfRXMzUnB4aW1nNldMMjhYaFNLVTVK0gFWQVVfeXFMUEotRk13c2M3S1JDSzRWTGtvcXlEZ19HV0Vkd2R5b19hYy1Eb0FjV2x6QVNIYUNvbnotdWJOX19yX2U2d1ZHWV9TajdVYkdXVWRha3RPTVE?oc=5",
     "date": "2026-08-13",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦电信行业正面临【廉价数据与成本上升】的双重压力，行业经济性成为关注焦点。据《商业记录报》8月13日报道，尽管数据资费持续走低，但运营商面临【能源成本高企】、设备维护费用增加及卢比贬值等多重成本压力，导致行业利润率承压。报道指出，巴基斯坦电信行业在【用户增长放缓】的背景下，运营商被迫通过降价竞争维持市场份额，但此举进一步压缩了盈利空间。行业分析师表示，运营商需在投资网络升级与维持财务健康之间寻求平衡，否则可能影响长期服务质量。此外，监管政策与税收负担也被视为影响行业发展的关键因素。报道未提及具体运营商名称，但整体反映了巴基斯坦电信市场面临的普遍挑战。",
     "importance": "中"
   },
   {
