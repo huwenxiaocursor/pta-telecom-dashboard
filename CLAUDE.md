@@ -144,6 +144,24 @@ index.html（sentinel 替换）
   - 排查入口：`launchctl list | grep cmpak` 看退出码只能发现前一半；真正该 grep 的是 `scripts/news_update_log.txt` 里的 `浏览器不可用` 和 `no article text`。修复：`python3 -m playwright install chromium`（约 92MB）。
 - **Cloudflare 挑战有浏览器兜底**：`fetch_with_browser_fallback()` 先 curl，`_is_cloudflare()`（响应 < 8KB 且含 `challenges.cloudflare.com`）判定为挑战页时改用 Playwright 重取。`_fetch_page_source_browser()` 对 JSON 端点取 `innerText`（Chrome 会把 `application/json` 包进 `<pre>`），HTML/XML 取 `page.content()`。
 
+## 抓取失败诊断（`scripts/fetch_status.json`）
+
+**"今天 0 条"有四种完全不同的成因，页面上长得一模一样**——任务照常跑完、退出码照样是 0、`index.html` 照常重写，只是内容是空的。`_diagnose_fetch_health()` 每轮判定一次，结论写进 `scripts/fetch_status.json`，`send_daily_digest.py` 的 `fetch_health_note()` 读出来写进那封"今天无新增"的提醒邮件——**用户看邮件，不看日志**，报警不进邮件等于没报。
+
+| status | 含义 | 处理 |
+|--------|------|------|
+| `ok` | 抓取和摘要都正常，确系当天无符合条件的新稿 | 不用管 |
+| `network` | 出现"连不上"级错误（curl 退出码 6/7/28/35/56），且无任何源拿到内容 | 联网后补跑，新闻会一并找回 |
+| `summary` | **新闻抓到并已入库，但摘要调用全部失败** | 解决后重跑即可自动补齐，无需重抓 |
+| `sources` | 网络正常但所有源都返回 0 条 | 可能真无新稿，也可能某站改版打挂了解析，人工核对 |
+
+两次真实事故（都发生在 2026-08-17～18，同一天内被连着撞上）：
+
+- **断网空转**：8-17、8-18 两天 09:30 的任务准时触发，但全部源 `Could not resolve host`、Playwright 报 `ERR_INTERNET_DISCONNECTED`——Mac 刚唤醒、Wi-Fi 还没连上。当天页面显示"无新闻"，实际补跑后抓回 24 条，其中包括 PTA 罚运营商 34.1 亿卢比、5G 频谱拍卖 5.07 亿美元这类重头新闻。
+- **DeepSeek 余额耗尽**：补跑把新闻抓回来了，但摘要一条都没生成。**DeepSeek 出错时照样返回 HTTP 200，错误在 body 里**（`{"error":{"message":"Insufficient Balance"}}`），`summarize()` 原先直接取 `result["choices"]`，上层只看到 `KeyError: 'choices'`，完全看不出是没钱了。现在 `summarize()` 显式检查 `error` 字段并把原文存进 `_LLM_STAT["last_error"]`，诊断层再据此给出"余额不足/Key 无效/触发限流"的具体指引。**空摘要条目不展示但已入库**，`retry_items` 分支下次运行会自动补摘要，不必重抓。
+
+> `summary` 档刻意排在最前面判定：这种情况下 `total_items > 0` 看起来一切正常，但页面同样空白，而处理办法（充值）与其他几档截然不同。
+
 **重要**：`summarize()` 必须传入 `fetch_article_text()` 抓到的正文（`article_text` 参数）。
 DeepSeek 的 Chat API 本身无法访问URL，如果只传标题，它会"脑补"出一篇像模像样但数字/日期
 全是虚构的摘要（2026-07-02 发现的真实事故：一条PhoneWorld新闻被脑补出"2023-24财年降12%"，

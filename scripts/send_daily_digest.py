@@ -15,6 +15,7 @@ import tempfile
 
 BASE_DIR      = pathlib.Path(__file__).resolve().parent
 CACHE_FILE    = BASE_DIR / "news_cache.json"
+FETCH_STATUS_FILE = BASE_DIR / "fetch_status.json"
 INDEX_FILE    = BASE_DIR.parent / "index.html"
 DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
 
@@ -259,6 +260,40 @@ def save_notice_via_apple_mail(subject: str, body: str) -> None:
     print(f"  提醒邮件草稿已保存到草稿箱（仅收件人 {NOTIFY_EMAIL}），待手动确认发送")
 
 
+def fetch_health_note(date_str: str) -> str:
+    """把最近一轮抓取的诊断结论转成邮件里的一段说明。
+
+    "当天没有新闻"和"当天根本没抓成"对读邮件的人是完全不同的两件事，前者不用管，
+    后者要补跑。update_news.py 每轮把结论写进 fetch_status.json（见那边的
+    _diagnose_fetch_health），这里读出来原样告诉用户，不做二次判断。
+    """
+    try:
+        with open(FETCH_STATUS_FILE, encoding="utf-8") as f:
+            h = json.load(f)
+    except Exception:
+        return "（未找到抓取状态记录，无法判断原因。）\n\n"
+
+    status, reason = h.get("status", ""), h.get("reason", "")
+    stale = h.get("date", "") != date_str
+    head = f"【抓取状态】{h.get('date','?')} 那轮：" if stale else "【抓取状态】"
+
+    if status == "network":
+        body = (f"{head}抓取失败——{reason}\n"
+                f"处理办法：确认电脑已联网后，双击「抓新闻并发邮件.command」补跑，"
+                f"当天的新闻会一并补回。\n\n")
+    elif status == "summary":
+        body = (f"{head}新闻抓到了，但摘要生成失败——{reason}\n"
+                f"处理办法：解决上述问题后重跑「抓新闻并发邮件.command」，"
+                f"已入库的条目会自动补齐摘要，不必重新抓取。\n\n")
+    elif status == "sources":
+        body = f"{head}{reason}\n\n"
+    else:
+        body = (f"{head}抓取本身正常"
+                + (f"（{reason}）" if reason else "")
+                + "，确系当天无符合条件的新稿。\n\n")
+    return body
+
+
 def main() -> None:
     # 默认 T-1（launchd 每天 10:10 跑的就是这条路径）。补发或当天临时重发时可传
     # 日期覆盖：python3 scripts/send_daily_digest.py 2026-08-11
@@ -292,6 +327,7 @@ def main() -> None:
         body = (f"您好，\n\n"
                 f"{date_cn} 未抓取到符合条件的巴基斯坦电信/宏观新闻，"
                 f"今日不生成日报草稿。\n\n"
+                + fetch_health_note(date_str)
                 + (f"最近一次有新闻的日期为 {latest_cn}（已在此前发送，不再重复）。\n\n"
                    if latest else "新闻缓存内暂无任何可用新闻，请检查抓取任务。\n\n")
                 + f"如需人工核对，可在线查看：\n{DASHBOARD_URL}")

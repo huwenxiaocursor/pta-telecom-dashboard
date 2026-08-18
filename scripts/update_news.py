@@ -22,6 +22,8 @@ BASE_DIR   = pathlib.Path(__file__).resolve().parent
 CACHE_FILE = BASE_DIR / "news_cache.json"
 INDEX_FILE = BASE_DIR.parent / "index.html"
 LOG_FILE   = BASE_DIR / "news_update_log.txt"
+# 每轮抓取的健康度结论，供 send_daily_digest.py 写进提醒邮件
+FETCH_STATUS_FILE = BASE_DIR / "fetch_status.json"
 
 NEWS_START = "// ===AUTO-NEWS-START==="
 NEWS_END   = "// ===AUTO-NEWS-END==="
@@ -509,6 +511,31 @@ def today() -> str:
     return datetime.date.today().isoformat()
 
 
+# 抓取健康度统计（2026-08-18 加）。用来回答"今天 0 条"到底是**没新闻**还是
+# **根本没抓成**——这两种情况以前在日志和页面上完全同形：任务照常跑完、退出码
+# 照样是 0、index.html 照常重写，只是内容是空的。8-17 与 8-18 两天的 09:30 任务
+# 就是这样静默空转的（Mac 刚唤醒、Wi-Fi 还没连上，全部源 DNS 解析失败），补跑后
+# 立刻抓回 24 条，其中还有 PTA 罚运营商 34.1 亿卢比这样的大新闻。
+_FETCH_STAT = {"ok": 0, "network": 0, "other": 0}
+# 摘要调用的成败。抓取成功但摘要全失败时，条目会以空 summary_zh 入库、在页面上
+# **完全不显示**——症状和"当天没有新闻"一模一样。2026-08-18 就撞上了：断网补跑
+# 把 17 条新闻抓了回来，但 DeepSeek 余额耗尽（HTTP 200，错误在 body 里，上层
+# 只看到 KeyError: 'choices'），页面照旧空白。
+_LLM_STAT = {"ok": 0, "fail": 0, "last_error": ""}
+# curl 退出码里属于"连不上"的：6 DNS 解析失败、7 连接失败、28 超时、
+# 35 SSL 握手失败、56 接收失败。其余（如 22 HTTP 错误码）算 other。
+_NETWORK_CURL_CODES = {6, 7, 28, 35, 56}
+
+
+def _note_fetch_result(exc: Exception = None) -> None:
+    if exc is None:
+        _FETCH_STAT["ok"] += 1
+        return
+    m = re.search(r"curl exit (\d+)", str(exc))
+    code = int(m.group(1)) if m else -1
+    _FETCH_STAT["network" if code in _NETWORK_CURL_CODES else "other"] += 1
+
+
 def _curl_fetch(url: str, timeout: int = 20, data: bytes = None,
                 extra_headers: dict = None, return_raw: bool = False) -> Union[bytes, str]:
     """Use curl subprocess for HTTP(S) requests — avoids Python SSL issues on some networks."""
@@ -528,11 +555,13 @@ def _curl_fetch(url: str, timeout: int = 20, data: bytes = None,
         if result.returncode != 0:
             err = result.stderr.decode("utf-8", errors="replace").strip()[:200]
             raise OSError(f"curl exit {result.returncode}: {err}")
+        _note_fetch_result()
         if return_raw:
             return result.stdout
         charset = "utf-8"
         return result.stdout.decode(charset, errors="replace")
     except Exception as e:
+        _note_fetch_result(e)
         log(f"  FETCH ERROR [{url}]: {e}")
         return b"" if return_raw else ""
 
@@ -1201,13 +1230,20 @@ def summarize(title: str, url: str, article_text: str = "") -> dict:
         if not raw:
             return fallback
         result = json.loads(raw)
+        # DeepSeek 出错时照样返回 200，错误在 body 里（余额不足、鉴权失败、限流）。
+        # 不记下这句原文，上层只会看到 KeyError: 'choices'，完全看不出是没钱了。
+        if "error" in result and "choices" not in result:
+            _LLM_STAT["last_error"] = str(result["error"].get("message", ""))[:120]
+            raise OSError(f"API error: {_LLM_STAT['last_error']}")
         content = json.loads(result["choices"][0]["message"]["content"])
         summary = content.get("summary_zh", "").strip()
         importance = content.get("importance", "中").strip()
         if importance not in IMPORTANCE_PRIORITY:
             importance = "中"
+        _LLM_STAT["ok"] += 1
         return {"summary_zh": summary, "importance": importance}
     except Exception as e:
+        _LLM_STAT["fail"] += 1
         log(f"  DeepSeek error: {e}")
         return fallback
 
@@ -1679,6 +1715,96 @@ def inject_into_html(items: list) -> None:
 
 # ─── Main ─────────────────────────────────────────────────────────────────────
 
+def _diagnose_fetch_health(source_yield: dict, new_count: int) -> dict:
+    """判断这一轮抓取是**真的没新闻**还是**根本没抓成**，并说清具体原因。
+
+    动机见 _FETCH_STAT 的注释：两种情况以前完全同形，页面和退出码都看不出差别。
+    诊断结论写进 scripts/fetch_status.json，由 send_daily_digest.py 读出来，
+    写进那封"今天无新增"的提醒邮件——用户看邮件，不看日志。
+
+    分三档：
+      ok       —— 有新条目，或各源正常返回只是没有新内容；
+      network  —— 出现"连不上"级别的错误（DNS/连接/超时/SSL），且没有任何源
+                  拿到内容。这是断网，不是没新闻；
+      sources  —— 网络请求成功，但所有源都吐 0 条。要么当天确实全网无新稿，
+                  要么某个站点改版把解析打挂了，需要人工看一眼。
+    """
+    total_items = sum(v for v in source_yield.values() if v > 0)
+    dead = [k for k, v in source_yield.items() if v <= 0]
+    net_err, other_err, ok = (_FETCH_STAT["network"], _FETCH_STAT["other"],
+                              _FETCH_STAT["ok"])
+
+    llm_ok, llm_fail = _LLM_STAT["ok"], _LLM_STAT["fail"]
+    # 摘要全军覆没优先报：条目抓到了也入库了，但没有摘要就不会展示，页面表现
+    # 与"当天没有新闻"完全相同，而处理办法（充值/换 Key）截然不同。
+    if llm_fail > 0 and llm_ok == 0:
+        why = _LLM_STAT["last_error"] or "未返回具体原因"
+        detail = ""
+        if "insufficient balance" in why.lower():
+            detail = "——DeepSeek 账户余额不足，请充值后补跑"
+        elif "authentication" in why.lower() or "invalid api key" in why.lower():
+            detail = "——API Key 无效，请检查 scripts/.env.local"
+        elif "rate limit" in why.lower():
+            detail = "——触发限流，稍后补跑即可"
+        health = {
+            "date": today(), "status": "summary",
+            "reason": (f"新闻已抓到 {total_items} 条（新增 {new_count} 条），"
+                       f"但 {llm_fail} 次摘要调用全部失败：{why}{detail}。"
+                       f"条目已入库、摘要为空，**页面因此不显示**；"
+                       f"问题解决后重跑一次即可自动补齐（无需重抓）。"),
+            "new_items": new_count, "items_from_sources": total_items,
+            "dead_sources": dead, "fetch_ok": ok,
+            "fetch_network_errors": net_err, "fetch_other_errors": other_err,
+            "llm_ok": llm_ok, "llm_fail": llm_fail, "llm_error": why,
+        }
+        log(f"  !! 抓取异常[summary]：{health['reason']}")
+        return health
+
+    if total_items > 0:
+        status, reason = "ok", ""
+        if llm_fail:
+            reason = f"{llm_fail} 次摘要调用失败（{_LLM_STAT['last_error'] or '原因未知'}），已成功 {llm_ok} 次"
+        if net_err:
+            # 部分源挂了但整体拿到了东西——不报警，但留痕，便于回看某天为什么少。
+            reason = f"部分来源连接失败（{net_err} 次网络错误），其余来源正常"
+    elif net_err > 0 and ok == 0:
+        status = "network"
+        reason = (f"全部来源均无法连接（{net_err} 次网络错误：DNS 解析/连接/超时），"
+                  f"抓取时本机无网络。**这不是当天没有新闻**，联网后补跑即可找回。")
+    elif net_err > 0:
+        status = "network"
+        reason = f"多数来源连接失败（{net_err} 次网络错误，{ok} 次成功），疑似网络不稳"
+    else:
+        status = "sources"
+        reason = (f"网络正常（{ok} 次请求成功）但所有来源均返回 0 条，"
+                  f"可能当天确实无新稿，也可能某站改版导致解析失效，建议人工核对")
+
+    health = {
+        "date": today(), "status": status, "reason": reason,
+        "new_items": new_count, "items_from_sources": total_items,
+        "dead_sources": dead,
+        "fetch_ok": ok, "fetch_network_errors": net_err,
+        "fetch_other_errors": other_err,
+        "llm_ok": llm_ok, "llm_fail": llm_fail,
+        "llm_error": _LLM_STAT["last_error"],
+    }
+    if status != "ok":
+        log(f"  !! 抓取异常[{status}]：{reason}")
+        if dead:
+            log(f"  !! 无产出的来源：{', '.join(dead)}")
+    elif reason:
+        log(f"  ~ {reason}")
+    return health
+
+
+def save_fetch_status(health: dict) -> None:
+    try:
+        with open(FETCH_STATUS_FILE, "w", encoding="utf-8") as f:
+            json.dump(health, f, ensure_ascii=False, indent=2)
+    except Exception as e:
+        log(f"  写 fetch_status.json 失败：{e}")
+
+
 def main() -> None:
     log("=" * 50)
     log("News update started")
@@ -1693,17 +1819,23 @@ def main() -> None:
                 fetch_dawn, fetch_business_recorder, fetch_techjuice]
     new_items: list = []
 
+    source_yield: dict = {}
     for fn in fetchers:
         try:
-            for item in fn():
+            fetched = fn()
+            source_yield[fn.__name__] = len(fetched)
+            for item in fetched:
                 if item["url"] not in known:
                     new_items.append(item)
                     known.add(item["url"])
         except Exception as e:
+            source_yield[fn.__name__] = -1        # -1 = 抓取器自身抛错
             log(f"  Source error ({fn.__name__}): {e}")
         time.sleep(1)
 
     log(f"New items: {len(new_items)}")
+    health = _diagnose_fetch_health(source_yield, len(new_items))
+    save_fetch_status(health)
 
     # Re-summarise cached items that have an empty summary_zh (unrelated to the
     # importance tag — old cached items without "importance" are left as-is;
