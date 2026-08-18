@@ -3502,3 +3502,39 @@ Call log:
 [2026-08-17 09:53:27]   Injected 324 items into index.html
 [2026-08-17 09:53:27] News update complete
 [2026-08-17 09:53:27] ==================================================
+[2026-08-18 09:31:04] ==================================================
+[2026-08-18 09:31:04] News update started
+[2026-08-18 09:31:04] Cache: 451 existing items
+[2026-08-18 09:36:16]   PTA 官网：浏览器不可用，跳过（BrowserType.launch: Timeout 180000ms exceeded.
+Call log:
+  - <launching> /Users/huwenxiao/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/mf/cshd5b3n08qfsbt7b1xx_8480000gn/T/playwright_chromiumdev_profile-TeLUpQ --remote-debugging-pipe --no-startup-window
+  - <launched> pid=53823
+  - [pid=53823][err] [0818/093609.354947:WARNING:net/dns/dns_config_service_posix.cc:197] Failed to read DnsConfig.
+）
+[2026-08-18 09:36:17] Fetching Google News [PTA] …
+[2026-08-18 09:36:17]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-18 09:36:18] Fetching Google News [SBP] …
+[2026-08-18 09:36:19]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-18 09:36:20] Fetching ProPakistani via WP REST API …
+[2026-08-18 09:36:20]   FETCH ERROR [https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-08-01T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: propakistani.pk
+[2026-08-18 09:36:20]   ProPakistani: 0 items found
+[2026-08-18 09:36:21] Fetching Dawn RSS …
+[2026-08-18 09:36:21]   FETCH ERROR [https://www.dawn.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.dawn.com
+[2026-08-18 09:36:21]   Dawn: 0 items found
+[2026-08-18 09:36:22] Fetching Business Recorder RSS …
+[2026-08-18 09:36:22]   FETCH ERROR [https://www.brecorder.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.brecorder.com
+[2026-08-18 09:36:22]   Business Recorder: 0 items found
+[2026-08-18 09:36:23] Fetching TechJuice via WP REST API …
+[2026-08-18 09:36:23]   FETCH ERROR [https://www.techjuice.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-08-01T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-08-18 09:36:23]   TechJuice: 0 items found
+[2026-08-18 09:36:24] New items: 0
+[2026-08-18 09:36:24] Re-summarising 1 cached items with empty summaries …
+[2026-08-18 09:36:24]   Re-summarising: Cheap data, rising costs put Pakistan’s telecom economics in focus …
+[2026-08-18 09:36:24]   FETCH ERROR [https://news.google.com/rss/articles/CBMiUEFVX3lxTE12eEplU3dnbUw1cnR0b1c4cFRkVVZqWS1PTkNRVTcydGMzVmNhSlpCU0FRZjk4eFJsX0pfRXMzUnB4aW1nNldMMjhYaFNLVTVK0gFWQVVfeXFMUEotRk13c2M3S1JDSzRWTGtvcXlEZ19HV0Vkd2R5b19hYy1Eb0FjV2x6QVNIYUNvbnotdWJOX19yX2U2d1ZHWV9TajdVYkdXVWRha3RPTVE?oc=5]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-18 09:36:24]   Browser fetch failed (https://news.google.com/rss/articles/CBMiUEFVX3lxTE12eEplU3dnbUw1cnR0b1c4cFRkVVZqWS1PTkNRVTcydGMzVmNhSlpCU0FRZjk4eFJsX0pfRXMzUnB4aW1nNldMMjhYaFNLVTVK0gFWQVVfeXFMUEotRk13c2M3S1JDSzRWTGtvcXlEZ19HV0Vkd2R5b19hYy1Eb0FjV2x6QVNIYUNvbnotdWJOX19yX2U2d1ZHWV9TajdVYkdXVWRha3RPTVE?oc=5): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-08-18 09:36:24]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-08-18 09:36:25] Cache saved: 451 total items
+[2026-08-18 09:36:25]   Injected 324 items into index.html
+[2026-08-18 09:36:25] News update complete
+[2026-08-18 09:36:25] ==================================================
