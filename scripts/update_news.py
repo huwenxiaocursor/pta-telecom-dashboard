@@ -520,7 +520,26 @@ def mentions_pta(title: str) -> bool:
 
 # ─── Utilities ────────────────────────────────────────────────────────────────
 
+# 密钥脱敏（2026-08-19 加）。**所有**写日志的路径都必须过这一道。
+# 血的教训：subprocess 超时抛的 TimeoutExpired，其 str() 自带完整命令行，而
+# curl 的命令行里有 `-H Authorization: Bearer sk-...`。_curl_fetch 的
+# `log(f"FETCH ERROR [{url}]: {e}")` 把它原样写进 news_update_log.txt——那是个
+# **被 git 跟踪并推送到公开仓库**的文件。2026-08-16 的 commit b81c7d9 就这样
+# 把 DeepSeek Key 推上了 GitHub，次日起账单暴涨（7 天 7474 万 token，是本项目
+# 正常用量的两百多倍），余额被烧成负数。
+# 脱敏放在 log() 而不是各个调用点：调用点有几十处，将来还会加，漏一处就前功尽弃。
+_SECRET_RE = re.compile(r'(sk-[A-Za-z0-9]{4})[A-Za-z0-9_\-]{8,}')
+
+
+def _redact(text: str) -> str:
+    text = _SECRET_RE.sub(r'\1***REDACTED***', text)
+    # 兜底：任何形式的 Authorization 头一律抹掉值，不依赖密钥长得像什么。
+    return re.sub(r'(Authorization:\s*Bearer\s+)\S+', r'\1***REDACTED***',
+                  text, flags=re.I)
+
+
 def log(msg: str) -> None:
+    msg = _redact(str(msg))
     ts   = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     line = f"[{ts}] {msg}"
     print(line, flush=True)
