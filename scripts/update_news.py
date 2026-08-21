@@ -357,6 +357,34 @@ _FOREX_DEALERS = {
     "money exchange", "forex company", "forex companies",
 }
 
+# 银行业审慎监管细则（2026-08-22 用户指定排除）。SBP 面向银行发的贷款成数、
+# 还款能力、抵押估值、期限这类操作性规则，属于金融行业内部规章，对电信没有
+# 传导。触发案例：`SBP Allows Banks to Finance Up to 90% of Property Value`、
+# `SBP extends housing loan tenor to 30 years`。
+# **要保留的是宏观环境**（政策利率、储备、通胀、汇率、经常账户），二者都挂
+# SBP 的名，靠这组词区分。
+# 用 `property value` 而不是裸 `property`：电信法路权新闻满篇 property owner
+# （`Govt Revises Telecom Bill to Require Property Owner's Consent`），裸词会
+# 误伤；虽然那些标题带 telecom 能被例外救回，但不该依赖第二道闸。
+_BANK_REGULATION = {
+    "housing finance", "housing loan", "home financing", "home loan",
+    "property value", "mortgage", "prudential regulation",
+    "consumer financing", "auto financing", "auto loan", "personal loan",
+    "loan-to-value", "debt burden ratio", "loan tenor", "financing tenor",
+}
+
+
+def _is_bank_regulation(t: str) -> bool:
+    """银行业审慎监管细则 → 丢弃；SBP 的宏观政策照收。
+
+    例外照旧是电信实体，所以 `Jazz International Completes Rs. 4.15 Billion
+    Acquisition of TPL Insurance` 这类电信企业的金融动作不受影响。
+    """
+    if not any(k in t for k in _BANK_REGULATION):
+        return False
+    return not any(kw in t for kw in _TELECOM_ENTITY)
+
+
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
     "pta", "telecom", "telco", "jazz", "zong", "ufone", "telenor", "ptcl",
@@ -477,6 +505,8 @@ def is_relevant(title: str) -> bool:
     if _is_finance_appointment(t):
         return False
     if _is_single_finance_firm_news(t, tw):
+        return False
+    if _is_bank_regulation(t):
         return False
     if _is_routine_fuel_price(t):
         return False
