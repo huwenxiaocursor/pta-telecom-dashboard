@@ -385,6 +385,41 @@ def _is_bank_regulation(t: str) -> bool:
     return not any(kw in t for kw in _TELECOM_ENTITY)
 
 
+# 事务性会议/活动（2026-08-22 用户指定排除）。触发案例：`SBP BSC, KP SIDB hold
+# meeting on 'SME Value Chain Financing'`——央行下属服务公司与省级小工业委员会
+# 开了个会，通篇"讨论了""表示赞赏""期待继续合作"，没有政策也没有数据，唯一的
+# 通行证是标题里的 `sbp` 整词。
+#
+# **这类词极度危险，必须双重豁免。** 库里 12 条含会议措辞的新闻，只有上面这 1 条
+# 该排除，其余全是核心内容：SBP 货币政策委员会（MPC）会议 4 条——政策利率就是在
+# 那里定的；PTA 与 Google/TikTok 的合作 2 条；PTA 5G 频谱拍卖信息备忘录 3 条。
+# 光按"meeting/workshop"排除会把这些全砍掉。
+_ADMIN_EVENT = {
+    "hold meeting", "holds meeting", "held meeting", "hold a meeting",
+    "meeting on", "meeting with", "workshop on", "seminar", "symposium",
+    "courtesy call", "delegation", "roundtable", "review meeting",
+}
+# SBP 口径下仍然要收的宏观核心议题。命中任一即豁免——这是第二道闸，专门保住
+# MPC/利率/储备/IMF 这类"形式是会议、实质是政策"的新闻。
+_MACRO_CORE = {
+    "monetary policy", "policy rate", "mpc", "interest rate", "imf",
+    "reserves", "inflation", "exchange rate", "current account",
+    "remittance", "gdp", "budget", "tax", "tariff", "deficit", "cpi",
+    "spectrum auction",
+}
+
+
+def _is_admin_event(t: str) -> bool:
+    """纯事务性的机构会议/活动 → 丢弃；有实质议题的照收。"""
+    if not any(k in t for k in _ADMIN_EVENT):
+        return False
+    if any(k in t for k in _TELECOM_ENTITY):      # 电信相关照收
+        return False
+    if any(k in t for k in _MACRO_CORE):          # 宏观核心议题照收
+        return False
+    return True
+
+
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
     "pta", "telecom", "telco", "jazz", "zong", "ufone", "telenor", "ptcl",
@@ -507,6 +542,8 @@ def is_relevant(title: str) -> bool:
     if _is_single_finance_firm_news(t, tw):
         return False
     if _is_bank_regulation(t):
+        return False
+    if _is_admin_event(t):
         return False
     if _is_routine_fuel_price(t):
         return False
