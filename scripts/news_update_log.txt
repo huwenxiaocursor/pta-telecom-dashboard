@@ -4095,3 +4095,50 @@ Call log:
 [2026-08-22 00:58:58]   Injected 349 items into index.html
 [2026-08-22 00:58:59] News update complete
 [2026-08-22 00:58:59] ==================================================
+[2026-08-22 09:30:04] ==================================================
+[2026-08-22 09:30:04] News update started
+[2026-08-22 09:30:04] Cache: 503 existing items
+[2026-08-22 09:30:06] Fetching PTA official [新闻稿] …
+[2026-08-22 09:30:17]   PTA official [新闻稿]: 4 items found
+[2026-08-22 09:30:17] Fetching PTA official [新闻/更新] …
+[2026-08-22 09:30:23]   PTA official [新闻/更新]: 0 items found
+[2026-08-22 09:30:23] Fetching PTA official [公告] …
+[2026-08-22 09:30:28]   PTA official [公告]: 0 items found
+[2026-08-22 09:30:29] Fetching Google News [PTA] …
+[2026-08-22 09:30:30]   Google News [PTA]: 15 items found（取最新 15 条）
+[2026-08-22 09:30:30]     非目标来源已跳过：PhoneWorld×11、Bloom Pakistan×2、Telecompaper×1、Profit by Pakistan Today×1、Minute Mirror×1、Pakistan Connect×1、ARYnews.tv×1、Daily Pakistan×1
+[2026-08-22 09:30:31] Fetching Google News [SBP] …
+[2026-08-22 09:30:33]   Google News [SBP]: 7 items found（取最新 7 条）
+[2026-08-22 09:30:33]     非目标来源已跳过：Mettis Global×4、Profit by Pakistan Today×3、The News Pakistan×1、MM News×1、Bloom Pakistan×1
+[2026-08-22 09:30:34] Fetching ProPakistani via WP REST API …
+[2026-08-22 09:30:37]   ProPakistani: 2 items found
+[2026-08-22 09:30:38] Fetching Dawn RSS …
+[2026-08-22 09:30:38]   Dawn: 2 items found
+[2026-08-22 09:30:40] Fetching Business Recorder RSS …
+[2026-08-22 09:30:40]   Business Recorder: 1 items found
+[2026-08-22 09:30:41] Fetching TechJuice via WP REST API …
+[2026-08-22 09:30:47]   TechJuice: 7 items found
+[2026-08-22 09:30:48] New items: 6
+[2026-08-22 09:30:48]   Summarising: PTA Delays Decision on Ufone–Telenor Merger Amid Spectrum Auction …
+[2026-08-22 09:30:58]     ! 日期不符：原标 2026-08-21，原文为 2026-03-11 → 以原文为准
+[2026-08-22 09:30:58]     ! 早于 2026-08-01，丢弃
+[2026-08-22 09:30:58]   Summarising: PTA Set to Announce Decision on Ufone-Telenor Merger on Wednesday …
+[2026-08-22 09:31:07]     ! 日期不符：原标 2026-08-21，原文为 2026-03-09 → 以原文为准
+[2026-08-22 09:31:07]     ! 早于 2026-08-01，丢弃
+[2026-08-22 09:31:07]   Summarising: Pakistan 5G Spectrum Auction Raises $507 Million as Jazz Leads, Ufone  …
+[2026-08-22 09:31:16]     ! 日期不符：原标 2026-08-21，原文为 2026-03-10 → 以原文为准
+[2026-08-22 09:31:16]     ! 早于 2026-08-01，丢弃
+[2026-08-22 09:31:16]   Summarising: A New Telecom Giant Just Emerged in Pakistan: e&amp; Pakistan …
+[2026-08-22 09:31:25]     ! 日期不符：原标 2026-08-19，原文为 2026-07-01 → 以原文为准
+[2026-08-22 09:31:25]     ! 早于 2026-08-01，丢弃
+[2026-08-22 09:31:25]   Summarising: Will SBP Issue Fresh Bank Notes for Eid ul Fitr 2026? State Bank Clari …
+[2026-08-22 09:31:34]     ! 日期不符：原标 2026-08-21，原文为 2026-03-04 → 以原文为准
+[2026-08-22 09:31:34]     ! 早于 2026-08-01，丢弃
+[2026-08-22 09:31:34]   Summarising: AI-ready data centre in Karachi: Zong seeks Sindh support for Tier-III …
+[2026-08-22 09:31:34]     ! 日期不符：原标 2026-08-22，原文为 2026-03-04 → 以原文为准
+[2026-08-22 09:31:34]     ! 早于 2026-08-01，丢弃
+[2026-08-22 09:31:34]   按原文日期丢弃过期条目 6 条
+[2026-08-22 09:31:34] Cache saved: 503 total items
+[2026-08-22 09:31:37]   Injected 349 items into index.html
+[2026-08-22 09:31:37] News update complete
+[2026-08-22 09:31:37] ==================================================
