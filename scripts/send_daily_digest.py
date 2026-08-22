@@ -25,7 +25,7 @@ NOTIFY_EMAIL = "huwenxiao@zong.com.pk"
 
 # 密送收件人名单（草稿只填密送栏，不填"收件人"栏）
 BCC_EMAILS = [
-    "huojunli@zong.com.pk",
+    # huojunli@zong.com.pk —— 2026-08-22 用户要求移出日报收件范围，勿再加回。
     "wangyong@zong.com.pk",
     "huangzhidong@zong.com.pk",
     "maoweiliang@zong.com.pk",
