@@ -460,6 +460,36 @@ def _is_phone_product(t: str, tw: str) -> bool:
     return not any(k in t for k in _PHONE_INDUSTRY)
 
 
+# 基层执法个案（2026-08-23 用户指定排除）。触发案例：`FIA Busts Copyright Ring,
+# Arrests Man Over Illegal Internet Service`——联邦调查局抓了三个人、查获设备，
+# 属于刑事个案，没有政策或行业层面的信息。
+#
+# **这一类的例外不能用 `_TELECOM_ENTITY`**（其他几类排除都用它）：上面那条标题里
+# 的 `Internet` 正好在该表中，用它豁免规则立刻失效。改判**主导方**——PTA、法院这
+# 些监管/司法主体出手才有行业意义，FIA 抓人没有。库里 13 条含执法措辞的新闻只有
+# 这 1 条该排除，其余全靠 `_ENFORCEMENT_AUTHORITY` 保住：`3 Arrested in PTA
+# Crackdown Against Illegal Sale of Telecom User Data`、`PTA Raids Illegal
+# Internet Service Providers in Gujrat`、`Court Transfers All Telenor Assets`…
+#
+# 动作词**必须整词匹配**：`bust` 是 ro-bust 的子串，`raid` 是 af-raid 的子串。
+_LAW_ENFORCEMENT_WB = {
+    "arrest", "arrests", "arrested", "bust", "busts", "busted",
+    "raid", "raids", "raided", "nabbed", "detained", "apprehended",
+}
+# 监管/司法主体——它们主导的行动照收。
+_ENFORCEMENT_AUTHORITY = {
+    "pta", "court", "lhc", "ihc", "supreme court", "tribunal", "ccp",
+    "nepra", "ogra", "senate", "national assembly", "regulator", "moitt",
+}
+
+
+def _is_petty_enforcement(t: str, tw: str) -> bool:
+    """基层执法个案（抓人/突击查处）→ 丢弃；监管机构与法院的行动照收。"""
+    if not any(_wb_hit(k, tw) for k in _LAW_ENFORCEMENT_WB):
+        return False
+    return not any(k in t for k in _ENFORCEMENT_AUTHORITY)
+
+
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
     "pta", "telecom", "telco", "jazz", "zong", "ufone", "telenor", "ptcl",
@@ -586,6 +616,8 @@ def is_relevant(title: str) -> bool:
     if _is_admin_event(t):
         return False
     if _is_phone_product(t, tw):
+        return False
+    if _is_petty_enforcement(t, tw):
         return False
     if _is_routine_fuel_price(t):
         return False
