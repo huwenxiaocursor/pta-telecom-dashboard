@@ -341,10 +341,13 @@ _STOCK_MARKET = {
     "market closes", "market ends", "index closes", "index ends",
     "index gains", "index sheds", "index loses", "trading session",
     "intraday trading", "stock market", "bearish trend", "bullish trend",
-    "investor sentiment",
+    "investor sentiment", "earnings season", "market outlook",
 }
 # 整词：bourse 单独成词就是"证券交易所"，无歧义。
-_STOCK_MARKET_WB = {"bourse", "bourses"}
+# `psx` 整词：出现在标题里几乎必是股市新闻，比逐个列举 psx closes/ends/
+# outlook/review 更省事也更全（2026-08-22 就是漏了 `PSX Outlook…` 才补的）。
+# 电信实体例外仍在，所以"某电信公司在 PSX 上市"之类不受影响。
+_STOCK_MARKET_WB = {"bourse", "bourses", "psx", "kse"}
 
 # 兑换公司/汇兑商（2026-08-19 用户指定排除）。SBP 吊销某家兑换公司牌照属于
 # 金融个体监管，与通信行业无关，而这类稿件 SBP 几乎每月都发、各家媒体齐发
@@ -418,6 +421,43 @@ def _is_admin_event(t: str) -> bool:
     if any(k in t for k in _MACRO_CORE):          # 宏观核心议题照收
         return False
     return True
+
+
+# 手机新品发布/参数评测（2026-08-22 用户指定排除）。触发案例：`Honor Turbo 5G
+# Launches With Over Three Day Battery and 6500 Nits OLED`（还是在俄罗斯发布的，
+# 与巴基斯坦无关）、`vivo V80 Lite 5G Launch Date Revealed With 10,000mAh Battery`。
+#
+# **品牌名必须整词匹配**——库里两条真实的反例证明了这一点：
+#   `Opposition MNA Wants First Telecom Tower…`  → 子串会命中 Opp-osi-tion 里的 oppo
+#   `JazzWorld Highlights…From Opportunity…`     → 命中 Opp-ortunity 里的 oppo
+_PHONE_BRANDS_WB = {
+    "honor", "vivo", "oppo", "xiaomi", "redmi", "samsung", "infinix",
+    "tecno", "itel", "realme", "iphone", "huawei", "nokia", "motorola",
+    "moto", "oneplus", "poco",
+}
+# 产品发布/参数措辞。**不能拿 _TELECOM_ENTITY 当例外**：手机新品标题几乎都带
+# 5G，用它做豁免等于这条规则完全失效。
+_PRODUCT_LAUNCH = {
+    "launch", "unveil", "goes official", "spec", "camera", "battery",
+    "display", "chipset", "price in pakistan", "hands-on", "review",
+    "key features", "release date", "mah", "oled", "amoled", "nits",
+}
+# 手机产业/政策议题——命中即视为有价值，不走排除。制造、进口、税收、市场份额
+# 这些才是看板要的，产品参数不是。
+_PHONE_INDUSTRY = {
+    "manufactur", "production", "assembl", "plant", "facilit", "import",
+    "export", "tax", "duty", "tariff", "policy", "market share", "sales",
+    "regulat", "ban ", "block", "smuggl", "dirbs", "imei",
+}
+
+
+def _is_phone_product(t: str, tw: str) -> bool:
+    """手机新品发布/参数评测 → 丢弃；手机产业与政策新闻照收。"""
+    if not any(_wb_hit(b, tw) for b in _PHONE_BRANDS_WB):
+        return False
+    if not any(k in t for k in _PRODUCT_LAUNCH):
+        return False
+    return not any(k in t for k in _PHONE_INDUSTRY)
 
 
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
@@ -544,6 +584,8 @@ def is_relevant(title: str) -> bool:
     if _is_bank_regulation(t):
         return False
     if _is_admin_event(t):
+        return False
+    if _is_phone_product(t, tw):
         return False
     if _is_routine_fuel_price(t):
         return False
