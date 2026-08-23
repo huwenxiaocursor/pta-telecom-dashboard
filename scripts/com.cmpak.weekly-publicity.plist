@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>Label</key>
+    <string>com.cmpak.weekly-publicity</string>
+
+    <key>ProgramArguments</key>
+    <array>
+        <string>/bin/bash</string>
+        <string>/Users/huwenxiao/Downloads/For Claude/pta-telecom-dashboard/scripts/run_weekly_publicity.sh</string>
+    </array>
+
+    <!-- 每周四 15:00 触发（Weekday 4 = 周四）。按本机时区，与其他任务同理：
+         人在巴基斯坦时即 15:00 PKT；Mac 切到北京时间后会变成 15:00 CST。 -->
+    <key>StartCalendarInterval</key>
+    <dict>
+        <key>Weekday</key>
+        <integer>4</integer>
+        <key>Hour</key>
+        <integer>15</integer>
+        <key>Minute</key>
+        <integer>0</integer>
+    </dict>
+
+    <key>RunAtLoad</key>
+    <false/>
+
+    <key>StandardOutPath</key>
+    <string>/tmp/weekly_publicity.log</string>
+    <key>StandardErrorPath</key>
+    <string>/tmp/weekly_publicity_error.log</string>
+</dict>
+</plist>

@@ -211,7 +211,8 @@ Google News RSS 的链接是 **JS 跳转中转页**，`domcontentloaded` 时 bod
 | Zong 套餐清单全量刷新 | 每两个月（1/3/5/7/9/11月）10日 10:00 PKT | GitHub Actions `.github/workflows/update_zong.yml`（`update-zong` job，独立 workflow 因 cron 不同） |
 | 新闻抓取 + 摘要 + commit/push | 每天 09:30 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-news-fetch.plist` → `scripts/run_news_fetch.sh` |
 | 手动补跑（抓新闻 + 日报草稿，一步到位） | 人工触发 | 双击 `抓新闻并发邮件.command`，或 `./scripts/run_manual.sh [日期] [--no-mail]` |
-| 启停上面两个定时任务 | 人工触发 | `./scripts/schedule.sh {on\|off\|status}` |
+| 周四宣传信息填报提醒（收件 ramis.ali / saira.maroof，抄送 saira.mirza，只存草稿） | 每周四 15:00 PKT | 本地 macOS launchd `scripts/com.cmpak.weekly-publicity.plist` → `scripts/run_weekly_publicity.sh` → `weekly_publicity_reminder.py` |
+| 启停上面两个新闻任务 | 人工触发 | `./scripts/schedule.sh {on\|off\|status}`（周四那个任务只在 status 里列出，**不随 on/off 启停**——它与新闻无关，去国内也照发） |
 | 日报图片邮件草稿（T-1 日新闻，密送多人，人工确认后手动发送） | 每天 10:10 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-digest.plist` → `scripts/run_digest.sh` |
 
 > `update-industry` 与 `update-macro` 是同一个 workflow 文件里的两个独立 job，共用同一个 cron，但各自独立 `git add`/`commit`/`push`/建 Issue/发邮件，互不影响、互不阻塞——一个失败不影响另一个正常更新，出问题时也能立刻定位是哪个页面的脚本挂了。两个 job 都在推送前 `git pull --rebase`，避免并发写 `main` 冲突。
