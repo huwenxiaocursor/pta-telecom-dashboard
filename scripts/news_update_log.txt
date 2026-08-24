@@ -4370,3 +4370,45 @@ Call log:
 [2026-08-23 10:38:47]   Injected 349 items into index.html
 [2026-08-23 10:38:47] News update complete
 [2026-08-23 10:38:47] ==================================================
+[2026-08-24 09:34:46] ==================================================
+[2026-08-24 09:34:46] News update started
+[2026-08-24 09:34:46] Cache: 505 existing items
+[2026-08-24 09:34:51] Fetching PTA official [新闻稿] …
+[2026-08-24 09:34:52]   PTA 官网 [新闻稿] 抓取失败：Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.pta.gov.pk/category/press-releases
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/press-releases", waiting until "networkidle"
+
+[2026-08-24 09:34:52] Fetching PTA official [新闻/更新] …
+[2026-08-24 09:34:52]   PTA 官网 [新闻/更新] 抓取失败：Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.pta.gov.pk/category/news-updates
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/news-updates", waiting until "networkidle"
+
+[2026-08-24 09:34:52] Fetching PTA official [公告] …
+[2026-08-24 09:34:52]   PTA 官网 [公告] 抓取失败：Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.pta.gov.pk/category/public-notices
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/public-notices", waiting until "networkidle"
+
+[2026-08-24 09:34:53] Fetching Google News [PTA] …
+[2026-08-24 09:34:55]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-24 09:34:56] Fetching Google News [SBP] …
+[2026-08-24 09:34:57]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-08-24 09:34:59] Fetching ProPakistani via WP REST API …
+[2026-08-24 09:34:59]   FETCH ERROR [https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-08-01T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: propakistani.pk
+[2026-08-24 09:34:59]   ProPakistani: 0 items found
+[2026-08-24 09:35:00] Fetching Dawn RSS …
+[2026-08-24 09:35:00]   FETCH ERROR [https://www.dawn.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.dawn.com
+[2026-08-24 09:35:00]   Dawn: 0 items found
+[2026-08-24 09:35:01] Fetching Business Recorder RSS …
+[2026-08-24 09:35:01]   FETCH ERROR [https://www.brecorder.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.brecorder.com
+[2026-08-24 09:35:01]   Business Recorder: 0 items found
+[2026-08-24 09:35:02] Fetching TechJuice via WP REST API …
+[2026-08-24 09:35:02]   FETCH ERROR [https://www.techjuice.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-08-01T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-08-24 09:35:02]   TechJuice: 0 items found
+[2026-08-24 09:35:04] New items: 0
+[2026-08-24 09:35:04]   !! 抓取异常[network]：全部来源均无法连接（6 次网络错误：DNS 解析/连接/超时），抓取时本机无网络。**这不是当天没有新闻**，联网后补跑即可找回。
+[2026-08-24 09:35:04]   !! 无产出的来源：fetch_pta_official, fetch_pta, fetch_sbp, fetch_propakistani, fetch_dawn, fetch_business_recorder, fetch_techjuice
+[2026-08-24 09:35:04] Cache saved: 505 total items
+[2026-08-24 09:35:04]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-08-24 09:35:04]   Injected 351 items into index.html
+[2026-08-24 09:35:04] News update complete
+[2026-08-24 09:35:04] ==================================================
