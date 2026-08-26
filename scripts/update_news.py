@@ -490,6 +490,30 @@ def _is_petty_enforcement(t: str, tw: str) -> bool:
     return not any(k in t for k in _ENFORCEMENT_AUTHORITY)
 
 
+# 纸币印制/发行（2026-08-26 用户指定排除）。触发案例：`SBP Considers Ending
+# Rs. 10 Note`、`SBP Reveals Real Reason Behind Delay in New Currency Notes`
+# ——央行的现钞业务（面额存废、印制排期、防伪设计、假币），与电信和宏观走势
+# 都无关。这类稿一出各家齐发，8-25 一天库里就攒了 7 条。
+#
+# **要保住的是货币金融指标**：汇率、政策利率、通胀、外汇储备。所以关键词一律
+# 带 note/banknote/coin 限定，**绝不能只写 `currency`**——`currency
+# depreciation`、`currency-to-deposit ratio` 都是宏观内容。
+_CURRENCY_NOTE = {
+    "currency note", "banknote", "bank note", "fresh note",
+    "counterfeit", "denomination", "printing press", "coin replacement",
+    "note to disappear",
+}
+# "Rs. 10 Note" / "Rs10 Note" 这种写法没有固定短语可匹配，用正则兜住金额+note。
+_CURRENCY_NOTE_RE = re.compile(r"\brs\.?\s*\d+\s+note")
+
+
+def _is_currency_note(t: str) -> bool:
+    """纸币面额/印制/防伪 → 丢弃；货币金融指标照收。"""
+    if not (any(k in t for k in _CURRENCY_NOTE) or _CURRENCY_NOTE_RE.search(t)):
+        return False
+    return not any(kw in t for kw in _TELECOM_ENTITY)
+
+
 # 判断"这条人事新闻是不是电信口的"——命中任一即视为电信相关，不走排除。
 _TELECOM_ENTITY = {
     "pta", "telecom", "telco", "jazz", "zong", "ufone", "telenor", "ptcl",
@@ -618,6 +642,8 @@ def is_relevant(title: str) -> bool:
     if _is_phone_product(t, tw):
         return False
     if _is_petty_enforcement(t, tw):
+        return False
+    if _is_currency_note(t):
         return False
     if _is_routine_fuel_price(t):
         return False

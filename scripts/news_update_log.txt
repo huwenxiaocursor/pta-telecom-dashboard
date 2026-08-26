@@ -4569,3 +4569,66 @@ Call log:
 [2026-08-26 09:37:08]   Injected 364 items into index.html
 [2026-08-26 09:37:09] News update complete
 [2026-08-26 09:37:09] ==================================================
+[2026-08-26 10:20:58] ==================================================
+[2026-08-26 10:20:58] News update started
+[2026-08-26 10:20:58] Cache: 526 existing items
+[2026-08-26 10:21:00] Fetching PTA official [新闻稿] …
+[2026-08-26 10:21:08]   PTA official [新闻稿]: 6 items found
+[2026-08-26 10:21:08] Fetching PTA official [新闻/更新] …
+[2026-08-26 10:21:14]   PTA official [新闻/更新]: 0 items found
+[2026-08-26 10:21:14] Fetching PTA official [公告] …
+[2026-08-26 10:21:20]   PTA official [公告]: 0 items found
+[2026-08-26 10:21:21] Fetching Google News [PTA] …
+[2026-08-26 10:21:23]   Google News [PTA]: 26 items found（取最新 20 条）
+[2026-08-26 10:21:23]     非目标来源已跳过：PhoneWorld×7、UrduPoint×2、Mshale×1、Pakistan Connect×1、NewzTodays×1、Pkrevenue.com×1、Hamariweb.com×1、Bloom Pakistan×1
+[2026-08-26 10:21:24] Fetching Google News [SBP] …
+[2026-08-26 10:21:26]   Google News [SBP]: 5 items found（取最新 5 条）
+[2026-08-26 10:21:26]     非目标来源已跳过：The News Pakistan×3、Profit by Pakistan Today×2、Mettis Global×1
+[2026-08-26 10:21:27] Fetching ProPakistani via WP REST API …
+[2026-08-26 10:21:31]   ProPakistani: 2 items found
+[2026-08-26 10:21:32] Fetching Dawn RSS …
+[2026-08-26 10:21:32]   Dawn: 0 items found
+[2026-08-26 10:21:33] Fetching Business Recorder RSS …
+[2026-08-26 10:21:34]   Business Recorder: 0 items found
+[2026-08-26 10:21:35] Fetching TechJuice via WP REST API …
+[2026-08-26 10:21:39]   TechJuice: 4 items found
+[2026-08-26 10:21:40] New items: 11
+[2026-08-26 10:21:40]   Summarising: PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape …
+[2026-08-26 10:21:52]     ! 日期不符：原标 2026-08-25，原文为 2026-03-19 → 以原文为准
+[2026-08-26 10:21:52]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:21:52]   Summarising: PTA Delays Decision on Ufone–Telenor Merger Amid Spectrum Auction …
+[2026-08-26 10:22:03]     ! 日期不符：原标 2026-08-25，原文为 2026-03-11 → 以原文为准
+[2026-08-26 10:22:03]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:22:03]   Summarising: Pakistan 5G Spectrum Auction Raises $507 Million as Jazz Leads, Ufone  …
+[2026-08-26 10:22:15]     ! 日期不符：原标 2026-08-25，原文为 2026-03-10 → 以原文为准
+[2026-08-26 10:22:15]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:22:15]   Summarising: Telenor Pakistan to Cease Operations as Separate Entity Following Merg …
+[2026-08-26 10:22:26]     ! 日期不符：原标 2026-08-24，原文为 2026-02-17 → 以原文为准
+[2026-08-26 10:22:26]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:22:26]   Summarising: PTA Set to Announce Decision on Ufone-Telenor Merger on Wednesday …
+[2026-08-26 10:22:37]     ! 日期不符：原标 2026-08-24，原文为 2026-03-09 → 以原文为准
+[2026-08-26 10:22:37]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:22:37]   Summarising: LIVE: Second Phase of 5G Spectrum Auction Completed, Results Awaited …
+[2026-08-26 10:22:48]     ! 日期不符：原标 2026-08-24，原文为 2026-03-12 → 以原文为准
+[2026-08-26 10:22:48]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:22:48]   Summarising: PTA Report Shows Mixed Mobile Internet Experience Across Pakistan …
+[2026-08-26 10:22:59]     ! 日期不符：原标 2026-08-22，原文为 2026-02-10 → 以原文为准
+[2026-08-26 10:22:59]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:22:59]   Summarising: Long-Awaited 5G Moment Arrives as Pakistan Prepares for Spectrum Aucti …
+[2026-08-26 10:23:10]     ! 日期不符：原标 2026-08-22，原文为 2026-03-10 → 以原文为准
+[2026-08-26 10:23:10]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:23:10]   Summarising: A New Telecom Giant Just Emerged in Pakistan: e&amp; Pakistan …
+[2026-08-26 10:23:22]     ! 日期不符：原标 2026-08-21，原文为 2026-07-01 → 以原文为准
+[2026-08-26 10:23:22]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:23:22]   Summarising: Pakistan 5G Launch: Existing Data Packages Likely to Continue Initiall …
+[2026-08-26 10:23:33]     ! 日期不符：原标 2026-08-21，原文为 2026-07-16 → 以原文为准
+[2026-08-26 10:23:33]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:23:33]   Summarising: Tax on Imported Mobile Phones Can Now Be Paid in Installments from Jul …
+[2026-08-26 10:23:46]     ! 日期不符：原标 2026-08-21，原文为 2026-06-29 → 以原文为准
+[2026-08-26 10:23:46]     ! 早于 2026-08-01，丢弃
+[2026-08-26 10:23:46]   按原文日期丢弃过期条目 11 条
+[2026-08-26 10:23:46] Cache saved: 526 total items
+[2026-08-26 10:23:48]   Dedup: 组内实体不连通，拆成 2 组 — PTA Phone Installment Plans Still  ‖ Local Mobile Phone Assembly Jumps /Pakistan’s Mobile Phone Market Gro
+[2026-08-26 10:23:48]   Injected 361 items into index.html
+[2026-08-26 10:23:48] News update complete
+[2026-08-26 10:23:48] ==================================================
