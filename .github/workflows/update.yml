@@ -27,9 +27,18 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 逐个暂存：**文件存在**就暂存改动，**已被脚本删除但仍被跟踪**也要暂存这次删除。
+          # 原来写的是 `[ -f "$f" ] && git add "$f"`，漏掉后一种情况——2026-07-10 起
+          # update-industry 连续 4 次失败（exit 128）就是它：QoS 无新 PDF 时脚本会
+          # unlink qos_update_needed.txt，`[ -f ]` 判假、add 被跳过，删除留在工作区
+          # 未暂存，紧接着的 git pull --rebase 直接罢工
+          # （"cannot pull with rebase: You have unstaged changes"）。
           for f in industry_index.html scripts/history_monthly.json scripts/update_log.txt \
-                   scripts/known_qos_pdfs.json scripts/qos_update_needed.txt; do
-            [ -f "$f" ] && git add "$f"
+                   scripts/known_qos_pdfs.json scripts/qos_update_needed.txt \
+                   scripts/known_operators.json scripts/operators_changed_needed.txt; do
+            if [ -f "$f" ] || git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
+              git add -A -- "$f"
+            fi
           done
           if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
@@ -105,9 +114,17 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
+          # 逐个暂存：**文件存在**就暂存改动，**已被脚本删除但仍被跟踪**也要暂存这次删除。
+          # 原来写的是 `[ -f "$f" ] && git add "$f"`，漏掉后一种情况——2026-07-10 起
+          # update-industry 连续 4 次失败（exit 128）就是它：QoS 无新 PDF 时脚本会
+          # unlink qos_update_needed.txt，`[ -f ]` 判假、add 被跳过，删除留在工作区
+          # 未暂存，紧接着的 git pull --rebase 直接罢工
+          # （"cannot pull with rebase: You have unstaged changes"）。
           for f in macro_index.html scripts/macro_history.json scripts/macro_update_log.txt \
                    scripts/macro_known_fy.json scripts/macro_gdp_update_needed.txt; do
-            [ -f "$f" ] && git add "$f"
+            if [ -f "$f" ] || git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
+              git add -A -- "$f"
+            fi
           done
           if git diff --cached --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
