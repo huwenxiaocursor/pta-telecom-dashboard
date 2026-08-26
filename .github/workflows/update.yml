@@ -44,8 +44,25 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "PTA data refresh $(date -u +%Y-%m-%d)"
-            git pull --rebase origin main
-            git push
+            # 推送带重试：本 workflow 的两个 job 并行执行、各自独立推送 main，
+            # pull --rebase 与 push 之间存在时间窗，另一个 job 抢先推送就会被拒
+            # （remote rejected: cannot lock ref 'refs/heads/main'）。
+            # 2026-08-26 修好 update-industry 后这个竞态第一次暴露——此前 industry
+            # 总在 pull 那步就挂了，从没真正并发推送过。
+            # 刻意不用 needs: 串行化：两个 job 独立是有意设计（一个挂不影响另一个）。
+            pushed=false
+            for i in 1 2 3; do
+              if git pull --rebase origin main && git push; then
+                pushed=true; break
+              fi
+              echo "推送被拒（可能与另一个 job 并发），重试 $i/3 …"
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 5))
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::重试 3 次后仍推送失败"
+              exit 1
+            fi
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
@@ -130,8 +147,25 @@ jobs:
             echo "changed=false" >> $GITHUB_OUTPUT
           else
             git commit -m "Macro data refresh $(date -u +%Y-%m-%d)"
-            git pull --rebase origin main
-            git push
+            # 推送带重试：本 workflow 的两个 job 并行执行、各自独立推送 main，
+            # pull --rebase 与 push 之间存在时间窗，另一个 job 抢先推送就会被拒
+            # （remote rejected: cannot lock ref 'refs/heads/main'）。
+            # 2026-08-26 修好 update-industry 后这个竞态第一次暴露——此前 industry
+            # 总在 pull 那步就挂了，从没真正并发推送过。
+            # 刻意不用 needs: 串行化：两个 job 独立是有意设计（一个挂不影响另一个）。
+            pushed=false
+            for i in 1 2 3; do
+              if git pull --rebase origin main && git push; then
+                pushed=true; break
+              fi
+              echo "推送被拒（可能与另一个 job 并发），重试 $i/3 …"
+              git rebase --abort 2>/dev/null || true
+              sleep $((i * 5))
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::重试 3 次后仍推送失败"
+              exit 1
+            fi
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
