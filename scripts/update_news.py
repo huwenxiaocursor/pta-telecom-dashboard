@@ -2042,6 +2042,39 @@ def main() -> None:
 
     log(f"New items: {len(new_items)}")
 
+    # 同日同标题去重（2026-08-30 加）：同一篇文章会以**两个不同 URL** 进来——
+    # Google News 的 /rss/articles/ 中转链接和发布方直链，甚至两个不同的 Google
+    # News token 指向同一篇（实测 "SBP reports 20pc decline in FY26 profit"）。
+    # 入库主键是 URL，于是它们各自成条：清理前全库 569 条里有 59 组同日同标题
+    # 重复、多余 74 条（13%）。后果有三层，最后一层最隐蔽：
+    #   1. 每条重复都白烧一次 summarize()；
+    #   2. 中转页是 JS 跳转壳子，正文抓取常降级 title-only，摘要更短更差
+    #      （实测中转均长 382 字 vs 直链 417 字，最悬殊的一对 163 vs 406）；
+    #   3. 重复条目会把 entity_overlap_groups() 里的文档频率 df 撑大，本该"稀有"
+    #      的词因此超过 ENTITY_RARE_DF_MAX 而失去去重能力——**重复越多越抓不住
+    #      重复**，会自我恶化。
+    # 保留直链那条。**不要改用调整 fetchers 顺序来解决**：两个 Google News 源
+    # (fetch_pta / fetch_sbp) 排在直链源前面是刻意的，先入库的官方条目要当
+    # mark_duplicates 的保留条，动顺序会牵连那边的取舍。
+    def _dup_key(it: dict) -> tuple:
+        return (it.get("date", "")[:10],
+                re.sub(r"[^a-z0-9]", "", it.get("title", "").lower()))
+
+    _cached_keys = {_dup_key(i) for i in cache}
+    _best: dict = {}
+    for _it in new_items:
+        _k    = _dup_key(_it)
+        _prev = _best.get(_k)
+        # 直链优先；两条同为直链或同为中转时保留先到的（沿用 fetchers 顺序的取舍）
+        if _prev is None or ("news.google.com" in _prev.get("url", "")
+                             and "news.google.com" not in _it.get("url", "")):
+            _best[_k] = _it            # dict 保序：替换值不改变首次插入的位置
+    _resolved = [v for k, v in _best.items() if k not in _cached_keys]
+    if len(_resolved) != len(new_items):
+        log(f"  同日同标题去重: {len(new_items)} → {len(_resolved)} 条"
+            f"（省下 {len(new_items) - len(_resolved)} 次摘要调用）")
+    new_items = _resolved
+
     # Re-summarise cached items that have an empty summary_zh (unrelated to the
     # importance tag — old cached items without "importance" are left as-is;
     # the display sort just treats a missing tag as "中" via .get() fallback)

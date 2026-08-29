@@ -4910,3 +4910,17 @@ Call log:
 [2026-08-29 10:21:37]   Injected 377 items into index.html
 [2026-08-29 10:21:37] News update complete
 [2026-08-29 10:21:37] ==================================================
+[2026-08-29 22:31:43]   Dedup: kept report+rebuttal apart — Mobile tariffs up 22% over past year, PTA rejects claims of  | PTA admits mobile tariffs rose up to 22% over past year | PTA Confirms Up to 22% Increase in Mobile Tariffs Over the P | PTA Confirms Up to 22% Increase in Mobile Tariffs Over the P | PTA admits mobile tariffs rose up to 22% over past year
+[2026-08-29 22:31:45]   Dedup: kept report+rebuttal apart — Mobile tariffs up 22% over past year, PTA rejects claims of  | PTA admits mobile tariffs rose up to 22% over past year | PTA Confirms Up to 22% Increase in Mobile Tariffs Over the P | PTA Confirms Up to 22% Increase in Mobile Tariffs Over the P | PTA admits mobile tariffs rose up to 22% over past year
+[2026-08-29 22:31:46]   Dedup: kept report+rebuttal apart — Mobile tariffs up 22% over past year, PTA rejects claims of  | PTA admits mobile tariffs rose up to 22% over past year | PTA Confirms Up to 22% Increase in Mobile Tariffs Over the P | PTA Confirms Up to 22% Increase in Mobile Tariffs Over the P | PTA admits mobile tariffs rose up to 22% over past year
+[2026-08-30 00:07:04] ==================================================
+[2026-08-30 00:07:04] News update started
+[2026-08-30 00:07:04] Cache: 495 existing items
+[2026-08-30 00:07:11] New items: 0
+[2026-08-30 00:07:11]   !! 抓取异常[sources]：网络正常（0 次请求成功）但所有来源均返回 0 条，可能当天确实无新稿，也可能某站改版导致解析失效，建议人工核对
+[2026-08-30 00:07:11]   !! 无产出的来源：<lambda>
+[2026-08-30 00:07:11] Cache saved: 495 total items
+[2026-08-30 00:07:11]   Cross-source dedup: tagged 1 duplicate-event item(s) with dup_of
+[2026-08-30 00:07:13]   Injected 376 items into index.html
+[2026-08-30 00:07:13] News update complete
+[2026-08-30 00:07:13] ==================================================
