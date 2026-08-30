@@ -626,6 +626,39 @@ def _is_minor_operator_only(t: str, tw: str) -> bool:
     return not any(kw in t for kw in _MAJOR_PLAYERS)
 
 
+# 境外/通用的网络安全漏洞与研究报告（2026-08-30 用户指定排除）。触发案例：
+# `Mobile Networks Expose IMEI and Phone Data to Attackers: Report`——德国公共
+# 广播 BR 的调查，实测对象是 Telekom 和 Telefónica O2 的德国网络，与巴基斯坦
+# 毫无关系。它靠 `mobile network` 命中 _TELECOM_SUB 进来，而**标题里既没有国家
+# 名也没有巴基斯坦标识**，所以既有的地域校验那道闸根本没触发（那道闸只在出现
+# 外国词时才要求 _PK_MARKERS）——德国背景只写在正文里。
+#
+# 例外是 _PK_MARKERS（不是 _TELECOM_ENTITY）：本地安全事件要收——PTA 通报运营商
+# 漏洞、NADRA 数据泄露这类是监管议题。用电信实体当例外在这里会失效，因为这类
+# 标题几乎必然带 mobile/network/phone 等词。
+#
+# **不要改用"标题必须点名巴基斯坦"一刀切**：实测全库 499 条里有 86 条（17%）
+# 标题不含任何巴基斯坦标识，其中包括《Govt To Introduce New Telecom Bill》
+# 《OGRA Announces Huge Decrease in LNG Prices》《MoITT to Introduce Fresh
+# Telecom Bill》这些核心新闻，一刀切会把它们一起砍掉。
+#
+# 关键词一律用复合短语（同 _GEO_MACRO 的教训）：裸 `exploit` 会误伤
+# "exploit the opportunity"，裸 `report` 更是满篇都是。
+_SECURITY_RESEARCH = {
+    "to attackers", "data breach", "security flaw", "security vulnerability",
+    "cyberattack", "cyber attack", "cyber-attack", "zero-day", "malware",
+    "spyware", "phishing", "ransomware", "data leak", "exposed data",
+    "privacy flaw", "hackers",
+}
+
+
+def _is_security_research(t: str) -> bool:
+    """境外/通用的安全漏洞研究报告 → 丢弃；带巴基斯坦标识的本地安全事件照收。"""
+    if not any(k in t for k in _SECURITY_RESEARCH):
+        return False
+    return not any(m in t for m in _PK_MARKERS)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -644,6 +677,8 @@ def is_relevant(title: str) -> bool:
     if _is_petty_enforcement(t, tw):
         return False
     if _is_currency_note(t):
+        return False
+    if _is_security_research(t):
         return False
     if _is_routine_fuel_price(t):
         return False

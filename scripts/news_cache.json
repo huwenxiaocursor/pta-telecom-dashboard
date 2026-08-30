@@ -98,14 +98,6 @@
   },
   {
     "source": "TechJuice",
-    "title": "Mobile Networks Expose IMEI and Phone Data to Attackers: Report",
-    "url": "https://www.techjuice.pk/mobile-networks-expose-imei-and-phone-data-to-attackers-report/",
-    "date": "2026-08-28",
-    "summary_zh": "据Cybernews报道，德国公共广播公司巴伐利亚广播公司（BR）的一项调查发现，移动网络存在漏洞，在特定网络配置下，来电可在接听前暴露手机的【15位IMEI号码】、设备型号和操作系统版本。研究人员在德国主要移动网络进行了【超过70次测试通话】，确认了该问题，其中涉及Telekom和Telefónica的O2网络的跨网通话中发现了IMEI暴露，某些情况下还观察到设备型号和操作系统信息。该漏洞与部分VoLTE网络处理呼叫建立信息的方式有关，技术数据可能在连接过程中被传输，接收者无需接听即可泄露信息。调查结果公布后，全球移动通信系统协会（GSMA）警告【超过1000家移动网络运营商】审查其系统，并从呼叫信令中移除不必要的设备信息，同时向运营商和技术供应商提供了解决指南。仅IMEI暴露不会自动让攻击者控制手机，但设备型号和操作系统版本等信息可能帮助攻击者识别潜在目标和漏洞。德国联邦宪法保护办公室将此问题归类为安全相关，德国运营商已采取措施解决，但GSMA的全球警报敦促其他运营商检查其网络是否存在类似配置。该报告强调，移动网络基础设施本身可能在用户无操作的情况下暴露智能手机的技术信息。",
-    "importance": "中"
-  },
-  {
-    "source": "TechJuice",
     "title": "OGRA Slashes LNG Prices by Nearly 28 Percent",
     "url": "https://www.techjuice.pk/ogra-slashes-lng-prices-by-nearly-28-percent/",
     "date": "2026-08-28",
