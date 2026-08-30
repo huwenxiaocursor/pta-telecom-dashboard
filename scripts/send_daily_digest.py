@@ -232,6 +232,42 @@ def save_draft_via_apple_mail(img_path: str, subject: str, body: str) -> None:
         print(f"  AppleScript 错误：{result.stderr.strip()}", file=sys.stderr)
         sys.exit(1)
     print(f"  邮件草稿已保存到 Mail 的草稿箱，密送 {len(BCC_EMAILS)} 人，待手动确认发送")
+    check_draft_priority(subject)
+
+
+def check_draft_priority(subject: str) -> None:
+    """建完草稿回读一次邮件头，确认优先级是普通（即没有 X-Priority / Importance）。
+
+    脚本**无法主动设置优先级**：Mail 的 AppleScript 里 outgoing message 只有
+    sender/subject/visible/id/html content/vcard path 六个属性，没有 priority。
+    草稿的优先级完全继承自 Mail 撰写窗口上次用的设置——用户哪天手动把某封邮件
+    设成"低优先级"，之后脚本建的草稿就全跟着变低，而且悄无声息。
+
+    真实情况（2026-08-30 查）：已发出的 53 封日报全部无优先级字段（＝普通），
+    但 8-06 建的那封日报草稿是 X-Priority: 5（最低），同期手动回复的周报草稿
+    也是 Importance: low —— 说明这个设置确实会飘。既然改不了，至少要能发现。
+
+    发现异常只告警不阻断：草稿已经建好了，值得提醒但不值得让整个日报流程失败。
+    """
+    script = (
+        'tell application "Mail"\n'
+        f'  set msgs to (messages of drafts mailbox whose subject is "{subject}")\n'
+        '  if (count of msgs) = 0 then return ""\n'
+        '  return all headers of (item 1 of msgs)\n'
+        'end tell'
+    )
+    try:
+        r = subprocess.run(["osascript", "-e", script],
+                           capture_output=True, text=True, timeout=20)
+        headers = r.stdout or ""
+    except Exception:
+        return                      # 读不到就算了，不影响主流程
+    bad = [ln.strip() for ln in headers.splitlines()
+           if ln.lower().startswith(("x-priority", "importance:", "priority:"))]
+    if bad:
+        print(f"  ⚠ 该草稿带优先级标记：{'; '.join(bad)}", file=sys.stderr)
+        print("    脚本无法改优先级，请在草稿的撰写窗口把优先级改回「普通」——"
+              "Mail 会记住，之后新建的草稿就正常了。", file=sys.stderr)
 
 
 def save_notice_via_apple_mail(subject: str, body: str) -> None:
