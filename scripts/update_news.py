@@ -1419,6 +1419,29 @@ def fetch_techjuice() -> list:
 
 # ─── DeepSeek Summary ─────────────────────────────────────────────────────────
 
+# 英文金额单位→中文单位的换算规则（2026-08-30 加）。真实事故：TechJuice
+# 《PTA Slaps Telecom Operators With Rs. 4.19B Fine》一条里，凡是换算成"万"的
+# 都对（9.5/30/29.4 million → 950万/3000万/2940万），凡是换算成"亿"的全错——
+# 模型把英文数字原样搬过来直接缀个"亿"：
+#     Rs 4.19 billion   → 写成 419亿（应为 41.9亿），放大 10 倍
+#     Rs 551.35 million → 写成 551亿（应为 5.51亿），放大 100 倍
+#     Rs 537.75 million → 写成 537.75亿（应为 5.38亿），放大 100 倍
+# 结果摘要里出现"罚款419亿、实际只收回551亿"——收回比罚款还多的荒唐结论，
+# 而这恰恰是最容易被读者当真的那种错误（数字精确、句子通顺）。
+#
+# 末尾那句量级自查是刻意加的：单位换算错误几乎总会在同一段里留下自相矛盾的
+# 痕迹（收回 > 罚款、分项之和 >> 总额），让模型回头核一遍比只给换算表有效。
+_UNIT_RULE = (
+    "【金额单位换算】英文金额单位必须换算成中文单位，**绝不能把英文数字原样"
+    "照搬后缀上'亿'**：1 million = 100万 = 0.01亿；1 billion = 10亿；"
+    "1 trillion = 1万亿。示例：Rs 4.19 billion → 41.9亿卢比（不是419亿）；"
+    "Rs 551.35 million → 5.51亿卢比（不是551亿）；$800 million → 8亿美元；"
+    "Rs 30 million → 3000万卢比。"
+    "换算完请自查量级是否自洽：若出现'罚款X亿、收回却大于X'、"
+    "'分项之和远超总额'这类矛盾，说明换算错了，必须改正后再输出。"
+)
+
+
 def summarize(title: str, url: str, article_text: str = "") -> dict:
     """Returns {"summary_zh": str, "importance": "高"|"中"|"低"}.
     On any failure (no key, HTTP error, bad JSON) returns empty summary and
@@ -1438,6 +1461,7 @@ def summarize(title: str, url: str, article_text: str = "") -> dict:
         grounding = (
             "下面提供了这条新闻的正文节选，请严格根据正文内容撰写摘要和判断重要性，"
             "正文中没有的具体数字、百分比、日期、人名一律不得编造。"
+            + _UNIT_RULE
         )
         user_content = f"标题：{title}\n来源：{url}\n\n正文节选：\n{article_text}"
     else:
@@ -1449,6 +1473,7 @@ def summarize(title: str, url: str, article_text: str = "") -> dict:
             # 所以在这一分支再重申一次，宁可写短也不要靠评价补足篇幅。
             "信息不足时宁可把摘要写短，也不得用影响分析、重要性判断或"
             "〔属于常规活动〕〔未涉及业务调整〕这类评述性句子填充篇幅。"
+            + _UNIT_RULE
         )
         user_content = f"标题：{title}\n来源：{url}"
 
