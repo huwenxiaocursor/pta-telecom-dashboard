@@ -11,13 +11,13 @@
         <string>/Users/huwenxiao/Downloads/For Claude/pta-telecom-dashboard/scripts/run_news_fetch.sh</string>
     </array>
 
-    <!-- 每天 09:30 PKT 抓取新闻、生成摘要、commit+push 到 GitHub，供 10:10 digest 使用 -->
+    <!-- 每天 09:00 PKT 抓取新闻、生成摘要、commit+push 到 GitHub，供 10:10 digest 使用 -->
     <key>StartCalendarInterval</key>
     <dict>
         <key>Hour</key>
         <integer>9</integer>
         <key>Minute</key>
-        <integer>30</integer>
+        <integer>0</integer>
     </dict>
 
     <key>RunAtLoad</key>

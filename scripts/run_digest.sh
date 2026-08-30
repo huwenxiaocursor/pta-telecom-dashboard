@@ -1,6 +1,6 @@
 #!/bin/bash
 # 每日自动执行：生成图片 → 发送 T-1 邮件
-# 由 launchd 在每天 10:10 PKT 自动触发（新闻已由 09:30 的 fetch 任务抓好）
+# 由 launchd 在每天 10:10 PKT 自动触发（新闻已由 09:00 的 fetch 任务抓好）
 
 PROJECT="/Users/huwenxiao/Downloads/For Claude/pta-telecom-dashboard"
 LOG="/tmp/telecom_digest.log"

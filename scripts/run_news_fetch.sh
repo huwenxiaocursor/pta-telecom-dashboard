@@ -1,5 +1,5 @@
 #!/bin/bash
-# 每天 09:30 PKT 自动触发：抓取新闻 → 生成摘要 → commit + push 到 GitHub
+# 每天 09:00 PKT 自动触发：抓取新闻 → 生成摘要 → commit + push 到 GitHub
 # 由 launchd com.cmpak.telecom-news-fetch 调度
 
 PROJECT="/Users/huwenxiao/Downloads/For Claude/pta-telecom-dashboard"
