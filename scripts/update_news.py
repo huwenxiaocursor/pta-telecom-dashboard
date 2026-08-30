@@ -659,6 +659,56 @@ def _is_security_research(t: str) -> bool:
     return not any(m in t for m in _PK_MARKERS)
 
 
+# 例行金融市场消息（2026-08-30 用户指定排除）：**只要重大波动/重大事件，
+# 不要日常操作**。两个触发案例：
+#   · `SBP injects over Rs12.24 trillion in market` —— 央行每周例行的公开市场
+#     操作（逆回购注入流动性），各家齐发，纯市场管道信息；
+#   · `IMF review: Pakistan expected to meet all targets, says AHL` —— 券商
+#     Arif Habib 的研报观点，不是 IMF 的官方动作。
+#
+# **要保住的是宏观指标本身**：政策利率、外汇储备、汇率、通胀、IMF 实际批款。
+# 实测这些均不受影响（SBP Cuts Policy Rate / Forex Reserves Hit Record High /
+# Rupee Plunges to All-Time Low / IMF Approves $1.2 Billion Tranche 全部保留）。
+#
+# **`kibor` 试过但已移除**：它会把 `KIBOR Rates Suddenly Fall in Pakistan`
+# 一起砍掉，而基准利率的异动正是用户要保留的"重大波动"。同理不能写裸
+# `injects`（"Jazz injects Rs5bn into network"是投资新闻）——一律用复合短语。
+_ROUTINE_MONEY_MKT = {
+    "open market operation", "reverse repo", "liquidity injection",
+    "injects rs", "injects over rs", "injection of rs", "injects over",
+    "market injection", "mop-up", "mops up",
+    "t-bill", "treasury bills", "cut-off yield", "bond auction",
+}
+_ROUTINE_MONEY_MKT_WB = {"omo", "omos"}
+
+# 券商/分析机构的预测与评论（相对于官方或监管的实际动作）。
+_BROKER_COMMENT = {
+    "arif habib", "topline securities", "js global", "optimus capital",
+    "insight securities", "foundation securities", "intermarket securities",
+    "akd securities", "bma capital", "brokerage house", "research house",
+    "analysts expect", "analysts say", "analysts believe", "says ahl",
+}
+_BROKER_COMMENT_WB = {"ahl"}
+
+# 豁免：标题写明是异常波动/重大事件时放行——这正是用户要留的那一类。
+_MAJOR_MOVE = {
+    "record", "emergency", "crisis", "unprecedented", "highest ever",
+    "lowest ever", "plunge", "crash", "slump", "all-time",
+    "sharp fall", "sharp rise", "suddenly",
+}
+
+
+def _is_routine_market_news(t: str, tw: str) -> bool:
+    """例行公开市场操作与券商评论 → 丢弃；标题点明重大波动的照收。"""
+    hit = (any(k in t for k in _ROUTINE_MONEY_MKT)
+           or any(_wb_hit(k, tw) for k in _ROUTINE_MONEY_MKT_WB)
+           or any(k in t for k in _BROKER_COMMENT)
+           or any(_wb_hit(k, tw) for k in _BROKER_COMMENT_WB))
+    if not hit:
+        return False
+    return not any(m in t for m in _MAJOR_MOVE)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -679,6 +729,8 @@ def is_relevant(title: str) -> bool:
     if _is_currency_note(t):
         return False
     if _is_security_research(t):
+        return False
+    if _is_routine_market_news(t, tw):
         return False
     if _is_routine_fuel_price(t):
         return False
