@@ -1,6 +1,5 @@
 #!/bin/bash
 # 启停新闻相关的两个 launchd 定时任务（抓新闻 09:00、日报 10:10）。
-# 周四的宣传信息提醒只在 status 里列出，不随 on/off 启停（见 WEEKLY_LABELS）。
 #
 #   ./scripts/schedule.sh status   # 看当前状态
 #   ./scripts/schedule.sh off      # 停掉自动任务，改用 run_manual.sh 手动跑（去国内时用）
@@ -12,10 +11,6 @@
 
 set -u
 LABELS=("com.cmpak.telecom-news-fetch" "com.cmpak.telecom-digest")
-# 只在 status 里列出、**不受 on/off 管辖**的任务。周四的宣传信息提醒与新闻
-# 无关，去国内也照发不误，没有理由跟着新闻任务一起停；但 status 要能看到它，
-# 否则"我到底还有哪些定时任务"这个问题得去翻 LaunchAgents 目录。
-WEEKLY_LABELS=("com.cmpak.weekly-publicity")
 AGENTS="$HOME/Library/LaunchAgents"
 
 usage() { echo "用法：$0 {on|off|status}"; exit 1; }
@@ -29,18 +24,6 @@ case "$1" in
             HH=$(plutil -extract StartCalendarInterval.Hour   raw "$AGENTS/$L.plist" 2>/dev/null)
             MM=$(plutil -extract StartCalendarInterval.Minute raw "$AGENTS/$L.plist" 2>/dev/null)
             printf "  %-32s 已启用   每天 %02d:%02d（本机时区 %s）\n" "$L" "${HH:-?}" "${MM:-?}" "$(date +%Z)"
-        else
-            printf "  %-32s 已停用\n" "$L"
-        fi
-    done
-    for L in "${WEEKLY_LABELS[@]}"; do
-        if launchctl list | grep -q "$L"; then
-            WD=$(plutil -extract StartCalendarInterval.Weekday raw "$AGENTS/$L.plist" 2>/dev/null)
-            HH=$(plutil -extract StartCalendarInterval.Hour    raw "$AGENTS/$L.plist" 2>/dev/null)
-            MM=$(plutil -extract StartCalendarInterval.Minute  raw "$AGENTS/$L.plist" 2>/dev/null)
-            DAYS=(日 一 二 三 四 五 六)
-            printf "  %-32s 已启用   每周%s %02d:%02d（不受 on/off 管辖）\n" \
-                   "$L" "${DAYS[${WD:-0}]}" "${HH:-?}" "${MM:-?}"
         else
             printf "  %-32s 已停用\n" "$L"
         fi

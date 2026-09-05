@@ -211,8 +211,7 @@ Google News RSS 的链接是 **JS 跳转中转页**，`domcontentloaded` 时 bod
 | Zong 套餐清单全量刷新 | 每两个月（1/3/5/7/9/11月）10日 10:00 PKT | GitHub Actions `.github/workflows/update_zong.yml`（`update-zong` job，独立 workflow 因 cron 不同） |
 | 新闻抓取 + 摘要 + commit/push | 每天 09:00 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-news-fetch.plist` → `scripts/run_news_fetch.sh` |
 | 手动补跑（抓新闻 + 日报草稿，一步到位） | 人工触发 | 双击 `抓新闻并发邮件.command`，或 `./scripts/run_manual.sh [日期] [--no-mail]` |
-| 周四宣传信息填报提醒（收件 ramis.ali / saira.maroof，抄送 saira.mirza，只存草稿） | 每周四 15:00 PKT | 本地 macOS launchd `scripts/com.cmpak.weekly-publicity.plist` → `scripts/run_weekly_publicity.sh` → `weekly_publicity_reminder.py` |
-| 启停上面两个新闻任务 | 人工触发 | `./scripts/schedule.sh {on\|off\|status}`（周四那个任务只在 status 里列出，**不随 on/off 启停**——它与新闻无关，去国内也照发） |
+| 启停上面两个新闻任务 | 人工触发 | `./scripts/schedule.sh {on\|off\|status}` |
 | 日报图片邮件草稿（T-1 日新闻，密送多人，人工确认后手动发送） | 每天 10:10 PKT | 本地 macOS launchd `scripts/com.cmpak.telecom-digest.plist` → `scripts/run_digest.sh` |
 
 > **抓新闻从 09:30 提前到 09:00（2026-08-30）**：日报任务固定 10:10 触发，而抓取耗时不固定——正常 3 分钟，8-29 那轮新闻多、摘要生成慢，跑了 **49 分钟**（09:32:55 → 10:21:37），日报 10:17:38 开跑时页面还没被重写，**读到的是前一天的旧内容**，那天 8-28 只有 1 条，于是发出去的日报就只有 1 条。两个任务之间的富余从 40 分钟拉到 70 分钟。**这只是缓解，不是根治**——真正的修法是让 `send_daily_digest.py` 先确认当轮抓取已完成（比如检查 `news_update_log.txt` 里当天的 "News update complete"，或加一个完成标记文件）再读页面，否则哪天抓取超过 70 分钟还会重演。
