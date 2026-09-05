@@ -709,6 +709,55 @@ def _is_routine_market_news(t: str, tw: str) -> bool:
     return not any(m in t for m in _MAJOR_MOVE)
 
 
+# 中小企业融资 / 反洗钱 / 机构回应社媒帖子（2026-09-06 用户指定排除）：
+# 与通信无关的就不收。三个触发案例都靠 _TELECOM_WB 里的 `sbp` 整词混进来——
+# 跟已有的"银行审慎监管""机构会议""纸币印制"是同一个口子：
+#   · `SMEDA, SBP explore cluster-based lending for SMEs` —— 中小企业发展局与
+#     央行的融资研讨会，与通信无关；
+#   · `SBP Rejects FATF Report Linking RAAST to Money Laundering` 及其次日的
+#     `SBP reacts to social media post` —— 同一事件，央行否认 Raast 支付系统
+#     涉洗钱。
+#
+# 第三组关键词（_SOCIAL_REACTION）是为第二个案例补的：`SBP reacts to social
+# media post` 这个标题里**既没有"洗钱"也没有任何实质内容**，洗钱只写在正文里，
+# 而 is_relevant() 只看得到标题——跟境外安全漏洞那条（德国 IMEI）栽的是同一个
+# 跟头。能抓住它的只有"机构回应社媒帖子"这个标题形态本身，它本来也属于低信息量
+# 稿件。
+#
+# 例外统一是 _TELECOM_ENTITY：`PTCL to acquire Easypaisa from Telenor
+# Microfinance Bank` 这类电信企业的金融动作照收，`PTA reacts to social media
+# post about internet shutdown` 这类监管回应也照收。
+_SME_FINANCE = {
+    "smeda", "small and medium enterprise", "small & medium",
+    "cottage industry", "sme financing", "sme lending", "sme sector",
+}
+_SME_FINANCE_WB = {"sme", "smes"}
+# 注意：`grey list` 也收在这里。FATF 灰名单对巴基斯坦的国际融资环境确有影响，
+# 但用户明确"洗钱这类不要"，故一并排除；若日后要保留灰名单新闻，把这两个词
+# 单独摘出来即可。
+_ANTI_LAUNDERING = {
+    "money laundering", "money-laundering", "laundering", "fatf",
+    "financial action task force", "terror financing", "terrorist financing",
+    "illicit finance", "aml/cft", "grey list", "greylist",
+}
+_SOCIAL_REACTION = {
+    "reacts to social media", "responds to social media",
+    "reaction to social media", "clarifies social media",
+    "rejects social media", "social media post",
+}
+
+
+def _is_sme_or_aml(t: str, tw: str) -> bool:
+    """中小企业融资 / 反洗钱 / 机构回应社媒帖子 → 丢弃；涉电信实体的照收。"""
+    hit = (any(k in t for k in _SME_FINANCE)
+           or any(_wb_hit(k, tw) for k in _SME_FINANCE_WB)
+           or any(k in t for k in _ANTI_LAUNDERING)
+           or any(k in t for k in _SOCIAL_REACTION))
+    if not hit:
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -731,6 +780,8 @@ def is_relevant(title: str) -> bool:
     if _is_security_research(t):
         return False
     if _is_routine_market_news(t, tw):
+        return False
+    if _is_sme_or_aml(t, tw):
         return False
     if _is_routine_fuel_price(t):
         return False

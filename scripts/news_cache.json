@@ -1,14 +1,6 @@
 [
   {
     "source": "ProPakistani",
-    "title": "SBP Rejects FATF Report Linking RAAST to Money Laundering in Pakistan",
-    "url": "https://propakistani.pk/2026/09/04/sbp-rejects-fatf-report-linking-raast-to-money-laundering-in-pakistan/",
-    "date": "2026-09-04",
-    "summary_zh": "巴基斯坦国家银行（SBP）驳斥了金融行动特别工作组（FATF）一份报告中将Raast支付网络与洗钱活动相关联的说法。SBP表示，该报告并未对巴基斯坦即时支付系统的完整性提出任何担忧。此前，FATF与经合组织（OECD）的联合实况调查报告（第35页）指出，一个在阿曼和巴基斯坦之间运营的哈瓦拉网络利用包括Raast在内的数字支付渠道进行国内转账，并提及Raast因低汇款费用而被利用。SBP认为，报告并未将Raast认定为洗钱机制，也未对其支付基础设施的完整性提出具体关切，任何将Raast本身与洗钱相关联的解读都是对报告内容的曲解。监管机构强调，Raast仅作为合法的国内支付渠道被提及，目前不支持跨境转账。",
-    "importance": "中"
-  },
-  {
-    "source": "ProPakistani",
     "title": "OGRA Increases Producer Gas Prices for Remaining 2026",
     "url": "https://propakistani.pk/2026/09/04/ogra-increases-producer-gas-prices-for-remaining-2026/",
     "date": "2026-09-04",
@@ -30,22 +22,6 @@
     "date": "2026-09-04",
     "summary_zh": "巴基斯坦政府正考虑在SIM卡发放中引入面部和虹膜识别，因当局承认现有基于指纹的生物识别系统已过时且易受数据窃取攻击。内政国务部长Tallal Chaudhry在国民议会委员会上表示，尽管过去两年半已封锁【1820万张非法SIM卡】，但现有系统未能完全防止身份和金融欺诈。PTA主席Hafeezur Rehman称，诈骗者从机场、驾照中心、护照办公室甚至可能从NADRA获取指纹，导致SIM发放的生物识别系统被绕过。NCCIA主任Irfanullah Khan表示，犯罪分子利用系统漏洞，该机构已查获195张活跃SIM卡和81张ATM卡，并突击检查110处设施，封锁2.9万张非法SIM卡，逮捕171名嫌疑人，追回60万人的数据。Chaudhry还对租用或“骡子”银行账户洗钱表示担忧，呼吁电信公司与PTA协调加强安全。PTA主席提议仅通过NADRA的PAKID系统发放SIM，SBP官员建议将每张SIM与单一IMEI号关联。委员会指示内政部召集SBP、PTA、NCCIA和电信运营商制定立法、监管和技术措施。",
     "importance": "高"
-  },
-  {
-    "source": "BusinessRecorder",
-    "title": "SMEDA, SBP explore cluster-based lending for SMEs",
-    "url": "https://www.brecorder.com/news/40438042/smeda-sbp-explore-cluster-based-lending-for-smes",
-    "date": "2026-09-05",
-    "summary_zh": "巴基斯坦中小企业发展管理局（SMEDA）与巴基斯坦国家银行（SBP）合作举办了一场关于集群式贷款研究的研讨会，旨在探索扩大中小企业融资机会的可行途径。SMEDA首席执行官Nadia Jahangir Seth强调，需将研究转化为金融机构可商业化的贷款机会，使银行能针对不同企业集群制定更合适的融资方案。SBP部门负责人Muhammad Saleem发表了主旨演讲。SMEDA总经理Raja Hassanien Javaid表示，截至2026年6月，【中小企业融资同比增长30.5%】，从6910亿卢比增至9016亿卢比，借款企业数量增长15.18%至318,585家。他援引2023年经济普查称，巴基斯坦约有【714万家经济实体】，中小企业贡献约【40%的GDP】和30%的出口，并提供了超过80%的非农业就业。研讨会还讨论了中小企业信用评分服务模式，SMEDA正据此开发标准化信用风险评估模型，该模型已通过巴基斯坦银行协会在参与银行中测试，拟作为金融机构的补充评估工具。",
-    "importance": "中"
-  },
-  {
-    "source": "BusinessRecorder",
-    "title": "SBP reacts to social media post",
-    "url": "https://www.brecorder.com/news/40437983/sbp-reacts-to-social-media-post",
-    "date": "2026-09-05",
-    "summary_zh": "巴基斯坦国家银行（SBP）就社交媒体上一条误导性标题作出回应，该标题暗示金融行动特别工作组（FATF）已将【Raast支付系统】认定为洗钱渠道。SBP澄清，FATF报告既未将Raast列为洗钱机制，也未对其支付基础设施的完整性提出任何具体关切。报告仅讨论地下银行和哈瓦拉网络在各国及司法管辖区可能滥用正规银行和支付渠道的情况，而【Raast仅作为合法国内支付渠道】被提及，用于国内支付和转账，目前【不提供跨境转账服务】。SBP表示，任何暗示Raast涉洗钱的表述均歪曲了报告背景和结论，并重申其致力于维护巴基斯坦支付系统完整性，持续监控并依据国际标准强化保障措施。",
-    "importance": "中"
   },
   {
     "source": "TechJuice",
