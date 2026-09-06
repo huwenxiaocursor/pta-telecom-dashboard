@@ -1,5 +1,30 @@
 [
   {
+    "source": "TechJuice",
+    "title": "PTA Grants Conditional Approval for Ufone-Telenor Rebranding",
+    "url": "https://www.techjuice.pk/pta-grants-conditional-approval-for-ufone-telenor-rebranding/",
+    "date": "2026-09-05",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已正式【有条件批准Ufone与Telenor合并后的品牌重塑】。此次合并由Pak Telecom Mobile Limited（PTML）管理，其批准与完成所有法律手续挂钩，PTML须在满足条件后正式通知PTA，方可开展新品牌下的商业或促销活动。此前该品牌重塑因法律和公司治理问题多次延迟。有传言称9月15日将举行发布活动，但PTA消息人士表示对此不知情。合并后的实体整合了频谱、网络和用户基础，目前【服务用户超过7400万】。PTML提议放弃原有Ufone和Telenor品牌，采用全球品牌“e&”，但最终品牌名称尚未公开确认，也未公布用户过渡计划。",
+    "importance": "高",
+    "dup_of": "https://propakistani.pk/2026/09/04/pta-gives-conditional-approval-for-ufone-telenor-rebranding/"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Blocks 18.2 Million Illegal SIMs, Fines Operators Rs4.2 Billion",
+    "url": "https://www.techjuice.pk/pta-blocks-18-2-million-illegal-sims-fines-operators-rs4-2-billion/",
+    "date": "2026-09-04",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在打击非法SIM卡的行动中，已屏蔽1820万张非法SIM卡，并对移动运营商处以总计42亿卢比的罚款。PTA与运营商合作推出新管控措施，包括将SIM销售设备地理围栏限制在指定销售点100米范围内，增强活体指纹检测以阻止使用纸质、硅胶和尼龙制成的假指纹，限制每台设备最多两名用户，禁止午夜至凌晨6点销售SIM卡，并将SIM卡弃用期从60天延长至365天。2024年1月至2026年8月期间，PTA在巴基斯坦40个城市进行了90次突击检查，查获超过29346张SIM卡、234台生物识别设备和60.2万份纸质数字指纹，逮捕134人。另与国际SIM卡行动中，与网络犯罪调查局合作进行25次突袭，逮捕37人，查获8000多张国际SIM卡。被屏蔽的SIM卡中，790万张通过模式识别，210万张属于阿富汗ACC/POR卡持有者，820万张与注销、扣押、已故或过期CNIC相关。PTA向运营商发出48份通知，下达39项处罚令，Ufone被罚18.7亿卢比，Jazz被罚13.6亿卢比，Zong被罚5.8亿卢比，Telenor被罚3.9亿卢比。伊斯兰堡高等法院和电信法庭已批准暂缓执行这些处罚。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Introduces Facial Verification for SIM Cards in Major Fraud Crackdown",
+    "url": "https://www.techjuice.pk/pta-introduces-facial-verification-for-sim-cards-in-major-fraud-crackdown/",
+    "date": "2026-09-04",
+    "summary_zh": "巴基斯坦电信管理局（PTA）正发起新一轮打击电信欺诈行动，将对所有现有用户及新购SIM卡用户引入【面部识别验证】，作为生物识别验证的额外层级，以加强用户身份识别与认证，减少移动连接被滥用。此外，PTA计划对SIM卡销售渠道实施【集中式黑名单系统】，以便对违规零售商和网点采取更严格措施，并考虑合理化销售渠道以加强管控。同时，监管机构正在强化补办SIM卡流程，防止未经授权的发放和非法使用。此前在2025年7月至2026年6月期间，PTA已采取重大行动，包括【屏蔽768个移动号码和707个IMEI】，将11个CNIC列入黑名单，并向2497名用户发出正式警告。这些最新执法措施表明，PTA正将管控重点直接放在SIM卡发行和销售阶段，以遏制非法活动并强化整体用户验证机制。",
+    "importance": "中"
+  },
+  {
     "source": "ProPakistani",
     "title": "OGRA Increases Producer Gas Prices for Remaining 2026",
     "url": "https://propakistani.pk/2026/09/04/ogra-increases-producer-gas-prices-for-remaining-2026/",
