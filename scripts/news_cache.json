@@ -1,5 +1,143 @@
 [
   {
+    "source": "PTA",
+    "title": "Implementation of Telecom Equipment Standards Regulations",
+    "url": "https://www.pta.gov.pk/category/implementation-of-telecom-equipment-standards-regulations-1149711125-2026-09-09",
+    "date": "2026-09-08",
+    "summary_zh": "巴基斯坦电信管理局（PTA）依据1996年《巴基斯坦电信（重组）法》第28条，并经联邦政府批准，于2026年9月8日在伊斯兰堡通过《巴基斯坦政府公报》【以S.R.O. 1110(I)/2026号通知】发布《2024年电信设备标准条例》。该条例适用于PTA所有持牌人、电信设备制造商和进口商，经与进口商、持牌人、制造商、供应商及行业代表广泛磋商后制定，为不同类别电信设备确立标准与测试要求，旨在促进全球兼容性、互操作性、更高服务标准、本地制造和国民经济增长。所有本地制造、进口或在网络中部署的电信设备，均须符合电磁兼容（EMC）、射频（RF）、健康与安全等规定技术标准，【进口、部署或运营使用前必须取得PTA合规证书（CoC）】。PTA表示致力于技术进步和稳健、有竞争力的电信生态系统，条例副本可在PTA网站查阅。",
+    "importance": "中"
+  },
+  {
+    "source": "PTA",
+    "title": "Awareness Session on Internet Services Licensing Held in Karachi",
+    "url": "https://www.pta.gov.pk/category/awareness-session-on-internet-services-licensing-held-in-karachi-131181349-2026-09-09",
+    "date": "2026-09-05",
+    "summary_zh": "巴基斯坦电信管理局（PTA）与全巴基斯坦网络协会合作，于2026年9月5日在卡拉奇举办了一场关于【按区发放CVAS牌照】的宣贯会，旨在为运营商提供牌照与监管事务指导，并促进其与PTA的有效沟通。协会主席、会长、秘书长、财务秘书及信息秘书对PTA官员、运营商及其他利益相关方的配合表示感谢，并重申协会将继续协助持牌会员解决所遇问题。此前在萨戈达曾举办过类似宣贯会，并获得参与者积极反馈。PTA通讯总监Zaib Un Nisa发布了这一消息。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Can Now Conduct Surprise Inspections of Telecom Equipment",
+    "url": "https://propakistani.pk/2026/09/10/pta-can-now-conduct-surprise-inspections-of-telecom-equipment/",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦电信管理局（PTA）依据新颁布的《2024年电信设备标准条例》，现可【无需事先通知即对电信设备相关场所进行突击检查】。该条例经SRO 1110(I)/2026号法定监管令、依据1996年《巴基斯坦电信（重组）法》第28条发布。PTA授权官员可前往持牌人、制造商和进口商场所，检查进口、制造或组装的电信设备是否符合技术、安全和性能标准，并可要求企业提供相关记录文件。检查范围涵盖移动设备、基站、无线系统、卫星通信设备、光设备及其他电信基础设施。条例要求相关方配合检查、提供所需信息，并【至少保存三年设备最新记录】以备查验。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Explains How to Block/Unblock Lost/Stolen Phones",
+    "url": "https://propakistani.pk/2026/09/10/pta-explains-how-to-block-unblock-lost-stolen-phones/",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦电信管理局（PTA）说明了用户如何通过其【丢失与被盗设备系统（LSDS）】对遗失、被盗或被抢手机进行封锁，以及设备找回后的解锁流程。投诉可通过PTA投诉管理系统的安卓和iOS应用或在线投诉门户提交。申请人须提供本人姓名、父亲姓名、CNIC号码、城市、过去六个月内该手机使用的手机号、IMEI号、手机品牌、型号和颜色，以及事发原因、地点和日期；邮箱、邮寄地址和FIR编号为可选项。所用SIM卡须登记在投诉人CNIC名下，且手机须曾使用过巴基斯坦SIM卡，否则无法受理。OTP将发送至该手机所用SIM卡。对于PTA批准的双IMEI手机，封锁一个IMEI会自动封锁第二个。用户也可拨打PTA热线0800-55055或前往就近PTA办公室办理。封锁后该手机在巴基斯坦任何移动网络上均无法使用。PTA澄清LSDS仅封锁设备，不负责找回手机，找回须联系警方或公民-警察联络委员会。设备找回后，仅原投诉人可凭原投诉参考号和CNIC申请解锁，核实后IMEI预计在【24小时内】解锁。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "NA Panel Slams PTA and Telecom Firms Over Nationwide Mobile Service Failures",
+    "url": "https://www.techjuice.pk/na-panel-slams-pta-and-telecom-firms-over-nationwide-mobile-service-failures/",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦国民议会信息技术与电信常设委员会在主席Syed Aminul Haq主持下，听取巴基斯坦电信管理局（PTA）汇报，官员承认全国移动与互联网服务仍不可靠，且对表现不佳运营商的执法力度有限，过去六个月仅发出【四份说明理由通知】，而多年累计为48份通知和22封警告信。已收罚款合计【6890万卢比】，远低于PTA可施加的【3.5亿卢比】最高罚款上限。Aminul Haq称执法不足令用户日常受挫，打电话常需拨三次才能接通。委员Ahmed Atiq称全国【70%地区】受服务问题影响，后又有委员认为实际可能高达90%；Dr Mahesh Kumar称Ufone网络几乎无法运行，Shazia Fareed称最大公立医院PIMS也无法可靠通话，Dr Zulfiqar Bhutti称萨戈达一所大学向PTCL付费却未获服务。IT秘书Zarar Hashim指设备老旧是原因之一，并称已与K-Electric成立联合委员会保护移动基站免遭停电影响。委员会最终传唤Jazz、Zong和Ufone出席，指示PTA起草立法建议，并同意成立小组委员会监督与监管机构协调。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "NA IT Committee Confronts FBR &amp; PTA Over Mobile Phone Tax Installment Plans",
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQU3ZaRzUxNzlQeURIRThaTTB1Z2FMQTNCbUtjTFptendCSTQ0YUtpQ2J3N3ZLQ0pvbHdpMGR6U2VvRlZhVWE3dWFqT0I0YTJleFJzcVB3TXJYSzctV0N1amQ1MUxGVTBYS0pIcVBldHg1ci16NGFBUE1LMUFaa0hkXzRTblF1Rm9FTlNGTUZhWjFkbVZaWTRuZTMzRWdNOTgz?oc=5",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦国民议会信息技术与电信常设委员会近日开会讨论【手机税分期缴纳计划迟迟未落地】问题。委员会成员阿里·卡西姆·吉拉尼称，他推动实现了近期手机税下调，但消费者仍需可行的分期缴税渠道。他表示，联邦税务局（FBR）将责任推给巴基斯坦电信管理局（PTA），声称PTA拥有管理分期的系统；PTA方面则强烈否认，澄清该机构【既不征收也不代收税款】，无从为不经手的资金设立分期机制。信息技术部秘书承认对此事完全不知情，承诺咨询PTA主席后向委员会汇报。委员会主席宣布该计划为【最高优先事项】，要求信息技术与电信部及PTA在下一次会议上准备全面简报。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Tightens Rules for Telecom Equipment Imports and Deployment",
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPb2hhX0xhcjBEN3F0bFpHYU5kd21SRzVOY2lmOS12WnV1QlpLakdSUGg1MjBMUGRJcTZnWW9qVE5ET2dOZEM0eDVqaGs2NmctbVB2WmZKVk55WmIwMmtCNXFoUTFyRzd4dEtIa0REN21udEdSa0xreU9UcHRLQTQ0YXhrZi1saEJFNFpGbnZud29iWEhfT1dyc0hfWllnclRO0gGmAUFVX3lxTE9OcnBkaTVVWHlRYXlzbkdPYmhZM3BSQ2FIUnpKamxNSk5Jb2V3OUNSdEZkU05sdzgtOFBoOG1ONEZOb1JOY182OER4Um5UMG54c2ZiaEhtLUNzSTU2c1hOeWh2eXo1Qzg2WVNzYzdwXzVvLXpfRFI2Ylk1eE4wYXFkUko1dWJUWi1kVEtabjNWWno3azI0dmNQcVU0WDZfblVIT3pBcEE?oc=5",
+    "date": "2026-09-09",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年9月9日发布消息称，已依据《电信设备标准条例》强制要求电信设备在进口、部署或投入运营前必须取得【合格证书（CoC）】。该规定适用于本地制造、进口及部署于电信网络的设备，覆盖所有PTA持牌人、制造商和进口商，相关条例由联邦政府依据1996年《巴基斯坦电信（重组）法》第28条批准。PTA表示，设备须符合电磁兼容、射频、健康安全等技术标准，该框架经与进口商、持牌运营商、制造商及供应商协商制定，旨在确保设备的【全球兼容性与互操作性】，提升服务水平并支持本地制造与经济增长。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "WhatsApp Crackdown: PTA Targets Inactive SIM-Linked Accounts",
+    "url": "https://www.techjuice.pk/whatsapp-crackdown-pta-targets-inactive-sim-linked-accounts/",
+    "date": "2026-09-09",
+    "summary_zh": "巴基斯坦电信管理局（PTA）正准备封禁以【已停用、注销或不再使用】的SIM卡注册的WhatsApp账号，以遏制与该通讯平台相关的诈骗活动。监管机构表示，休眠手机号正日益被用于运营实施诈骗及其他非法活动的WhatsApp账号，因此决定将此类账号从网络中切断。PTA已指示电信运营商核实WhatsApp账号是否仍绑定当前有效且活跃的号码，并警告【执法可能不再另行通知】即启动。用户被告知检查其SIM卡状态，若号码已失效需尽快处理。已更换手机号码者被建议立即使用平台内置的换号功能更新WhatsApp账号，而非等待账号受影响。PTA称及时更新可让用户持续掌控账号，并降低封禁生效后失去访问权限的风险。该机构将此举措定位为消费者保护措施，旨在【堵住被弃用号码上欺诈账号】得以不被察觉运营的漏洞。",
+    "importance": "中"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "PTA notifies telecom equipment standards regulations",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE40QWQtdmVWU2ZmVEVsUE1HY0ZzUEMtR3hWNjJKNERiT2RwV1pPNjVWV05lVWZxMEZDOWsyUTM4eC1DZmlwRTRibTdwdVFYQzlo0gFWQVVfeXFMTS1EYTRjaXFydDZWT21TR0RvZGRwYWxxTWZlYkpCVVlTS1dVR3Zzbm9jTlR4M3BXRzg5bDd3NTVOXzhwcTVvSU0zaFdrdUx5ZzNBcE8tOXc?oc=5",
+    "date": "2026-09-08",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于9月8日发布声明称，已正式通知《2024年电信设备标准条例》，要求在该国制造、进口或部署的电信设备必须符合规定的技术标准。该条例依据《1996年巴基斯坦电信（重组）法》第28条制定，经联邦政府批准后以S.R.O. 1110(I)/2026号在《巴基斯坦政府公报》上公布，适用于所有PTA持牌人及电信设备制造商和进口商。新框架要求设备满足电磁兼容性、射频、健康与安全等适用技术规范，进口、部署或投入运营前必须取得PTA签发的【合规证书（CoC）】。条例在征求进口商、持牌人、制造商、供应商及行业代表意见后制定，PTA表示该框架旨在推动合规。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Reveals Massive SIM Fraud Network in NA Committee Briefing",
+    "url": "https://news.google.com/rss/articles/CBMikgFBVV95cUxPRkVmRGtvdUxOUzdoZTkyYlNOSVJ4ekl5YkJjQ3c5cjNBUGxOYXc3eXB5TGQ5Mnc1emthSExFdlR6em41bjE1S3dvcVFva2l1UlpYdGFLR280ckdyTkt6T3B6RkU2Wi1vRGtaUTdfRmhNa0Z0QnVndUJBTVkwMU9KalF4V2l1U3hfSU5VMzAycVBkUQ?oc=5",
+    "date": "2026-09-05",
+    "summary_zh": "巴基斯坦电信管理局（PTA）主席在周四向国民议会内政事务常设委员会通报，国家网络犯罪调查局（NCCIA）与PTA联合开展突袭行动，已【追回60万人的生物识别数据】。该数据涉及一个大规模SIM卡欺诈网络，PTA主席在议会委员会简报中披露了这一情况。报道未提及涉案运营商名称、具体案发地点、行动时间跨度及后续处罚措施等细节。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP to Get Bank Data Access Under New Centralized Digital System",
+    "url": "https://propakistani.pk/2026/09/10/sbp-to-get-bank-data-access-under-new-centralized-digital-system/",
+    "date": "2026-09-10",
+    "summary_zh": "根据对《2001年所得税条例》的修订，巴基斯坦国家银行（SBP）将获准建立并运营一个包含银行信息和金融交易的集中式数字系统。新插入的第165AB条规定，银行和电子货币机构须以电子方式上传账户持有人信息，条件是其在【一个报告期内存款或取款超过1亿卢比】。数据将通过自动化系统处理，用于交叉核对银行与税务信息。修订案明确，在初步交叉核对阶段，税务部门不可见这些信息；仅当出现【重大不匹配】时，才会移交联邦税务局合规风险管理系统的国家无面中心进一步处理。该修订还定义了报告期、指定日期、账户、峰值信贷、中央数据枢纽和合规风险管理等概念，并为相关信息提供保密保障。",
+    "importance": "中"
+  },
+  {
+    "source": "Dawn",
+    "title": "SBP to set up system to access bank transaction data",
+    "url": "https://www.dawn.com/news/2028817/sbp-to-set-up-system-to-access-bank-transaction-data",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦《2001年所得税条例》已作修订，新增第165AB条，授权巴基斯坦国家银行（SBP）建立、运营并维护一个安全、集中化的银行数据虚拟存储库，涵盖在册银行所保存的个人信息、记录与金融交易。修订规定，尽管存在银行保密法，每家银行公司和电子货币机构（EMI）均须以电子方式向中央数据枢纽上传【存款或取款超过1亿卢比】的账户持有人信息，用于税务与银行信息的算法交叉比对。条例称，数字处理的信息在交叉比对期间不对任何所得税机关可见，仅在出现【严重不匹配】时才送入联邦税务局合规风险管理（CRM）系统，由全国无面中心进一步处理。修订还界定了报告期、指定日期、账户、峰值贷方、中央数据枢纽和合规风险管理等术语，并提供了保密保障。",
+    "importance": "中",
+    "dup_of": "https://propakistani.pk/2026/09/10/sbp-to-get-bank-data-access-under-new-centralized-digital-system/"
+  },
+  {
+    "source": "TechJuice",
+    "title": "NA IT Committee Confronts FBR & PTA Over Mobile Phone Tax Installment Plans",
+    "url": "https://www.techjuice.pk/na-it-committee-confronts-fbr-pta-over-mobile-phone-tax-installment-plans/",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦国民议会信息技术与电信常设委员会近日开会讨论【手机税分期缴纳计划迟迟未落地】问题，会议暴露出PTA与FBR之间沟通完全脱节。委员会成员Ali Qasim Gilani在会上发言，称自己推动了近期手机税下调，但强调消费者仍需可行的分期缴税方案。据其说法，FBR把责任推给巴基斯坦电信管理局（PTA），声称PTA拥有管理分期付款所需系统；PTA方面则强烈否认，一名成员澄清该机构既不征税也不收税，质疑PTA如何为从未经手的资金设立分期机制。信息技术部秘书承认对此事完全不知情，承诺咨询PTA主席后向委员会汇报。委员会主席宣布【手机税分期计划为最高优先事项】，要求信息技术与电信部（MoITT）和PTA在下一次会议上【准备全面简报】。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMioAFBVV95cUxQU3ZaRzUxNzlQeURIRThaTTB1Z2FMQTNCbUtjTFptendCSTQ0YUtpQ2J3N3ZLQ0pvbHdpMGR6U2VvRlZhVWE3dWFqT0I0YTJleFJzcVB3TXJYSzctV0N1amQ1MUxGVTBYS0pIcVBldHg1ci16NGFBUE1LMUFaa0hkXzRTblF1Rm9FTlNGTUZhWjFkbVZaWTRuZTMzRWdNOTgz?oc=5"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Around 150 Zong Employees Reportedly Let Go Without Compensation",
+    "url": "https://www.techjuice.pk/zong-reported-layoffs-islamabad-head-office/",
+    "date": "2026-09-10",
+    "summary_zh": "据TechJuice报道，【约150名Zong员工】在伊斯兰堡总部被裁，消息来自受影响员工直接联系该媒体，Zong官方尚未确认这一数字。Zong以CMPak名义运营，是中国移动子公司，目前在巴基斯坦拥有【超过5000万用户】，占据【逾26%的移动市场份额】。一名受影响员工称裁员突然，员工仅被告知不再需要其服务，且【未获得任何补偿或遣散费】，只被建议另寻工作。该员工称自己在Zong工作十四年，期间周末、假期和生病时均上班，对离职方式深感不满。报道称此次裁员与巴电信业重组趋势一致，Telenor与Ufone合并预计裁减数百岗位，有消息称PTML可能裁减300至500个职位，该重组采用能力测试和自愿离职方案，受影响员工或获丰厚补偿。相比之下Zong员工称未获此类保障。按巴劳动法，被裁员工可享有通知期和酬金等权利，具体取决于雇佣条款和工龄。TechJuice已向Zong寻求置评，尚未收到回复。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan Cuts Mobile Phone Duties for FY2026-27 by 20%",
+    "url": "https://www.techjuice.pk/pakistan-cuts-mobile-phone-duties-for-fy2026-27-by-20/",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦政府宣布在2026-27财年下调进口手机关税，监管关税与附加关税均有所削减。据商务部说明，售价500美元以上的高端手机受益最大，其监管关税从每部22000卢比降至17600卢比，【每部减少4400卢比、降幅20%】。附加关税整体从6%降至4%，适用于所有列明的智能手机及蜂窝电话类别。分档来看，30美元以下机型监管关税由300卢比降至240卢比，30至100美元由3000降至2400卢比，100至200美元降至6000卢比，200至350美元由11000降至8800卢比，350至500美元降至12000卢比。本地组装方面，CKD和SKD进口的监管关税由5%降至4%，附加关税同样由6%降至4%。商务部称此举属于2026-27财年预算措施，服务于全国关税合理化，依据为【2025-30年国家关税政策】。背景是2025-26财年手机进口总额由14.97亿美元升至18.88亿美元，其中整机智能手机进口翻倍以上至3.577亿美元。此外，2020-25年移动设备制造政策已到期，替代政策尚待联邦政府批准，现有激励措施仍受海关法保护。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Court Sets 10-Day Deadline to End Azad Kashmir Internet Blackout",
+    "url": "https://www.techjuice.pk/court-sets-10-day-deadline-to-end-azad-kashmir-internet-blackout/",
+    "date": "2026-09-10",
+    "summary_zh": "阿扎德克什米尔高等法院法官沙希德·巴哈尔于周三审理阿扎德克什米尔律师协会与一名当地居民联合提交的请愿书时，下令政府在【10天内恢复互联网服务】，仅对安全局势仍不稳定的地区作出例外安排。此次断网始于6月5日，当局在 banned 的联合人民行动委员会宣布在拉瓦拉科特举行长途游行和静坐后切断网络，【断网持续约48天】后才部分恢复，7月25日穆扎法拉巴德爆发罢工和冲突后恢复又被撤销。8月31日，总理伊夫蒂哈尔·吉拉尼在穆扎法拉巴德新闻俱乐部首次记者会上宣布恢复服务，当日通知恢复了四个地区的完整互联网接入和另外四个地区的部分接入，米尔普尔、尼勒姆和哈维利随后恢复DSL连接，但穆扎法拉巴德本身仍未完全恢复。数月间歇性断网冲击当地经济，企业和政府办公室难以正常运转，学生无法获取在线资源，依赖数字支付系统的商人报告财务损失，自由职业者和政府雇员也反映难以完成基本工作。",
+    "importance": "低"
+  },
+  {
+    "source": "TechJuice",
+    "title": "New Law Lets SBP Build Central Hub for Bank Account Data",
+    "url": "https://www.techjuice.pk/new-law-lets-sbp-build-central-hub-for-bank-account-data/",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦国家银行（SBP）获准依据《2001年所得税条例》新增第165AB条修正案，建立并运营一个集中式虚拟数据存储库，用于汇总全国各商业银行账户持有人的银行记录与金融交易数据。根据该条款，银行保密法不再禁止银行和电子货币机构（EMI）向国家共享客户信息。每家银行和EMI须以电子方式向中央枢纽上传规定数据，对象为在特定报告期内【存款或取款超过1亿卢比】的账户持有人。上传信息将通过算法与税务记录交叉比对，以识别申报收入与银行活动之间的差异。修正案规定，在自动比对过程中数据对所得税当局保持隐藏，仅在发现重大不匹配时，相关细节才会被转交至联邦税务局合规风险管理（CRM）系统，由【国家无面中心】接手进一步处理。修正案还定义了报告期、指定日期、账户、峰值信贷、中央数据枢纽和合规风险管理等关键术语，并引入保密保障措施规范数据收集与保护流程。",
+    "importance": "中"
+  },
+  {
     "source": "ProPakistani",
     "title": "VEON and JazzWorld Reaffirm Commitment to Pakistan’s Digital Growth in Meeting with PTA Chairman",
     "url": "https://propakistani.pk/2026/09/08/veon-and-jazzworld-reaffirm-commitment-to-pakistans-digital-growth-in-meeting-with-pta-chairman/",
