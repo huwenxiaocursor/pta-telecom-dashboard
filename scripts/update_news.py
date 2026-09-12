@@ -256,7 +256,17 @@ _FOREIGN = {
 # otherwise "us" would hit "business"/"focus", "uk" would hit "sukuk", etc.
 # These catch US/UK/EU macro wire stories (e.g. "Asian stocks gain on drop in
 # US inflation rate") that _FOREIGN's substring set misses.
-_FOREIGN_WB = {"us", "u.s.", "u.s", "uk", "u.k.", "eu", "opec"}
+#
+# 2026-09-12 补 ecb/boe/boj/pboc/rbi/fed：外国央行的缩写标题（如 'ECB raises
+# interest rates'）不带国名，只靠 _TELECOM_SUB 的 "interest rate"/"central
+# bank" 命中就会通过 matched 检验；而这些缩写本身也不在 _FOREIGN 的国家词表
+# 里（标题没写 "European"），foreign 闸门形同虚设，一条纯欧洲新闻混进了看板。
+# 五个缩写全部整词匹配、无国内歧义词（核对过现有库里 388 条标题无一误伤，
+# 唯一命中的 "Fed" 那条本身也是该排除的外国新闻）。
+_FOREIGN_WB = {
+    "us", "u.s.", "u.s", "uk", "u.k.", "eu", "opec",
+    "ecb", "boe", "boj", "pboc", "rbi", "fed",
+}
 
 # 地缘政治 → 输入性通胀的传导链（2026-08-11 加）。看板关心的是"外部冲击如何推高
 # 巴基斯坦的物价/汇率/进口成本"，不是国际大宗行情本身。这些词全球通用，外电里满天飞，
