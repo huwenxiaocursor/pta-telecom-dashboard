@@ -482,9 +482,21 @@ def _is_phone_product(t: str, tw: str) -> bool:
 # Internet Service Providers in Gujrat`、`Court Transfers All Telenor Assets`…
 #
 # 动作词**必须整词匹配**：`bust` 是 ro-bust 的子串，`raid` 是 af-raid 的子串。
+#
+# 2026-09-16 补 seize/summon 两组（用户指定排除）。触发案例是板球队员的两条：
+#   · `Mohammad Rizwan Questions NCCIA Over Seized Mobile Phone and Disciplinary Inquiry`
+#   · `NCCIA Summons Imam-ul-Haq and Mohammad Rizwan Over Mobile Phone Data Investigation`
+# 手机在这里只是**证物**，新闻本身是运动员的刑事/纪律调查，与通信行业无关；
+# 标题里没有 cricket/PCB 这类体育词（_EXCLUDE 里的 `cricket` 拦不住），能识别
+# 它的只有"扣押/传唤"这个动作形态。沿用本规则原有的**主导方**判据：NCCIA、FIA
+# 办个案不收，PTA/法院出手照收——`PTA Seizes Illegal Network Equipment`、
+# `Court Summons PTCL Officials` 都不受影响（实测库里 641 条标题只有上面 2 条
+# 命中，零误伤）。
 _LAW_ENFORCEMENT_WB = {
     "arrest", "arrests", "arrested", "bust", "busts", "busted",
     "raid", "raids", "raided", "nabbed", "detained", "apprehended",
+    "seize", "seizes", "seized", "seizure",
+    "summon", "summons", "summoned", "summoning",
 }
 # 监管/司法主体——它们主导的行动照收。
 _ENFORCEMENT_AUTHORITY = {
@@ -768,6 +780,36 @@ def _is_sme_or_aml(t: str, tw: str) -> bool:
     return not any(k in t for k in _TELECOM_ENTITY)
 
 
+# 金融科技准入监管（2026-09-16 用户指定排除）。触发案例：`SBP concludes first
+# Regulatory Sandbox cohort, four fintechs clear testing`——央行监管沙盒首批
+# 企业结业，测的是跨境汇款、开放银行、远程开户这些**金融业务**，与通信行业和
+# 宏观指标都无关；同一天 Business Recorder / TechJuice / ProPakistani 三家齐发。
+# 又是 _TELECOM_WB 里 `sbp` 整词的那个老口子（同"银行审慎监管""纸币印制"
+# "中小企业融资"）。
+#
+# 例外统一是 _TELECOM_ENTITY，电信系数字金融照收：JazzCash（含 jazz）、
+# `PTCL Set to Acquire Pakistan's Largest Digital Wallet, Easypaisa`（含 ptcl）
+# 都不受影响——这些是竞对动态，正是看板要的。
+#
+# **不收 `digital wallet`/`raast`/`microfinance` 这类词**：它们大量出现在电信系
+# 支付新闻里，靠第二道闸豁免太险；只锁"牌照、沙盒、准入"这种纯金融监管形态。
+_FINTECH_REGULATION = {
+    "regulatory sandbox", "sandbox cohort", "sandbox testing",
+    "sandbox participant", "fintech", "fintechs",
+    "digital bank licence", "digital bank license",
+    "digital banking licence", "digital banking license",
+    "emi licence", "emi license", "electronic money institution",
+    "payment system operator", "payment service provider",
+}
+
+
+def _is_fintech_regulation(t: str) -> bool:
+    """央行对金融科技公司的牌照/沙盒监管 → 丢弃；涉电信实体的照收。"""
+    if not any(k in t for k in _FINTECH_REGULATION):
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -792,6 +834,8 @@ def is_relevant(title: str) -> bool:
     if _is_routine_market_news(t, tw):
         return False
     if _is_sme_or_aml(t, tw):
+        return False
+    if _is_fintech_regulation(t):
         return False
     if _is_routine_fuel_price(t):
         return False
