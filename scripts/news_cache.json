@@ -1,5 +1,135 @@
 [
   {
+    "source": "BusinessRecorder",
+    "title": "PTA asks PTML to shut down new ONIC operations",
+    "url": "https://www.brecorder.com/news/40439670/pta-asks-ptml-to-shut-down-new-onic-operations",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已下令Pak Telecom Mobile Limited（PTML）立即停止其ONIC数字电信服务的新销售、激活、SIM/eSIM发放、订阅、营销及商业运营，认定该业务属于移动虚拟网络运营商（MVNO）框架范畴。PTA要求运营Ufone的PTML停止以现有形式运营ONIC，认为该服务在缺乏必要监管授权、未遵守适用MVNO框架的情况下不得继续。为保护现有用户免受服务中断影响，PTA允许PTML自收到命令起【三个月内完成现有ONIC用户迁移】。该决定在听证会后宣布，并处理了PTML关于ONIC推出与运营的陈述。PTA认定，尽管ONIC是PTML注册品牌并使用其网络、频谱和号码资源，但其运营结构远超常规品牌安排：ONIC作为独立数字优先业务，拥有定制套餐、独立CRM与计费系统及专属数字客服平台，而另一实体DTMS承担大量面向客户和商业职能，包括营销、获客、KYC流程、SIM物流、销售与客服。PTA还指出，根据建设-运营服务协议（BOSA），DTMS在最初三年内获得【相关收入的55%】，其后份额按约定递减。PTA认为这些特征表明ONIC具备《2025年MVNO政策框架》所设想的基本特征，需进行监管规范化，并对客户管理、SIM发放与KYC、计费与CRM、用户信息与通话详单（CDR）访问、合法拦截、数据本地化与安全、服务质量、灾难恢复、业务连续性、移动号码携带及第三方安排等提出关切，特别指出灾难恢复/高可用性测试、RTO/RPO要求及SLA绩效的独立验证尚未完全落实。",
+    "importance": "高"
+  },
+  {
+    "source": "Dawn",
+    "title": "PTA orders PTML to suspend new ONIC SIM, eSIM issuance and subscriptions",
+    "url": "https://www.dawn.com/news/2030159/pta-orders-ptml-to-suspend-new-onic-sim-esim-issuance-and-subscriptions",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已下令国有电信运营商PTML立即停止发放新的ONIC SIM卡和eSIM、激活新连接、接受新订阅及开展相关营销商业活动。该命令于【2026年9月11日】发布，距最初向Ufone管理层发出通知已逾三年，Ufone曾诉诸法院并胜诉。PTML是Ufone的母公司，近期刚完成与Telenor Pakistan的合并，隶属国有巴基斯坦电信有限公司（PTCL）。PTA称ONIC拥有独立品牌、套餐、专用应用、计费与客户管理系统及直接客户运营，商业模式类似移动虚拟网络运营商（MVNO）。PTA官员表示，现有ONIC客户须在【三个月内迁移至PTML】，否则PTML需申请MVNO牌照。公司须在【七个工作日内】提交合规报告。Ufone/Telenor表示ONIC客户服务不受影响。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "PTA orders PTML to immediately halt ONIC operations over MVNO non-compliance",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFB4VS12NHo1UExsbEIwLThTd1haRzJaWjZmMmFTUWNyX2hOYjhVdnNxRGxjTXpDcnM3elBseXJsMGJKOHhmamYtQThON0gxMlpN0gFWQVVfeXFMTW9xVGEyTE1OYnoyYmRHa09sSFVkTEtDbldUV2J1dzUxSGJtYWRCeEd1T3E1UzZWRWQ4Q1lEYUtpOV8zRE5pRVRpaG4xSXFid1hGeFIwbFE?oc=5",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已下令巴基斯坦移动通信有限公司（PTML）立即停止其ONIC业务运营，原因是该业务存在移动虚拟网络运营商（MVNO）合规问题。PTA同时给予PTML【三个月期限】，要求其将ONIC现有用户迁移至PTML自有网络。该决定于9月15日发布，涉及主体为PTA与PTML，正文未披露具体罚款金额或用户数量。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Orders Immediate Shutdown of ONIC Operations in Pakistan",
+    "url": "https://news.google.com/rss/articles/CBMijwFBVV95cUxOZFdnX1lxb0t1aTNFUW5LUTdCQW5oNFNzWE1XWXJfNEgzSTFmWGNXeHE0NFVNdUJ6RlZ5RE1yMlFxWFNjdVlibkwzQTZnOFFkbEUwZ3VvenRYQkRkdndmUnJXcHJ0V2owVzJISV90MXdtbGJxakxYZHNMZVdpNmJfcmVlSS1aMmgzZ2ppdkZ1bw?oc=5",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已下令巴基斯坦电信移动有限公司（PTML）立即关停其数字电信服务ONIC的所有商业运营，ONIC须即刻停止新销售、SIM卡和eSIM发放、订阅及营销活动。PTA在详细听证后认定，ONIC并非PTML所主张的单纯数字品牌，而是独立移动虚拟网络运营商（MVNO），因其使用定制套餐、独立计费系统和专属客服渠道，且由DTMS负责营销、客户获取、SIM物流和KYC等商业事务。PTA还发现双方通过建设运营服务协议（BOSA）达成收入分成安排，DTMS在前三年抽取【相关收入的55%】。PTA对数据本地化、合法拦截、安全、通话详单、灾难恢复和服务质量等提出关切，并指出高可用性测试与服务水平协议缺乏独立验证。PTA要求PTML二选一：剥离ONIC独立功能，将其重组为PTML现有MNO牌照下的品牌；或由运营公司申请正式MVNO牌照。联邦政府2025年MVNO政策框架已将全国初始牌照费降至【仅14万美元】，远低于2012年旧规的500万美元。PTA同时希望保护现有用户免受服务中断影响。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Halts Purchase of ONIC SIMs",
+    "url": "https://propakistani.pk/2026/09/15/pta-halts-purchase-of-onic-sims/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已下令巴基斯坦移动通信有限公司（PTML）立即停止发行新的ONIC SIM卡和eSIM、激活新连接、接受新订阅及开展相关营销和商业活动，并给予PTML【三个月时间】将现有ONIC用户迁移至PTML，同时确保迁移过程中用户数据和记录受到保护。PTA要求该公司在【七个工作日内】提交合规报告，确认已停止相关活动并说明合规措施。PTA在八页命令中指出，ONIC拥有独立品牌、套餐、专属移动应用、计费和客户管理系统及直接客户运营，其商业模式类似移动虚拟网络运营商（MVNO）；数字技术管理服务公司（DTMS）负责ONIC的营销、客户获取、KYC核查、SIM物流、销售和客服，并根据与PTML的协议在【前三年获得55%的相关收入】。PTA表示，PTML可继续在其现有移动牌照下完全自主运营ONIC，或申请MVNO牌照以保留现有结构。ONIC回应称其服务未中断，客户可继续使用，并承诺维持最高标准的连接、服务和支持。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistan Railways Cannot Equip Trains With WiFi: PTA",
+    "url": "https://propakistani.pk/2026/09/15/pakistan-railways-cannot-equip-trains-with-wifi-pta/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）向参议院信息技术与电信常设委员会提交书面报告，明确巴基斯坦铁路公司不能利用其现有电信牌照直接向乘客提供WiFi等商业互联网服务。PTA指出，该部门依据【1996年《巴基斯坦电信（重组）法》第5(2)(a)条】获得的是特殊牌照，仅允许其建立、运营和维护用于自身机构业务的非商业数据及增值服务专用电信系统，不得提供公共或商业电信服务，这一限制也符合【2015年电信政策】中针对政府、半政府和自治机构颁发的特定用途牌照不得用于商业运营的规定。PTA表示，巴基斯坦铁路公司目前仅通过蜂窝移动运营商在【3至5列火车】上提供互联网连接，若想扩大WiFi覆盖，可与持牌蜂窝或卫星运营商签订商业协议，通过蜂窝或卫星回传实现合法合规的乘客上网服务。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Govt Again Blocks Ufone-Telenor’s Push to Rebrand As e&amp;",
+    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQZnJPRlNSSDhIeC1NS0lhdUo1dVJXRlI1WEtRYWJYWHVGTjd4ZXpSOXJVTXhFcGhKX1ROTFRpamVicWlYbFBzRnF2YWtacEMtZEpiYTN2N2pFc21KcDdhM29sbXE0bWR6THdfTVNOQWNvaWtfOHFIT21Cd0licFdILXhjTzVZZ2o5RmNUM3hmSXYzc3PSAZgBQVVfeXFMTWsyV3cxRUIyLU9Hdng5eGpGcXZnalRBTWtpc29BbWRVWGdlNDRaeDZUdnA4dHNPV2tOTkZYMTFHTHE5a0NRRXhkMEg4aVdPRmFleHpocS1Hd3M1VlFuenJHQVlRX1poSFhPbll4emtfZ3pmWmx6M19kLUZocWxCSDNDdEdhYm1zSXhRQmNBTnFpUnBpQ0lXMkM?oc=5",
+    "date": "2026-09-14",
+    "summary_zh": "【私有化委员会已叫停巴基斯坦电信管理局（PTA）】批准Ufone更名为“e&”的申请，称此事属于两国政府间的保留事项，只能由两国政府批准。PTA主席回应媒体称，委员会已指示监管机构不要推进该品牌更名审批。此事源于PTCL收购Telenor巴基斯坦并将其并入Ufone背后的法律实体Pak Telecom Mobile Limited后，合并公司希望以PTCL阿联酋战略股东Etisalat的全球品牌“e&”取代Ufone。IT部秘书在参议院信息技术与电信常设委员会会议上表示，PTCL已向PTA提交更名申请，目前磋商仍在进行，竞争委员会与PTA意见不一，【尚未作出最终决定】。此前PTA已暂停该品牌变更，要求PTML完成包括证监会通知在内的法律与公司手续，政府内部亦对PTML能否采用“e&”名称及潜在法律、版权或特许权问题存疑。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Holding policy rate: the right decision",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTFBRV1BqR19XOU1PSXdXcERMcFV1a2dZNE85ODlnQUdDcGw5VF8wN0FMVGFUUDA1anpsbGU2VEZ0UUROM19BQ3RtY3FueTJBTXUwN2xoa0Rn0gFWQVVfeXFMUFFXUGpHX1c5TU9Jd1dwRExwVXVrZ1k0Tzk4OWdBR0NwbDlUXzA3QUxUYVRQMDVqemxsZTZURnRRRE4zX0FDdG1jcW55MkFNdTA3bGhrRGc?oc=5",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦货币政策委员会于9月14日决定将政策利率维持在【11.5%不变】，该决定获得支持。文章指出，加息会使政府及私营部门借贷成本过高，从而拖累经济增长；而降息则会遭到国际货币基金组织（IMF）反对，IMF在5月20日结束第三次季度审查时曾表示，巴基斯坦国家银行（SBP）重申致力于维持适当紧缩的货币政策立场，以锚定通胀预期。SBP的主要目标是实现国内价格稳定，依据是1956年《SBP法》第4B条。SBP网站说明价格稳定意味着维持低而稳定的通胀，以政府中期通胀目标为指引，该目标区间为【5%至7%】。9月14日货币政策声明称，2027财年通胀前景与先前评估大致不变，预计到2027年6月将逐步回落至5-7%目标区间上限，但风险显著上升，包括全球大宗商品价格波动、电力和天然气关税调整幅度、供应中断以及厄尔尼诺条件下食品价格意外变动。IMF代表团将于本月23日抵达进行第四次季度审查，其成功将触发下一笔拨款，可能坚持要求加息。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP holds rate on inflation, ME risks",
+    "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE5vWVVaR28wQzE0bXlfZDRUZTgtMV94WXNrLS1ma1hWZ29jMVpXbnlVTkVqY2RCQWwxNkxGbDdrN2RXZTgzQjBBX3RaNm9HdnBPaVFUTUJR0gFWQVVfeXFMTm9ZVVpHbzBDMTRteV9kNFRlOC0xX3hZc2stLWZrWFZnb2MxWldueVVORWpjZEJBbDE2TEZsN2s3ZFdlODNCMEFfdFo2b0d2cE9pUVRNQlE?oc=5",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦国家银行货币政策委员会9月15日在卡拉奇总部召开会议，由行长贾米尔·艾哈迈德主持，决定将政策利率维持在【11.5%不变】，这是连续第三次按兵不动，10名委员中有7人投票支持。委员会指出，通胀前景风险显著上升，但2027财年通胀展望大体未变，预计到2027年6月将逐步回落至【5%至7%目标区间】上端。8月整体通胀同比升至【11.1%】，高于7月的9.2%，核心通胀略低于预期。风险因素包括全球大宗商品价格波动、电力和天然气关税调整、供应链中断及厄尔尼诺恶化下的食品价格异动。委员会提到中东冲突加剧推高商品价格并延长供应链中断，外部账户压力受侨汇和资金流入支撑而可控，经济在2026财年四季度放缓后逐步回升。穆迪将巴基斯坦主权评级上调至B3、展望稳定，巴基斯坦筹集了30亿美元。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Mohammad Rizwan Questions NCCIA Over Seized Mobile Phone and Disciplinary Inquiry",
+    "url": "https://propakistani.pk/2026/09/15/mohammad-rizwan-questions-nccia-over-seized-mobile-phone-and-disciplinary-inquiry/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦板球守门员兼击球手穆罕默德·里兹万已向国家网络犯罪调查局（NCCIA）提交书面答复，质疑其被传唤的原因以及【其手机至今未归还】。里兹万通过快递发送答复，要求该机构说明采取行动的理由，并询问自己究竟涉嫌违反哪项纪律。里兹万与伊玛目·哈克因巴基斯坦对英格兰测试系列赛期间【涉嫌更衣室信息泄露】而接受NCCIA问询，调查还涉及从两人手机中提取的数据。据报道，巴基斯坦板球委员会（PCB）此前已接管球员手机并移交给相关当局。在巴基斯坦前两场测试赛惨败后，PCB采取紧急措施，将里兹万、伊玛目·哈克等【七名球员和两名教练】移出阵容，主教练萨尔法拉兹·艾哈迈德和投球教练乌马尔·古尔也被解职。本月早些时候，PCB还就里兹万和伊玛目入选2026年西印度群岛和英格兰巡回赛测试阵容一事，要求选拔委员会一名成员作出书面解释。",
+    "importance": "低"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP concludes first cohort of its regulatory sandbox",
+    "url": "https://www.brecorder.com/news/40439682/sbp-concludes-first-cohort-of-its-regulatory-sandbox",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦国家银行（SBP）依据2028愿景，于2025年8月启动首个监管沙盒，聚焦【技术驱动的 inward 汇款、开放银行和商户远程开户】三大主题。经严格筛选，6家参与方获邀于【2026年1月至6月】在沙盒中测试方案，SBP团队提供监管指导。测试期结束后，4家参与方成功展示成果：Taptap Send UK Limited与United Bank Limited展示 inward 汇款技术方案；Digi Khata、Swich Retail及Neem Exponential Financial Services展示开放银行方案。SBP强调，成功完成沙盒测试【不意味着获得监管批准】，参与方须在商业化前取得正式授权。Cohort-1的发现与监管建议将助SBP制定相关框架，未来沙盒将继续推动金融科技与银行创新。",
+    "importance": "中",
+    "dup_of": "https://www.brecorder.com/news/40439594/sbp-concludes-first-regulatory-sandbox-cohort-four-fintechs-clear-testing"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "SBP concludes first Regulatory Sandbox cohort, four fintechs clear testing",
+    "url": "https://www.brecorder.com/news/40439594/sbp-concludes-first-regulatory-sandbox-cohort-four-fintechs-clear-testing",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦国家银行（SBP）宣布结束其监管沙盒首批项目，该沙盒于2025年8月根据SBP 2028愿景启动。SBP周二声明称，首批聚焦三大主题：【境内汇款技术解决方案、开放银行和商户远程注册】。共有六家参与方入围，受邀于【2026年1月至6月】在沙盒中测试其解决方案。SBP团队为参与方提供了必要支持和监管指导。最终四家参与方成功展示其方案：Taptap Send UK Limited与联合银行有限公司（UBL）合作开展汇款业务，Digi Khata、Swich Retail和Neem Exponential Financial Services则针对开放银行。SBP强调，成功完成沙盒测试【并不意味着获得监管批准】，成功参与方在相关产品或服务商业化推出前，必须获得SBP的正式授权和批准。展望未来，SBP预计监管沙盒将继续促进行业参与者，包括金融科技公司和银行，开发和推出创新、实用、以用户为中心的技术解决方案，以扩大金融服务覆盖范围，提高效率和用户体验。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan’s Forex Reserves Hit Record $21.4 Billion, Surpassing 2027 Target Early",
+    "url": "https://www.techjuice.pk/pakistans-forex-reserves-hit-record-21-4-billion-surpassing-2027-target-early/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦外汇储备达到创纪录的【214亿美元】，提前近九个月超过巴基斯坦国家银行（SBP）为2027年6月设定的210亿美元目标。SBP表示，9月【30亿美元欧元债券发行】及央行在银行间市场持续购汇推动储备上升，并已超过2021年8月创下的201亿美元前峰值，也提前一个季度超过2026年12月的202亿美元目标。截至2026年9月4日，央行储备为183.3亿美元。SBP预计2027财年经常账户赤字将控制在GDP的0%至1%，侨汇和ICT出口将支撑外部头寸，但警告外部部门仍面临全球大宗商品价格高企和中东局势带来的供应中断风险。2027财年外债还本付息总额预计为215亿美元，扣除展期和再融资后净偿还约110亿美元，行长贾米尔·艾哈迈德称已偿还约35亿美元，剩余净偿还约75亿美元。SBP预计侨汇将超过440亿美元目标，下月初将推出由商业银行出资、财政中性的新激励计划，并预计出口略高于320亿美元。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTCL to Install ConnectHear’s AI-powered Sign Language Accessibility Solution at Its Customer Centers",
+    "url": "https://www.techjuice.pk/ptcl-to-install-connecthears-ai-powered-sign-language-accessibility-solution-at-its-customer-centers/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信公司（PTCL）与巴基斯坦无障碍技术企业ConnectHear合作，将在其客服中心部署后者的人工智能手语代理SILA，首批落地城市为【卡拉奇、拉合尔和伊斯兰堡】。借助SILA，听障客户可用手语直接表达诉求并与客服代表沟通，无需依赖人工手语翻译。PTCL首席营销官Amad Khan表示，双方合作多年来已从对客服团队开展意识培训发展到借助技术消除听障群体面临的无障碍障碍，并称连接只有在让每个人都能参与时才有意义。ConnectHear首席执行官兼联合创始人Azima Dhanjee表示，此举把【手语无障碍直接带入客服服务环境】。双方此前还合作推出人工智能预警系统SUNO，通过WhatsApp以巴基斯坦手语发送紧急警报。",
+    "importance": "低"
+  },
+  {
+    "source": "TechJuice",
+    "title": "SBP Concludes First Regulatory Sandbox Cohort: 4 Fintechs Lead the Way",
+    "url": "https://www.techjuice.pk/sbp-concludes-first-regulatory-sandbox-cohort-4-fintechs-lead-the-way/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦国家银行（SBP）宣布【首期监管沙盒项目正式收官】，该计划于2025年8月启动，与SBP 2028愿景相衔接，旨在受监管环境中测试数字金融服务创新。首期聚焦三大主题：技术驱动的【境外汇入汇款解决方案】、开放银行以及商户远程开户。经严格筛选，SBP从众多申请者中选出六家参与方，于【2026年1月至6月】进行为期六个月的测试，期间SBP团队提供持续支持与监管指导。测试结束后，四家参与方成功展示其方案，其中三家专注开放银行主题，分别为Taptap Send UK Limited与联合银行（United Bank Limited）合作、Digi Khata、Swich Retail及Neem Exponential Financial Services。SBP强调，通过沙盒测试【不等于获得最终监管批准】，参与方仍需取得正式授权方可向公众推出产品。SBP表示，首期成果与监管建议将用于制定更广泛的银行业监管框架。",
+    "importance": "中",
+    "dup_of": "https://www.brecorder.com/news/40439594/sbp-concludes-first-regulatory-sandbox-cohort-four-fintechs-clear-testing"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Orders Onic to Halt New Connections, Activities & Move Users to Ufone",
+    "url": "https://www.techjuice.pk/pta-orders-immediate-shutdown-of-onic-operations-in-pakistan/",
+    "date": "2026-09-15",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已下令巴基斯坦电信移动有限公司（PTML）立即停止其数字电信服务ONIC的全部商业运营，ONIC须即刻停止新销售、SIM卡与eSIM发放、订阅及营销活动。PTA在听证后认定，ONIC并非PTML所称的普通数字品牌，而是具备独立移动虚拟网络运营商（MVNO）特征，拥有定制套餐、独立计费系统和专属客服渠道，且由DTMS负责营销、客户获取、SIM物流与KYC等商业事务。PTA还发现双方通过建设运营服务协议（BOSA）约定DTMS在前三年抽取【55%的相关收入分成】。监管机构同时指出数据本地化、合法拦截、通话详单、灾难恢复及服务质量等问题，并给出两项整改选择：将ONIC剥离独立功能、作为PTML品牌纳入现有MNO牌照，或由运营公司申请正式MVNO牌照。联邦政府2025年MVNO政策框架已将全国初始牌照费降至【14万美元】，远低于2012年规定的【500万美元】。PTA给予PTML【三个月窗口期】，仅用于将现有ONIC用户迁移至PTML。",
+    "importance": "高"
+  },
+  {
     "source": "Dawn",
     "title": "Telco rebrand awaits govt nod",
     "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE40TzU4WVk2V2YwNlhOY0xDMHZON0Z0R2E2Y0VaRHBiVUFKTTNtZXpsOS1URHhLRUhXb0U2WTZWY2NIbHVDMF9mbtIBTkFVX3lxTE1rb0IxS3NiS2lRVDdUQ1ltWS1ZTDZITHhrMm56UFlnV0tlcGQzS2U3dlQ3M0FXMGdCTld4dUdCZno4X1FZTzZ1c2ZWQlBhUQ?oc=5",
@@ -142,7 +272,8 @@
     "url": "https://propakistani.pk/2026/09/14/govt-again-blocks-ufone-telenors-push-to-rebrand-as-e/",
     "date": "2026-09-14",
     "summary_zh": "巴基斯坦私有化委员会阻止巴基斯坦电信管理局（PTA）批准Ufone更名为“e&”的申请，称此事属于【两国政府间的保留事项】，只能由两国政府批准。PTA主席回应媒体称，委员会已指示监管机构不要推进Ufone与Telenor巴基斯坦合并后的品牌更名审批，因涉及两国政府间的承诺，无法在监管层面单独决定。此事在参议院信息技术与电信常设委员会会议上讨论，由参议员Palwasha Khan主持。信息技术部秘书表示，巴基斯坦电信有限公司（PTCL）已向PTA提交申请，要求将Ufone品牌更名为E&，目前磋商仍在进行，竞争委员会与PTA意见不一，尚未作出最终决定。此次更名源于PTCL收购Telenor巴基斯坦后并入Pak Telecom Mobile Limited（PTML），合并后公司希望以PTCL阿联酋战略股东Etisalat的全球品牌“e&”取代Ufone。PTA此前已暂停该品牌变更，要求PTML完成包括巴基斯坦证券交易委员会通知在内的法律与公司手续。政府内部还质疑PTML作为PTCL子公司能否采用“e&”名称，以及是否会产生法律、版权或特许权使用费问题。",
-    "importance": "高"
+    "importance": "高",
+    "dup_of": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQZnJPRlNSSDhIeC1NS0lhdUo1dVJXRlI1WEtRYWJYWHVGTjd4ZXpSOXJVTXhFcGhKX1ROTFRpamVicWlYbFBzRnF2YWtacEMtZEpiYTN2N2pFc21KcDdhM29sbXE0bWR6THdfTVNOQWNvaWtfOHFIT21Cd0licFdILXhjTzVZZ2o5RmNUM3hmSXYzc3PSAZgBQVVfeXFMTWsyV3cxRUIyLU9Hdng5eGpGcXZnalRBTWtpc29BbWRVWGdlNDRaeDZUdnA4dHNPV2tOTkZYMTFHTHE5a0NRRXhkMEg4aVdPRmFleHpocS1Hd3M1VlFuenJHQVlRX1poSFhPbll4emtfZ3pmWmx6M19kLUZocWxCSDNDdEdhYm1zSXhRQmNBTnFpUnBpQ0lXMkM?oc=5"
   },
   {
     "source": "ProPakistani",
