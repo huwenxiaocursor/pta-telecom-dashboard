@@ -1,5 +1,55 @@
 [
   {
+    "source": "ProPakistani",
+    "title": "PTA Tells Telcos to Quickly Report Tower Theft Cases",
+    "url": "https://propakistani.pk/2026/09/16/pta-tells-telcos-to-quickly-report-tower-theft-cases/",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已指示所有蜂窝移动运营商及时上报电信基础设施遭盗窃和破坏的事件，并确保按时登记立案。据提交给议会委员会的报告，过去11个月内全国共记录【超过9200起盗窃和破坏事件】，波及【近16%的巴基斯坦蜂窝基站】。PTA还要求运营商与执法机构跟进已登记案件直至结案。上述指令是在一个小组委员会调查互联网服务中断及多地电信塔柴油被盗报告后发出的。信息技术和电信部已联合PTA与法律和司法部处理该问题，PTA已开始与电信牌照持有者磋商并征集建议提交政府。PTA还就电信站点电力问题与电力司、国家电力监管局及配电公司交涉。由信息技术和电信秘书领导的委员会将审查专用和快速馈线、智能电网、智能变压器及工业电价，以减少停电并确保电信塔不间断供电。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Repeals 2012 MVNO Regulations to Introduce New Telecom Framework",
+    "url": "https://www.techjuice.pk/pta-repeals-2012-mvno-regulations-to-introduce-new-telecom-framework/",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已正式废止【2012年移动虚拟网络运营商（MVNO）条例】。根据在《巴基斯坦政府公报》上发布的官方通知，PTA依据【1996年巴基斯坦电信（重组）法】实施此次废止，且自公报发布之日起立即生效，从而为推出全新的虚拟网络运营商监管框架铺平道路。通知同时保证现有市场安排的连续性，依据2012年条例已发放的【所有牌照、批准及已采取的行动】继续完全有效，直至PTA在新框架下对其进行审查、修订或取代。PTA表示将另行公告新框架。此举正值巴基斯坦寻求扩大市场竞争、丰富电信与数字服务供给之际，PTA希望通过引入包括改进版MVNO在内的新商业模式重塑国家电信格局。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Sets New Standards for Bluetooth, Wi Fi, GPS and NFC Devices",
+    "url": "https://propakistani.pk/2026/09/16/pta-sets-new-standards-for-bluetooth-wi-fi-gps-and-nfc-devices/",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）依据【2024年电信设备标准条例】，为蓝牙、Wi-Fi、全球定位系统、近场通信及射频识别设备制定了详细技术标准。新规涵盖射频性能、数据传输、接收、频谱使用和电磁兼容性等方面。蓝牙和Wi-Fi设备须满足【2.4吉赫兹频段】宽带数据传输系统标准，5吉赫兹频段Wi-Fi设备另有附加要求。GPS接收器、【13.56兆赫兹NFC设备】及RFID设备也分别设定了技术要求，框架还覆盖特定频段的其他短距离设备。该要求适用于PTA持牌人、制造商和电信设备进口商，设备在进口、部署或投入运营前须符合相关技术标准并完成认证流程。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistan’s Current Account Deficit Shrinks by 70%",
+    "url": "https://propakistani.pk/2026/09/16/pakistans-current-account-deficit-shrinks-by-70/",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦2026年8月经常账户赤字同比收窄约70%，降至【9800万美元】，去年同期为3.24亿美元。巴基斯坦国家银行（SBP）数据显示，2026年7月赤字为4.45亿美元，较此前公布的3.28亿美元上修。2026-27财年前两个月经常账户赤字为【5.43亿美元】，同比下降36%，上一财年同期为8.53亿美元。Topline Securities称，8月月度赤字收窄主要得益于商品贸易差额改善，商品贸易逆差环比缩小【1.27亿美元】至约30亿美元；当月进口约55亿美元，出口约25亿美元。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTCL to Install ConnectHear’s AI-Powered Sign Language Accessibility Solution at Its Customer Centers",
+    "url": "https://propakistani.pk/2026/09/16/ptcl-to-install-connecthears-ai-powered-sign-language-accessibility-solution-at-its-customer-centers/",
+    "date": "2026-09-16",
+    "summary_zh": "巴基斯坦电信公司（PTCL）与无障碍技术企业ConnectHear合作，将在其客服中心部署后者的人工智能手语代理SILA，首批落地城市为【卡拉奇、拉合尔和伊斯兰堡】。通过SILA，听障客户可用手语直接表达诉求并与客服代表沟通，无需依赖人工翻译。PTCL首席营销官阿马德·汗表示，双方合作已从培训客服团队发展到借助技术消除听障群体的无障碍障碍，认为【连接只有让所有人参与才有意义】。ConnectHear首席执行官兼联合创始人阿齐玛·丹吉表示，此举将手语无障碍直接带入客服环境，致力于让无障碍融入巴基斯坦的日常服务。双方此前已合作推出AI预警系统SUNO，通过WhatsApp以巴基斯坦手语发送紧急警报。",
+    "importance": "低",
+    "dup_of": "https://www.techjuice.pk/ptcl-to-install-connecthears-ai-powered-sign-language-accessibility-solution-at-its-customer-centers/"
+  },
+  {
+    "source": "Dawn",
+    "title": "Current account deficit narrows to $98m in August",
+    "url": "https://www.dawn.com/news/2030493/current-account-deficit-narrows-to-98m-in-august",
+    "date": "2026-09-17",
+    "summary_zh": "巴基斯坦8月经常账户赤字收窄至【9800万美元】，低于去年同期的3.42亿美元和7月的4.45亿美元。本财年前两个月经常账户赤字为【5.43亿美元】，低于去年同期的8.53亿美元。但贸易逆差扩大18.1%至【71.2亿美元】，进口增速快于出口。服务贸易逆差从7.53亿美元降至5.62亿美元。海湾战争推高油价至每桶100美元以上，红海和霍尔木兹海峡关闭影响沙特石油出口，对巴基斯坦外部账户构成风险。政府正考虑智能封锁措施，但私营部门称未获咨询。8月外国直接投资激增80.5%至【3.159亿美元】。海外汇款增加帮助稳定汇率和外汇储备，但海湾国家经济萎缩威胁占汇款55%的侨民。总理要求消除出口障碍。",
+    "importance": "高",
+    "dup_of": "https://propakistani.pk/2026/09/16/pakistans-current-account-deficit-shrinks-by-70/"
+  },
+  {
     "source": "BusinessRecorder",
     "title": "PTA asks PTML to shut down new ONIC operations",
     "url": "https://www.brecorder.com/news/40439670/pta-asks-ptml-to-shut-down-new-onic-operations",
