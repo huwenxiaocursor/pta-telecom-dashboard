@@ -202,6 +202,25 @@ Google News RSS 的链接是 **JS 跳转中转页**，`domcontentloaded` 时 bod
 弹跳页，直接读会得到空字符串并误判成"没正文"。等一次再读才会落到发布方的真实文章页
 （实测 `news.google.com/rss/articles/...` → `thenews.pk/print/...`，6366 字）。
 
+**原文链接已 404 的条目整条不收**（`_is_dead_page()` + `_LAST_DEAD_LINK`，2026-09-19 用户指定）。
+触发案例：TechJuice 的 `Is a Major Telecom Operator 'Telenor' Quietly Giving Up in Pakistan?`
+——标题是正经电信新闻，`is_relevant()` 该放它进来，但链接点开是 TechJuice 的 404 页（文章被
+撤下或改名）。要命的是**那张 404 页有 576 字**（导航栏、分类目录、版权声明），稳稳越过
+`fetch_article_text()` 的 200 字下限，被当成"正文"喂给 DeepSeek，摘要照实写成了"正文页面显示
+为404错误，未提供任何具体内容"——一张点开还是 404 的空卡片。
+
+- **不能只靠字数判**：短正文的正经快讯也存在。判据是错误页特有的措辞（`page not found` /
+  `page you're looking for` / `no longer available`…）**且**文本 < 1200 字——真文章动辄上千字，
+  报道本身提到 404 的（如某网站宕机新闻）也只会在长正文里出现一次，命中不了。
+- **HTTP 那一路判出错误页不直接判死**，落到浏览器兜底再确认一次：有的站点对脚本请求返回软
+  404，真浏览器打开却是正常文章。判死只认浏览器那一次（同"403 先试真浏览器"那条教训）。
+- 命中后整条丢弃，**不降级成 title-only**：这类标题往往是设问句（"是不是悄悄退出了？"），
+  没有正文的 title-only 摘要只会是脑补。新条目与重摘要两条路径都要丢，日志分别打
+  `原文链接已失效（404）丢弃 N 条` / `重摘要时丢弃原文已失效（404）条目 N 条`。
+- `_LAST_DEAD_LINK` 与 `_LAST_PUB_DATE` 一样是模块级变量传递。**RSS 自带正文（Dawn、
+  BusinessRecorder）的条目不走 `fetch_article_text()`，`main()` 必须在取 `article_text` 前手动
+  清零**，否则会读到上一条的残留值把这条一起丢掉。
+
 ## 自动化调度
 
 | 任务 | 触发 | 配置文件 |
@@ -280,7 +299,7 @@ PTA 官网部分年度指标图表（`ANNUAL_SOURCES` 里的6类：营收、投�
 - 本地推送前先 `git pull --rebase`，避免与 GitHub Actions 自动提交冲突。
 - `is_relevant()` 关键词过滤带**地域校验**（2026-07-12 加）：命中电信/宏观关键词后，若标题明显在讲外国（`_FOREIGN`：Thai/India/China 等国家词，子串匹配；外加 `_FOREIGN_WB`：`us`/`uk`/`eu`/`opec`/`ecb`/`boe`/`boj`/`pboc`/`rbi`/`fed` 等**缩写按整词匹配**——2026-07-16 补，否则 `us` 会误伤 `business`/`focus`）且完全不含巴基斯坦标识（`_PK_MARKERS`：Pakistan/SBP/PTA/Karachi 及四大运营商等）则否掉。因为 `_TELECOM_SUB` 里的宏观词（`central bank`/`inflation rate`/`interest rate`/`monetary policy`…）是全球通用的，而 BusinessRecorder 会转发 Reuters/AFP 的外国新闻（真实事故：泰国"central bank chief"通胀新闻因命中 `central bank` 混进看板；2026-07-16 又发现"Asian stocks gain on drop in US inflation rate"因 `_FOREIGN` 当时不含美式缩写 `US`/`asian stock` 而漏拦——已补 `_FOREIGN_WB` + `asian stock/market`、`wall street`、`us inflation/fed/treasury` 等短语；2026-09-12 又发现"ECB raises interest rates"靠 `interest rate` 混进来——标题只写了央行缩写、没写国名"European"，`_FOREIGN`/`_FOREIGN_WB` 当时都拦不住——已把 `ecb`/`boe`/`boj`/`pboc`/`rbi`/`fed` 五个主要外国央行缩写补进 `_FOREIGN_WB`，全部整词匹配过、核对现有库无误伤）。这类被 `is_relevant()` 否掉的条目在抓取入口就被拒收。**但不回溯清洗历史缓存**（2026-08-13 用户明确改的）：以前每次运行都拿最新规则把整份 `news_cache.json` 重筛一遍（美其名曰"历史残留自愈清除"），副作用是调一次关键词就可能悄悄抹掉若干条早已展示过的旧新闻，而且改规则必须跑一整轮抓取才生效。现在默认只影响以后抓到的新闻；确实要按新规则清理旧数据时，显式跑 `python3 scripts/update_news.py --reclean`（对应模块级 `RECLEAN_CACHE`，默认 `False`）。反过来，宏观词覆盖也要留意漏收：IMF 相关只列了 `imf program/review/tranche/loan/talks/funding/disbursement/bailout` 这些**相邻短语**，`IMF approves…disbursement` 这种词被隔开的仍匹配不上——发现漏收的正当新闻时优先补 `_TELECOM_SUB` 关键词，别去松动地域校验。
 - **休市/放假/停业等例行公告**（2026-08-11 加，直接进 `_EXCLUDE` 无条件排除）：`PSX, SBP to remain closed on August 14`（独立日休市）靠 `sbp` 整词匹配混入，但交易所与银行的节假日安排对电信和宏观都无实质影响。关键词一律用**复合短语**（`remain closed`/`public holiday`/`trading holiday`…），**不能只写 `holiday`**——否则会误伤 `Jazz launches new holiday package` 这类漫游/节日资费套餐新闻。
-- **十类定向排除（用户指定）**，都在 `is_relevant()` 开头、关键词匹配**之前**判定，且都带"例外"机制，避免把有价值的监管新闻一起砍掉。除燃油那类外，例外统一是"标题含 `_TELECOM_ENTITY`"：
+- **十二类定向排除（用户指定）**，都在 `is_relevant()` 开头、关键词匹配**之前**判定，且都带"例外"机制，避免把有价值的监管新闻一起砍掉。除燃油那类外，例外统一是"标题含 `_TELECOM_ENTITY`"：
   1. **非电信口的人事任命**（`_is_finance_appointment()`）：`Govt Appoints Muhammad Ali Malik as SBP Deputy Governor` 靠 `_TELECOM_WB` 里的 `sbp` 混进来，但金融系统高管履新与通信行业无关。命中 `_APPOINTMENT`（appoint / named as / sworn in / board of governors…）且标题**不含** `_TELECOM_ENTITY`（pta/telecom/jazz/zong/ufone/telenor/ptcl/spectrum/frequency…）才排除——所以"PTA 任命新主席"、"PTCL 高管进 PSTD 理事会"仍收得到。**刻意只排任命、不排辞职/免职**：央行行长突然去职属重大宏观变故，与常规履新不是一回事，`resign`/`steps down` 不在 `_APPOINTMENT` 里。
   2. **次要运营商自身动态**（`_is_minor_operator_only()`）：`WorldCall Telecom Completes Capital Reduction and Stock Split` 这类中小固网/宽带/军方运营商的财务重组、产品发布不影响竞争格局。`_MINOR_OPERATORS`（worldcall/wateen/nayatel/transworld/multinet/cybernet/stormfiber/supernet/optix/airlink）子串匹配 + `_MINOR_OPERATORS_WB`（sco/nrtc）整词匹配，命中后还要标题**不含** `_MAJOR_PLAYERS`（四大运营商 + PTA/SBP/MoITT/CCP/govt/court/regulator）才排除——所以"PTA 处罚 WorldCall"这类监管动作照收。注意 `airlink` 原本在 `_TELECOM_SUB` 里，现由此规则拦下其自身业务新闻（该公司实为手机分销商，历史条目多是 HVAC 合同、电动车组装厂这类无关内容）。
   3. **单家金融机构的经营/监管动态**（`_is_single_finance_firm_news()`，2026-08-13 加银行、2026-08-19 扩到兑换商）：只保留宏观经济环境类新闻——SBP 的货币政策、利率、储备、汇率照收，但个体机构的事不收。两个触发案例：`Standard Chartered CEO to assume charge after SBP clearance`（靠 `sbp` 混入，且 `assume` 与 `charge` 间隔四个词，`_APPOINTMENT` 的短语匹配够不着）；`SBP cancels licence of exchange company`（用户 2026-08-19 指定排除——这类稿 SBP 几乎每月发、各媒体齐发，库里一次攒了 6 条）。`_COMMERCIAL_BANKS`（standard chartered / habib bank / meezan bank…）与 `_FOREX_DEALERS`（exchange company / exchange firm / money changer / currency dealer…）子串匹配 + `_COMMERCIAL_BANKS_WB`（hbl/ubl/mcb/abl/bop/nbp…）**整词**匹配——缩写用子串会灾难性误伤：`ubl` 命中 p**ubl**ic（public holiday / public sector）、`abl` 命中 avail**abl**e / t**abl**e / st**abl**e。**`_FOREX_DEALERS` 每个词都必须带 company/firm/changer/dealer 限定**，只写 `exchange` 会直接毁掉汇率新闻——`exchange rate` 是本看板核心宏观指标之一。例外是电信实体，所以 `PTCL to acquire Easypaisa from Telenor Microfinance Bank` 照收。
@@ -297,6 +316,11 @@ PTA 官网部分年度指标图表（`ANNUAL_SOURCES` 里的6类：营收、投�
      - **动作词必须整词匹配**：`bust` 是 ro**bust** 的子串，`raid` 是 af**raid** 的子串。
      - 回归：库里 13 条含执法措辞的标题只掉这 1 条，其余全保住——`3 Arrested in PTA Crackdown Against Illegal Sale of Telecom User Data`（含 arrest 但 PTA 主导）、`PTA Raids Illegal Internet Service Providers`、`Court Transfers All Telenor Assets And Liabilities to PTML`、两条 PTA 罚款。
   10. **纸币印制/发行**（`_is_currency_note()`，2026-08-26 加）：触发案例 `SBP Considers Ending Rs. 10 Note`、`SBP Reveals Real Reason Behind Delay in New Currency Notes`——央行现钞业务（面额存废、印制排期、防伪设计、假币），与电信和宏观走势都无关。这类稿一出各家齐发，8-25 一天库里就攒了 7 条。**要保住的是货币金融指标**（汇率、政策利率、通胀、外汇储备），所以关键词一律带 note/banknote/coin 限定，**绝不能只写 `currency`**——`currency depreciation`、`currency-to-deposit ratio` 都是宏观内容。另有正则 `\brs\.?\s*\d+\s+note` 兜住 `Rs. 10 Note` / `Rs10 Note` 这种没有固定短语可匹配的写法。
+  11. **金融科技准入监管**（`_is_fintech_regulation()`，2026-09-16 加）：触发案例 `SBP concludes first Regulatory Sandbox cohort, four fintechs clear testing`——央行监管沙盒首批企业结业，测的是跨境汇款、开放银行、远程开户这些**金融业务**，与电信和宏观指标都无关；同一天 Business Recorder / TechJuice / ProPakistani 三家齐发。又是 `_TELECOM_WB` 里 `sbp` 整词的老口子（同「银行审慎监管」「纸币印制」「中小企业融资」）。`_FINTECH_REGULATION` 只锁牌照、沙盒、准入这种**纯金融监管形态**（regulatory sandbox / fintech / digital bank licence / EMI licence / payment system operator…），**刻意不收 `digital wallet`/`raast`/`microfinance`**——这些词大量出现在电信系支付新闻里，靠例外豁免太险。例外是电信实体，JazzCash（含 jazz）、`PTCL Set to Acquire Pakistan's Largest Digital Wallet, Easypaisa`（含 ptcl）照收。
+  12. **场所内禁用手机的管理规定**（`_is_device_use_ban()`，2026-09-19 加）：触发案例是同一事件同一天的两条——`Teachers Banned From Using Mobile Phones`（ProPakistani）、`Sindh Bans Mobile Phone Use by Teachers During Classroom Hours`（TechJuice）。信德省教育厅禁止教师上课用手机，手机在这里只是**被管理的物品**，新闻讲的是学校纪律；它靠 `_TELECOM_SUB` 里的 `mobile phone(s)` 整条混进来。
+     - **例外绝不能用 `_TELECOM_ENTITY`**（第 8、9 类也踩过）：该表里有 `mobile`，而本规则要拦的标题必然含 `mobile phone`，用它豁免规则当场失效。改判**主体**：`_DEVICE_BAN_TELECOM_SUBJECT` 只放明确的电信主体与设施词（pta / moitt / telecom / 四大运营商 / spectrum / network / broadband…），**不放 `mobile`、`internet` 这类泛用词**。
+     - **两个条件必须同时成立**：`_DEVICE_BAN_ACTION`（禁止使用设备的复合短语，绝不能只写 `ban`——PTA 封非法 SIM、政府禁走私手机都是要收的正当新闻，`ban ` 在 `_PHONE_INDUSTRY` 里本就是照收信号）+ `_DEVICE_BAN_VENUE`（学校/考场/监狱/医院等**非电信场所**主体词）。于是 `PTA Bans Illegal Mobile Phones`（无场所词）、`Govt Suspends Mobile Services During Exams`（无禁用设备的动作词，且那是网络关停，属电信新闻）都不受影响。
+     - 回归：库里 655 条历史标题只命中上面 2 条，零误伤。
 - **地缘政治 → 输入性通胀（`_GEO_MACRO`，2026-08-11 加）**：看板要的是"外部冲击如何推高巴基斯坦物价/汇率/进口成本"，不是国际大宗行情本身。它是一条**附加的**通过路径（`matched or geo_ok`），不改动原有匹配；但命中后**无条件**要求标题带 `_PK_MARKERS`，比 `_FOREIGN` 那道闸更严（那道只在出现外国词时才要求）。于是 `Oil price surge pushes Pakistan inflation higher` 收，`Middle East conflict sends crude to $100` 不收。
 
   > **教训（当天就踩到）**：首版把 `freight` 和 `sanction` 直接写进 `_GEO_MACRO`，重跑立刻误收 `Russia and Pakistan to Launch First Direct Freight Rail Service`——中俄巴货运铁路是地缘经济新闻，但与通胀无关，且旧规则本来收不到（标题无任何电信/宏观词）。已收窄为 `freight cost`/`freight rate`（只有**运费**上涨才是通胀传导），`sanction` 改复数 `sanctions`（单数会误伤 `ECC sanctioned Rs5bn…` 的"核准"义项）。**往 `_GEO_MACRO` 加词必须是复合短语**，单个通用名词一定会漏进无关新闻——与 `_DEDUP_STOP` 那条"稀有词必须是专名"同源。

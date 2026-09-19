@@ -810,6 +810,66 @@ def _is_fintech_regulation(t: str) -> bool:
     return not any(k in t for k in _TELECOM_ENTITY)
 
 
+# 场所内禁用手机的管理规定（2026-09-19 用户指定排除）。触发案例是同一天同一事件
+# 的两条：
+#   · `Teachers Banned From Using Mobile Phones`（ProPakistani）
+#   · `Sindh Bans Mobile Phone Use by Teachers During Classroom Hours`（TechJuice）
+# 信德省教育厅禁止教师上课期间用手机——手机在这里只是**被管理的物品**，新闻本身
+# 讲的是学校纪律，与通信行业、运营商、监管都没有关系。它是靠 _TELECOM_SUB 里的
+# `mobile phone` / `mobile phones` 整条混进来的。
+#
+# **这一类的例外绝不能用 _TELECOM_ENTITY**（多数排除规则都用它）：该表里有 `mobile`
+# 这个词，而本规则要拦的标题必然含 `mobile phone`，用它豁免等于规则当场失效——
+# 与 _is_petty_enforcement 踩过的 `internet` 那个坑完全同源。改判**主体**：教育/
+# 司法/医疗等场所的内部管理不收，电信运营商与监管机构出手照收，例外词表刻意只放
+# 明确的电信主体和设施词（不放 mobile / internet 这类泛用词）。
+#
+# 两个条件必须同时成立才排除，缺一不可：
+#   1. _DEVICE_BAN_ACTION——"禁止使用设备"这个动作形态，一律用**复合短语**。绝不能
+#      只写 `ban`：PTA 封禁非法 SIM、政府禁止走私手机（`ban `已在 _PHONE_INDUSTRY
+#      里被当作"照收"的信号）全是看板要的正当新闻。
+#   2. _DEVICE_BAN_VENUE——学校/考场/监狱/医院这类**非电信场所**的主体词。
+# 因此`PTA Bans Illegal Mobile Phones`（无场所词）、`Govt Suspends Mobile Services
+# During Exams`（无禁用设备的动作词，且那是网络关停，属电信新闻）都不受影响。
+# 实测库里 655 条历史标题只有上面 2 条命中，零误伤。
+_DEVICE_BAN_ACTION = {
+    "banned from using", "ban from using", "barred from using", "bars from using",
+    "prohibited from using", "prohibits use of", "restricted from using",
+    "restricts use of", "not allowed to use",
+    "banned from carrying", "banned from bringing",
+    "ban on mobile phone", "ban on mobile phones", "ban on cell phone",
+    "ban on cellphones", "ban on smartphones", "ban on smartphone use",
+    "ban on phone use", "ban on phones",
+    "mobile phone ban", "mobile phones ban", "phone ban", "cellphone ban",
+    "smartphone ban",
+    "bans mobile phone", "bans mobile phones", "bans cell phone",
+    "bans smartphones", "banning mobile phone", "banning mobile phones",
+    "phones banned", "phone banned", "phone-free", "no phone policy",
+    "mobile phone use banned",
+}
+# 非电信场所/人群——它们内部的手机管理规定不收。
+_DEVICE_BAN_VENUE = {
+    "teacher", "student", "pupil", "classroom", "class room", "school",
+    "college", "university", "campus", "madrassa", "madrasa", "exam",
+    "faculty", "lecturer", "principal",
+    "workplace", "office hours", "prison", "jail", "hospital", "courtroom",
+}
+# 出现这些说明是电信主体或监管层的动作，照收。**不含 mobile / internet 等泛用词**。
+_DEVICE_BAN_TELECOM_SUBJECT = {
+    "pta", "moitt", "telecom", "telco", "ptcl", "jazz", "zong", "ufone",
+    "telenor", "spectrum", "sim ", "network", "broadband", "operator",
+}
+
+
+def _is_device_use_ban(t: str) -> bool:
+    """学校/考场等场所禁用手机的管理规定 → 丢弃；电信主体与监管动作照收。"""
+    if not any(k in t for k in _DEVICE_BAN_ACTION):
+        return False
+    if not any(k in t for k in _DEVICE_BAN_VENUE):
+        return False
+    return not any(k in t for k in _DEVICE_BAN_TELECOM_SUBJECT)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -836,6 +896,8 @@ def is_relevant(title: str) -> bool:
     if _is_sme_or_aml(t, tw):
         return False
     if _is_fintech_regulation(t):
+        return False
+    if _is_device_use_ban(t):
         return False
     if _is_routine_fuel_price(t):
         return False
@@ -1020,6 +1082,34 @@ def _fetch_page_source_browser(url: str, timeout: int = 30000) -> str:
 _BROWSER = None  # lazily launched, reused across calls, closed by main()
 
 
+# 原文已失效（2026-09-19 加）。触发案例：TechJuice 的
+# `Is a Major Telecom Operator 'Telenor' Quietly Giving Up in Pakistan?`——标题本身
+# 是正经电信新闻，is_relevant() 该放它进来，但链接点开是 TechJuice 的 404 页（文章被
+# 撤下或改名）。要命的是 **404 页也有 576 字**（导航栏、分类目录、版权声明），稳稳
+# 越过 fetch_article_text 的 200 字下限，于是被当成"正文"喂给 DeepSeek，摘要照实写成
+# 了"正文页面显示为404错误，未提供任何具体内容"——一张点开还是 404 的空卡片。
+#
+# 这里**不能只靠字数**：短正文的正经快讯也存在。判据是错误页特有的措辞，且**必须
+# 同时满足"文本短"**——真文章动辄上千字，而报道本身提到 404 的（如某网站宕机新闻）
+# 也只会在长正文里出现一次，不会命中。
+_DEAD_PAGE_MARKERS = (
+    "page not found", "404 not found", "error 404", "404 error",
+    "page you are looking for", "page you're looking for", "page you\u2019re looking for",
+    "page does not exist", "page doesn't exist", "page doesn\u2019t exist",
+    "page has been removed", "no longer available", "content not found",
+    "nothing was found", "oops! that page",
+)
+_DEAD_PAGE_MAX_LEN = 1200
+
+
+def _is_dead_page(text: str) -> bool:
+    """抓回来的"正文"其实是 404/页面不存在的错误页。"""
+    if len(text) > _DEAD_PAGE_MAX_LEN:
+        return False
+    low = text.lower()
+    return any(m in low for m in _DEAD_PAGE_MARKERS)
+
+
 def fetch_article_text_browser(url: str, max_chars: int = 3000) -> str:
     """Playwright fallback for sites that reject plain HTTP requests.
     brecorder.com answers 403 to urllib no matter what headers we send (bot
@@ -1078,6 +1168,7 @@ def fetch_article_text(url: str, max_chars: int = 3000) -> str:
     implausibly little text — callers must treat empty as 'no content
     available, fall back to title-only summarization'."""
     globals()["_LAST_PUB_DATE"] = ""
+    globals()["_LAST_DEAD_LINK"] = False
     try:
         html = fetch(url, timeout=15)
         if html:
@@ -1086,17 +1177,30 @@ def fetch_article_text(url: str, max_chars: int = 3000) -> str:
             text = re.sub(r"<[^>]+>", " ", html)
             text = html_lib.unescape(text)
             text = re.sub(r"\s+", " ", text).strip()
-            if len(text) >= 200:
+            # 错误页在这里**不直接判死**，落到下面的浏览器兜底再确认一次：有的站点
+            # 对脚本请求返回软 404，真浏览器打开却是正常文章。判死只认浏览器那一次。
+            if len(text) >= 200 and not _is_dead_page(text):
                 return text[:max_chars]
     except Exception as e:
         log(f"  Article content fetch failed ({url}): {e}")
-    return fetch_article_text_browser(url, max_chars)
+    text = fetch_article_text_browser(url, max_chars)
+    if text and _is_dead_page(text):
+        log(f"  ! 原文已失效（404/页面不存在）：{url}")
+        globals()["_LAST_DEAD_LINK"] = True
+        return ""
+    return text
 
 
 # 抓正文时顺带解析到的文章自身发布日期（"YYYY-MM-DD"），供 main() 校验 RSS 日期。
 # 用模块级变量而非改函数签名：fetch_article_text 有多个调用点和一条浏览器兜底
 # 路径，改返回类型牵动面大；抓取是严格单线程顺序执行的，读取时机紧跟调用之后。
 _LAST_PUB_DATE = ""
+
+# 上一次 fetch_article_text() 是否判定原文链接已失效（404）。与 _LAST_PUB_DATE 同样
+# 用模块级变量传递（抓取严格单线程顺序执行，读取紧跟调用之后）。**调用方在没有真正
+# 调用 fetch_article_text 的分支上必须自己清零**——RSS 自带正文的条目不走抓取，否则
+# 会读到上一条的残留值。
+_LAST_DEAD_LINK = False
 
 # 文章页里表示发布时间的常见位置，按可信度排序（JSON-LD > OpenGraph > <time>）。
 _PUB_DATE_PATTERNS = (
@@ -2299,9 +2403,13 @@ def main() -> None:
     if retry_items:
         log(f"Re-summarising {len(retry_items)} cached items with empty summaries …")
     retry_stale: list = []
+    retry_dead: list = []
     for item in retry_items:
         log(f"  Re-summarising: {item['title'][:70]} …")
         article_text = fetch_article_text(item["url"])
+        if _LAST_DEAD_LINK:
+            retry_dead.append(item)
+            continue
         # 这一路同样要做日期校正（2026-08-15 加）。入这个分支的条目恰恰是上次
         # **没抓到正文**的那批，而日期校正依赖 fetch_article_text 顺带解析出的
         # _LAST_PUB_DATE——上次拿不到正文，就等于上次的日期从未被校正过，正是
@@ -2317,18 +2425,31 @@ def main() -> None:
         item["importance"] = result["importance"]
         time.sleep(0.5)
 
+    if retry_dead:
+        cache = [i for i in cache if i not in retry_dead]
+        log(f"  重摘要时丢弃原文已失效（404）条目 {len(retry_dead)} 条")
+
     if retry_stale:
         cache = [i for i in cache if i not in retry_stale]
         log(f"  重摘要时按原文日期丢弃过期条目 {len(retry_stale)} 条")
 
     stale: list = []
+    # 原文链接已 404 的条目：标题本身可能完全切题，但点开是错误页，卡片上只能写
+    # "正文显示404、无内容"，对读者没有任何价值——整条不收（2026-09-19 用户指定）。
+    dead: list = []
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
         # pop, not get: the RSS body is only needed for this one summarize()
         # call and must not be persisted into news_cache.json. Sources whose
         # feed carries the full text (Dawn, Business Recorder) supply it here;
         # everyone else falls back to scraping the live page.
+        # RSS 自带正文时不会调用 fetch_article_text，_LAST_DEAD_LINK 不会被重置，
+        # 先手动清零再取，否则会读到上一条的残留值把这条一起丢掉。
+        globals()["_LAST_DEAD_LINK"] = False
         article_text = item.pop("article_text", "") or fetch_article_text(item["url"])
+        if _LAST_DEAD_LINK:
+            dead.append(item)
+            continue
         if not article_text:
             log(f"    ! no article text — title-only summary (may be unreliable)")
 
@@ -2340,6 +2461,10 @@ def main() -> None:
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
+
+    if dead:
+        new_items = [i for i in new_items if i not in dead]
+        log(f"  原文链接已失效（404）丢弃 {len(dead)} 条")
 
     if stale:
         new_items = [i for i in new_items if i not in stale]
