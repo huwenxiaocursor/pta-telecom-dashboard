@@ -1,5 +1,61 @@
 [
   {
+    "source": "TechJuice",
+    "title": "PTA Fines Telenor Rs68.05 Million Over QoS Violations",
+    "url": "https://www.techjuice.pk/pta-fines-telenor-rs68-05-million-over-qos-violations/",
+    "date": "2026-09-21",
+    "summary_zh": "巴基斯坦电信管理局（PTA）以未达规定服务质量标准和关键绩效指标为由，对Telenor Pakistan处以【6805.5万卢比罚款】，该罚单属于PTA对三家主要移动运营商开出的【合计1.45833亿卢比罚款】的一部分，其中PTML与CMPak（Zong）各被罚3888.9万卢比。依据PTA于2026年9月发布的执法令，Telenor被认定违反服务质量要求、牌照条件及监管框架；PTA曾于2026年4月8日向其发出说明理由通知，并于6月17日在总部举行听证。PTA要求Telenor在【30天内缴清罚款】并提交附技术数据的详细合规报告，说明整改措施。该行动依据1996年《巴基斯坦电信（重组）法》第23条及相关法规作出，PTA称若不遵守可能引发进一步法律程序。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Slaps Rs. 38.9 Million Fine on Zong Over Substandard Network Quality",
+    "url": "https://www.techjuice.pk/pta-slaps-rs-38-9-million-fine-on-zong-over-substandard-network-quality/",
+    "date": "2026-09-21",
+    "summary_zh": "巴基斯坦电信管理局（PTA）对CMPak Limited（Zong）处以【3888.9万卢比罚款】，原因是其未能达到规定的服务质量（QoS）标准和关键绩效指标（KPI）。PTA于【2026年9月18日】依据1996年《巴基斯坦电信（重组）法》第23条发布执法命令，由主席哈菲兹·乌尔·拉赫曼少将（退役）、合规与执法成员哈瓦尔·西迪克·霍哈尔博士及财务成员穆罕默德·纳维德组成的管理局法庭在伊斯兰堡PTA总部完成审理。此前PTA于2025年前三季度在【53个城市】开展独立QoS调查，检测语音、短信和移动宽带性能，发现多个城市KPI下降，包括2025年第一季度坎迪亚罗，第二季度布内尔、奇尼奥特、拉尔卡纳、曼塞赫拉、平迪巴蒂安和乌梅尔科特，第三季度哈菲扎巴德、汗普尔和莱亚。PTA于2025年全年向Zong通报调查结果并要求整改，Zong声称已优化网络并解决缺陷，但2025年第四季度复查显示布内尔、马蒂亚里、穆里和平迪巴蒂安仍不合规。PTA遂于2026年4月8日发出说明理由通知，并于6月17日举行正式听证会，Zong高层董事、技术经理和法律顾问出席。Zong提交技术分析、路测日志和根因评估，将马蒂亚里网络可接入性和呼叫建立成功率问题归因于临时站点可用性问题，平迪巴蒂安参考信号接收功率争议PTA的85%置信度评分并称日志显示97.10%自动模式RSRP，布内尔网络覆盖和短信成功率问题归因于站点间距大、深谷、陡坡和人口稀少，穆里问题归因于丘陵地形、山体信号阻挡、阴影和市中心外路边测试。PTA驳回其解释，裁定地理挑战、人口密度等不能作为免责理由，并指示立即合规。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Top Performing Telcos in AJK and Gilgit Ranked in PTA Survey",
+    "url": "https://propakistani.pk/2026/09/21/top-performing-telcos-in-ajk-and-gilgit-ranked-in-pta-survey/",
+    "date": "2026-09-21",
+    "summary_zh": "巴基斯坦电信管理局（PTA）2026年第二季度服务质量调查覆盖阿扎德查谟和克什米尔（AJK）及吉尔吉特-巴尔蒂斯坦（GB），SCOM在移动网络覆盖、下载速度、网页加载、时延、语音和短信服务等主要类别中均排名第一。调查依据2021年蜂窝移动网络服务质量条例，评估对象还包括Jazz、Telenor、Ufone和Zong。调查区域包括AJK的穆扎法拉巴德、下上普拉特和Assembly Hall Lower Chattar，以及GB的阿斯托尔、Gorkot和Rattu，共涉及约4100次语音通话和短信、3960个移动宽带样本。4G覆盖方面，SCOM在全部六个区域达标排名第一，Telenor、Ufone和Zong并列第二，Jazz在阿斯托尔4G信号置信水平仅46%，低于90%门槛。下载速度方面，SCOM在穆扎法拉巴德达43.5 Mbps，在Assembly Hall Lower Chattar达62 Mbps，Telenor在阿斯托尔录得13.2 Mbps，Zong在Gorkot为20.66 Mbps。上传速度仅穆扎法拉巴德有数据，SCOM以21.5 Mbps居首。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Seeks Scam and Hack Protection System for Employees’ Emails",
+    "url": "https://propakistani.pk/2026/09/21/pta-seeks-scam-and-hack-protection-system-for-employees-emails/",
+    "date": "2026-09-21",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已通过采购文件邀请供应商投标一套垃圾邮件防护系统，并附带供其员工使用的许可证。该系统旨在保护员工的官方电子邮件账户、加强PTA内部通信安全，预计可过滤垃圾邮件，并帮助识别钓鱼链接、恶意附件以及冒充可信发件人的信息。许可证将使防护覆盖PTA员工的邮箱账户。该系统还拟在PTA主邮件服务临时中断时，确保收到的官方邮件仍可访问。消息人士称，此次采购仅涉及PTA内部电子邮件通信，并非用于拦截公众收到的垃圾电话或短信。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Ahsan Iqbal Asks PM for Role in IMF Talks",
+    "url": "https://propakistani.pk/2026/09/22/ahsan-iqbal-asks-pm-for-role-in-imf-talks/",
+    "date": "2026-09-22",
+    "summary_zh": "巴基斯坦计划部已致函总理夏巴兹·谢里夫，要求与财政部一同加入即将与国际货币基金组织（IMF）谈判的核心团队。计划部长阿赫桑·伊克巴尔表示，该部已正式致函总理，理由是IMF讨论涉及经济增长、通胀和贫困等领域，属于其职责范围。此次请求提出之际，IMF审查代表团本周将在伊斯兰堡与巴方会谈，巴方代表团由财政部长率领，财政秘书伊姆达德·乌拉·博萨尔负责技术层面讨论。伊克巴尔称，此举旨在恢复计划部过去在经济政策制定中的角色，并指出计划委员会在20世纪60、70和80年代曾发挥核心作用，而财政部影响力自90年代起上升。他还表示，若海湾地区实现和平且近期物价上涨在未来数周至数月内缓解，预计通胀将回落至个位数。伊克巴尔批评PTI政府据称的6%增长率由消费和进口推动，导致外汇储备下降，称政府将转而追求由出口和私营部门投资驱动的增长。《月度发展展望》称未来将聚焦改善公共投资、加快优先项目、强化执行能力，并突出私营投资、出口、生产率、技术、人力资本和气候韧性等优先事项。",
+    "importance": "中"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Yen squeezed as hawkish turn grips central banks",
+    "url": "https://www.brecorder.com/news/40440631/yen-squeezed-as-hawkish-turn-grips-central-banks",
+    "date": "2026-09-22",
+    "summary_zh": "周二美元走强令日元承压，交易员押注日本决策者难以跟上全球央行转鹰步伐，日本利率与主要经济体差距拉大。受日本假期及干预风险影响，汇市波动受限，此前《日经新闻》报道日本上周五检查了美元兑日元汇率，此类动作常是入市干预前兆。周一走低后，周二早间日元兑美元报157.33，油价下跌提振更广泛金融市场。其他货币对基本持稳，欧元报1.1467美元，比特币过去一天涨至八个月高位、突破87000美元。日本央行上周五加息但有两票鸽派异议，与美联储及多数全球央行的鹰派立场形成对比。瑞联私人银行高级亚洲经济学家卡洛斯·卡萨诺瓦预计，除非日本央行收紧政策快于美联储，否则约275个基点的美日利差将继续支撑日元融资套利交易，预计美元兑日元年底升至160，2027年中回落至156。市场定价日本央行10月加息至1.5%的概率约30%，美联储加息25个基点至4%至4.25%的概率约55%。澳洲联储主席布洛克周二稍晚炉边谈话预计偏鹰，市场定价下周加息概率90%，为今年第四次。澳元报0.7120美元，英镑报1.3372美元，新西兰元因利率仅2.75%远低于他国而徘徊在数月低点0.5708美元。",
+    "importance": "低"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "New Zealand central bank chief sees risks to economy, inflation",
+    "url": "https://www.brecorder.com/news/40440629/new-zealand-central-bank-chief-sees-risks-to-economy-inflation",
+    "date": "2026-09-22",
+    "summary_zh": "新西兰央行行长Anna Breman周二在但尼丁发表讲话时表示，若近期油价上涨持续，将导致通胀【略高于此前预测】，并称该国经济复苏仍面临重大风险。她指出，经济复苏预计将走强并扩大，受出口和家庭支出逐步增加支撑。Breman称，近期全球油价和长期利率上升反映了充满挑战的环境，若油价持续走高，预计近期通胀将【略高于9月声明中的假设】。央行在9月政策会议上将官方现金利率【上调25个基点至2.75%】，但预测的进一步紧缩路径比市场预期更为渐进。央行还预测，9月季度消费者价格通胀将从上一季度的4.1%【放缓至3.9%】。Breman补充说，央行将在10月下次决策前评估新数据和全球动态，并继续关注中期通胀前景。新西兰央行将于10月28日召开会议，市场暗示其再次加息至3%的概率为75%。",
+    "importance": "低"
+  },
+  {
     "source": "ProPakistani",
     "title": "Zong Partners with ISP Environmental Solutions to Launch Pakistan’s First-of-Its-Kind Smart Waste Management Stations",
     "url": "https://propakistani.pk/2026/09/20/zong-partners-with-isp-environmental-solutions-to-launch-pakistans-first-of-its-kind-smart-waste-management-stations/",
