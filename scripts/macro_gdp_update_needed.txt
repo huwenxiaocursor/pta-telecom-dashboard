@@ -1,0 +1,2 @@
+检测到新的 Pakistan Economic Survey 2015-16，请人工核对并更新 macro_index.html 中标注为 MANUAL 的 GDP/财政/产业结构/贸易板块。
+来源页面：https://www.finance.gov.pk/survey_archieve.html
