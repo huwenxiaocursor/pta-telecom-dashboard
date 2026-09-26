@@ -1,5 +1,102 @@
 [
   {
+    "source": "PTA",
+    "title": "PTA begins checking telecom towers’ power backup to maintain mobile services",
+    "url": "https://www.pta.gov.pk/category/pta-begins-checking-telecom-towers%E2%80%99-power-backup-to-maintain-mobile-services-1358550210-2026-09-25",
+    "date": "2026-09-24",
+    "summary_zh": "【巴基斯坦电信管理局（PTA）已开始对电信基站的电力备份安排进行实地检查】，以在停电期间维持移动服务。PTA驻卡拉奇、拉合尔、拉瓦尔品第、奎达、阿伯塔巴德、白沙瓦、木尔坦、费萨拉巴德和穆扎法拉巴德等地区办公室的团队已开始走访各自辖区城乡地区的基站，检查电池、发电机和太阳能系统，【重点关注受拉闸限电影响的地区】。当地代表及其提名人陪同检查，以确定停电期间移动信号变弱或服务中断的地点。PTA主席哈菲兹·乌尔·拉赫曼少将（退役）已指示各地区办公室【定期持续开展检查】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Mobile Networks to Remain Operational Across Pakistan, PTA Says",
+    "url": "https://www.techjuice.pk/mobile-networks-to-remain-operational-across-pakistan-pta-says/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦电信管理局（PTA）高级官员表示，尽管围绕正义运动党（PTI）计划于9月27日举行的长途游行安全担忧加剧，全国移动电话网络目前将继续【保持不间断运行】。此番澄清是在内政部、信息技术部和PTA官员参加的高级别安全会议后作出的，会议未下达任何中断服务的命令，PTA官员向媒体确认内政部未就该国任何地区向该局发出此类指令。本周早些时候，当局宣布在拉瓦尔品第和阿托克实施一系列安全措施，包括【降低移动和互联网服务等级】、禁止公众集会及关闭主要公路。旁遮普省内政部随后致函联邦内政部，正式请求对拉瓦尔品第多个指定地点及阿托克部分地区的【2G、3G和4G蜂窝网络进行干扰】，限制措施定于9月27日生效，但该部门迄今拒绝说明具体受影响地点及正常服务恢复时间。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Win Rs. 100 Million With New SBP Prize Scheme",
+    "url": "https://propakistani.pk/2026/09/25/win-rs-100-million-with-new-sbp-prize-scheme/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦国家银行（SBP）推出Pasban汇款奖励计划，汇款受益人通过银行账户接收海外汇款即可参与抽奖，最高可赢【1亿卢比现金大奖】。该计划年度奖金池总额为【160亿卢比】，每季度发放2521个奖项、价值40亿卢比。参与条件为：在一个季度内连续三个月每月通过正规银行渠道接收至少【等值100美元】的汇款。受益人按每月汇款金额获得不可转让的数字抽奖号，100美元对应1个，汇款越多抽奖号越多。每季度奖项包括：一等奖1名1亿卢比，二等奖20名各2500万卢比，三等奖100名各1000万卢比，四等奖2400名各100万卢比。首次抽奖定于【2027年1月15日】举行，覆盖2026年10月1日至12月31日收到的合格汇款，此后每季度抽奖一次，全程数字化并可审计。奖项按地区分配：海合会50%、英国15%、欧洲15%、北美10%、其他国家10%，1亿卢比头奖面向所有地区。参与完全免费，无需购票或维持最低余额。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP Announces Rs. 10 Lac Cash Prize for Overseas Pakistanis",
+    "url": "https://propakistani.pk/2026/09/25/sbp-announces-rs-10-lac-cash-prize-for-10000-overseas-pakistanis/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦国家银行（SBP）推出【Pasban汇款奖励计划】，每年提供【160亿卢比现金奖励】，取代此前的Sohni Dharti计划，以鼓励海外巴基斯坦人通过正规银行渠道汇款。根据规则，受益人在一个季度内需连续三个月每月收到【至少100美元汇款】方可获得资格，汇款金额越高获得的数字抽奖编号越多。该计划每季度发放【2521个现金奖项、总额40亿卢比】，其中一等奖1名【1亿卢比】，二等奖20名各2500万卢比，三等奖100名各1000万卢比，四等奖2400名各100万卢比，全年共9600人可获100万卢比。SBP行长Jameel Ahmad主持启动仪式时表示，央行与政府正与PBA合作打造可持续、市场化的汇款计划，并称侨汇是数百万家庭的支柱。他指出经常账户赤字已降至可控水平，SBP外汇储备从2023年2月不足30亿美元升至【214亿美元】，且主要来自市场购汇而非外债积累；FY26侨汇达创纪录的【416亿美元】，较FY19的217亿美元近乎翻倍。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Jazz Enhances Backhaul Infrastructure with Pakistan’s First and Highest-Capacity 15.1 Gbps Microwave Link",
+    "url": "https://propakistani.pk/2026/09/25/jazz-enhances-backhaul-infrastructure-with-pakistans-first-and-highest-capacity-15-1-gbps-microwave-link/",
+    "date": "2026-09-25",
+    "summary_zh": "Jazz宣布成功部署巴基斯坦首条也是容量最高的【15.1 Gbps微波链路】，该链路基于单面高效天线实现。此次部署采用华为技术微波平台上的超级双频配置，将多个载波室外单元集成于单面天线而非独立天线锅，在提升数据吞吐量的同时优化基础设施需求并【减少铁塔占用空间】，尤其适用于密集且空间受限的站点。Jazz首席技术官Khalid Shehzad表示，作为拥有全国最大5G覆盖的市场领导者，Jazz始终率先采用先进技术，此次实现巴基斯坦首条最高容量微波链路是又一重要里程碑，体现了其突破网络容量与创新边界的能力。该部署旨在强化承载移动站点数据的高容量回传层，支持4G与5G连接不断增长的需求，并提升网络的扩展性、效率与韧性。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "RLNG Prices Reduced by Rs. 1,000",
+    "url": "https://propakistani.pk/2026/09/25/rlng-prices-reduced-by-rs-1000/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦石油和天然气监管局（OGRA）于2026年9月下调了Sui Northern Gas Pipelines Limited（SNGPL）和Sui Southern Gas Company Limited（SSGC）的液化天然气（RLNG）价格，两家公司降幅均超过20%。根据OGRA通知，SNGPL的RLNG价格每百万英热单位下调【1061卢比，降幅20.14%】，新价格定为【每百万英热单位15.1963美元】；SSGC的RLNG价格每百万英热单位下调【1083卢比，降幅21.57%】，新价格定为每百万英热单位14.2233美元。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Date Confirmed for Restrictions on Mobile and Internet Services in 2 Punjab Districts",
+    "url": "https://propakistani.pk/2026/09/25/date-confirmed-for-restrictions-on-mobile-and-internet-services-in-2-punjab-districts/",
+    "date": "2026-09-25",
+    "summary_zh": "旁遮普省内政部已致函联邦内政部，要求自【9月27日起】在拉瓦尔品第和阿托克两县的指定地点【降级移动与互联网服务】，以维护法律和秩序。该请求涉及在拉瓦尔品第县指定地点对2G、3G和4G网络实施干扰，并涵盖阿托克县部分区域，以及高速公路沿线的布拉马巴塔尔、贡乔、阿哈塔、塔克西拉市、瓦赫萨达尔、塔利亚和查克里等多处地点。旁遮普省内政部发言人表示，警方提出上述措施是为了维护法律和秩序、保护公民生命和财产安全。该部门称，拟议的服务限制将于9月27日在指定地点生效。旁遮普省政府表示，保护公民生命和财产始终是其首要任务。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTCL & Mercantile to Offer iPhone 18 Pro Series with Two-Year Warranty, Protection and Connectivity Benefits",
+    "url": "https://propakistani.pk/2026/09/25/ptcl-mercantile-to-offer-iphone-18-pro-series-with-two-year-warranty-protection-and-connectivity-benefits/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦电信公司（PTCL）与苹果在巴授权经销商Mercantile合作，在PTCL服务中心推出苹果iPhone 18 Pro系列。自正式发售起，客户可在伊斯兰堡、拉合尔和卡拉奇的【五家PTCL服务中心】购买该系列手机。购买者可获【两年保修（苹果一年加Mercantile一年）】及12个月保护计划，并附赠PTCL连接服务权益，支持多种支付方式。PTCL拥有覆盖96个城市的【194家服务中心及合营门店】，借此零售网络将高端设备与固定宽带和Flash Fiber服务捆绑销售。PTCL首席营销官Amad Khan表示，此举旨在让服务中心更贴合客户当下的生活与连接方式；Mercantile巴基斯坦CEO Nauman Durrani称，合作结合了其苹果授权经销商与授权服务商角色及PTCL的客户覆盖。该合作延续了此前iPhone 17系列发售的经验。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Minister IT Inaugurates Pakistan’s First National-Level Telecom Repair Centre Established by Huawei in Islamabad",
+    "url": "https://propakistani.pk/2026/09/25/minister-it-inaugurates-pakistans-first-national-level-telecom-repair-centre-established-by-huawei-in-islamabad/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦信息技术与电信部长【Shaza Fatima Khawaja】周四在伊斯兰堡为华为巴基斯坦【国家级电信设备维修中心】揭幕。该中心为华为在巴部署的电信设备提供本地维修、测试、故障排查与维护服务，旨在减少对海外维修的依赖，缩短设备周转时间、降低运营成本并增强电信网络韧性。中心设有【16个专业维修台】，可维修测试无线、微波、数字电源和接入网等主要技术领域【180余种设备物料编码】，覆盖BBU模块、RRU与RFU、XMC-2和XMC-3 ODU模块、AC/DC数字电源系统及接入网板卡，并配备HERT BBU测试设备、BMTE V2、XMC故障检测仪等诊断测试平台。中心面积约【250平方米】，年处理能力超【1万个模块】，预计每年逾【6000个部件】修复后重新投入使用。中心由【8人本地技术团队】运营，成员经华为总部专项培训，累计拥有超六年华为维护经验。部长表示该设施是迈向更强大数字巴基斯坦的里程碑，将提升本地技术能力与电信网络韧性、效率和可靠性。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "SBP Governor Launches Pasban Remittance Reward Scheme With Rs. 16 Billion in Annual Prizes",
+    "url": "https://www.techjuice.pk/sbp-governor-launches-pasban-remittance-reward-scheme-with-rs-16-billion-in-annual-prizes/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦国家银行（SBP）行长贾米尔·艾哈迈德正式启动Pasban侨汇奖励计划，该计划由银行业出资、在巴基斯坦银行协会（PBA）框架下推出并获SBP支持，每年提供【160亿卢比现金奖励】，不增加国家财政负担。艾哈迈德表示，SBP、政府和PBA共同设计了这一可持续、市场化的侨汇方案，侨汇支撑了数百万巴基斯坦家庭的开支、教育、医疗和投资。他称巴基斯坦外部状况近年改善，SBP外汇储备升至【214亿美元】，而2023年2月不足30亿美元；2026财年侨汇达创纪录的【416亿美元】，2019财年为217亿美元。根据PBA，该计划延续此前政府与行业举措，银行业自2026年7月起还资助汇款人激励，年度侨汇支持承诺接近1000亿卢比。新计划规定，季度内连续三个月每月收到至少100美元侨汇的受益人可参与，每笔100美元生成一个不可转让数字抽奖资格，金额更大可获更多资格。每季度发放【2521个现金奖项、总值40亿卢比】，包括1个1亿卢比一等奖、20个2500万卢比二等奖、100个1000万卢比三等奖和2400个100万卢比四等奖。奖项按地区分配：海湾合作委员会50%、英国15%、欧洲15%、北美10%、其他国家10%，一等奖面向所有地区。首次季度抽奖定于【2027年1月15日】，覆盖2026年10月1日至12月31日收到的合格侨汇。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "LNG Prices Drop Over 21 Percent as OGRA Announces September Revision",
+    "url": "https://www.techjuice.pk/lng-prices-drop-over-21-percent-as-ogra-announces-september-revision/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦石油和天然气监管局（OGRA）宣布下调9月液化天然气（LNG）价格，降幅超过21%，平均每百万英热单位下调3.91美元，为近几个月来最大降幅之一。此次调价分别适用于两大配气系统：Sui Northern系统每百万英热单位下调3.83美元，新价格为15.19美元；Sui Southern系统下调3.91美元，新价格为14.22美元。OGRA依据国际市场价格每月发布LNG价格通知，本次调整反映了全球LNG基准价格的普遍下跌。新价格自9月起生效，适用于通过两大Sui系统用气的工业、商业和电力部门用户。此次降价预计将降低依赖进口LNG的行业投入成本，尤其是发电和制造业。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTCL & Mercantile to Offer iPhone 18 Pro Series With Two-Year Warranty, Protection & Connectivity Benefits",
+    "url": "https://www.techjuice.pk/ptcl-mercantile-to-offer-iphone-18-pro-series-with-two-year-warranty-protection-connectivity-benefits/",
+    "date": "2026-09-25",
+    "summary_zh": "巴基斯坦电信公司（PTCL）与苹果在巴授权经销商Mercantile合作，在PTCL服务中心推出苹果iPhone 18 Pro系列。自正式发售起，客户可在伊斯兰堡、拉合尔和卡拉奇的【五家PTCL服务中心】购买该系列手机。购买者可获得【两年保修（苹果一年加Mercantile一年）】及12个月保护计划，并附赠PTCL连接服务权益，购买时提供多种支付方式。PTCL首席营销官Amad Khan表示，此举旨在让服务中心体验更贴合客户当下生活与连接方式，将高端设备、可信赖售后与PTCL连接服务整合为一体。Mercantile巴基斯坦CEO Nauman Durrani表示，合作结合了其苹果授权经销商与授权服务提供商角色及PTCL的客户覆盖。PTCL目前在【96个城市的194个服务中心及合营店】布局，此前iPhone 17系列发售时其服务中心创下渠道设备销量纪录。",
+    "importance": "低",
+    "dup_of": "https://propakistani.pk/2026/09/25/ptcl-mercantile-to-offer-iphone-18-pro-series-with-two-year-warranty-protection-and-connectivity-benefits/"
+  },
+  {
     "source": "ProPakistani",
     "title": "Someone is ‘Spamming’ PTA Every Day",
     "url": "https://propakistani.pk/2026/09/24/someone-is-spamming-pta-every-day/",
@@ -13,7 +110,8 @@
     "url": "https://www.techjuice.pk/pta-begins-checks-of-telecom-towers-power-backup/",
     "date": "2026-09-24",
     "summary_zh": "巴基斯坦电信管理局（PTA）已开始对全国电信基站的电力备份系统进行实地检查，以确保停电期间移动服务不中断。来自卡拉奇、拉合尔、拉瓦尔品第、奎达、阿伯塔巴德、白沙瓦、木尔坦、费萨拉巴德和穆扎法拉巴德等地区办公室的PTA团队，正在城市和农村地区检查基站，重点核查【电池、发电机和太阳能系统】，并特别关注受拉闸限电影响的地区。当地代表及其提名人随同检查团队，以确定停电期间移动信号变弱或服务中断的地点。PTA主席哈菲兹·乌尔·拉赫曼少将（退役）已指示各地区办公室【继续定期监测电信基站】。该举措旨在【找出电力备份缺口】，改善停电期间移动服务的连续性。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://www.pta.gov.pk/category/pta-begins-checking-telecom-towers%E2%80%99-power-backup-to-maintain-mobile-services-1358550210-2026-09-25"
   },
   {
     "source": "TechJuice",
