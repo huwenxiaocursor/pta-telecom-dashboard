@@ -6795,3 +6795,64 @@ Call log:
 [2026-09-26 09:03:07]   Injected 400 items into index.html
 [2026-09-26 09:03:07] News update complete
 [2026-09-26 09:03:07] ==================================================
+[2026-09-27 09:01:28] ==================================================
+[2026-09-27 09:01:28] News update started
+[2026-09-27 09:01:28] Cache: 706 existing items
+[2026-09-27 09:01:32] Fetching PTA official [新闻稿] …
+[2026-09-27 09:01:41]   PTA official [新闻稿]: 13 items found
+[2026-09-27 09:01:41] Fetching PTA official [新闻/更新] …
+[2026-09-27 09:01:50]   PTA official [新闻/更新]: 0 items found
+[2026-09-27 09:01:50] Fetching PTA official [公告] …
+[2026-09-27 09:01:56]   PTA official [公告]: 0 items found
+[2026-09-27 09:01:57] Fetching Google News [PTA] …
+[2026-09-27 09:01:59]   Google News [PTA]: 47 items found（取最新 20 条）
+[2026-09-27 09:01:59]     非目标来源已跳过：Digital Pakistan×5、PhoneWorld×5、247news.com.pk×3、The News Pakistan×2、UrduPoint×2、Pakistan Connect×2、Daily Pakistan×2、pamirtimes.net×1
+[2026-09-27 09:02:00] Fetching Google News [SBP] …
+[2026-09-27 09:02:01]   Google News [SBP]: 10 items found（取最新 10 条）
+[2026-09-27 09:02:01]     非目标来源已跳过：Aaj English TV×4、Minute Mirror×3、Arab News PK×2、The News Pakistan×2、24 News HD×2、The Express Tribune×1、The Nation (Pakistan )×1、Geo News×1
+[2026-09-27 09:02:02] Fetching ProPakistani via WP REST API …
+[2026-09-27 09:02:06]   ProPakistani: 5 items found
+[2026-09-27 09:02:07] Fetching Dawn RSS …
+[2026-09-27 09:02:07]   Dawn: 1 items found
+[2026-09-27 09:02:08] Fetching Business Recorder RSS …
+[2026-09-27 09:02:08]   Business Recorder: 0 items found
+[2026-09-27 09:02:10] Fetching TechJuice via WP REST API …
+[2026-09-27 09:02:15]   TechJuice: 7 items found
+[2026-09-27 09:02:16] New items: 25
+[2026-09-27 09:02:16]   同日同标题去重: 25 → 10 条（省下 15 次摘要调用）
+[2026-09-27 09:02:16]   Summarising: Telenor Pakistan to Cease Operations as Separate Entity Following Merg …
+[2026-09-27 09:02:28]     ! 日期不符：原标 2026-09-25，原文为 2026-02-17 → 以原文为准
+[2026-09-27 09:02:28]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:02:28]   Summarising: PTA Delays Decision on Ufone–Telenor Merger Amid Spectrum Auction …
+[2026-09-27 09:02:39]     ! 日期不符：原标 2026-09-25，原文为 2026-03-11 → 以原文为准
+[2026-09-27 09:02:39]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:02:39]   Summarising: Telenor to Merge into Ufone as PTA Clears Deal, Court Approval Pending …
+[2026-09-27 09:02:51]     ! 日期不符：原标 2026-09-25，原文为 2026-04-22 → 以原文为准
+[2026-09-27 09:02:51]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:02:51]   Summarising: Pakistan 5G Spectrum Auction Raises $507 Million as Jazz Leads, Ufone  …
+[2026-09-27 09:03:01]     ! 日期不符：原标 2026-09-25，原文为 2026-03-10 → 以原文为准
+[2026-09-27 09:03:01]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:03:01]   Summarising: PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape …
+[2026-09-27 09:03:11]     ! 日期不符：原标 2026-09-24，原文为 2026-03-19 → 以原文为准
+[2026-09-27 09:03:11]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:03:11]   Summarising: PTA Set to Announce Decision on Ufone-Telenor Merger on Wednesday …
+[2026-09-27 09:03:21]     ! 日期不符：原标 2026-09-24，原文为 2026-03-09 → 以原文为准
+[2026-09-27 09:03:21]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:03:21]   Summarising: PTA Ends Branding Debate, Clears `e&amp;` Identity For PTML-Telenor De …
+[2026-09-27 09:03:32]     ! 日期不符：原标 2026-09-24，原文为 2026-07-08 → 以原文为准
+[2026-09-27 09:03:32]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:03:32]   Summarising: PTA Report Shows Mixed Mobile Internet Experience Across Pakistan …
+[2026-09-27 09:03:41]     ! 日期不符：原标 2026-09-24，原文为 2026-02-10 → 以原文为准
+[2026-09-27 09:03:41]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:03:41]   Summarising: LIVE! Pakistan 5G Spectrum Auction Officially Concluded: $507 Million  …
+[2026-09-27 09:03:51]     ! 日期不符：原标 2026-09-24，原文为 2026-03-10 → 以原文为准
+[2026-09-27 09:03:51]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:03:51]   Summarising: SBP Keeps Monetary Policy Rate Unchanged at 11.5% to Maintain Economic …
+[2026-09-27 09:04:01]     ! 日期不符：原标 2026-09-25，原文为 2026-06-15 → 以原文为准
+[2026-09-27 09:04:01]     ! 早于 2026-08-01，丢弃
+[2026-09-27 09:04:01]   按原文日期丢弃过期条目 10 条
+[2026-09-27 09:04:01] Cache saved: 706 total items
+[2026-09-27 09:04:02]   Dedup: kept report+rebuttal apart — PTA Disputes Jazz Overcharge Claim: Regulatory Battle Over R | PTA Defends Jazz in Rs. 6.58 Billion Overcharging Case
+[2026-09-27 09:04:02]   Injected 400 items into index.html
+[2026-09-27 09:04:02] News update complete
+[2026-09-27 09:04:02] ==================================================
