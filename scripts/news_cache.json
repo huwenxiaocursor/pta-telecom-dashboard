@@ -1,5 +1,46 @@
 [
   {
+    "source": "ProPakistani",
+    "title": "PTA Confirms Internet Outage in Islamabad",
+    "url": "https://propakistani.pk/2026/09/27/pta-confirms-internet-outage-in-islamabad/",
+    "date": "2026-09-27",
+    "summary_zh": "巴基斯坦电信管理局（PTA）表示，由于一条光缆被切断，伊斯兰堡和拉瓦尔品第部分地区的互联网服务出现中断，影响了一些地区的移动数据和Wi-Fi服务。PTA称，光缆是在某电信运营商的网络内被切断的，导致部分服务提供商出现局部服务问题，【中断仅限于特定局部及周边地区】。巴基斯坦中部和南部地区互联网服务运行正常，北部部分地区也出现中断。PTA建议用户不必对局部中断感到担忧，技术团队正在修复受损光缆并恢复服务，【修复和完全恢复可能需数小时】。当局表示正努力尽快恢复受影响地区的互联网连接。",
+    "importance": "低"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Why is the Internet Partially Disrupted in Islamabad &amp; Rawalpindi? PTA Clarifies",
+    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWktMcFIzS3BENDk0V3ZLY0tjM1pwaTRLUFd3eTB5aXI0eVYtV1FLNXRSSndQclR6dWRYRFhVY0dWWUV1S3M5eUp5YkRVYWZsN2EyQnJ2WFJ0ZWZTUDFWUS1Odm5wQXlYemh6WnR1ZXlNam91THkxUUxvMDctaVVBUXc1MWNsMUsyajNXOTUzQjdMbld3YkxZMjRGanpUS1FsQzNvUmxn?oc=5",
+    "date": "2026-09-27",
+    "summary_zh": "伊斯兰堡和拉瓦尔品第居民近日遭遇互联网部分中断，移动数据和Wi-Fi网络在多个区域出现局部故障。巴基斯坦电信管理局（PTA）澄清，事故原因是【一根光缆被切断】，影响了某一家电信运营商的网络，并进而导致其他多家服务商的网络出现部分运行故障。PTA表示，此次中断并非全国性，【仅限伊斯兰堡、拉瓦尔品第及周边地区】，北部部分地区互联网性能也有所下降，而中部和南部地区服务正常。PTA呼吁民众不要恐慌，目前技术团队正在现场抢修被切断的光缆，运营商正优先恢复所有受影响区域，抢修工作稳步推进，但【完全恢复正常服务仍需数小时】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Internet Services Fully Restored in Islamabad & Rawalpindi",
+    "url": "https://www.techjuice.pk/internet-services-fully-restored-in-islamabad-rawalpindi/",
+    "date": "2026-09-27",
+    "summary_zh": "【伊斯兰堡和拉瓦尔品第的互联网服务已全面恢复】。巴基斯坦电信管理局（PTA）正式确认，技术团队已成功修复一家电信运营商【光纤网络中的故障】，两座城市的移动数据和Wi-Fi连接已恢复正常。此前，当地用户当天早些时候遭遇了网络连接问题，PTA曾表示团队正在积极抢修光纤故障。PTA称，随着技术故障完全排除，市民现在可以【不受干扰地浏览网络】。此外，本周早些时候两座城市还曾出现短暂的治安紧张局势，原因是相关团体宣布于周日（今天）举行抗议活动，目前抗议活动已被推迟，首都地区整体局势有所缓和。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Why is the Internet Partially Disrupted in Islamabad & Rawalpindi? PTA Clarifies",
+    "url": "https://www.techjuice.pk/why-is-the-internet-partially-disrupted-in-islamabad-rawalpindi-pta-clarifies/",
+    "date": "2026-09-27",
+    "summary_zh": "巴基斯坦电信管理局（PTA）就伊斯兰堡和拉瓦尔品第互联网部分中断作出澄清，称原因是【一根光缆被切断】，影响了某一家电信运营商的网络，并进而导致其他多家服务商的网络出现部分运行故障。PTA表示，此次中断并非全国性，【仅局限于伊斯兰堡、拉瓦尔品第及周边地区】，北部部分地区互联网性能也有所下降，而中部和南部地区服务正常。PTA呼吁民众不要恐慌，目前技术团队已在现场抢修被切断的光缆，运营商正优先恢复所有受影响区域，抢修工作稳步推进，但【完全恢复正常仍需数小时】。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWktMcFIzS3BENDk0V3ZLY0tjM1pwaTRLUFd3eTB5aXI0eVYtV1FLNXRSSndQclR6dWRYRFhVY0dWWUV1S3M5eUp5YkRVYWZsN2EyQnJ2WFJ0ZWZTUDFWUS1Odm5wQXlYemh6WnR1ZXlNam91THkxUUxvMDctaVVBUXc1MWNsMUsyajNXOTUzQjdMbld3YkxZMjRGanpUS1FsQzNvUmxn?oc=5"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Internet Outage Disrupts Mobile Networks and Banking Apps in Islamabad",
+    "url": "https://www.techjuice.pk/internet-outage-disrupts-mobile-networks-and-banking-apps-in-islamabad/",
+    "date": "2026-09-27",
+    "summary_zh": "【伊斯兰堡周日发生大范围互联网中断】，影响首都所有主要移动网络运营商，涉及Nayatel、PTCL、Jazz、Ufone和Zong，用户长时间无法连接网络。EasyPaisa和JazzCash等移动银行应用也出现服务中断，社交媒体平台同样受到严重影响。中断原因尚未确定，当局未就何时恢复正常服务发表声明。此次中断发生前数日，因PTI计划于9月27日举行长途游行引发安全担忧，内政部、信息技术部和巴基斯坦电信管理局（PTA）本周早些时候召开高层会议，讨论是否应限制移动服务，但会议未作出此类指令。PTA官员确认未发布限制任何地区服务的命令。当局已宣布针对拉瓦尔品第和阿托克的安全措施，包括【降低移动和互联网服务】、禁止公众集会及关闭主要高速公路。旁遮普省内政部已正式请求在拉瓦尔品第指定地点及阿托克部分地区【干扰2G、3G和4G网络】，限制措施定于9月27日生效。",
+    "importance": "高"
+  },
+  {
     "source": "PTA",
     "title": "PTA begins checking telecom towers’ power backup to maintain mobile services",
     "url": "https://www.pta.gov.pk/category/pta-begins-checking-telecom-towers%E2%80%99-power-backup-to-maintain-mobile-services-1358550210-2026-09-25",
