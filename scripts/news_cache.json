@@ -1,6 +1,88 @@
 [
   {
     "source": "ProPakistani",
+    "title": "PTA Sets New Testing Standards for 5G Devices and Base Stations",
+    "url": "https://propakistani.pk/2026/09/28/pta-sets-new-testing-standards-for-5g-devices-and-base-stations/",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）依据【2024年电信设备标准条例】，为5G设备和基站制定了技术测试与合规标准。根据该条例，5G新空口设备将接受射频发射与接收测试，并须符合相关协议要求，以判定设备在接入巴基斯坦电信网络前是否达到所需技术规格。该框架涵盖5G用户设备的国际标准，涉及【无线电性能、频谱接入和电磁兼容性】等要求，并为5G新空口基站单独设定了无线电一致性测试要求。条例还覆盖2G、3G和4G设备及网络设备，针对GSM、UMTS、LTE和CDMA2000移动设备与基站分别规定了技术标准。相关要求适用于PTA持牌人、制造商和电信设备进口商，申请合规证书时须提交【认可实验室出具的测试报告】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Proposes Strict Regulations &amp; Tariff Controls for Telcos Crossing 25% Market Share",
+    "url": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOWkxaYkxyZWR2enFOSVRibFRFUUNsdE1zZXlUZmVpeWc2S3NRRkFhTk9CMFJCRjQ3QzZCQjhYYlJhVlB6VlA5MlpzZDFvN0RHN1BTVmZmYmZsZWRndXJ0MFNOaFp0NzRsY2MwM0dyeXoxN3Q3SlEybUhSTEFmc2lWeC1GMnA0RmFFZVJWcnBqbU5nQldDUkdtU3ZYQjhJaUQ4N0ZjbGFpZmF1ZE1jQWc?oc=5",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）向信息技术与电信部（MoITT）提出对《2026年竞争规则》的重大修订，引入更广泛的显著市场力量（SMP）认定框架。根据拟议修订，【持牌运营商市场份额超过25%】即被推定具有SMP，但PTA不会仅依据该门槛，而将结合行业收入、市场集中度、对关键设施与频谱的控制、规模经济、垂直整合、进入壁垒、财务与技术资源、用户获取渠道、买方议价能力、网络效应、潜在合谋、需求弹性、超额利润及非价格竞争等因素综合评估。一旦被认定具有SMP，运营商将面临【资费与定价方面的严格义务】，并须遵守非歧视、透明度、关键设施公平接入、可靠互联与接入服务、参考报价、基础设施接入、会计分离及详细成本核算等要求。修订还允许PTA定期审查相关市场，以便在市场条件变化时迅速调整评估，从而强化本地电信市场监管框架。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Issues 300 Licences to Expand Internet Access Across Pakistan",
+    "url": "https://propakistani.pk/2026/09/28/pta-issues-300-licences-to-expand-internet-access-across-pakistan/",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已向300家公司发放地区级类别牌照，用于提供互联网服务，目标是扩大宽带覆盖并推动欠发达地区的光纤部署。PTA官员表示，近几个月发放的牌照大多覆盖开伯尔-普什图省各县。该地区级类别牌照有效期为10年，申请者需一次性缴纳【初始牌照费30万卢比】，第一年还需缴纳【年度牌照费10万卢比】。根据牌照条件，中小型企业可在单一地区内提供互联网服务，PTA对每个实体只发放一张地区级牌照。持牌方须在获得牌照后【一年内启动商业服务】，并在运营第一年注册【至少100名宽带用户】。在该框架下运营的互联网服务提供商必须从持牌运营商处获取带宽，以确保合规与服务可靠性。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Transfers 10 Senior Most Officials",
+    "url": "https://propakistani.pk/2026/09/28/pta-transfers-10-senior-most-officials/",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在主席批准下发布办公室命令，对【10名总监级官员】进行大规模行政调整并立即生效。其中，Ahmed Shamim Pirzada从国际关系与总务部门调至消费者保护部门，Dr. Khurram Ali Mehran则反向调任；Ehsan Yar Khan被任命为信息与通信技术总监，接替Nauman Khalid，后者改任无线许可总监；Amer Shahzad从无线许可调至执法部门，Amjad Mustafa Malik从执法部门调至战略与发展部门；Yasir Yaqoob从人力资源与协调部门调至审计部门；Wasi Ullah Khan被任命为人力资源与协调总监，并依据【2008年PTA员工服务条例第50条】额外负责许可与监管事务；Aadil Umer Khalil从商业事务调至财务部门；Tayyab Bin Tahir Khan被任命为商业事务总监，并额外负责行政事务。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Govt Announces New Procurement Rules During IMF Talks",
+    "url": "https://propakistani.pk/2026/09/29/govt-announces-new-procurement-rules-during-imf-talks/",
+    "date": "2026-09-29",
+    "summary_zh": "联邦政府以新规取代2004年公共采购框架，【2026年公共采购规则于周一发布】，较截止期限提前两天，此时国际货币基金组织工作人员代表团正与巴方就【12亿美元拨款】继续磋商。由Iva Petrova率领的IMF团队自9月23日起在巴基斯坦，与财政部、联邦税收委员会、机构司及各省财政部门官员会谈。新规要求联邦采购机构使用EPADS电子采购系统，设立专门采购部门，并对大型采购引入第三方验证与评估；保留在时间紧迫、地点分散、偏远或符合公共利益时直接与国有实体签约的条款，但多个合格国有实体可承接时须通过有限招标竞争，并须确定其报价合理性。分包限于专业项目部分，【上限为总工作量的40%】。规则允许按政府政策限制本国投标人参与、禁止特定国籍投标人并给予本国投标人优惠。评标委员会负责【金额不超过20亿卢比】的采购。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistan-IMF Talks Begin Today to Unlock $1.2 Billion Loan",
+    "url": "https://propakistani.pk/2026/09/28/pakistan-imf-talks-begin-today-to-unlock-1-2-billion-loan/",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦与国际货币基金组织（IMF）于9月28日开始正式谈判，涉及【70亿美元扩展基金安排的第四次审查】及韧性与可持续性融资安排的第三次审查，若顺利完成有望释放约【12亿美元新融资】。IMF代表团由Iva Petrova率领，预计在巴停留近两周，讨论持续至10月第一周。审查属于巴基斯坦【37个月IMF计划】的一部分，旨在通过财政纪律、结构改革等稳定经济。若两项审查均通过，巴方可能在11月底或12月初获得EFF项下约10亿美元及RSF项下约2亿美元。谈判将涉及主权财富基金、循环债务削减、食糖行业未完全放开管制的原因、经常账户余额、初级盈余、外汇储备和汇率等。IMF与联邦税务局将讨论扩大税基和税改，各省讨论改善税收和非税收入。国家问责局和联邦调查局将汇报反洗钱和反恐融资措施，能源部汇报循环债务和行业改革。政府此前表示整体计划执行强劲，但食糖自由化、卫生教育支出等条件尚未完全满足。",
+    "importance": "高"
+  },
+  {
+    "source": "Dawn",
+    "title": "IMF talks to unlock next $1.2bn set to begin today",
+    "url": "https://www.dawn.com/news/2033147/imf-talks-to-unlock-next-12bn-set-to-begin-today",
+    "date": "2026-09-28",
+    "summary_zh": "【巴基斯坦与国际货币基金组织（IMF）的正式谈判】于9月28日在伊斯兰堡启动，由Iva Petrova率领的IMF工作人员代表团将停留近两周至10月初，对【70亿美元扩展基金便利（EFF）进行第四次审查】、对韧性与可持续性便利（RSF）进行第三次审查。巴基斯坦当前处于为期37个月的IMF项目中，旨在通过财政纪律、结构改革和支持长期增长的措施稳定经济。若审查顺利完成，巴方有望在11月底或12月初获得EFF项下约10亿美元（7.6亿特别提款权）和RSF项下另2亿美元，【合计12亿美元】。与此同时，财政部长顾问Khurram Schehzad澄清，政府没有为去年12月通过拍卖私有化的巴基斯坦国际航空公司（PIA）购买任何飞机，也未宣布任何主权担保或纳税人出资贷款。此前有社交媒体称某部长正为购机安排主权相关融资，事缘财政部长Aurangzeb在纽约第81届联合国大会期间与美国进出口银行董事长John Jovanovich会面，讨论Reko Diq矿业项目及为PIA采购飞机融资，Aurangzeb表达了PIA对波音787梦想客机的兴趣并寻求涵盖飞机和发动机的融资方案。Schehzad指出，美国进出口银行的职责是支持本国出口和就业，波音飞机属美国出口，该行通过既定融资结构为外国买家提供支持，其框架允许以飞机资产为担保的融资，主权担保并非自动要求，且Aurangzeb的讨论不限于PIA，还涵盖航空、炼油厂升级和Reko Diq等更广泛的美巴经济合作。",
+    "importance": "高",
+    "dup_of": "https://propakistani.pk/2026/09/28/pakistan-imf-talks-begin-today-to-unlock-1-2-billion-loan/"
+  },
+  {
+    "source": "TechJuice",
+    "title": "MoITT Invites Applications for Director General Telecom Wireless",
+    "url": "https://www.techjuice.pk/moitt-invites-applications-for-director-general-telecom-wireless/",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦信息技术与电信部（MoITT）发布公告，公开招聘【电信无线领域总司长（DG Telecom Wireless）】一职，职级为MP-II级。该职位负责无线政策、频谱管理、宽带、卫星通信及新兴电信技术等领域，【初始任期为三年】，可按年续期两年，申请截止时年龄上限为62岁。申请人须持有电气、电子、计算机系统、电信工程等相关学科博士学位，并具备至少五年相关经验；持相关硕士学位者需有至少七年专业经验。入选者将负责制定和审查电信政策、管理频谱事务、评估新兴技术，并为政府高层论坛和监管机构提供建议，同时监督欠发达地区宽带与连接扩展项目，代表巴基斯坦出席国内外电信论坛。任命将按MP-II职位程序进行，由筛选委员会确定候选人，遴选委员会推荐三人，最终由总理批准一人，薪酬按2020年MP薪酬政策执行，在职政府雇员需提供无异议证明。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Proposes Strict Regulations & Tariff Controls for Telcos Crossing 25% Market Share",
+    "url": "https://www.techjuice.pk/pta-proposes-strict-regulations-tariff-controls-for-telcos-crossing-25-market-share/",
+    "date": "2026-09-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已向信息技术与电信部（MoITT）提出对《2026年竞争规则》的重大修订，引入更广泛的显著市场力量（SMP）认定框架。根据拟议修正案，【电信持牌商市场份额超过25%】即被推定拥有SMP，但PTA不会仅依赖该门槛，而将结合行业收入、市场集中度、对关键设施与频谱的控制、规模经济、垂直整合、进入壁垒、财务技术资源、用户获取渠道、买方抗衡力量、网络效应、潜在合谋、需求弹性、超额利润及非价格竞争等因素综合评估。一旦被认定拥有SMP，运营商将面临【严格的资费与定价监管义务】，并须遵守非歧视、透明度、关键设施公平接入、可靠互联与接入服务、参考报价、基础设施接入、会计分离及详细成本核算等要求。修正案还允许PTA定期审查相关市场，以便在市场条件变化时迅速调整评估并实施必要监管补救措施。",
+    "importance": "高",
+    "dup_of": "https://news.google.com/rss/articles/CBMirgFBVV95cUxOWkxaYkxyZWR2enFOSVRibFRFUUNsdE1zZXlUZmVpeWc2S3NRRkFhTk9CMFJCRjQ3QzZCQjhYYlJhVlB6VlA5MlpzZDFvN0RHN1BTVmZmYmZsZWRndXJ0MFNOaFp0NzRsY2MwM0dyeXoxN3Q3SlEybUhSTEFmc2lWeC1GMnA0RmFFZVJWcnBqbU5nQldDUkdtU3ZYQjhJaUQ4N0ZjbGFpZmF1ZE1jQWc?oc=5"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Jazz & Ufone-Telenor Lead the Telecom Market Share Race in Pakistan",
+    "url": "https://www.techjuice.pk/jazz-ufone-telenor-lead-the-telecom-market-share-race-in-pakistan/",
+    "date": "2026-09-28",
+    "summary_zh": "据2026年8月巴基斯坦电信市场份额数据，Jazz以【36.13%的份额】保持该国最大移动运营商地位，较7月的36.09%微增0.04个百分点。Zong份额维持【26.83%不变】，但因Ufone与Telenor完成合并而降至第三位。合并后Ufone-Telenor作为单一实体合计份额达【36.03%】，成为Jazz的有力挑战者；其中Telenor份额从21.06%降至20.98%，Ufone则从14.97%升至15.05%。特别通信组织（SCO）份额由1.04%微降至1.01%。报道称，近期5G频谱拍卖已向行业分配额外频谱，分析师预计运营商将大力扩展高速移动宽带服务并升级网络容量。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
     "title": "PTA Confirms Internet Outage in Islamabad",
     "url": "https://propakistani.pk/2026/09/27/pta-confirms-internet-outage-in-islamabad/",
     "date": "2026-09-27",
@@ -13,7 +95,8 @@
     "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWktMcFIzS3BENDk0V3ZLY0tjM1pwaTRLUFd3eTB5aXI0eVYtV1FLNXRSSndQclR6dWRYRFhVY0dWWUV1S3M5eUp5YkRVYWZsN2EyQnJ2WFJ0ZWZTUDFWUS1Odm5wQXlYemh6WnR1ZXlNam91THkxUUxvMDctaVVBUXc1MWNsMUsyajNXOTUzQjdMbld3YkxZMjRGanpUS1FsQzNvUmxn?oc=5",
     "date": "2026-09-27",
     "summary_zh": "伊斯兰堡和拉瓦尔品第居民近日遭遇互联网部分中断，移动数据和Wi-Fi网络在多个区域出现局部故障。巴基斯坦电信管理局（PTA）澄清，事故原因是【一根光缆被切断】，影响了某一家电信运营商的网络，并进而导致其他多家服务商的网络出现部分运行故障。PTA表示，此次中断并非全国性，【仅限伊斯兰堡、拉瓦尔品第及周边地区】，北部部分地区互联网性能也有所下降，而中部和南部地区服务正常。PTA呼吁民众不要恐慌，目前技术团队正在现场抢修被切断的光缆，运营商正优先恢复所有受影响区域，抢修工作稳步推进，但【完全恢复正常服务仍需数小时】。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://propakistani.pk/2026/09/27/pta-confirms-internet-outage-in-islamabad/"
   },
   {
     "source": "TechJuice",
@@ -30,7 +113,7 @@
     "date": "2026-09-27",
     "summary_zh": "巴基斯坦电信管理局（PTA）就伊斯兰堡和拉瓦尔品第互联网部分中断作出澄清，称原因是【一根光缆被切断】，影响了某一家电信运营商的网络，并进而导致其他多家服务商的网络出现部分运行故障。PTA表示，此次中断并非全国性，【仅局限于伊斯兰堡、拉瓦尔品第及周边地区】，北部部分地区互联网性能也有所下降，而中部和南部地区服务正常。PTA呼吁民众不要恐慌，目前技术团队已在现场抢修被切断的光缆，运营商正优先恢复所有受影响区域，抢修工作稳步推进，但【完全恢复正常仍需数小时】。",
     "importance": "中",
-    "dup_of": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWktMcFIzS3BENDk0V3ZLY0tjM1pwaTRLUFd3eTB5aXI0eVYtV1FLNXRSSndQclR6dWRYRFhVY0dWWUV1S3M5eUp5YkRVYWZsN2EyQnJ2WFJ0ZWZTUDFWUS1Odm5wQXlYemh6WnR1ZXlNam91THkxUUxvMDctaVVBUXc1MWNsMUsyajNXOTUzQjdMbld3YkxZMjRGanpUS1FsQzNvUmxn?oc=5"
+    "dup_of": "https://propakistani.pk/2026/09/27/pta-confirms-internet-outage-in-islamabad/"
   },
   {
     "source": "TechJuice",
