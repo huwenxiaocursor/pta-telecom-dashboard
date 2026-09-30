@@ -1,6 +1,47 @@
 [
   {
     "source": "ProPakistani",
+    "title": "New PTA Report Reveals Pakistan’s Fastest Mobile Network",
+    "url": "https://propakistani.pk/2026/09/29/new-pta-report-reveals-pakistans-fastest-mobile-network/",
+    "date": "2026-09-29",
+    "summary_zh": "巴基斯坦电信管理局（PTA）最新《移动网络体验基准报告》显示，2026年第二季度Zong录得全国最快的4G下载和上传速度，Jazz在两项中均列第二，Ufone领跑全国移动游戏体验。报告基于Opensignal在90天内独立采集的测量数据，覆盖Jazz、Telenor、Ufone和Zong四大运营商及全国20个城市，评估下载速度、上传速度、视频体验、游戏体验和联网时长。Zong全国平均4G下载速度为18.55 Mbps，Jazz为17.61 Mbps，Ufone为12.82 Mbps，Telenor为7.5 Mbps；Zong上传速度也居首，达7.81 Mbps。视频体验方面，Zong得分41.66分（满分100），略高于Jazz的41.51分；Ufone以50.08分领跑游戏体验。Zong联网时长最高，达96.59%。报告显示全国平均4G下载速度为18.9 Mbps，高端设备上达31.3 Mbps。PTA表示5G部署仍处早期阶段，结果仅供参考。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Eyes Stricter Rules for Leading Telcos",
+    "url": "https://propakistani.pk/2026/09/29/pta-eyes-stricter-rules-for-leading-telcos/",
+    "date": "2026-09-29",
+    "summary_zh": "巴基斯坦信息技术和电信部起草了《2026年电信竞争规则》草案，巴基斯坦电信管理局（PTA）据此提出修订建议，拟对在相关市场收入份额超过【25%的运营商】推定为具有显著市场势力（SMP），从而可能对其施加更严格的价格与资费管控。草案规定，25%收入份额仅作为判定市场势力的初始门槛，低于该门槛的运营商仍可能被认定具有SMP，高于该门槛的运营商若更广泛的市场评估不支持，也可能不被认定。PTA在评估市场势力时可考虑市场集中度、频谱持有量、财务与技术实力、对关键基础设施的控制、用户与分销渠道获取、规模经济、垂直整合、进入壁垒及网络效应等因素。被认定具有SMP的运营商可能面临额外义务，包括价格与资费管控、更高透明度、【会计分离】、互联与基础设施接入、批发服务与【国内漫游要求】，以及针对歧视性或排他性做法的措施。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Mobile Network Experience Remains Uneven as 4G Dominates Pakistan &amp; 5G Speeds Hit 127.7 Mbps",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPMnN4VWhxdm9vdnB1aVVmMjQ0aDhHUXM0b3poWENxNmJyY2JlRmxMR0YyQ0hmaFNwcDFRcWtpdERxdmNPSC02Z1h3VDB3Q0N1WDZNV1UzS0duWFJ6bVh5ZnkyWldWYjZyZjNSRC1IM2xBaml4THdXRW9neWpEbFlzR1VhVzRLekI2M0E?oc=5",
+    "date": "2026-09-29",
+    "summary_zh": "巴基斯坦电信管理局（PTA）发布2026年第二季度移动网络体验基准报告，基于Opensignal为期90天的独立测量数据。报告显示，【5G平均下载速度达127.74 Mbps】，但用户连接时间占比仅【3.95%】；4G仍是移动连接主力，平均在线时间占比【93.67%】，平均下载速度18.9 Mbps，高端设备用户达31.3 Mbps，上传速度5.32 Mbps，视频与游戏体验得分分别为37.53和43.85。5G上传速度为12.7 Mbps，视频与游戏体验得分分别为67.33和62.05。PTA提醒，5G部署仍处早期，覆盖有限、用户基数小，结果仅供参考。城市层面差异显著：伊斯兰堡下载速度6.03至20.86 Mbps，拉合尔7.58至21.26 Mbps，卡拉奇12.19至18.27 Mbps；瓜达尔仅3.87至12.75 Mbps，斯卡杜4.55至14.76 Mbps，穆扎法拉巴德8.53至14.7 Mbps。PTA强调该评估基于真实智能手机用户的端到端体验质量。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Mobile Network Experience Remains Uneven as 4G Dominates Pakistan & 5G Speeds Hit 127.7 Mbps",
+    "url": "https://www.techjuice.pk/pakistan-5g-speeds-4g-dominance-pta-benchmarking-q2-2026/",
+    "date": "2026-09-29",
+    "summary_zh": "巴基斯坦电信管理局（PTA）发布2026年第二季度移动网络体验基准报告，数据基于Opensignal为期90天的独立实测。报告显示，5G平均下载速度为【127.74 Mbps】，但用户连接时间占比仅【3.95%】；4G仍是移动连接主力，平均在线时间占比达【93.67%】，平均下载速度18.9 Mbps，高端设备用户可达31.3 Mbps，平均上传速度5.32 Mbps，视频与游戏体验得分分别为37.53和43.85。5G平均上传速度为12.7 Mbps，视频与游戏体验得分分别为67.33和62.05。PTA提醒，巴基斯坦5G部署仍处早期，覆盖有限、用户基数小，结果仅具参考性。城市层面差异显著：伊斯兰堡下载速度6.03至20.86 Mbps，拉合尔7.58至21.26 Mbps，卡拉奇12.19至18.27 Mbps；瓜达尔仅3.87至12.75 Mbps，斯卡杜4.55至14.76 Mbps，穆扎法拉巴德8.53至14.7 Mbps。PTA强调该评估衡量真实终端用户体验质量，涵盖室内外及忙闲时段。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMiigFBVV95cUxPMnN4VWhxdm9vdnB1aVVmMjQ0aDhHUXM0b3poWENxNmJyY2JlRmxMR0YyQ0hmaFNwcDFRcWtpdERxdmNPSC02Z1h3VDB3Q0N1WDZNV1UzS0duWFJ6bVh5ZnkyWldWYjZyZjNSRC1IM2xBaml4THdXRW9neWpEbFlzR1VhVzRLekI2M0E?oc=5"
+  },
+  {
+    "source": "TechJuice",
+    "title": "MCB Sialkot Targeted With SIM Swap Fraud & Unauthorized Transfers",
+    "url": "https://www.techjuice.pk/pakistan-digital-banking-sim-swap-fraud-security-crisis/",
+    "date": "2026-09-29",
+    "summary_zh": "巴基斯坦数字银行系统频遭SIM卡交换与手机银行App非法访问攻击。一起已记录案件中，一名私人银行经理获取未授权SIM卡权限，利用窃取的银行App凭证在数分钟内从客户账户转走【220万卢比】，联邦调查局商业银行业圈已将其逮捕。银行业申诉专员确认MCB（穆斯林商业银行）发生重大内部违规，分行经理Saeed Arif利用客户支票虚构定期存款计划并擅自转账，资金被划入其侄子Muneeb Nasir账户，申诉专员责令MCB支付【305万卢比】赔偿及服务费。费萨拉巴德一名私人银行区域经理涉嫌挪用【超10亿卢比】后逃往国外。问题根源在于过度依赖短信双因素认证，攻击者在电信网点换卡拦截一次性密码。Jazz、Zong、Ufone/Telenor四大运营商虽有换卡流程但执行不严。建议银行强制生物识别认证，SBP制定强制多因素认证标准。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
     "title": "PTA Sets New Testing Standards for 5G Devices and Base Stations",
     "url": "https://propakistani.pk/2026/09/28/pta-sets-new-testing-standards-for-5g-devices-and-base-stations/",
     "date": "2026-09-28",
