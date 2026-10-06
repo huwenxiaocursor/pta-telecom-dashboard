@@ -7397,3 +7397,16 @@ Call log:
 [2026-10-06 09:31:10] News update complete
 [2026-10-06 09:31:10] ==================================================
 [2026-10-06 23:03:46]   Injected 399 items into index.html
+[2026-10-06 23:06:40] ==================================================
+[2026-10-06 23:06:40] News update started
+[2026-10-06 23:06:40] Cache: 770 existing items
+[2026-10-06 23:06:47] New items: 0
+[2026-10-06 23:06:47]   !! 抓取异常[sources]：网络正常（0 次请求成功）但所有来源均返回 0 条，可能当天确实无新稿，也可能某站改版导致解析失效，建议人工核对
+[2026-10-06 23:06:47]   !! 无产出的来源：<lambda>
+[2026-10-06 23:06:47] Cache saved: 770 total items
+[2026-10-06 23:06:49]   Dedup: 组内实体不连通，拆成 2 组 — PTA Issues New Threat Alert ‖ PTA Urges Parents to Protect Child
+[2026-10-06 23:06:49]   Dedup: 重要性不一致且标题无共同实体，判为不同事件保留 — 中:Industrialists express concern over 15% surg | 高:‘Escalating import bill to exert pressure on
+[2026-10-06 23:06:49]   Injected 559 items into index.html
+[2026-10-06 23:06:49] News update complete
+[2026-10-06 23:06:49] ==================================================
+[2026-10-06 23:07:00]   （上一轮为人工重排页面：抓取器全部置空、只重新生成 index.html，上面的 [sources] 告警不代表真实抓取故障）

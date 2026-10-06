@@ -67,7 +67,7 @@ HEADERS = {
 RECLEAN_CACHE = False
 
 MAX_ITEMS_PER_SOURCE = 20
-MAX_DISPLAY_ITEMS    = 400
+MAX_DISPLAY_ITEMS    = 1000
 MAX_PER_DAY          = 8
 # Minimum distinct sources required in a day's display (when the day's candidate
 # pool actually has that many distinct sources available) — prevents one busy
