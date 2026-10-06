@@ -870,6 +870,31 @@ def _is_device_use_ban(t: str) -> bool:
     return not any(k in t for k in _DEVICE_BAN_TELECOM_SUBJECT)
 
 
+# 外国货币政策外溢评论（2026-10-06 用户指定排除）。触发案例：Dawn
+# `High US interest rates complicate Pakistan's monetary policy`——讲美债收益率
+# 走高给巴基斯坦融资、私有化带来的间接压力，属分析评论稿，没有新的本国事件
+# （文中储备数字是旧数据复述）。它靠 _TELECOM_SUB 的 `monetary policy` 进来，
+# 又因为标题点名了 Pakistan，绕过了 _FOREIGN_WB 里 `us`/`fed` 那道地域闸门。
+#
+# 只认"外国利率/美联储/美债"这类**外国货币政策主体**的复合短语；SBP 本国的
+# 利率决议、储备、通胀新闻不受影响。例外照旧是电信实体。
+_FOREIGN_MONETARY = {
+    # 带 `us` 的短语前面留空格、对 tw（首尾补空格的标题）匹配，避免
+    # `bonus rate`/`status rate` 这类子串误伤。
+    " us interest rate", " us rate", " u.s. interest rate", " u.s. rate",
+    " us treasury", " us yield", " us bond yield", " us fed",
+    "treasury yield", "federal reserve", "fed rate", "fed hike", "fed cut",
+    "global interest rate", "global rates", "strong dollar", "dollar strength",
+}
+
+
+def _is_foreign_monetary_spillover(t: str, tw: str) -> bool:
+    """外国利率/美联储对巴基斯坦的外溢评论 → 丢弃；涉电信实体的照收。"""
+    if not any(k in tw for k in _FOREIGN_MONETARY):
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -898,6 +923,8 @@ def is_relevant(title: str) -> bool:
     if _is_fintech_regulation(t):
         return False
     if _is_device_use_ban(t):
+        return False
+    if _is_foreign_monetary_spillover(t, tw):
         return False
     if _is_routine_fuel_price(t):
         return False
