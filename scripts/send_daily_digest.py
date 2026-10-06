@@ -17,6 +17,9 @@ BASE_DIR      = pathlib.Path(__file__).resolve().parent
 CACHE_FILE    = BASE_DIR / "news_cache.json"
 FETCH_STATUS_FILE = BASE_DIR / "fetch_status.json"
 INDEX_FILE    = BASE_DIR.parent / "index.html"
+# 人工指定"顺延到某天日报"的条目（见 load_carryover()）。运行时状态文件，已 gitignore——
+# 它会被本脚本改写，若被 git 跟踪会让 09:00 抓新闻任务的 `git pull --rebase` 因工作区脏而罢工。
+CARRYOVER_FILE = BASE_DIR / "digest_carryover.json"
 DASHBOARD_URL = "https://huwenxiaocursor.github.io/pta-telecom-dashboard/"
 
 # 当天无新增新闻（只能回退到旧日期）时，不生成日报草稿，改为只给本人发一封
@@ -98,7 +101,46 @@ def load_today_news(date_str: str) -> list:
              if i.get("date") == date_str
              and i.get("summary_zh", "").strip()
              and is_digest_relevant(i.get("title", ""))]
-    return items[:MAX_DIGEST_ITEMS]
+    items = items[:MAX_DIGEST_ITEMS]
+    # 顺延条目追加在当天新闻之后、不占 MAX_DIGEST_ITEMS 名额：它们是用户点名要发的，
+    # 不该再被当天的排序挤掉一次。按 url 去重，防止与当天条目重复。
+    seen = {i.get("url") for i in items}
+    for c in load_carryover(date_str):
+        it = next((i for i in all_items if i.get("url") == c), None)
+        if it and it.get("summary_zh", "").strip() and c not in seen:
+            items.append(it)
+            seen.add(c)
+    return items
+
+
+def load_carryover(date_str: str) -> list:
+    """返回指定在 date_str 那天日报里补发的条目 url 列表。
+
+    用途：某条新闻因当天超过 MAX_DIGEST_ITEMS 被挤出日报，用户想第二天补上。
+    **不改新闻本身的日期**——页面和缓存里它仍按原始日期展示，只是日报多发一次。
+    文件格式：[{"url": "...", "deliver_on": "YYYY-MM-DD"}, ...]
+    """
+    if not CARRYOVER_FILE.exists():
+        return []
+    try:
+        entries = json.loads(CARRYOVER_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    return [e["url"] for e in entries if e.get("deliver_on") == date_str and e.get("url")]
+
+
+def consume_carryover(date_str: str) -> None:
+    """日报草稿生成成功后，清掉 deliver_on <= date_str 的条目（已发或已过期）。"""
+    if not CARRYOVER_FILE.exists():
+        return
+    try:
+        entries = json.loads(CARRYOVER_FILE.read_text(encoding="utf-8"))
+    except Exception:
+        return
+    left = [e for e in entries if e.get("deliver_on", "") > date_str]
+    if len(left) != len(entries):
+        CARRYOVER_FILE.write_text(json.dumps(left, ensure_ascii=False, indent=2),
+                                  encoding="utf-8")
 
 
 def highlight(text: str) -> str:
@@ -385,6 +427,7 @@ def main() -> None:
 
     print(f"  生成邮件草稿：{subject}")
     save_draft_via_apple_mail(img_path, subject, body)
+    consume_carryover(date_str)
     print("  完成。")
 
 
