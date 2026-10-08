@@ -7452,3 +7452,132 @@ Call log:
 [2026-10-07 09:59:37]   Injected 561 items into index.html
 [2026-10-07 09:59:37] News update complete
 [2026-10-07 09:59:37] ==================================================
+[2026-10-08 09:00:03] ==================================================
+[2026-10-08 09:00:03] News update started
+[2026-10-08 09:00:03] Cache: 770 existing items
+[2026-10-08 09:00:05] Fetching PTA official [新闻稿] …
+[2026-10-08 09:01:03]   PTA official [新闻稿]: 14 items found
+[2026-10-08 09:01:03] Fetching PTA official [新闻/更新] …
+[2026-10-08 09:01:58]   PTA official [新闻/更新]: 0 items found
+[2026-10-08 09:01:58] Fetching PTA official [公告] …
+[2026-10-08 09:02:05]   PTA official [公告]: 0 items found
+[2026-10-08 09:02:06] Fetching Google News [PTA] …
+[2026-10-08 09:02:07]   Google News [PTA]: 31 items found（取最新 20 条）
+[2026-10-08 09:02:07]     非目标来源已跳过：PhoneWorld×6、Bloom Pakistan×4、247news.com.pk×4、Digital Pakistan×3、Pakistan Connect×2、The News Pakistan×1、The Express Tribune×1、Pkrevenue.com×1
+[2026-10-08 09:02:08] Fetching Google News [SBP] …
+[2026-10-08 09:02:09]   Google News [SBP]: 8 items found（取最新 8 条）
+[2026-10-08 09:02:09]     非目标来源已跳过：Dunya News×2、The News Pakistan×1、Profit by Pakistan Today×1、Daily Pakistan×1、Pkrevenue.com×1
+[2026-10-08 09:02:10] Fetching ProPakistani via WP REST API …
+[2026-10-08 09:02:14]   ProPakistani: 3 items found
+[2026-10-08 09:02:15] Fetching Dawn RSS …
+[2026-10-08 09:02:16]   Dawn: 1 items found
+[2026-10-08 09:02:17] Fetching Business Recorder RSS …
+[2026-10-08 09:02:17]   Business Recorder: 0 items found
+[2026-10-08 09:02:18] Fetching TechJuice via WP REST API …
+[2026-10-08 09:02:23]   TechJuice: 8 items found
+[2026-10-08 09:02:24] New items: 33
+[2026-10-08 09:02:24]   同日同标题去重: 33 → 18 条（省下 15 次摘要调用）
+[2026-10-08 09:02:24]   Summarising: PTA Data Shows Wide Gap in Pakistan’s Broadband Prices …
+[2026-10-08 09:02:30]   Summarising: PTA Reports 88% Overall Blocking Rate in Social Media Content …
+[2026-10-08 09:02:33]   Summarising: Jazz Tops PTA’s Telecom Consumer Complaints List for January 2026 …
+[2026-10-08 09:02:43]     ! 日期不符：原标 2026-10-06，原文为 2026-03-14 → 以原文为准
+[2026-10-08 09:02:43]     ! 早于 2026-08-01，丢弃
+[2026-10-08 09:02:43]   Summarising: PTA Briefs 165+ Universities on Internet Safety Rules …
+[2026-10-08 09:02:48]   Summarising: PTA Seeks Consultant to Build AI-Powered DIRBS System …
+[2026-10-08 09:02:57]     ! 日期不符：原标 2026-10-06，原文为 2026-08-10 → 以原文为准
+[2026-10-08 09:03:00]   Summarising: PTA Data Exposes Pakistan’s Punishing Prepaid Rates: Jazz Charges Rs 5 …
+[2026-10-08 09:03:04]   Summarising: Jazz Records Highest Entry Cost As PTA Postpaid Report Exposes Major T …
+[2026-10-08 09:03:09]   Summarising: PTA Shares New Internet Safety Rules for Universities …
+[2026-10-08 09:03:49]   Browser fetch failed (https://news.google.com/rss/articles/CBMimAFBVV95cUxPQjVQdDAxRmxlRjJydVF5dVlXejN2bHlYX2szU2trMHppOUNqcDZuVUlGcmR2dzBOcl93Vm94UHBEejA0alhwX0RibTQ1SFU3OTRRRFFLTm14LWthVFREVEk0V05zRmdxU1I2TFpQYnVBLVU0RldoNmJJVDhjN3hLaEFNOVRvZzd3UUNid2hnNEJueVhWdDlaNtIBmAFBVV95cUxPQjVQdDAxRmxlRjJydVF5dVlXejN2bHlYX2szU2trMHppOUNqcDZuVUlGcmR2dzBOcl93Vm94UHBEejA0alhwX0RibTQ1SFU3OTRRRFFLTm14LWthVFREVEk0V05zRmdxU1I2TFpQYnVBLVU0RldoNmJJVDhjN3hLaEFNOVRvZzd3UUNid2hnNEJueVhWdDlaNg?oc=5): Page.inner_text: Timeout 30000ms exceeded.
+Call log:
+  - waiting for locator("body")
+
+[2026-10-08 09:03:49]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:49]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:49]   Summarising: Which Mobile Phones Support Jazz 5G in Pakistan Right Now? …
+[2026-10-08 09:03:49]   FETCH ERROR [https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-10-08 09:03:50]   Browser fetch failed (https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5
+Call log:
+  - navigating to "https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:50]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:50]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:50]   Summarising: Financial inclusion index rises to 59.5: SBP …
+[2026-10-08 09:03:50]   FETCH ERROR [https://news.google.com/rss/articles/CBMiigFBVV95cUxOQkJYWVp0dElERzJUVkxrZDRWWi1zd1dBWGRYZmE4UkRJQWlwUXRoUDFRSTlaN2JCQjFJcGthamxGMjNCenR1Vm9mUjAzVDVrOTMtSHVTSTVPVGdlU05teUZxYkFIc1QwVEtXWWdabzRlMlNZcDQ3NHlpb1ZyMUpCaTBfVHBQVE8yT1HSAVZBVV95cUxPRTlDVUxHbzlTc0theW9yRC00VXVxNTBHT2hBd2NWcXNIcTYyTlR4eWJDOFF6dUZpaUxRS0I4Z1ZjT2FOQldfenFFRXFPeDVmcDdwRzNxdw?oc=5]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-10-08 09:03:51]   Browser fetch failed (https://news.google.com/rss/articles/CBMiigFBVV95cUxOQkJYWVp0dElERzJUVkxrZDRWWi1zd1dBWGRYZmE4UkRJQWlwUXRoUDFRSTlaN2JCQjFJcGthamxGMjNCenR1Vm9mUjAzVDVrOTMtSHVTSTVPVGdlU05teUZxYkFIc1QwVEtXWWdabzRlMlNZcDQ3NHlpb1ZyMUpCaTBfVHBQVE8yT1HSAVZBVV95cUxPRTlDVUxHbzlTc0theW9yRC00VXVxNTBHT2hBd2NWcXNIcTYyTlR4eWJDOFF6dUZpaUxRS0I4Z1ZjT2FOQldfenFFRXFPeDVmcDdwRzNxdw?oc=5): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://news.google.com/rss/articles/CBMiigFBVV95cUxOQkJYWVp0dElERzJUVkxrZDRWWi1zd1dBWGRYZmE4UkRJQWlwUXRoUDFRSTlaN2JCQjFJcGthamxGMjNCenR1Vm9mUjAzVDVrOTMtSHVTSTVPVGdlU05teUZxYkFIc1QwVEtXWWdabzRlMlNZcDQ3NHlpb1ZyMUpCaTBfVHBQVE8yT1HSAVZBVV95cUxPRTlDVUxHbzlTc0theW9yRC00VXVxNTBHT2hBd2NWcXNIcTYyTlR4eWJDOFF6dUZpaUxRS0I4Z1ZjT2FOQldfenFFRXFPeDVmcDdwRzNxdw?oc=5
+Call log:
+  - navigating to "https://news.google.com/rss/articles/CBMiigFBVV95cUxOQkJYWVp0dElERzJUVkxrZDRWWi1zd1dBWGRYZmE4UkRJQWlwUXRoUDFRSTlaN2JCQjFJcGthamxGMjNCenR1Vm9mUjAzVDVrOTMtSHVTSTVPVGdlU05teUZxYkFIc1QwVEtXWWdabzRlMlNZcDQ3NHlpb1ZyMUpCaTBfVHBQVE8yT1HSAVZBVV95cUxPRTlDVUxHbzlTc0theW9yRC00VXVxNTBHT2hBd2NWcXNIcTYyTlR4eWJDOFF6dUZpaUxRS0I4Z1ZjT2FOQldfenFFRXFPeDVmcDdwRzNxdw?oc=5", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:51]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:51]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:51]   Summarising: PRISM+ settles 6.3m transactions: SBP …
+[2026-10-08 09:03:51]   FETCH ERROR [https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XUXRIb1Bwb182RXp3NFRRM1JJTlFuajZWMWFhOXd3Vy1oUkV6V2VPdTZ2ZXBsbU1rRTAySUF6cjZHU0FicHdwbnVsazVHMHdSd3cyQTFn0gFWQVVfeXFMT1dRdEhvUHBvXzZFenc0VFEzUklOUW5qNlYxYWE5d3dXLWhSRXpXZU91NnZlcGxtTWtFMDJJQXpyNkdTQWJwd3BudWxrNUcwd1J3dzJBMWc?oc=5]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-10-08 09:03:51]   Browser fetch failed (https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XUXRIb1Bwb182RXp3NFRRM1JJTlFuajZWMWFhOXd3Vy1oUkV6V2VPdTZ2ZXBsbU1rRTAySUF6cjZHU0FicHdwbnVsazVHMHdSd3cyQTFn0gFWQVVfeXFMT1dRdEhvUHBvXzZFenc0VFEzUklOUW5qNlYxYWE5d3dXLWhSRXpXZU91NnZlcGxtTWtFMDJJQXpyNkdTQWJwd3BudWxrNUcwd1J3dzJBMWc?oc=5): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XUXRIb1Bwb182RXp3NFRRM1JJTlFuajZWMWFhOXd3Vy1oUkV6V2VPdTZ2ZXBsbU1rRTAySUF6cjZHU0FicHdwbnVsazVHMHdSd3cyQTFn0gFWQVVfeXFMT1dRdEhvUHBvXzZFenc0VFEzUklOUW5qNlYxYWE5d3dXLWhSRXpXZU91NnZlcGxtTWtFMDJJQXpyNkdTQWJwd3BudWxrNUcwd1J3dzJBMWc?oc=5
+Call log:
+  - navigating to "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XUXRIb1Bwb182RXp3NFRRM1JJTlFuajZWMWFhOXd3Vy1oUkV6V2VPdTZ2ZXBsbU1rRTAySUF6cjZHU0FicHdwbnVsazVHMHdSd3cyQTFn0gFWQVVfeXFMT1dRdEhvUHBvXzZFenc0VFEzUklOUW5qNlYxYWE5d3dXLWhSRXpXZU91NnZlcGxtTWtFMDJJQXpyNkdTQWJwd3BudWxrNUcwd1J3dzJBMWc?oc=5", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:51]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:51]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:52]   Summarising: SBP Financial Inclusion Index Rises to 59.5 in 2025 …
+[2026-10-08 09:03:52]   FETCH ERROR [https://www.techjuice.pk/sbp-financial-inclusion-index-rises-to-59-5-in-2025/]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-10-08 09:03:52]   Browser fetch failed (https://www.techjuice.pk/sbp-financial-inclusion-index-rises-to-59-5-in-2025/): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.techjuice.pk/sbp-financial-inclusion-index-rises-to-59-5-in-2025/
+Call log:
+  - navigating to "https://www.techjuice.pk/sbp-financial-inclusion-index-rises-to-59-5-in-2025/", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:52]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:52]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:52]   Summarising: Pakistani Banks See Sharp Rise in US Dollar Deposits Despite SBP Contr …
+[2026-10-08 09:03:52]   FETCH ERROR [https://news.google.com/rss/articles/CBMioAFBVV95cUxPaURVLTFoY0YtWVJJQks0TlNQMThKanJzTml4ak4yUzhpekFyTy1lVl84SE5wLVNVM2k0N1hDLVAzN2lRQ1JEMDNWSm9POEhXeWxwSWQ0cnZHY0F4cm1fTkNleUhRNmY5VUJMbzNySDZwcDJ1Sm84eWpzOFg4MHV5ZldxNEVyMnBQdjJiS0ZZWTJreEIzQUJTclhTMmhrRXEy?oc=5]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-10-08 09:03:53]   Browser fetch failed (https://news.google.com/rss/articles/CBMioAFBVV95cUxPaURVLTFoY0YtWVJJQks0TlNQMThKanJzTml4ak4yUzhpekFyTy1lVl84SE5wLVNVM2k0N1hDLVAzN2lRQ1JEMDNWSm9POEhXeWxwSWQ0cnZHY0F4cm1fTkNleUhRNmY5VUJMbzNySDZwcDJ1Sm84eWpzOFg4MHV5ZldxNEVyMnBQdjJiS0ZZWTJreEIzQUJTclhTMmhrRXEy?oc=5): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://news.google.com/rss/articles/CBMioAFBVV95cUxPaURVLTFoY0YtWVJJQks0TlNQMThKanJzTml4ak4yUzhpekFyTy1lVl84SE5wLVNVM2k0N1hDLVAzN2lRQ1JEMDNWSm9POEhXeWxwSWQ0cnZHY0F4cm1fTkNleUhRNmY5VUJMbzNySDZwcDJ1Sm84eWpzOFg4MHV5ZldxNEVyMnBQdjJiS0ZZWTJreEIzQUJTclhTMmhrRXEy?oc=5
+Call log:
+  - navigating to "https://news.google.com/rss/articles/CBMioAFBVV95cUxPaURVLTFoY0YtWVJJQks0TlNQMThKanJzTml4ak4yUzhpekFyTy1lVl84SE5wLVNVM2k0N1hDLVAzN2lRQ1JEMDNWSm9POEhXeWxwSWQ0cnZHY0F4cm1fTkNleUhRNmY5VUJMbzNySDZwcDJ1Sm84eWpzOFg4MHV5ZldxNEVyMnBQdjJiS0ZZWTJreEIzQUJTclhTMmhrRXEy?oc=5", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:53]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:53]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:53]   Summarising: Pakistan’s AI Push Faces a Broadband and Power Problem …
+[2026-10-08 09:03:53]   FETCH ERROR [https://propakistani.pk/2026/10/07/pakistans-ai-push-faces-a-broadband-and-power-problem/]: curl exit 6: curl: (6) Could not resolve host: propakistani.pk
+[2026-10-08 09:03:53]   Browser fetch failed (https://propakistani.pk/2026/10/07/pakistans-ai-push-faces-a-broadband-and-power-problem/): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://propakistani.pk/2026/10/07/pakistans-ai-push-faces-a-broadband-and-power-problem/
+Call log:
+  - navigating to "https://propakistani.pk/2026/10/07/pakistans-ai-push-faces-a-broadband-and-power-problem/", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:53]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:53]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:54]   Summarising: Leading Telcos to Share Networks …
+[2026-10-08 09:03:54]   FETCH ERROR [https://propakistani.pk/2026/10/07/leading-telcos-to-share-networks/]: curl exit 6: curl: (6) Could not resolve host: propakistani.pk
+[2026-10-08 09:03:54]   Browser fetch failed (https://propakistani.pk/2026/10/07/leading-telcos-to-share-networks/): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://propakistani.pk/2026/10/07/leading-telcos-to-share-networks/
+Call log:
+  - navigating to "https://propakistani.pk/2026/10/07/leading-telcos-to-share-networks/", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:54]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:54]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:54]   Summarising: MoITT Proposes National Roaming Rules for Dominant Telecom Firms …
+[2026-10-08 09:03:54]   FETCH ERROR [https://www.techjuice.pk/moitt-draft-telecom-competition-rules-national-roaming-smp-2026/]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-10-08 09:03:54]   Browser fetch failed (https://www.techjuice.pk/moitt-draft-telecom-competition-rules-national-roaming-smp-2026/): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.techjuice.pk/moitt-draft-telecom-competition-rules-national-roaming-smp-2026/
+Call log:
+  - navigating to "https://www.techjuice.pk/moitt-draft-telecom-competition-rules-national-roaming-smp-2026/", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:54]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:54]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:55]   Summarising: Jazz Exposed as the Worst Operator Amid Skyrocketing Data Charges …
+[2026-10-08 09:03:55]   FETCH ERROR [https://www.techjuice.pk/jazz-exposed-as-the-worst-operator-amid-skyrocketing-data-charges/]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-10-08 09:03:55]   Browser fetch failed (https://www.techjuice.pk/jazz-exposed-as-the-worst-operator-amid-skyrocketing-data-charges/): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.techjuice.pk/jazz-exposed-as-the-worst-operator-amid-skyrocketing-data-charges/
+Call log:
+  - navigating to "https://www.techjuice.pk/jazz-exposed-as-the-worst-operator-amid-skyrocketing-data-charges/", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:55]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:55]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:56]   Summarising: e& Reverts to Etisalat Name. Will Pakistan’s Ufone-Telenor Merger Do t …
+[2026-10-08 09:03:56]   FETCH ERROR [https://www.techjuice.pk/etisalat-rebrand-ptml-pakistan-may-follow/]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-10-08 09:03:56]   Browser fetch failed (https://www.techjuice.pk/etisalat-rebrand-ptml-pakistan-may-follow/): Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.techjuice.pk/etisalat-rebrand-ptml-pakistan-may-follow/
+Call log:
+  - navigating to "https://www.techjuice.pk/etisalat-rebrand-ptml-pakistan-may-follow/", waiting until "domcontentloaded"
+
+[2026-10-08 09:03:56]     ! no article text — title-only summary (may be unreliable)
+[2026-10-08 09:03:56]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:56]   按原文日期丢弃过期条目 1 条
+[2026-10-08 09:03:56]   ~ 部分来源连接失败（21 次网络错误），其余来源正常
+[2026-10-08 09:03:56] Cache saved: 787 total items
+[2026-10-08 09:03:56]   FETCH ERROR [https://api.deepseek.com/chat/completions]: curl exit 6: curl: (6) Could not resolve host: api.deepseek.com
+[2026-10-08 09:03:56]   Injected 566 items into index.html
+[2026-10-08 09:03:57] News update complete
+[2026-10-08 09:03:57] ==================================================
