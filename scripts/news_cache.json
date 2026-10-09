@@ -1,6 +1,54 @@
 [
   {
     "source": "TechJuice",
+    "title": "PTA Issues 4G/LTE Advisory on How to Fix Poor Call Quality",
+    "url": "https://www.techjuice.pk/pta-issues-4g-lte-advisory-on-how-to-fix-poor-call-quality/",
+    "date": "2026-10-08",
+    "summary_zh": "巴基斯坦电信管理局（PTA）发布官方公告，针对普遍存在的通话质量差和移动数据中断问题，建议用户检查手机与SIM卡的4G/LTE兼容性。PTA指出，用户应进入手机网络设置【启用4G/LTE选项】，并确认手机硬件支持4G服务、SIM卡已开通4G功能，可联系运营商核实。PTA表示，兼容的手机、支持4G的SIM卡与正确的网络设置相结合，能直接改善整体网络表现。该公告旨在帮助用户【自行解决基础连接问题】，避免在联系运营商技术支援前无法排除简单故障。PTA称正持续关注运营商服务质量，并【向用户普及现有技术知识】，以应对日益增长的移动网络数据服务依赖。",
+    "importance": "低"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Introduces Facial Verification for SIM Cards in Major Fraud Crackdown",
+    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxNVDBkODU1bHBubEFmOV9uVzJ5cGZldEwtcXNud0lnYUFaUmlnakozOXZTSGFfVWxGeFNhekZISWN3SWtlcFUxNUo0MkVDQmpkbUhQeFlEOFVSQkFRRWNBR0JVMWNFcEZPYVRsbXpVcjNueUpjdDA2Y01QdzRodGEyclRfVWoyRk1RODctTzlSNmdTNUNVYlB2cTF6UThmSlp3?oc=5",
+    "date": "2026-09-04",
+    "summary_zh": "巴基斯坦电信管理局（PTA）宣布推出新一轮打击电信欺诈行动，将对所有现有用户及新购SIM卡用户引入【人脸验证作为额外生物识别层】，以加强用户身份识别与认证，减少移动连接被滥用。PTA还计划对SIM销售渠道实施【集中化黑名单制度】，对违规零售商和网点采取更严厉措施，并考虑对销售渠道进行合理化调整，以更好管控移动连接的销售与激活。同时，PTA正强化补办SIM卡流程，防止未经授权发放和非法使用。此前在【2025年7月至2026年6月】期间，PTA已封锁768个手机号码和707个IMEI，将11个涉欺诈CNIC列入黑名单，并向2497名用户发出正式警告。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP Reserves Gain $15 Million",
+    "url": "https://propakistani.pk/2026/10/08/sbp-reserves-gain-15-million/",
+    "date": "2026-10-08",
+    "summary_zh": "巴基斯坦国家银行（SBP）公布，截至2026年10月2日当周，其外汇储备环比增加【1500万美元】，升至【214.54亿美元】，前一周为214.39亿美元。同期全国流动外汇储备总额为【267.97亿美元】，较前一周增加2700万美元，其中SBP持有214.54亿美元，商业银行持有53.44亿美元，商业银行储备环比增加1200万美元。SBP表示，当前美元储备可覆盖【3.04个月】的进口需求。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Zong Launches Pakistan’s First 5G Fixed Wireless Home Broadband Service — Z HomeFi",
+    "url": "https://propakistani.pk/2026/10/08/zong-launches-pakistans-first-5g-fixed-wireless-home-broadband-service-z-homefi/",
+    "date": "2026-10-08",
+    "summary_zh": "Zong推出巴基斯坦首个5G固定无线接入家庭宽带服务Z HomeFi，将5G从智能手机延伸至家庭场景。该服务无需光纤安装和固定线路基础设施，覆盖巴基斯坦【十大城市】，目前仅通过Zong客户服务中心提供，未来计划扩展至特许经营网点。Z HomeFi提供【12种预付费套餐】，网速从10 Mbps到50 Mbps，月流量100 GB至500 GB，月费在【4500至11000卢比】之间（含税）。5G室内用户端设备（CPE）售价为【22000卢比】，支持即插即用。Zong营销主管Sajid Munir表示，技术的真正价值在于改善日常生活，Z HomeFi让家庭无需光纤安装即可获得可靠便捷的宽带体验。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "SBP Reserves Rise by $15 Million to $21.45 Billion",
+    "url": "https://www.techjuice.pk/sbp-reserves-rise-by-15-million-to-21-45-billion/",
+    "date": "2026-10-08",
+    "summary_zh": "据巴基斯坦国家银行（SBP）数据，截至2026年10月2日当周，巴基斯坦外汇储备增加2700万美元，总额达267.97亿美元。其中，SBP自身持有的储备增加1500万美元，从一周前的214.39亿美元升至【214.54亿美元】；商业银行外汇储备增加1200万美元，至【53.44亿美元】。截至2026年10月2日，巴基斯坦【流动性外汇储备总额为267.97亿美元】，当前外汇储备足以覆盖约【3.04个月的进口】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Mobile and Internet Services Suspended in Peshawar",
+    "url": "https://www.techjuice.pk/mobile-and-internet-services-suspended-in-peshawar/",
+    "date": "2026-10-08",
+    "summary_zh": "【白沙瓦大范围移动与互联网服务自周三夜间起中断】，至周四仍未恢复，当天正值PTI领导的长期游行队伍计划抵达该市。巴基斯坦电信管理局（PTA）官员向媒体证实，此次行动系奉上级指示执行，属临时性安全预防措施，相关部委命令于周三夜间下达。开伯尔-普什图省首席部长负责内政与部落事务的特别助理塔里克·赛义德·马尔瓦特未说明其部门是否向内政部提出过中断申请，省信息部长沙菲·詹未予置评，省政府亦未发表任何声明。白沙瓦多所主要私立学校周四停课，公立学校及高校照常开放，许多家长因手机信号中断未能收到通知，直至孩子被校门拒之门外才得知。一所学校以【“当前政治局势”为由】发布通知称周五复课。私立学校监管局（PSRA）表示未下达停课令，将依据相关规则对擅自停课的学校采取严厉纪律处分，并致函各私立学校负责人要求维持正常教学活动。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
     "title": "PTA Data Shows Wide Gap in Pakistan’s Broadband Prices",
     "url": "https://www.techjuice.pk/pta-data-shows-wide-gap-in-pakistans-broadband-prices/",
     "date": "2026-10-07",
@@ -21,7 +69,8 @@
     "url": "https://www.techjuice.pk/pta-briefs-165-universities-on-internet-safety-rules/",
     "date": "2026-10-06",
     "summary_zh": "巴基斯坦电信管理局（PTA）已向【超过165所大学】的负责人通报安全与负责任使用互联网的相关要求，作为其提升网络风险意识工作的一部分。据PTA文件，该机构与高等教育委员会（HEC）下属大学及机构举办了意识研讨会等活动，内容聚焦合法使用互联网、网络风险及用户面临的潜在威胁。PTA还发起了针对不安全与非法在线内容、网络风险及可用法律救济的宣传活动，并通过YouTube和社交媒体平台分享教育视频等材料。此外，PTA与联合国儿童基金会、TikTok等组织合作，为家长和监护人发布了指南，帮助其了解网络风险并支持儿童更安全地使用互联网。PTA还与移动运营商及电视节目合作，向学生、家长及更广泛公众传播意识。PTA表示，其与大学及其他利益相关方的持续接触旨在提升对网络风险的认识，促进更安全、更负责任地使用数字平台。",
-    "importance": "低"
+    "importance": "低",
+    "dup_of": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPQjVQdDAxRmxlRjJydVF5dVlXejN2bHlYX2szU2trMHppOUNqcDZuVUlGcmR2dzBOcl93Vm94UHBEejA0alhwX0RibTQ1SFU3OTRRRFFLTm14LWthVFREVEk0V05zRmdxU1I2TFpQYnVBLVU0RldoNmJJVDhjN3hLaEFNOVRvZzd3UUNid2hnNEJueVhWdDlaNtIBmAFBVV95cUxPQjVQdDAxRmxlRjJydVF5dVlXejN2bHlYX2szU2trMHppOUNqcDZuVUlGcmR2dzBOcl93Vm94UHBEejA0alhwX0RibTQ1SFU3OTRRRFFLTm14LWthVFREVEk0V05zRmdxU1I2TFpQYnVBLVU0RldoNmJJVDhjN3hLaEFNOVRvZzd3UUNid2hnNEJueVhWdDlaNg?oc=5"
   },
   {
     "source": "TechJuice",
@@ -52,31 +101,24 @@
     "title": "PTA Shares New Internet Safety Rules for Universities",
     "url": "https://news.google.com/rss/articles/CBMimAFBVV95cUxPQjVQdDAxRmxlRjJydVF5dVlXejN2bHlYX2szU2trMHppOUNqcDZuVUlGcmR2dzBOcl93Vm94UHBEejA0alhwX0RibTQ1SFU3OTRRRFFLTm14LWthVFREVEk0V05zRmdxU1I2TFpQYnVBLVU0RldoNmJJVDhjN3hLaEFNOVRvZzd3UUNid2hnNEJueVhWdDlaNtIBmAFBVV95cUxPQjVQdDAxRmxlRjJydVF5dVlXejN2bHlYX2szU2trMHppOUNqcDZuVUlGcmR2dzBOcl93Vm94UHBEejA0alhwX0RibTQ1SFU3OTRRRFFLTm14LWthVFREVEk0V05zRmdxU1I2TFpQYnVBLVU0RldoNmJJVDhjN3hLaEFNOVRvZzd3UUNid2hnNEJueVhWdDlaNg?oc=5",
     "date": "2026-10-06",
-    "summary_zh": "",
-    "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Which Mobile Phones Support Jazz 5G in Pakistan Right Now?",
-    "url": "https://news.google.com/rss/articles/CBMihAFBVV95cUxQYTFyX3h0ZmY5U0FHYjVVa1cwemFuUjN0WXhSOHprNFpkQUZXTkcyd3RBOTRsS2NTQWhHYVdSZlpGTXdWVDdxWTlhNjIyX2lGQWJJYkFJaXNkUzFYU1pJd3FWcXZSblMxVEc4LVRnOGdVSDZWajA2WEdEejNCSjVGRmljQ3E?oc=5",
-    "date": "2026-10-04",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦电信管理局（PTA）已向【超过165所大学】的负责人通报了安全、负责任使用互联网的相关规则，作为其提升网络风险意识工作的一部分。据PTA文件，该机构与高等教育委员会下属高校及机构举办了意识研讨会等活动，聚焦安全合法上网及人们可能面临的网络风险。PTA还开展了针对不安全及非法网络内容、网络风险和可用法律救济的宣传活动，并通过YouTube和社交媒体平台分享宣传视频等教育材料。此外，PTA与联合国儿童基金会、TikTok等组织合作，为家长和监护人发布了指南，帮助其了解网络风险并引导儿童更安全地上网。PTA还与移动运营商和电视节目合作，向家长、年轻人及公众传播相关意识。该机构表示，其与高校及其他利益相关方的持续接触旨在提高公众对网络风险的认识，促进更安全、负责任地使用数字平台。",
+    "importance": "低"
   },
   {
     "source": "BusinessRecorder",
     "title": "Financial inclusion index rises to 59.5: SBP",
     "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxOQkJYWVp0dElERzJUVkxrZDRWWi1zd1dBWGRYZmE4UkRJQWlwUXRoUDFRSTlaN2JCQjFJcGthamxGMjNCenR1Vm9mUjAzVDVrOTMtSHVTSTVPVGdlU05teUZxYkFIc1QwVEtXWWdabzRlMlNZcDQ3NHlpb1ZyMUpCaTBfVHBQVE8yT1HSAVZBVV95cUxPRTlDVUxHbzlTc0theW9yRC00VXVxNTBHT2hBd2NWcXNIcTYyTlR4eWJDOFF6dUZpaUxRS0I4Z1ZjT2FOQldfenFFRXFPeDVmcDdwRzNxdw?oc=5",
     "date": "2026-10-08",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦国家银行（SBP）公布数据显示，巴基斯坦金融普惠指数已升至【59.5】，该数据于10月8日发布。新闻标题显示该指数较此前水平有所提升，但正文节选内容有限，未披露更多关于指数构成、统计口径、覆盖人群或具体分项指标的细节。正文其余部分主要为卡拉奇证券交易所当日行情数据，包括BR100指数报18412点、下跌139.4点（跌幅0.75%），BR30指数报66045点、下跌546.8点（跌幅0.82%），KSE100指数报167442点、下跌1138.5点（跌幅0.68%），KSE30指数报49984点、下跌405.1点（跌幅0.8%），以及Agha、BECO、BML、BOP、CNERGY、LOTCHEM、NBP、OGDC、PPL、PRL、PTC、TPL、TRG等多只个股的涨跌情况。",
+    "importance": "中",
+    "dup_of": "https://www.techjuice.pk/sbp-financial-inclusion-index-rises-to-59-5-in-2025/"
   },
   {
     "source": "BusinessRecorder",
     "title": "PRISM+ settles 6.3m transactions: SBP",
     "url": "https://news.google.com/rss/articles/CBMiVkFVX3lxTE9XUXRIb1Bwb182RXp3NFRRM1JJTlFuajZWMWFhOXd3Vy1oUkV6V2VPdTZ2ZXBsbU1rRTAySUF6cjZHU0FicHdwbnVsazVHMHdSd3cyQTFn0gFWQVVfeXFMT1dRdEhvUHBvXzZFenc0VFEzUklOUW5qNlYxYWE5d3dXLWhSRXpXZU91NnZlcGxtTWtFMDJJQXpyNkdTQWJwd3BudWxrNUcwd1J3dzJBMWc?oc=5",
     "date": "2026-10-07",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦国家银行（SBP）10月7日发布《支付系统年度报告》，披露其开发的实时银行间结算机制PRISM+在2025-26财年共处理【630万笔交易、金额达1566万亿卢比】，约为该国名义GDP的12.3倍。SBP称，该交易量同比增长5%，交易金额同比增长24%；以当前市场价格计算，巴基斯坦名义GDP为126.9万亿卢比。SBP同时强调，该比率反映的是支付系统周转量与经济产出的关系，不应被解读为对GDP的贡献，因为资金可能在系统内多次转移。报告还显示，2025-26财年正规银行渠道零售支付达【143亿笔、金额673万亿卢比】，同比分别增长58%和10%；其中132亿笔通过数字渠道完成，同比增长65%，数字渠道占零售支付总笔数的【92%，高于上年的88%】。",
     "importance": "中"
   },
   {
@@ -84,15 +126,7 @@
     "title": "SBP Financial Inclusion Index Rises to 59.5 in 2025",
     "url": "https://www.techjuice.pk/sbp-financial-inclusion-index-rises-to-59-5-in-2025/",
     "date": "2026-10-07",
-    "summary_zh": "",
-    "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Pakistani Banks See Sharp Rise in US Dollar Deposits Despite SBP Controls",
-    "url": "https://news.google.com/rss/articles/CBMioAFBVV95cUxPaURVLTFoY0YtWVJJQks0TlNQMThKanJzTml4ak4yUzhpekFyTy1lVl84SE5wLVNVM2k0N1hDLVAzN2lRQ1JEMDNWSm9POEhXeWxwSWQ0cnZHY0F4cm1fTkNleUhRNmY5VUJMbzNySDZwcDJ1Sm84eWpzOFg4MHV5ZldxNEVyMnBQdjJiS0ZZWTJreEIzQUJTclhTMmhrRXEy?oc=5",
-    "date": "2026-10-06",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦国家银行（SBP）发布2025年巴基斯坦金融普惠指数（P-FII）结果，该指数从2024年的58.1升至【2025年的59.5】。SBP表示，上升主要由使用子指数强劲增长推动，获取与质量子指数亦有改善。央行称这一进展反映了【2024—28年国家金融普惠战略】下各项数字举措的落实，包括RAAST商户接入、数字支付生态扩展、数字银行推出以及推动开户等努力。SBP还提到，以消费者为中心的举措和金融素养工作也是支撑巴基斯坦金融普惠状况改善的因素。",
     "importance": "中"
   },
   {
@@ -100,7 +134,7 @@
     "title": "Pakistan’s AI Push Faces a Broadband and Power Problem",
     "url": "https://propakistani.pk/2026/10/07/pakistans-ai-push-faces-a-broadband-and-power-problem/",
     "date": "2026-10-07",
-    "summary_zh": "",
+    "summary_zh": "世界银行2026年10月中东北非、阿富汗与巴基斯坦经济更新报告指出，巴基斯坦移动宽带普及率偏低与电力供应缺口正制约其人工智能的广泛应用。报告称巴基斯坦【每年培养约7.5万名IT毕业生】，2025-26财年【ICT服务出口达46亿美元】，正打造以人才为主导的AI服务出口模式。巴基斯坦是八个移动宽带订阅量低于收入水平预期的中东北非、阿富汗与巴基斯坦经济体之一，另七国为吉布提、埃及、伊拉克、约旦、阿曼、叙利亚和也门。报告显示巴基斯坦【电力可及率为95.7%】，是仅有的五个电力可及率低于99.5%的经济体之一。世行表示，可靠的电力与连接性可提升AI工具的覆盖范围、连续性与生产价值。巴基斯坦还通过一项【至2030年、规模10亿美元】的计划推进AI主权，内容包括共享GPU基础设施、主权多语言AI模型、1000个AI博士奖学金及面向100万非IT专业人员的AI培训。",
     "importance": "中"
   },
   {
@@ -108,23 +142,23 @@
     "title": "Leading Telcos to Share Networks",
     "url": "https://propakistani.pk/2026/10/07/leading-telcos-to-share-networks/",
     "date": "2026-10-07",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦信息技术与电信部提出【2026年电信竞争规则草案】，拟收紧电信行业竞争规则，授权监管机构要求具有【显著市场力量（SMP）】的主导运营商在必要时向竞争对手提供【全国漫游接入】，以促进竞争、扩大网络覆盖、保护消费者并提升电信基础设施利用率。草案规定相关义务须以公平、合理、透明、非歧视条款施加，监管机构将裁定漫游安排的技术可行性、运营范围与期限，并拥有发布指令、要求整改、施加相称监管义务及依相关法律启动程序等执法权，还可裁决该框架下的争议。草案将建立电信行业专属竞争框架，同时保留巴基斯坦竞争委员会依2010年竞争法享有的管辖权，并要求申请人按附表一缴纳规定费用，取代现行“合理费用”表述。近期PTA提案还建议以【25%市场份额】作为评估SMP的初始触发门槛，并结合市场集中度、频谱持有、必要基础设施、财务实力、网络效应和进入壁垒等因素。",
+    "importance": "高"
   },
   {
     "source": "TechJuice",
     "title": "MoITT Proposes National Roaming Rules for Dominant Telecom Firms",
     "url": "https://www.techjuice.pk/moitt-draft-telecom-competition-rules-national-roaming-smp-2026/",
     "date": "2026-10-07",
-    "summary_zh": "",
-    "importance": "中"
+    "summary_zh": "巴基斯坦信息技术与电信部（MoITT）提出《2026年电信竞争规则》草案，拟对具有【显著市场力量（SMP）】的运营商施加更严格的竞争监管。草案授权监管机构在必要时要求SMP持牌运营商提供【全国漫游接入】，以促进有效竞争、推动网络扩张、保护消费者福利并提升电信基础设施利用效率，相关义务须按公平、合理、透明、非歧视条款执行，监管机构有权确定技术可行性、运营范围与期限。草案还赋予监管机构执法权，可发布指令、要求整改、施加相称监管义务或依据相关法律启动程序，并可按市场效率、消费者福利、比例原则、技术可行性和竞争影响等因素裁决争议。草案明确不影响巴基斯坦竞争委员会（CCP）依据《2010年竞争法》的管辖权，背景是MoITT、PTA与CCP之间长期存在的管辖权争议，伊斯兰堡高等法院此前裁定CCP对竞争事务拥有总体管辖权。",
+    "importance": "高"
   },
   {
     "source": "TechJuice",
     "title": "Jazz Exposed as the Worst Operator Amid Skyrocketing Data Charges",
     "url": "https://www.techjuice.pk/jazz-exposed-as-the-worst-operator-amid-skyrocketing-data-charges/",
     "date": "2026-10-06",
-    "summary_zh": "",
+    "summary_zh": "巴基斯坦电信管理局（PTA）截至2026年9月30日更新的资费数据显示，巴基斯坦移动数据与混合服务费用持续高企，月度套餐最高达【2800卢比】，部分大流量包即便仅15天有效期也需【超过1000卢比】。数据对比显示Jazz为表现最差的运营商，其15天AIO套餐【869卢比仅含10GB】，而同价Telenor 15天Max套餐提供30GB，Telenor 15天Extreme套餐【1043卢比含130GB】。周套餐方面，Jazz超级女性包12GB收234卢比，Weekly Super Plus 10GB收521卢比，New Weekly Super 15GB收521卢比，Weekly Super Max 30GB收608卢比。月套餐中，Jazz Monthly Bachat Offer 6GB收478卢比，YouTube and Social 10GB收608卢比，且仅限特定社交应用，非通用互联网接入。",
     "importance": "中"
   },
   {
@@ -132,7 +166,7 @@
     "title": "e& Reverts to Etisalat Name. Will Pakistan’s Ufone-Telenor Merger Do the Same?",
     "url": "https://www.techjuice.pk/etisalat-rebrand-ptml-pakistan-may-follow/",
     "date": "2026-10-06",
-    "summary_zh": "",
+    "summary_zh": "阿联酋电信巨头e&于2026年10月6日向阿布扎比证券交易所提交文件，正式宣布【恢复使用Etisalat原名】，阿联酋副总统兼Etisalat集团主席谢赫·曼苏尔·本·扎耶德·阿勒纳哈扬出席宣布仪式，公司称该名称体现其传统、战略及AI时代雄心。Etisalat在阿拉伯语中意为“连接”，创立于1976年，2022年2月更名为e&。2026年第二季度公司营收达【192亿迪拉姆（52亿美元）】，同比增长9%，用户数达2.515亿，增长约三分之一；2026年7月以【59.5亿美元】出售全部沃达丰股份，并设定2030年国际连接能力超500Tbps目标。在巴基斯坦，Telenor Pakistan于2026年6月经伊斯兰堡高等法院批准合法并入Ufone运营实体PTML，合并后公司曾申请以“e&”品牌更名，但【巴基斯坦电信管理局（PTA）予以阻止】，要求PTML先就合并后实体董事向SECP提交通知，政府官员还担忧采用国际品牌涉及版权及特许权使用费问题。如今e&全球恢复Etisalat名称，PTML可能改以Etisalat而非e&更名，但品牌重塑仍待PTML完成与PTA和SECP的所有未决法律手续，未来数月Ufone品牌可能让位于Etisalat。",
     "importance": "中"
   },
   {
