@@ -1,0 +1,1165 @@
+<!doctype html>
+<html lang="zh-CN" data-lang="zh">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Zong 专线网络诊断</title>
+<style>
+:root {
+  --bg: #f6f7f9;
+  --surface: #ffffff;
+  --surface-2: #f0f2f5;
+  --text: #1c2330;
+  --text-2: #5a6474;
+  --border: #dde1e7;
+  --accent: #0a7d5a;
+  --accent-soft: #e3f3ed;
+  --ok: #1e8a4c;
+  --ok-soft: #e4f4ea;
+  --warn: #a8650a;
+  --warn-soft: #fbf0dc;
+  --bad: #c0362c;
+  --bad-soft: #fbe5e3;
+  --code: #eef0f3;
+  --shadow: 0 1px 2px rgba(20, 30, 50, .06), 0 2px 8px rgba(20, 30, 50, .04);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #12161c;
+    --surface: #1a2028;
+    --surface-2: #222a34;
+    --text: #e6e9ee;
+    --text-2: #9aa4b2;
+    --border: #2f3844;
+    --accent: #3cc493;
+    --accent-soft: #173a2f;
+    --ok: #4cc47e;
+    --ok-soft: #173525;
+    --warn: #e0a548;
+    --warn-soft: #3a2d15;
+    --bad: #f07267;
+    --bad-soft: #3d1d1b;
+    --code: #262e39;
+    --shadow: none;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #12161c; --surface: #1a2028; --surface-2: #222a34; --text: #e6e9ee; --text-2: #9aa4b2;
+  --border: #2f3844; --accent: #3cc493; --accent-soft: #173a2f; --ok: #4cc47e; --ok-soft: #173525;
+  --warn: #e0a548; --warn-soft: #3a2d15; --bad: #f07267; --bad-soft: #3d1d1b; --code: #262e39; --shadow: none;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+html[data-lang="zh"] [lang="en"], html[data-lang="en"] [lang="zh"] { display: none !important; }
+
+.wrap { max-width: 920px; margin: 0 auto; padding: 0 16px; }
+header.top {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+header.top .wrap { display: flex; align-items: center; gap: 12px; min-height: 60px; flex-wrap: wrap; }
+.brand { font-weight: 700; font-size: 17px; letter-spacing: .01em; }
+.brand small { display: block; font-weight: 400; font-size: 12px; color: var(--text-2); line-height: 1.3; }
+.spacer { flex: 1; }
+.seg { display: inline-flex; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+.seg button {
+  border: 0; background: transparent; color: var(--text-2); padding: 6px 12px; font: inherit; font-size: 14px; cursor: pointer;
+}
+.seg button[aria-pressed="true"] { background: var(--accent); color: #fff; }
+
+nav.tabs { display: flex; gap: 4px; margin: 20px 0 0; border-bottom: 1px solid var(--border); overflow-x: auto; }
+nav.tabs button {
+  border: 0; background: transparent; font: inherit; font-size: 15px; color: var(--text-2);
+  padding: 10px 14px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap;
+}
+nav.tabs button[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+section.panel { display: none; padding: 24px 0 64px; }
+section.panel.active { display: block; }
+
+h1 { font-size: 26px; line-height: 1.35; margin: 0 0 8px; }
+h2 { font-size: 20px; margin: 40px 0 12px; padding-top: 8px; }
+h3 { font-size: 16px; margin: 0 0 6px; }
+p { margin: 0 0 12px; }
+.lead { color: var(--text-2); margin-bottom: 20px; }
+.muted { color: var(--text-2); }
+code, .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .92em; }
+code { background: var(--code); padding: 1px 6px; border-radius: 4px; }
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+  padding: 20px; box-shadow: var(--shadow); margin-bottom: 16px;
+}
+.note {
+  border-left: 3px solid var(--accent); background: var(--accent-soft);
+  padding: 12px 16px; border-radius: 0 8px 8px 0; margin: 12px 0;
+}
+.note.warn { border-left-color: var(--warn); background: var(--warn-soft); }
+
+/* ---------- quick check ---------- */
+.form { display: grid; grid-template-columns: 1fr 1fr; gap: 12px 16px; }
+.form label { display: block; font-size: 14px; color: var(--text-2); margin-bottom: 4px; }
+.form input {
+  width: 100%; font: inherit; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+}
+.form select {
+  width: 100%; font: inherit; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+}
+.form .span-2 { grid-column: 1 / -1; }
+.line-row { display: grid; grid-template-columns: 1fr 140px; gap: 8px; }
+.bw { position: relative; }
+.bw input { padding-right: 52px; }
+.bw span { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); color: var(--text-2); font-size: 14px; pointer-events: none; }
+.form input:focus, .form select:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.form input:focus { outline: 2px solid var(--accent); outline-offset: -1px; }
+.form .hint { font-size: 13px; color: var(--text-2); margin-top: 4px; }
+.actions { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 16px; }
+.btn {
+  font: inherit; font-weight: 600; border-radius: 8px; padding: 10px 20px; cursor: pointer;
+  border: 1px solid var(--border); background: var(--surface); color: var(--text);
+}
+.btn.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+.btn:disabled { opacity: .55; cursor: default; }
+
+.steps { list-style: none; padding: 0; margin: 16px 0 0; }
+.steps li { display: flex; gap: 10px; align-items: center; padding: 4px 0; color: var(--text-2); font-size: 15px; }
+.steps .dot { width: 10px; height: 10px; border-radius: 50%; background: var(--border); flex: none; }
+.steps li.run { color: var(--text); }
+.steps li.run .dot { background: var(--accent); animation: pulse 1s infinite; }
+.steps li.done .dot { background: var(--ok); }
+@keyframes pulse { 50% { opacity: .3; } }
+
+.verdict-list { list-style: none; padding: 0; margin: 0; }
+.verdict-list li { padding: 10px 12px 10px 40px; position: relative; border-radius: 8px; margin-bottom: 8px; }
+.verdict-list li::before {
+  position: absolute; left: 12px; top: 10px; width: 18px; height: 18px; border-radius: 50%;
+  font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; color: #fff;
+}
+.verdict-list li.ok { background: var(--ok-soft); } .verdict-list li.ok::before { content: "✓"; background: var(--ok); }
+.verdict-list li.warn { background: var(--warn-soft); } .verdict-list li.warn::before { content: "!"; background: var(--warn); }
+.verdict-list li.bad { background: var(--bad-soft); } .verdict-list li.bad::before { content: "!"; background: var(--bad); }
+.verdict-list li.info { background: var(--surface-2); } .verdict-list li.info::before { content: "i"; background: var(--text-2); }
+
+.table-wrap { overflow-x: auto; margin: 0 -4px; }
+table { border-collapse: collapse; width: 100%; font-size: 14px; }
+th, td { text-align: left; padding: 9px 10px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+th { color: var(--text-2); font-weight: 500; font-size: 13px; }
+td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+td .sub { display: block; font-size: 12px; color: var(--text-2); }
+.pill { display: inline-block; padding: 1px 10px; border-radius: 99px; font-size: 13px; font-weight: 600; }
+.pill.ok { background: var(--ok-soft); color: var(--ok); }
+.pill.warn { background: var(--warn-soft); color: var(--warn); }
+.pill.bad { background: var(--bad-soft); color: var(--bad); }
+.pill.na { background: var(--surface-2); color: var(--text-2); }
+
+.kv { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; }
+.kv div { background: var(--surface-2); border-radius: 8px; padding: 10px 12px; }
+.kv .k { font-size: 13px; color: var(--text-2); }
+.kv .v { font-size: 18px; font-weight: 600; font-variant-numeric: tabular-nums; overflow-wrap: anywhere; }
+
+/* ---------- guide ---------- */
+.toc { display: flex; flex-wrap: wrap; gap: 8px; margin: 8px 0 8px; }
+.toc a {
+  font-size: 14px; color: var(--text); text-decoration: none; background: var(--surface);
+  border: 1px solid var(--border); border-radius: 99px; padding: 4px 12px;
+}
+.toc a:hover { border-color: var(--accent); }
+.ladder { list-style: none; padding: 0; margin: 16px 0; position: relative; }
+.ladder li {
+  display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: start;
+  padding: 12px 0; border-bottom: 1px dashed var(--border);
+}
+.ladder li:last-child { border-bottom: 0; }
+.tier {
+  font-weight: 700; font-size: 14px; text-align: center; border-radius: 8px; padding: 6px 0;
+  background: var(--accent-soft); color: var(--accent); font-variant-numeric: tabular-nums;
+}
+.ladder .what { font-weight: 600; }
+.ladder .seg-name { color: var(--text-2); font-size: 15px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.num-badge {
+  display: inline-flex; width: 26px; height: 26px; border-radius: 50%; align-items: center; justify-content: center;
+  background: var(--accent); color: #fff; font-weight: 700; font-size: 14px; margin-bottom: 8px;
+}
+.trap h3 { display: flex; gap: 10px; align-items: baseline; }
+.trap .idx { color: var(--accent); font-weight: 700; }
+.rule { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; margin: 10px 0; font-size: 15px; }
+.rule .arrow { color: var(--accent); font-weight: 700; }
+.dl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 12px; }
+.dl { border: 1px solid var(--border); border-radius: 10px; padding: 14px; position: relative; }
+.dl.rec { border-color: var(--accent); }
+.dl-btn { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 2px; }
+.dl.rec .dl-btn { background: var(--accent); border-color: var(--accent); color: #fff; }
+.dl-meta { font-weight: 400; font-size: 12px; opacity: .8; }
+.dl-rec { display: none; position: absolute; top: -10px; right: 12px; }
+.dl.rec .dl-rec { display: inline-block; }
+.dl-steps { margin: 12px 0 0; padding-left: 20px; font-size: 14px; }
+.dl-steps li { margin-bottom: 4px; }
+footer { color: var(--text-2); font-size: 13px; padding: 24px 0 40px; border-top: 1px solid var(--border); }
+
+@media (max-width: 720px) {
+  .form, .grid-3, .grid-2, .dl-grid { grid-template-columns: 1fr; }
+  .line-row { grid-template-columns: 1fr 104px; }
+  h1 { font-size: 22px; }
+  .card { padding: 16px; }
+}
+@media print {
+  header.top, nav.tabs, .actions, .no-print { display: none !important; }
+  section.panel { display: block !important; padding: 0; }
+  body { background: #fff; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">
+      <span lang="zh">Zong 专线网络诊断</span><span lang="en">Zong Enterprise Network Diagnostic</span>
+      <small><span lang="zh">中移巴基斯坦 · 政企专线</span><span lang="en">CMPak · Enterprise leased lines</span></small>
+    </div>
+    <div class="spacer"></div>
+    <div class="seg" role="group" aria-label="Language">
+      <button type="button" data-set-lang="zh" aria-pressed="true">中文</button>
+      <button type="button" data-set-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <nav class="tabs" role="tablist">
+    <button type="button" role="tab" aria-selected="true" data-tab="check">
+      <span lang="zh">一键快速检测</span><span lang="en">Quick check</span>
+    </button>
+    <button type="button" role="tab" aria-selected="false" data-tab="guide">
+      <span lang="zh">报告判读指南</span><span lang="en">Reading the reports</span>
+    </button>
+  </nav>
+
+  <!-- ================================================================ -->
+  <!--  QUICK CHECK                                                      -->
+  <!-- ================================================================ -->
+  <section class="panel active" id="panel-check" role="tabpanel">
+    <h1>
+      <span lang="zh">一键快速检测</span><span lang="en">One-click quick check</span>
+    </h1>
+    <p class="lead">
+      <span lang="zh">约 1 分钟。在浏览器里测一下你的上网出口、到国际和中国方向的响应速度，以及带宽。不安装任何东西，测完可以把结果下载下来发给我们。</span>
+      <span lang="en">About one minute. Measures your internet egress, response times toward international and China destinations, and bandwidth - right in the browser. Nothing is installed; download the result and send it to us.</span>
+    </p>
+
+    <div class="note warn">
+      <span lang="zh"><b>这只是初筛，不能代替诊断工具。</b>出于安全限制，网页无法 ping，所以测不到你的网关、上联隧道、MTU 和逐跳路由，而这几项最能定位故障。请同时下载并运行下面的诊断工具，把它生成的报告一起发来。</span>
+      <span lang="en"><b>This is a first look, not a replacement for the diagnostic tool.</b> Browsers cannot ping, so this page cannot test your gateway, the uplink tunnel, MTU or per-hop loss - the measurements that pinpoint a fault best. Please also download and run the diagnostic tool below, and send its report too.</span>
+    </div>
+
+    <div class="card" id="tools">
+      <h3><span lang="zh">下载诊断工具</span><span lang="en">Download the diagnostic tool</span></h3>
+      <p class="muted" style="font-size:15px">
+        <span lang="zh">完整诊断，网页测不到的网关、上联隧道、MTU、逐跳路由都在里面。不安装任何东西，不需要管理员权限。运行时可选：体检、持续监测，或两个都做。</span>
+        <span lang="en">The full diagnostic - gateway, uplink tunnel, MTU and per-hop loss, everything this page cannot test. Installs nothing, needs no admin rights. Choose at start: health check, continuous monitor, or both.</span>
+      </p>
+      <div class="dl-grid">
+        <div class="dl" data-os="mac">
+          <button type="button" class="btn dl-btn" data-dl="mac">
+            <span lang="zh">下载 macOS 版</span><span lang="en">Download for macOS</span>
+            <span class="dl-meta" data-size="mac"></span>
+          </button>
+          <span class="pill ok dl-rec"><span lang="zh">你的系统</span><span lang="en">Your system</span></span>
+          <ol class="dl-steps">
+            <li><span lang="zh">双击下载的 zip 解压</span><span lang="en">Double-click the zip to unpack it</span></li>
+            <li><span lang="zh">打开"终端"，输入 <code>bash</code> 加一个空格，把 <code>网络诊断-NetDiag.command</code> 拖进终端窗口，按回车</span><span lang="en">Open Terminal, type <code>bash</code> and a space, drag <code>网络诊断-NetDiag.command</code> into the window, press Enter</span></li>
+            <li class="muted"><span lang="zh">这个方法不会被 macOS 拦截。也可以直接双击文件，被拦时到"系统设置 → 隐私与安全性"里点"仍要打开"</span><span lang="en">This is never blocked by macOS. Double-clicking also works once approved in System Settings → Privacy &amp; Security → Open Anyway</span></li>
+          </ol>
+        </div>
+        <div class="dl" data-os="win">
+          <button type="button" class="btn dl-btn" data-dl="win">
+            <span lang="zh">下载 Windows 版</span><span lang="en">Download for Windows</span>
+            <span class="dl-meta" data-size="win"></span>
+          </button>
+          <span class="pill ok dl-rec"><span lang="zh">你的系统</span><span lang="en">Your system</span></span>
+          <ol class="dl-steps">
+            <li><span lang="zh">右键下载的 zip →"全部解压缩"</span><span lang="en">Right-click the zip → Extract All</span></li>
+            <li><span lang="zh">双击 <code>网络诊断-NetDiag.bat</code></span><span lang="en">Double-click <code>网络诊断-NetDiag.bat</code></span></li>
+            <li class="muted"><span lang="zh">出现"Windows 已保护你的电脑"时，点"更多信息"→"仍要运行"</span><span lang="en">If "Windows protected your PC" appears, click More info → Run anyway</span></li>
+          </ol>
+        </div>
+      </div>
+      <p class="muted" style="font-size:13px;margin:12px 0 0">
+        <span lang="zh">压缩包里附有详细使用说明。报告会保存在桌面上，请连同本页结果一起发给客户经理或政企支持部门。</span>
+        <span lang="en">Detailed instructions are inside the zip. Reports are saved to the Desktop - send them with this page's result to your account manager or enterprise support.</span>
+        <span data-built></span>
+      </p>
+    </div>
+
+    <div class="card">
+      <div class="form">
+        <div>
+          <label for="company"><span lang="zh">公司名称（建议填英文）</span><span lang="en">Company name (English preferred)</span></label>
+          <input id="company" autocomplete="organization" placeholder="ABC Trading (Pvt) Ltd">
+        </div>
+        <div>
+          <label for="linetype"><span lang="zh">线路类型和带宽</span><span lang="en">Line type and bandwidth</span></label>
+          <div class="line-row">
+            <select id="linetype">
+              <option value="" data-zh="请选择线路类型" data-en="Select line type"></option>
+              <option value="DIA" data-zh="互联网专线 DIA" data-en="Internet leased line (DIA)"></option>
+              <option value="IEPL" data-zh="国际以太网专线 IEPL" data-en="International Ethernet (IEPL)"></option>
+              <option value="IPLC" data-zh="国际私有专线 IPLC" data-en="International private line (IPLC)"></option>
+              <option value="MPLS VPN" data-zh="MPLS VPN" data-en="MPLS VPN"></option>
+              <option value="China acceleration" data-zh="回国加速" data-en="China acceleration"></option>
+              <option value="Other" data-zh="其他" data-en="Other"></option>
+            </select>
+            <div class="bw"><input id="bandwidth" type="number" inputmode="decimal" min="0" step="any" placeholder="100" aria-label="Bandwidth"><span>Mbps</span></div>
+          </div>
+          <div class="hint">
+            <span lang="zh">合同上的签约带宽。填了会和实测速度对比。</span>
+            <span lang="en">Contracted bandwidth from your contract - compared with the measured speed.</span>
+          </div>
+        </div>
+        <div class="span-2">
+          <label for="target"><span lang="zh">觉得慢的系统地址（可选）</span><span lang="en">Address of the slow system (optional)</span></label>
+          <input id="target" autocomplete="off" placeholder="mail.company.com.cn">
+          <div class="hint">
+            <span lang="zh">填域名或 IP，不用加 http://。不填就只测参照点。</span>
+            <span lang="en">Domain or IP, no http://. Leave empty to test reference points only.</span>
+          </div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:16px">
+        <span lang="zh">请在接着报障专线的电脑上打开本页，不要用手机热点。检测期间请暂停大文件下载和视频会议，带宽测试会用掉约 30–60 MB 流量。</span>
+        <span lang="en">Open this page on a computer attached to the reported circuit, not a phone hotspot. Pause large downloads and video calls during the test; the bandwidth step uses about 30-60 MB.</span>
+      </div>
+      <div class="actions">
+        <button type="button" class="btn primary" id="run">
+          <span lang="zh">开始检测</span><span lang="en">Start check</span>
+        </button>
+        <span class="muted" id="run-status"></span>
+      </div>
+      <ul class="steps" id="steps" hidden></ul>
+    </div>
+
+    <div id="results" hidden>
+      <div class="card">
+        <h3><span lang="zh">结论</span><span lang="en">What this shows</span></h3>
+        <ul class="verdict-list" id="verdicts"></ul>
+      </div>
+
+      <div class="card">
+        <h3><span lang="zh">线路与上网出口</span><span lang="en">Line and internet egress</span></h3>
+        <div class="kv" id="egress"></div>
+      </div>
+
+      <div class="card">
+        <h3><span lang="zh">响应时间（由近及远）</span><span lang="en">Response time, nearest to farthest</span></h3>
+        <p class="muted" style="font-size:14px">
+          <span lang="zh">每个点连续请求 20 次。网页测的是一次完整的 HTTPS 请求，数值会比 ping 高一些；判断时主要看<b>抖动</b>、<b>卡顿次数</b>和<b>失败</b>，不要只看平均值。"卡顿次数"是比平时慢一倍以上的请求数，通常是丢包后重传造成的 —— 网页测不了丢包率，这是最接近的指标。</span>
+          <span lang="en">20 requests per point. A browser measures a full HTTPS request, so values run higher than ping; judge mainly by <b>jitter</b>, <b>spikes</b> and <b>failures</b>, not the average. "Spikes" counts requests at least twice as slow as usual - usually a lost packet being retransmitted, the closest a browser gets to measuring loss.</span>
+        </p>
+        <div class="table-wrap"><table id="rtt-table"></table></div>
+      </div>
+
+      <div class="card">
+        <h3><span lang="zh">带宽与满载响应</span><span lang="en">Bandwidth and responsiveness under load</span></h3>
+        <div class="kv" id="speed"></div>
+        <p class="muted" style="font-size:14px;margin-top:12px">
+          <span lang="zh">"满载时延增加"指下载或上传跑满时，响应时间比空闲时多了多少。带宽够、但这个数很大，说明线路一忙就排队（bufferbloat），语音视频会卡，加带宽解决不了。</span>
+          <span lang="en">"Added latency under load" is how much response time grows while the line is saturated. Good bandwidth with a large increase means queues bloat under load (bufferbloat): voice and video suffer, and more bandwidth will not fix it.</span>
+        </p>
+      </div>
+
+      <div class="actions no-print">
+        <button type="button" class="btn primary" id="download">
+          <span lang="zh">下载结果 (.txt)</span><span lang="en">Download result (.txt)</span>
+        </button>
+        <button type="button" class="btn" id="copy">
+          <span lang="zh">复制结果</span><span lang="en">Copy result</span>
+        </button>
+        <span class="muted" id="copy-status"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================================================================ -->
+  <!--  GUIDE  (content mirrors README_Support.txt)                      -->
+  <!-- ================================================================ -->
+  <section class="panel" id="panel-guide" role="tabpanel">
+    <h1>
+      <span lang="zh">诊断报告判读指南</span><span lang="en">How to read the diagnostic reports</span>
+    </h1>
+    <p class="lead">
+      <span lang="zh">写给支持部门与网管工程师。适用于 <code>网络诊断-NetDiag</code> 工具生成的体检报告（NetCheck）和持续监测报告（NetWatch）。</span>
+      <span lang="en">For support and NOC engineers. Applies to the health-check (NetCheck) and monitor (NetWatch) reports produced by the <code>网络诊断-NetDiag</code> tool.</span>
+    </p>
+    <div class="toc">
+      <a href="#g-core"><span lang="zh">核心思路</span><span lang="en">Core idea</span></a>
+      <a href="#g-first"><span lang="zh">先确认三件事</span><span lang="en">Check first</span></a>
+      <a href="#g-traps"><span lang="zh">五个陷阱</span><span lang="en">Five traps</span></a>
+      <a href="#g-thresholds"><span lang="zh">判定阈值</span><span lang="en">Thresholds</span></a>
+      <a href="#g-monitor"><span lang="zh">监测摘要</span><span lang="en">Monitor summary</span></a>
+      <a href="#g-macos"><span lang="zh">macOS 版差异</span><span lang="en">macOS differences</span></a>
+      <a href="#g-runtime"><span lang="zh">运行耗时</span><span lang="en">Runtime</span></a>
+    </div>
+
+    <!-- core -->
+    <h2 id="g-core"><span lang="zh">核心思路</span><span lang="en">The core idea</span></h2>
+    <p>
+      <span lang="zh">体检模式测六档，由近及远排列（监测模式记录其中四档：T2、T2b、T3、T5）。<b>从上往下读，第一个出现丢包或高时延的档位，就是故障所在的那一段。</b></span>
+      <span lang="en">The health check measures six tiers, nearest to farthest (the monitor records four of them: T2, T2b, T3, T5). <b>Read top to bottom - the first tier that degrades is the faulty segment.</b></span>
+    </p>
+    <div class="card">
+      <ol class="ladder">
+        <li><div class="tier">T1</div><div>
+          <div class="what"><span lang="zh">客户网关 / CPE</span><span lang="en">Customer gateway / CPE</span> <span class="muted" style="font-weight:400">· <span lang="zh">脚本自动探测，每个客户不同</span><span lang="en">auto-detected</span></span></div>
+          <div class="seg-name"><span lang="zh">→ 客户内网、无线、线缆、CPE 本身</span><span lang="en">→ customer LAN, Wi-Fi, cabling, the CPE itself</span></div>
+        </div></li>
+        <li><div class="tier">T2</div><div>
+          <div class="what"><span lang="zh">上联隧道</span><span lang="en">Uplink tunnel</span> <code>103.150.184.61</code></div>
+          <div class="seg-name"><span lang="zh">→ 最后一公里、接入段</span><span lang="en">→ last mile, access segment</span></div>
+        </div></li>
+        <li><div class="tier">T2b</div><div>
+          <div class="what"><span lang="zh">本地公网地址</span><span lang="en">Local public</span> <code>223.123.28.17</code></div>
+          <div class="seg-name"><span lang="zh">→ Zong 网内、境内传输段</span><span lang="en">→ Zong network, domestic transport</span></div>
+        </div></li>
+        <li><div class="tier">T3</div><div>
+          <div class="what"><span lang="zh">国际参照 Google DNS</span><span lang="en">Google DNS</span> <code>8.8.8.8</code></div>
+          <div class="seg-name"><span lang="zh">→ 国际出口、互联质量</span><span lang="en">→ international egress and peering</span></div>
+        </div></li>
+        <li><div class="tier">T4</div><div>
+          <div class="what"><span lang="zh">国内方向参照</span><span lang="en">China reference</span> <code>223.5.5.5</code></div>
+          <div class="seg-name"><span lang="zh">→ 中国方向的传输质量</span><span lang="en">→ China-direction transport</span></div>
+        </div></li>
+        <li><div class="tier">T5</div><div>
+          <div class="what"><span lang="zh">客户业务系统</span><span lang="en">Customer business target</span> <span class="muted" style="font-weight:400">· <span lang="zh">客户运行时自己填写</span><span lang="en">entered by the customer</span></span></div>
+          <div class="seg-name"><span lang="zh">→ 大陆落地段，或对端服务器本身</span><span lang="en">→ China landing segment, or the far-end server</span></div>
+        </div></li>
+      </ol>
+    </div>
+    <div class="note">
+      <span lang="zh">如果 T1 到 T4 全部正常，只有 T5 劣化，说明问题在我们网络之外。<b>用数据说话，而不是靠断言。</b></span>
+      <span lang="en">If T1 through T4 are clean and only T5 degrades, the fault is beyond our network. <b>Say so with the data, not by assertion.</b></span>
+    </div>
+
+    <!-- three checks -->
+    <h2 id="g-first"><span lang="zh">开口前先确认三件事</span><span lang="en">Three things to check first</span></h2>
+    <div class="grid-3">
+      <div class="card">
+        <div class="num-badge">1</div>
+        <h3><span lang="zh">T2 能检验客户有没有测对地方</span><span lang="en">T2 tells you whether the customer tested correctly</span></h3>
+        <p><span lang="zh">客户真的接在报障的那条专线上，T2 应该是<b>个位数毫秒</b>。如果 T2 跑出几百毫秒，说明他根本不在那条线上 —— 可能用的是手机热点、家里宽带或另一个办公室。</span><span lang="en">On a machine actually on the reported circuit, T2 is <b>single-digit milliseconds</b>. If it comes back in the hundreds, the customer ran the tool somewhere else - phone hotspot, home broadband, another office.</span></p>
+        <p class="muted"><span lang="zh">这种情况整份报告作废，让客户在专线上重测。不用问客户任何问题，这一档自己会暴露。</span><span lang="en">The whole report is void; ask them to re-run on the circuit. No questions needed - this tier gives it away.</span></p>
+      </div>
+      <div class="card">
+        <div class="num-badge">2</div>
+        <h3><span lang="zh">用 T2b 之前，先确认它会老实回应 ICMP</span><span lang="en">Before trusting T2b, confirm it answers ICMP reliably</span></h3>
+        <p><span lang="zh">实测中 223.123.28.17 连续三次丢包 8%、12%、36%，而同一路径上的 103.150.184.61 三次都是 0%。只有一个地址剧烈抖动，是 <b>ICMP 限速</b>的典型特征，不是真故障。</span><span lang="en">Off-net testing gave 223.123.28.17 8%, 12% and 36% loss on three runs while 103.150.184.61 on the same path stayed at 0%. Loss swinging on one address alone is the signature of <b>ICMP rate limiting</b>, not a fault.</span></p>
+        <div class="rule">
+          <span lang="zh">在巴基斯坦当地一条正常专线上验证：</span><span lang="en">Verify from a healthy circuit in Pakistan:</span><span></span>
+        </div>
+        <div class="rule"><span class="arrow">→</span><span><span lang="zh">不丢包：这一档可以直接用</span><span lang="en">Clean: usable as-is</span></span>
+          <span class="arrow">→</span><span><span lang="zh">仍然丢包：换一个探测地址，路由器环回口通常更老实</span><span lang="en">Still lossy: replace the probe; a router loopback answers ICMP more honestly</span></span>
+          <span class="arrow">→</span><span><span lang="zh">找不到合适地址：去掉这一档，T2 已覆盖 Zong 网内第一跳</span><span lang="en">No good address: drop the tier; T2 already covers the first Zong hop</span></span></div>
+        <p class="muted"><span lang="zh">不处理的后果：每份报告都带一个吓人的假警报，支持部门看几次就会习惯性忽略整个 T2b 档，这一档还不如不加。</span><span lang="en">Left alone, every report carries a scary false alarm, and support soon learns to ignore T2b altogether.</span></p>
+      </div>
+      <div class="card">
+        <div class="num-badge">3</div>
+        <h3><span lang="zh">T3 是国际参照，不是"本地"</span><span lang="en">T3 is international, not "local"</span></h3>
+        <p><span lang="zh">8.8.8.8 是 Google 的任播 DNS：同一个地址在全球几十个国家都有节点，你连上的是最近的那个。它反映的是<b>国际出口和互联质量</b>。</span><span lang="en">8.8.8.8 is Google anycast DNS: the same address is served from many countries and you reach the nearest node. Its latency reflects <b>international egress and peering</b>.</span></p>
+        <p class="muted"><span lang="zh">要和 T4（国内方向）对照着看，不能当成"本地基准"。快慢取决于 Google 在当地有没有节点、互联好不好。</span><span lang="en">Read it against T4 (China direction), never as a local baseline.</span></p>
+      </div>
+    </div>
+
+    <!-- traps -->
+    <h2 id="g-traps"><span lang="zh">判读前必看的五个陷阱</span><span lang="en">Five traps - read before you judge</span></h2>
+
+    <div class="card trap">
+      <h3><span class="idx">1</span><span><span lang="zh">中间跳的丢包通常是假的</span><span lang="en">Intermediate-hop loss is usually fake</span></span></h3>
+      <p><span lang="zh">路由器普遍对发给自己的 ICMP 限速，但转发流量完全正常。<b>只有最后一跳（目标）的丢包才是真的。</b>真正的故障表现为：从第 N 跳开始丢，且后面每一跳都持续丢。中间某一跳丢 100%、后面几跳却全部正常 —— 那只是那台设备不回应 ping。</span><span lang="en">Routers rate-limit ICMP replies to themselves while forwarding traffic perfectly. <b>Only loss at the FINAL hop is real.</b> A genuine fault shows loss starting at hop N and persisting on every hop after it.</span></p>
+      <p class="muted"><span lang="zh">Windows 用 pathping，macOS 用 traceroute 加并行 ping。工具不同，判读方法完全一样。</span><span lang="en">Windows uses pathping; macOS runs traceroute then pings every hop in parallel. Different tools, identical interpretation.</span></p>
+    </div>
+    <div class="card trap">
+      <h3><span class="idx">2</span><span><span lang="zh">ICMP 和 TCP 待遇不同</span><span lang="en">ICMP and TCP are treated differently</span></span></h3>
+      <p><span lang="zh">有些节点对 ICMP 限速甚至丢弃，但 TCP 完全正常，反过来也有。第 4 节是 TCP 层的证据。<b>客户的业务走的是 TCP，判断时应该以它为准</b>，不要只看 ping。</span><span lang="en">Some nodes deprioritise or drop ICMP while TCP is fine, and the reverse also happens. Section 4 is the TCP-layer evidence. <b>Business traffic is TCP - weight it accordingly.</b></span></p>
+    </div>
+    <div class="card trap">
+      <h3><span class="idx">3</span><span><span lang="zh">首字节慢但建连快 = 对端服务器慢</span><span lang="en">High TTFB with low TCP/TLS means the server is slow</span></span></h3>
+      <p><span lang="zh">第 4 节把一次访问拆成：DNS 解析 / TCP 建连 / TLS 握手 / 首字节返回。如果网络段只有 40 毫秒，首字节却要 3 秒，那是<b>对端应用的问题</b>，不是网络问题。这一条能澄清相当一部分"线路很慢"的工单。</span><span lang="en">Section 4 splits the delay into DNS / TCP / TLS / first byte. Network at 40 ms with first byte at 3 s is a <b>far-end application problem</b>, not a transport problem.</span></p>
+      <div class="note"><span lang="zh">在高时延链路上，光 TLS 握手就可能是建连耗时的三倍，因为它要来回好几趟。这是物理距离决定的，不是故障 —— 解法是 HTTP/2、连接复用或加速服务，而不是开故障单。</span><span lang="en">On a high-latency path the TLS handshake alone can be three times the TCP connect time, because it needs several round trips. That is physics, not a fault - the answer is HTTP/2, connection reuse or an acceleration service, not a repair ticket.</span></div>
+    </div>
+    <div class="card trap">
+      <h3><span class="idx">4</span><span><span lang="zh">小包通、大包丢 = MTU 问题</span><span lang="en">Large packets lost while small pass = MTU</span></span></h3>
+      <p><span lang="zh">第 5 节从 1472 字节往下递减试探。专线上叠了 VPN 或 GRE 隧道时最常见。客户的描述通常是<b>"能 ping 通，但网页打不开、文件传一半就断"</b>。</span><span lang="en">Section 5 probes 1472 down to 1272. Typical on circuits carrying VPN or GRE tunnels. The customer says <b>"ping works but pages hang and file transfers stall"</b>.</span></p>
+      <p class="muted"><span lang="zh">几乎没人会往 MTU 上想，所以这类单子经常拖很久，而它只需要调一下 CPE 的 MTU 或开 MSS clamping。</span><span lang="en">Almost nobody thinks of MTU, so these tickets drag on - yet the fix is a CPE MTU change or MSS clamping.</span></p>
+    </div>
+    <div class="card trap">
+      <h3><span class="idx">5</span><span><span lang="zh">升单之前先查客户自己这一侧</span><span lang="en">Check the customer side before escalating</span></span></h3>
+      <p><span lang="zh">第 1 节要看四样，任何一项命中，都不该升单给网管：</span><span lang="en">Section 1 - if any of these hits, do not escalate to the NOC:</span></p>
+      <div class="rule">
+        <span class="arrow">→</span><span><span lang="zh">网卡错包不为 0：线缆或双工协商问题</span><span lang="en">Non-zero NIC errors/discards: cabling or duplex</span></span>
+        <span class="arrow">→</span><span><span lang="zh">Wi-Fi 协商速率很低：投诉本身就解释清楚了</span><span lang="en">Wi-Fi at a low negotiated rate: explains the complaint by itself</span></span>
+        <span class="arrow">→</span><span><span lang="zh">会话数异常高：NAT 表压力</span><span lang="en">Very high established-session count: NAT table pressure</span></span>
+        <span class="arrow">→</span><span><span lang="zh">连接数最多的目标：经常发现是客户自己在跑备份或下载，把带宽占满了</span><span lang="en">Top talkers: often the customer's own backup or download saturating the circuit</span></span>
+      </div>
+    </div>
+
+    <!-- thresholds -->
+    <h2 id="g-thresholds"><span lang="zh">专线判定阈值</span><span lang="en">Thresholds on a leased line</span></h2>
+    <div class="card">
+      <div class="table-wrap"><table>
+        <thead><tr><th><span lang="zh">指标</span><span lang="en">Metric</span></th><th><span lang="zh">判定</span><span lang="en">Rule</span></th></tr></thead>
+        <tbody>
+          <tr><td><b><span lang="zh">丢包率</span><span lang="en">Packet loss</span></b></td><td style="white-space:normal"><span lang="zh">&gt; 1% 异常</span><span lang="en">&gt; 1% abnormal</span></td></tr>
+          <tr><td><b><span lang="zh">抖动</span><span lang="en">Jitter</span></b></td><td style="white-space:normal"><span lang="zh">&gt; 30 ms 异常。平均时延看着正常但客户抱怨卡，多半是抖动造成的</span><span lang="en">&gt; 30 ms abnormal, and the usual cause of "slow" complaints even when average latency looks fine</span></td></tr>
+          <tr><td><b><span lang="zh">时延</span><span lang="en">Latency</span></b></td><td style="white-space:normal"><span lang="zh">要和报告里的基准值比，不要看绝对值。卡拉奇到中国超过 100 毫秒是正常的物理距离</span><span lang="en">Judge against the baseline in the report, not an absolute number - Karachi to China is legitimately over 100 ms</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="margin-top:12px"><span lang="zh">抖动和丢包比平均时延更能解释"卡"。语音和视频在抖动上先垮掉，那时候时延还远没到成为问题的程度。</span><span lang="en">Jitter and loss explain perceived slowness far better than average latency. Voice and video degrade on jitter long before latency becomes the issue.</span></p>
+    </div>
+
+    <!-- monitor -->
+    <h2 id="g-monitor"><span lang="zh">持续监测的摘要是对时间的钥匙</span><span lang="en">The monitor summary is the correlation key</span></h2>
+    <div class="card">
+      <p><span lang="zh">监测摘要里<b>"出现丢包或时延升高的分钟"</b>那一段，给的是带时间戳的具体窗口。拿这些分钟去比对网管侧的接口计数、告警和流量图。</span><span lang="en">The <b>"MINUTES WITH LOSS OR ELEVATED LATENCY"</b> block gives timestamped windows. Correlate those exact minutes against interface counters, alarms and utilisation graphs.</span></p>
+      <p><span lang="zh">这把"客户说今天下午很卡"变成了一个你真能去查的具体时间窗；同时，当故障不在我们这边时，它也是保护我们的证据。</span><span lang="en">It turns "the customer says this afternoon was slow" into a window you can actually check - and protects us when the fault is not ours.</span></p>
+      <p class="muted"><span lang="zh">随附的 .csv 一行一个探测点。用 Excel 打开，以时间为横轴、rtt_ms 为纵轴画曲线，给客户看图比讲道理有用。</span><span lang="en">The accompanying .csv is one row per probe. Open it in Excel and chart rtt_ms against timestamp to show the customer what happened.</span></p>
+    </div>
+
+    <!-- macOS -->
+    <h2 id="g-macos"><span lang="zh">macOS 版的三点差异</span><span lang="en">macOS version - what is different</span></h2>
+    <p class="muted"><span lang="zh">档位结构和判读陷阱完全相同，只有三点不一样。</span><span lang="en">Same six-tier structure and same traps; three differences.</span></p>
+    <div class="card">
+      <h3><span lang="zh">1. 第 4b 节的 bufferbloat 检测只有 macOS 版有</span><span lang="en">1. Section [4b] bufferbloat is macOS only</span></h3>
+      <p><span lang="zh">Apple 的 networkQuality 给出 RPM，即线路满载时的响应性。客户可能带宽完全达标、测速也漂亮，但就是一直觉得卡 —— 因为一满载队列就膨胀：语音断续、视频卡顿、网页停顿。</span><span lang="en">Apple's networkQuality reports RPM - responsiveness under load. A customer can have full bandwidth and still feel constant slowness because queues bloat under load: voice breaks up, video freezes, pages stall.</span></p>
+      <div class="table-wrap"><table>
+        <tbody>
+          <tr><td class="mono">RPM &lt; 300</td><td><span class="pill bad"><span lang="zh">明显卡顿</span><span lang="en">poor, feels laggy</span></span></td></tr>
+          <tr><td class="mono">RPM 300–1000</td><td><span class="pill warn"><span lang="zh">可接受</span><span lang="en">acceptable</span></span></td></tr>
+          <tr><td class="mono">RPM &gt; 1000</td><td><span class="pill ok"><span lang="zh">良好</span><span lang="en">good</span></span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="muted" style="margin-top:10px"><span lang="zh">带宽够但 RPM 低，是队列问题不是容量问题，给客户扩带宽完全没用。</span><span lang="en">Low RPM with good throughput is a queueing problem, not a capacity problem. More bandwidth will not fix it.</span></p>
+      <h3 style="margin-top:20px"><span lang="zh">2. 逐跳丢包的实现方式不同</span><span lang="en">2. Per-hop loss is measured differently</span></h3>
+      <p><span lang="zh">macOS 没有 pathping，脚本改用 traceroute 拿到跳表后对每一跳并行打 20 个包。比 pathping 快很多，判读方法完全一样，中间跳的 ICMP 限速陷阱同样适用。</span><span lang="en">macOS has no pathping, so the script runs traceroute and then pings every hop in parallel, 20 probes each. Faster, identical interpretation - and the ICMP rate-limit trap applies just as much.</span></p>
+      <h3 style="margin-top:20px"><span lang="zh">3. 抖动值是 ping 原生给出的</span><span lang="en">3. Jitter comes straight from ping</span></h3>
+      <p><span lang="zh">macOS 的 ping 直接输出标准差，所以抖动是样本的真实标准差。只收到一个回包时无法计算，报告会显示 <code>n/a</code>。</span><span lang="en">macOS ping reports stddev natively, so jitter is the real standard deviation of the sample. With only one reply it prints <code>n/a</code>.</span></p>
+    </div>
+
+    <!-- runtime -->
+    <h2 id="g-runtime"><span lang="zh">运行耗时</span><span lang="en">Runtime</span></h2>
+    <div class="card">
+      <div class="table-wrap"><table>
+        <tbody>
+          <tr><td><b>macOS</b></td><td style="white-space:normal"><span lang="zh">体检约 4 分钟（并行探测）</span><span lang="en">Health check ~4 minutes (parallel probing)</span></td></tr>
+          <tr><td><b>Windows</b></td><td style="white-space:normal"><span lang="zh">体检约 6–10 分钟（串行探测，所以更慢）</span><span lang="en">Health check 6-10 minutes (serial probing)</span></td></tr>
+          <tr><td><b><span lang="zh">持续监测</span><span lang="en">Monitor</span></b></td><td style="white-space:normal"><span lang="zh">客户自选 10 / 30 / 60 分钟</span><span lang="en">Customer chooses 10 / 30 / 60 minutes</span></td></tr>
+        </tbody>
+      </table></div>
+    </div>
+  </section>
+
+  <footer>
+    <span lang="zh">本页可离线保存。快速检测会访问 Cloudflare（1.1.1.1 与测速服务）、Google DNS（8.8.8.8）、阿里 DNS（223.5.5.5）和 RIPE 的公开接口，只读取网络测量数据。</span>
+    <span lang="en">This page works as a local file. The quick check contacts Cloudflare (1.1.1.1 and its speed test), Google DNS (8.8.8.8), Alibaba DNS (223.5.5.5) and RIPE's public API, and reads only network measurements.</span>
+  </footer>
+</main>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- CONFIG ----------
+  // Autonomous systems that count as "on the Zong network" for the egress check.
+  var ZONG_ASNS = { "59257": { zh: "CMPak (Zong)", en: "CMPak (Zong)" } };
+  // Zong egress addresses that sit outside Zong's own AS. Matched by exact IP,
+  // not by AS: 103.150.184.61 is in AS140591 (registered to TESUCH), which
+  // may also carry other parties' traffic.
+  var ZONG_IPS = { "103.150.184.61": { zh: "CMPak 回国加速服务出口", en: "CMPak China-acceleration egress" } };
+  var SAMPLES = 20;            // requests per reference point
+  var GAP_MS = 250;            // pause between requests
+  var TIMEOUT_MS = 3000;       // a request slower than this counts as failed
+  var DL_SECONDS = 8;          // download test duration
+  var JITTER_BAD = 30;         // ms, same threshold as the scripts
+  var POINTS = [
+    { id: "near",   tier: "CF",  zh: "近端参照 Cloudflare", en: "Nearby ref. Cloudflare", host: "1.1.1.1",
+      url: "https://1.1.1.1/cdn-cgi/trace", zhNote: "离你最近的节点", enNote: "nearest node" },
+    { id: "google", tier: "T3",  zh: "国际参照 Google DNS", en: "Google DNS", host: "8.8.8.8",
+      url: "https://8.8.8.8/resolve?name=example.com&type=A", zhNote: "国际出口", enNote: "international egress" },
+    { id: "china",  tier: "T4",  zh: "国内方向 阿里 DNS", en: "China ref. Alibaba DNS", host: "223.5.5.5",
+      url: "https://223.5.5.5/resolve?name=example.com&type=1", zhNote: "中国方向", enNote: "China direction" }
+  ];
+
+  // Filled in by build_web.py - do not edit by hand.
+  var BUNDLE = /*BUNDLE-START*/{"built": "2026-10-09", "mac": {"name": "ZongNetDiag-macOS.zip", "size": 14191, "b64": "UEsDBBQAAAgIAPN6SF3Gk8YxaCQAAPZpAAAuAAAAWm9uZ05ldERpYWctbWFjT1Mv572R57uc6K+K5patLU5ldERpYWcuY29tbWFuZNV9a3MjR3Lgd/yKUg8oAEM0XiQ1I3AgGSRBEhYJcAFw6NkZLqMBNIgWG91Qd4MciuSGbJ8v/Fid7PPG7XlvHRs6ex0+R3hvP9zZ8q039r+cRT0++S84M6uquxrAcGZMjn0HafCorsqqysp3ZRXvvZXvWk6+a/jDxD1WucULmrPvus4xqzmB6Y09yzeZznYs54RtWMax4/qB1WPpkdFrtjNYuemYLHBdO8uCoWeabOT2Tb/MhqZhB0PWG5q9kyzruU5gORN34sNzxwpcL8tcD5t3XahlOcw3P5qYTs/MsdbEYVbAXIcZbNfoYVvH7AVmH7qBPkzWs7zexAqotWnBUD1z7HpQIccaLvMnfRdKPppYHi8JhljH8qEXPzBsG0pviyNor4cvtt5sbNa3ymzsuV2TjV3LCXzleWJ/b6fe+OCovlfRioWlXHGlkCs+XM69U9QYvO6xydhG9AYTmKcNyF7f3TNO2DoM29CNXs+0Tc8ILBdx5J1aPZOZx57p+4md5np1Z29/jSCXSgAZ/pUe5ooPNIJruz3DZuNJ14YVM/p9bATgAQ1W3+SL7JjBmeudJCSUhzn6jwYWve6xLdc9tk0Ja6PRJjhAIA6NDLrxzIHp4QIm1htHrdomH9EK/qfFYVVtq2t0DQGFpsn6sFg9mmMER8Xxy16JxFolmQZqdYIBSz0rLC09LY5SmVXWmC4uUPHWdPFSCcoTT2aKl6h6a6acQ9+YLn8XwScSPds0vETPCNijR2vVRqPWSiRuR3GAueTF2tV3m40tVmt0aq29Vr1dQ84E0mIb9epWo9nu1NeTF40rqCv585ZkDpA6Q+Ac5G82Mg1/AjTEzt2JJ7kSl8xw+uzMswJ4xDmRDSzb9LE1cCzV3jD9k8Ad51g9AJFgOMdQ1xGcCRAC7AR5HUE5ptnHp9h+bPg+EChwrMRAfXev2epUGx2caZl5rygscBjM8EwEwweJXeuse856RhdI2xoA5/q+Bd+zODR2YOmbFvb76lQ4jy6hv4MhEEKfMMHODCfAofXd9+HJN//z77/95A+++qP/8c//+GOqyudYpFWssO2YDDW67iRgy2wEghRxHb6+/NWffvUXn/zzP/7g6//zV/D8+vf/47f/+aeJ8HEHsICiyTZHKAWHxnhsOjh7xz1DKUyzxZXNRW2+/dHPv/3v//Wrv/2L65/89fVnf/L1D38K4L/6/f/yzSe/9+UXn379+c+vf/5jGPn1n/7Nl1/8jTLykhj5+hx5XyzgxN8pKBP46ge//fUv//br//YnX/3vP4o6RxpxR1ABqeHYNVFo4ToTlRxs13dquOTw3bfdM2XQX/3o765/9it8//PP2P/95IfwP8Pxf/r51z/+D1j8yZ998+s//ubzHygDXhIDXkM1pE9pLaAfR45foPqLv4QJf/u7v7r+7R/HBixGwzzreBggZmnwuOJD49RkSyty1sp4v/5Pv4DhIZI//RzQe/0Pf/flFz/86id/cP3pH17/4jMY8Je//NmXX/whH/y3P/pfIOS4LBEiB+Xq+tB1QUM/LepLh2WmrQJxG32me2y3uVEDCQTPtCR+11DJli6XMmx1ld3P0PNKEX+YvtFLmL2hm4gBFnyTZ22hdeobLD3w3FHI/4Fn9IJMmandrtdb6/v1TgySOxobzjlzjJFZZje/VEjN3b1q44kKqQ0yBgbU9QynN3wJKAVSu96pqWCe4PhxNLRGI7cL0upF0GIDanSq6x2OKnwjYAdDqzdk/rkfAHsNTNPmhPA+t5+AUH2pelGssGEQjMv5vBYBqD03RmMbTSY2Miw71+Pows9cz8ExFAu5UiG3VMgtF5R2LWHiANUSY/StAWhOnw2AVs1T0wPBNvED4CMvx1uBQt2FCRtAzOdl1L5Z1lnfA2yaxknfPXOybLezn2UeSBkQgWPT04fuGIwInzMiClPBCwAJ7Chh71DngeEdm0GOZI0WeJbpayBXx9RQu7zknWgMxgNl0NxxHZ3sB6AgC/gD2Ztoy3bdMcommAVOAgV7D4YA0/SDvuXkEgS8UkicDWHV2FOmfwwE3qm2tmodjR2yt9+GMi0phqDbAVthh6sgboHtFBJYm/iWg+YQHzhLS4MxM0sIWoKFNMA7YnJG8ISPJ5lO0xe2yIoZULto5mAjO1wEmAnwUHA+NgmVFnIQ5wt/iCqT6HEIpk+O1XD1SDcSIFwbPwBgIy6QCO190HdDsMWhiJQL16fMfG75QTZcL67pCEoP4XeN3gkIJHvAzNE4OEdZJESExKDlkHzStAy8r67Sj/s5kBfhj4wQYERS0VdC6zMJ6JkWjQmW9ITZ1gmym+SFnDbdFGToCFBFcsWwUJ33oa1OnyMsALKG9vW9F4P45td/Bsrp+nc/+/KLT0BKX//kF9d/jmrx+te/9+3nv7z+4q++/p1/uP7s70HXXv/0p9d//CnoM4D3T5/8zgyk5gcv5kbXUAtn+HMKUqMJkHqKBMyGFokzGXVN8oNgksBuvuukfKqjzaKYo7WiyUe0GiS5+65jJsB6mWaFVaKWRAglGpLLulPkfww86ACye4aDKwbcSNgNm+yBPQtkAu4TUKpxTOsDJGaSiENCk96FO6CfXBzGQBCdRvIxhI8fzwEbxcTAmhKtYDT2PItEjGLBACWAxwkek8nS7ph7H5mypgr492LS/8nuXqe5m0js1httEByEKqkT36qw4g2o2gY9bqOfBDw6sWMyEJH0fmyGQAhgSBRV+4aVoGRJKQE5A8QwMp0+iJqp1ktQN2YdgS1XEfJDwdZc5b8cV/7r2xFnr2+HXF0EtY9IgDEKbl4SJe+EJcsZtYddPpi4ZQENImnA2y8VFIoMu8ZHZHekUpf3n75V0N89vH9ZUJvwBrDyCUG+wn4Qolz8qmiNZkffazUf1zdqG1pYl1sIsi7/9YK6aAOIivj1hRBJxYcQ6deLIHK6kkD5r+m6ic52rXF0UO2sbyPvRoQHZMEbqhU4b6MOJdTpnBRCiiP2A2U8AYIAtxuce/ucGQPgwTPD66NAjMclQJGPJwGFAZBNytILy7IBNEUtS/oAjPIhaCg1YtHc72zUWxUtud3creVFMw1Z5y2oPgGDR0vyOvncx8AfQCKBxkrv5fvmad6Z2HbIUTFIYIfYPrpg3ojpg3kwkBQ6bVCnYKaYbHHhycJooa8vbC/sLoA3265u1uroc3OuiYjlEtQwS7F8iqWOjsABB7iVEHrDDNbRnj9KXnAAV/Ct077KBc+hw/X241jVAyPoDWeq9vxTLdHe33151SN/MhoZ3jmHnkDrP51hF6gDRigz9VMYeFFjEa4Ab28XV9lV4g4id5sWxmJAbJokz22wBnx2BqKXjCky1dDUAmHan/TM/m17BLF4doQKCKcI67oJvlm7kkYT4Wm4woJD6NliJc3LlCqA1pkqWKZUgUWaqYJlWIXHWqZl922mFZPLyYutK3QUN5qNGvqK2t32EVcBmxg3YT7QTL+s1ECTfoByVEteEAKe/sbhlYZWrdoYR5kc0BjxkWPO7UKochOtG1bd2REqG4ooaBNGbCg8aPR67sQJphQV0LFxjBath7XNKE7sT8Zob5Juj6nZuJZVDBsFal2YDmAckGkSDwFkowgABaPICNGmYajBgTDOARYX15MYmWYlbh37JpnIBgZjXBowSJ5pfN0m8jNfYzdhSIpljgYyuIpPz/ONQ1XFVhvtSItWhRI9v3ySuYkURPUBVb6P8ifDXOxPF8VC3XLiCJXvLJGAf4yWIHe8OM7PLKevGm13Iqx2cT2KU1EXxvT3gJZBRty2ByCYIwJJwimmGU3n1PJcB+ywgLtTsXj91gGoGHKDme4wtI/75sCYgC+paDjQOcbZCUvlj0G4nhnn5fwFrTNLlq5AAwkjYetAyC2AqbU/qO9piY3aZn3zdTogP3lg9Mz5XRA80QuHrU2cE6ArYI+D+ibYIY+hNxHo981gMga32KKdkCGYDWA6CFKc1zcFQfMXMEQ0uFeZ2j9GnjtP9sCWqgFFe9ADSgQXv3NLR4ysAl/FQMQwo5YE/3XVpBpdb+037ii0DpAa9cYWxQN1NuZiEt5PYyxAHHUHYfUowFZm0o4R5h93ybCc+3K8mHbgGBUTXsGXSEo8Cpe8xYPvWAXZhxfWno95PLw/8YQZuIRiOwpIJiMT9NbRblqOOXzLtmvVjVpr9kHiQvh7t8FoGBV76fYIa9Vw+yDcINHusve5IdNoeaN6IhwQe2E94c/IeiLcuUbhTqUe+TKyUkvsfeJORhwYd2VCYOejccDjFbF60o2R9aYjY7KeiCvEXPQd2mAMLHAeYjC59Z4C811fGOkLfbawXV7YLS+02cJ3UyHO2X5nfbqx0lyfzIUAjRQQG0JuhjLyhSwy00TI7bBXENWyyp66kRsNTOzTJsP9XBCTtMc6nnRZUtmNVaK0c1/HfDc1yWsDlB5tgib5zmkcx9vNA9ZpAt1WN8BXrLcFBUfryjfh/CiE6oB0NH3aZRqAwwi2nQjMbtZb7Q5YPtQgBIA2PPqCFOgFAT60jofMBuQ4vXPAax/8TAxHoNFCiDsHCMeoOXMhiLojobIHWWYdO65nCngOX5qR2bdwUYfumHZzUPd5fggAJJMJSmkEzFNf393LsaYDri0PPQfU9Wa9Ud3B5mjaYWBVBrWvMNpDLsV8wVPIgUB4XG81G7sgGOYIoHCpnhby7x6ymmIa5HLQy50KqKeFQ3U4dyN+/LMj8O58lWzQyNkW2p2RNeqf+73ARntjeJZDS9hWFf502yoPy0dsJTiKQFmDnusMrONIxd8AifSWPzZBQuUZkcErAAGWOAazhOkWbzINFFMHeHOh1MQce5MAvBpd7zvT5gwHVy2xFPCGa6M3fK+Ympk21BWWkky28DnoWfspLKFqrtcHkPE+h2TNl1ZCQr2ZUos5RjKEtcFUupFQi0io63JjYafaYJTR8QbItQj97LdBP4Duxn5oaCztTUB8uSK2ZIOzMPEBUQPL84M7UqnCfUT7+S0wIMl0ngrU8iWj3SIpy6E+e14qMOF/0TO9x7DkAN4LBQESTUkZi+KgtgSEHsV5MQgOGqBvougCdYibbP6JBQ5lP6dNBapxEPWQT0zPcz2fpXGD62PTc1kdSvx8E98xmmt0KfAGcrYP6sR8ngnJCyzyAAl+Hg0VV6Z7JMOZkT76aGLYFojlNO3poON9RjtZks8IkVIPkjnOrW4FnTxefwSuEAYBPNbeq1reHtgVG0ZgdM7H5tSocD8OJEkqvz7xPJSUDcE0dQcc1BGxZD6b/14yP06Fk1gqxFHecClvg89E54OmGWW5wX1qeBZPzQAtYKNrfM7M5z170n/BKtQAhYBefwhwcGcTaNIn1Zim7VBSbBXWqHZYQHDHuGUx8czpNQDXd57w6LFau1Nd26m3t2sb0313QDMVC6CZRi6oORB3sNzdczkERmGUV+pG6UN6YdLrW7lKsWeAPo7/lJ9/lntKMfVkPo9o9tH6v2QTx/oIRysKdM+J6KjwirKolCMZO/NAEUIlFEJYiQTqhKTwG5BAJd5Jq9Zu7ux36s3GnckXSszoW8dzhEqL6wh2CtpK6hlAOWWscdHSJ80lN9sWcUV9EishudROWep7q6ssfQDu1WW71npca13utrcyMY6Yir5Md64k3AnrkKVpN9Hju2KG458BqWXUYf2GJg3J2Ahpl1mMMKSGF3XPlxON8yy4i2Ba+rIHDEBZGGEqshJbEjvr0/iYF0r4zgSZEEGKMAZFxNBqTWlJS0sxtuDD/88cLcuSy1kid5wRBjKF3HB83EsGBaz2pEyopExoTt0IL9OtpCx5KV8s5UAF/pbeqYM+bHU6LA0rgSmlduZGXllCXsH6GNoYG70TMyDrNsveAYygrFAAERN1dvdwo2N0AnIZiAmMp2A0zuM+CciP3G/RK3PHrLbEx5hnv1nvgAsNX/aq6x/UOmCWtDFVE2bOcObtsEmnGKreS9YpSQ8Jv3cj1wh+LkmfB74vc3cnArIS7kdHZUs8YVfNMAWXuWeAX0OZK40mIFOYH13DN2k/WGdWEPkU5sAGp2QaCs+d5QsBUhqUcQ5IHujAEjvbfgQChpqeyk/N5O5G/sQozaoACQJfjQ3Lo9guYrl4JCOLZLJQWemIY7gc+aAaqYToxet1jyT2yzHHdF7lpSO+NuXkDZWWj2jRypFowdKVI7lyZcllQiLYXbuiJS9wRgsL5fsYosZ0FVl2736ZdlLQNMFyMkuEkYcRQpEvjkxvYXKNtcjTatKhTbei2nQcBCIU+SaPdY6SFm3BibCh2DGEYV1O14aysHKGvc0TKs4MK0gklGg7VtU4ZIqti3k6MDqkP0rfoSg7PoxUNDUA9ZwROEmmwUcBfk5dppg+KMbG4MgBh8ITWxHa4s1Kr9DsQhHpOG0McVDCEMrxVYbRUxwux8wqU+mREDBX/C3nyLBaBDGwW29ssbVWrfrBRvOgcaP0W0bph+2GwHX+0DjhiXegCmgPWuafvQnrYZl3DMNc366u1XfqnSfs7ZnRK8EUFMMY7mjUOgfN1gfgAtgg3CiuwlU4LwFXzT1jQW+cD2ww9CaRzCArMwgGXaBoHjPxdJM2nDx0OkWeKE8xxufCjbwjsaIYpDBtCgcDentDo2uRj0BKnEQNPgLCXl5eYg8LrFQS9Ax2kdPDjQV9i60w/QzeVAWKzeZv9Ef7RwQ6yUPRzb1agzaNuAKfX0kk+CGvWTbIarMv9uO47kfFLM213sSz59hr253OXnuGoOaZLt6s6YIwmQ61XBZZLbo+Mp7rFJ0E71EKRMAHt1mSHlgmjl9euMAqR8j93Ny48hmShXwg0tGp1A6rG+Ox+gCIRT6hFI/AA7NuYHr00A0MWz6lH1hK8RQopc8jnKvtGv2rtTyaT+FoNUw29cv5vFjAvDR8LsNlEFMZGOD20QpgP3107TVpe80xERHd/69j+40i9bY4jfnBhBEUB8YpNCHPVFek4mzc4aVW6nI3x9aqjY2D+kZnG6T12v7mZq21ttOs3hwAXUFBvQay+czqB0MS0t0JZhV3ARMBS1fHYzuUWN/hYYfMGxHb3UNlAm+j97fXbLTrj2uNGpii+w3cS4LpbIRNaGgpnyHGAop4t/Z2eazYH7uOjwmOaPdNHIzT4cJSbimI4mgnBRqcWTBvMIdg4iEaRiZQjorDMglusjihg4GhWIygCZQkR55qcOpaPTN/avVNPJyG6MzxUzWWT6mMPAEjBDFyKQt2NMKwAQ+sQQ1ddHkiNYjOz7zwrfNzepRT9h1wMl0TTySwJTCRyiBw8QzGmQXchgNktnF8fD7VAGqCUwjVcbcDT56NKVAyVcvouiCJqV6ZcHW3HnmcvEJhHy/G/eGYE7c8FVyaqo7sheEejFWl+QEj2gBkxRJyKG53eJm5Qb6XMttKDvPmb+Srd5CvsFIeLAmDNk+MNxUvWZE9bbaqW7jHUMWgCdtrNdeiTcP2iPL3yRH1WfMDolsbN/zCQhvJsEKwRpY/wlS3bNg+OB9j+iFl5/NNTx9o1fPOUSM83mtA91utmjjR6OfCzUcr8vB0MuQpgk69jw08E4ZHw4hpMA7JpMz2GaUr6BGBb1oiw50GDSP1rY9Nns/jB0jjngmOkgldF5cflMQ8iiuFwh3ZWajcfFJuCL64vIJvJXhbwp+lB9KcUuLUxjlJnSTGBdHCTOOQwLXxF0sPM5lMPGa9gSpSS+IRhh7o1cjTmYp7BJjFpS9LJU3K5aUU+w4IR3h68x7DAwpZUI4KnvPBUU3HKO6WcN85FKPaq4LMZ2ndgWVz8Cgvbm6Z3O0fYe4pSlxg1zfgiH847YjPcbe1F3jW2ku8aPKfjzxzoPjQt/SeP0TX+MPQNcZ1MsO0IrCeSkz/CN9GrLQy6yUH3lHyQ9VHfqZY6HM95cAjh/PDV/OVAf7reMpQ/eV+shjB63vKNzZUfeXAvTt3+UGO7dVa+nZzj4fQ0r5pD/TuBLwcILFgiLx+c+DwIXLhnjiKpQQOI17Msu+XVvw3wpEPDsPhq4FAIDU8LHVq2KhNwTY5oMwoP5pSCOKg2sKcKrbZbLFqo7rzpN1pl+dkBHBzx6azUGc0wciiMskIkikD06kCUtCL474jwPApiv0OqIIQBphMPF5ICQw3ZheEUUPMMQgBAG1jir1Mk0DvHzNkuLrhSfkBNW+Q8gKsteswVaakWfAjeViHMvYx3CgSTGDkRni8RcK583gALg4RN5c0WXS0ROrjGIaDnZIGIj0iz7Qv6Cs+W9BLy/D+EP4VC/ztmZNiGtAFiLDqxgZY5234hsSBBY+34L3d2cB8vwgSb3Ob7DL+0qb1W7LID451TToSB7jb310D90DnqYhnls+3SjRFPNKRB2iTtsYZDU19x8RDjdKkB95CoWT4AiIFi3nKPBZ13eMJEAiePQYc4GkF2uGAgXyf5b9HW3KLyTy7sMYVDSQGEE/6pFJaPXlUaWyuniwuZpg1SCdPlNpiI2/mM5nPIJTkySp3CK+wpTV+q4Ln88SuYFG71Kyx2BrkqiaU7ytzxB3ME5ihVqbDhrofeJQiTf4nGB9jM8eq9Nln/Igl+fR0IM+fdP2hadvyeCFAIqZkqADAlJM7575pipRyPF9yDChH/EE3fk4c26xvtisooGW+MyAZz8a60K/QFiK5lYpmY8Lpqa19tOyi2qG+gt9HyQsCfhUpulBxsUePHjE8mbLX1oQSu5vhDSovGkB0pGGAzS4v1WYoWoCY+Pahy1JIA7nD+wuq4E/xpuEWHiaPkb5bQDWJyswLAgkkRajXYYnHYTskVX0zVWGpaGO5dJXiR2h00MRs5JMW5kcKUZ0DRC2Wvm+cHkeHcOipHEUedW5mlfn9Gyos83xVka/u98PzaXjuVBwUg3lnQvtpnjh64C8ssIV3c8XBCGVSkcuXJOFai5YGLCZEW1l//wp/wMjhw8kbmjzBppxofZWO+Odr9EXzE33JfHsZDL2hO+zqZd2AC44dkY08ts/hq64ETlXqViQmLcpLHISH4LHt7+5WW09uNE7epXARWDOkGMW5pzdhiDw8ZN/Zr69/EI5K55ZItbHBdqqdWmP9CVt7QnuTSl6sgXeAjFHWd90AvE+eBElJSrTpKo5Om8ee0TcpGqOGYV6Q63i7CUULXnxIK/5wSrFG2pUmAx8y9C606269EepYvk37BnTsjRr333tPTBz2O0qhBLvFBtn/N9J25NwgS4sgbI3TO5DG97hKpTFivKUPuEILSHMMRwNTwMRz12A2o2QhcRPdKPCvluYKE3Cx91BIWfkpmQE9Mi30YKfk7Mjh0vbVBPtL+3yoSPhX7PbVZPx0z4ztN8TG5E7tpv5IziuCXWHGi1iu+G9aAZpjPED7/aXCiBK6uaPDy4oLPGxMp1v60uANhZ7RdTB9j1t45vOxjfkQTOfx5oHhgZEd8CP/hgOe2JnME5fJ2Hco9Gsg25ub09nu4pCgcp0RdyZx4k4w95CgOBSoyvbwjOENxwRZWhy7zigHBjFqSsck30QWCB6K9gZSrN7hEbsS3uwwcyGTOGi33n7MFhkeuL31YWAyAKyP5WFgLvuyGKoXQeKKcmQbS/k5mIpykh9KfSswK/LAPtbyT9F3rYhTwFAiMrj7UERpgY9rGxrDXLEGHjBiRXbBHBMUzhWGdogJMaBTYcklEIUY1E6urLJT/FyGqReohj+2rSCdLGZZH8gImA/E5nAEddDpCbx0P3haOswyeL7CpQoI7PRbaQRMlxeaTgaPr1Ea+NPFRcc+hLbwdJWePYVvh3QK9oob0P2+J8uSpRAet01gCujeiR/g4PEpGOqvwA2o/eIiVxHiNxhIa+3aHoxcPkGwAqZ7omUEPhhzT0T7VTTc+FgWK+wUfn4U/WL32aloEJvvyMmg73LKHsFXqp6RX2CMapNT8MZGz2WV59NVRnwcsXGvgk7kQ1KKaTiiEagwnx5rRxpbXPR4xxHYq6kFCqHQ0MO1GsmVUbuBNVrFk3FqB6Ne2AHAQOj4DwXURSTibysKFEBzjrHhaa56Y7+532a7zUa902yFtrBylu2NDEaeamNl+CGv3oxVkMfZqAL/EatA59jwhRWQvWNPefRQPOVEr9HFgfCBRB+rjImwISgpB2I1WqCV+kZg8NFw2aFWiE+u+bjWqu7sKIWYlbqgLxWEYa7+e5cnp0qbHL61q7t7O7U2fiX7PMsN9Cy30LORia72eZeWOcJFgzxtccq12KMKc0DqWBhmksyOwo9LJgsMS9xXIXkB3118Aix4GApCbhhDcdoB1i1k2Pv4TWduhuWh6X3c+AXcwruo7qCUtFFkCrF2qLC/i5KngNw2g9w+mEFgapEhhPcQ8BBzGz27DuHZGcG/LA1nNQyTCOamGARJ5xEOPs/kPUmnYKRUSIZRKW7yQ8X7+K5KJaj1CMfFq8up3DDGhXeEeSg/HwgzMT7QLIlBUBTQXxaG4QXYV0YRS3PJEIhmv1Nrs4N6Z5u7tsDgtZ3aY3BuQxd3ii1dzzPR/BKhtjMRhBc5rHK/XKeTQXT8wPT8bByGYRveiOfC4sEpy+e70uAQj4fyfq3YeF+P1FQ6kDQWpwfODcjoKv2Ii7PQ9tupA1aqHSIQnXZi5HjmkMQ9toubCg6PZmLaRhlj/uYZaHfrBFx8HqK0nAHhzaAqUfYwoCEENESsoaVJUXt5JdOZySjxnu9z4/lK2zjOsTY6QnQkCvwlsRkir3lEZkMFJZFBGDzhGDwhDMInItD3gqcnqGK4diPVczLTqjTVSqKdkT3DYYD+gu9ge7Fi+JTHNdMjZGkMVmJN0HbvsVNcC/qFV9cdCiAjBAILcxUCiFWRilg+RhSKlrA4IC7yrJShytOMhatNaf5QmA4xT3tBDlvIFQaglWkrnBjLzkqSyFIfYXd9hWlnMIrq+nAGP2TMccUexy1fI25BKZYAl41kn8TMkLBfMF7s1xCTeG0KVndldW7kqLBRXpUV+Mg40AcuGRhb0Pw9jun7iN1oZrELRgizJMEXlgCdJF1RAi6scOQSXocgsEaA3JGhAAGsCptRXdorhYkJ78S+knkZHnSTIbR+yCd4bg7vHMho6vpLIRKTg3dnp0w7v+zVvV8VjHSBs/8KH1iF00Z/ca0J8pz8Ucpnkdcy4nVSKD7ojh1xaU4WCo5NfnmGCocy0rCRvMZKXB2Tu1Nz7yolb1l6T9zIxP3PyNZg64FnL66L9BplN2ziU8qiDP9GLRKuc4TigNNqLImU4ZUbT67agTumqJNpePY5ngH0rGAqlizvXBLRMfCN5ZUqqr98gFVCBxS/y5upEuJ+wQJOCK+EOcNUptkrYYQxKa89wNs6QYG7KPPFxddqujZXMeI8mJwvtwvxHvVkGs9DiTNXLzoWJY6JsdTLNgGjA2NFvHG/Srdg8ptEwaHhR1MAfUBliF28CgKvdeue06EsXd7JjedbfKB5vHQVqJsu5AyV1fT9kUf8JAaInafxsgqbd8VkNPPwKZRK57yi0aWSwlqnc2387ne81DSQG61iZPIqyfCuuAiKAB1Biraz6dIFvEaQ0xdm3PqBMRpn+XJmbaNr2llQrUcjP4uH9SY+J3Wk+UQABg/j1Mrqjc6bumFGeG7RJTP/BrfLvOB6GZ8eRBdZsHTsjxBkFL3AX2quE9RW/7TAnMphPfF3A2C559QKlw4v6uA/RK0Neay/zG9ClJpFTG6PjnAhSrlQInQCMdD1wlKW0GViQo5gzizJLRQwIK1vf607UUWtgWf00iy8rtBHq4cGfB+v8sxk8BzfwfxzfCSHwpN84X3GmgKMX2CsJaEfLbzF2HHPKi++YQX/KkEPVudEqRM+QvTdo0sOBnjFWyBIAW1acakwyBOZWAR2Lf1JjsAy+FXPPF8TLWjb5HcKgwKcOOJ8iR2Kzu7Ec+je6wHKOWRFvCkAdR9uOtCy0I3XlMoDbEegsJjyNcCF6luwkPyCfixGCKiq0aSONv6LYVKkHrAlQJKSoicSAA7y42Jc6OLO/41AYhl9EZjSa4KZhbD0mhAUkRsBWZ4HhCcucDs4zFvkyFDyFssRQp5NcaImJx1LaCxHU59psNVsbu3UZKZjOZriTM21/XYdU/bL0YTK4WTCMyFz0h3xBptYumOUAYmPZLWBLJApkXJHTmy8Ie1UUiyVpy/q/Wl8h27OQWVZp3gV07sypviiXbowcRL/qgLt4GRxOyeLNbPuidiCJ3XDq3tWBYYewFRy96WVDcLqpMJ9W8TIhqwrLnHwLJAIxwFl9B/OnsISzaH+IzykU9/aDiE9QVxZ094YdxcWdNp41ksldMww0jXy4ZNOvWhJEiba7N4UwNUkHrRkg3bEoHtxJaMdOmvzsZIVYmEWLTcOjimJiJ2XjbDFB8YDFzh3YQ76tgmGV0nkbU5ZkdEuxh1swEz9+YUE3cAcXkvIdwxLvIS0AS9ZUuqsxh/S5mJk2v4LUEsDBBQAAAgIAOd4SF0FSHgemxEAAFckAAAxAAAAWm9uZ05ldERpYWctbWFjT1MvMC3kvb/nlKjor7TmmI4t6K+35YWI6ZiF6K+7LnR4dK1aW1MbV7p996/YxcMZuwbkW855cFWmioBsqNjIBcp4Mm+N1KAupG4ddcuEN2EMSNwEMQaDITa2uRzbCBxfAIlL1fyVaHdLT/kLZ317726JODPn1DhUKiW1et++y/rW+ra//vrf/7vA/h7pucXCPdFw793e7r4wa2M94ei9SO+3rLO7/VZPpC/a3cGikchtxi6mtFik79IFVj3c9bYr/OADf1Z2l/b4+hb7xwGePvLKZ97JgldZq+1NuUu7/GCTjx+I307OvMWd2t4H98nchS/Y79cXLlxg97raoyza1d0n99UZCfcxWoTVzlaqh6/lqu6TPT66Wq3kqkd5b/UhhjHW7bCUrtnZjG6zESubYTHLNPWYY1gm08w4s7X7+CWjp62MwwaMpG63suGEEUvQYAxgto63+rXYEHMslrVDNKNh2o6WTNrMtJyEYQ62slhCMwf14DsNptlN/b6eYZo9xAasjFw/rdn2sJWJh9j3mD2mmcxK63IvGV2L00gaNCI2wwyHpTNWPBvT7ZA4zy+5eV4acz9O1yeL1ZPnOKay/tlP7tzmr8cz3uIzNz/vTm3yBfhjslr5hId4051SX3lxgT/9ieZizKusuPmFauUtn33Pi3u/5B5UD2d5qVB7OV6tVKonj2snexjyS24Uz6tnJXfxSC26+LH2cEE9P16tbY267x7IOWunj/j4Jt+b8J6PYkK5Hwxx94rwlNwDJqmPnWDFamWzNgn3vXMLj/hxzn226a1NY9QvuQVy+zfhm5HeMPs+8h3ri7b3RqXP8SLfnq4eTfPCrDBKb9YkS5FL2R0t5vtYj5PPnITOYkYmlsUb5FAto9MY6XI4K8TaxSAx2tQdOGcIfukn69usX7cd+HxADIW3aKhlJkcQCjq7Z7TdNFpZOokI05mjJ5N4jPCBP4PQoeXlWoEDa3sHfG1HeqxanoCv6qtrKpVWH4rNVA+namfztY0Z2MJdK+AX+bq7luObJ3jItx64P61Ji/Pi69rYCZJNbgj+livA0/XcqAqF5U8yFauHueohmfiCchclUM57cMRP8/XJWXjy1+NVOTtmdAvT7lrZG9vFC25+iY9/qlaWaDcHe3J/WAzByCfL7vom5ZyYE0GBXHQfj+Nc8mXy/+N9d7ZE74sN8f137s8bOJv7sFg9KsAOgdu/CCzYze7ePmBF950wi/Tc/h7oBmxjd3sjd+5G+y6w+taS+3ZDbh6RWx+d5Pl9bK96+IrCszjvvSp/IVyxqyEmcJN9czvS8S0wqyuMbd2mDantRe6Ge4StvLdvYX7sSCXA8ic1FHtzp7eqJ0XpJwKLYQMBZuv6DdbSnkbQIc6zyTiBDgNiGAMjLBQKUdAOZHSdWQNiYEpLDiPkW0IsmsBPCS0NuLEpMcJ/Dfd+L2HGSWgOEiNjEBj2j4iB9/QOPG1lekozkgzwFbeGzaSlxQUExi1dwB+hqymCXOKVLcZmTVsb0GF6kZXIFnoLmaFj/fsCJoGDRpzJY2AvtjFIKSxThHJEOgJRpI7qLj933z+uv0Zoj+KUBPXzW3xmnM+/cUc/IYYkUrUQhAnk8ipFb/GdjEfGT0vVsw3AVf1BCW8hkpEDtZMTfrosvS9hCZhEYHa24j4/INQEtlVe1jZ25K+IVTVdfblUf/EEbyDzKNAFhMpo5vML6lS1D7vVo31v95TPz/qhTYPb/q0/MfROONoV6QRetbHe7xBKiGmGKn6nu6edajV5egRWBoDZl8QAd+kIVhMDkMxeJe+9CfI2T1hS3KuvP6ecnNupzc7/elz40i2KIEtrToLiUJa//qQVG9LjrQJhzREV3/jFRhEO+Q6XhRwb5sdFYJd0onrXK2CzyJMpcpAsOC/eIDuazcoo6yJUSqN6JmWYWlI9JjOI3GqR529pPL94W8uasURai7O2v7AIojhDH/wJWinq02AONutIxf/cl9ZiemOwKNnOSBrp6KgBlxq/wr58fo9PAYT3aU6JnPRJ7uLX46eIQnemIKb2/qfsPj9WpbNpiWBm8ox6fg2ZjFUZSImdYCAWyaQ1jFLXPwJ4CbO+u+0dROnilkwz2n5jxrCJGdmI7jQeyUX96fjELKwlisRruSsK8/E8zI7SAOJQO9nyd3I9xDoz2qDIfseykhICBjJWit00zDgWMkxVgD/3yTDesIYJS4BXWQCbCBrMAFplIFCyjpXSHCMGnjUSanLl1JQie5JIVOZqpbPa6ak7vVQ7eypt671e5sWXVAYP9vjpQwoXcAy4YuMNiqe/+69C7K7wrbBJ0wozhfPHjApwMw07ASsnDVNnScsasvFxSL+h3kEuYW1ZS5FdIDG1jwcoiXysiHIaTC5sfPk7G7F/GQzhcqeCVPtyM4du69GdTkMbDMWsVApR9kfhxjcIi/a7qIR/DbNu1KAeBEp3D+sLR6PdPbf6mhGDXkUWeu8rXuVZrXTqnZTqkzNu4YhPTsh69aV7EvnaaWXBs9piSYP4tSoiIdYhvndaMLUliwtKmElcreEmXpzhk5WA4RKh2t0iorOBDU6BrrTw0gyYZ0sjbQQ69I3Yjp5ifbpD5M+mjLyLuqfFRth/4GksmzGckd9CB2s2BA2pr8572yC/cyDLfHzHzW03cqIvlkFO+tSz33IQySERRQoJ/VKJCMJe4o3FCICC47eI7babIwD1luYMqKyiZvHy4/rYDhWp41VEGz3Jr7qFWQmMQUUjQQBTVCuUvQoGG/H/u+Zn2qBmmM2WnpiVxlZERUzsJ0eP5QAA4SWJ1Ff/U8BiUiOYaXIczPAD8AiZA5nkJ5s1MIBEwAB51hbWn4WtzFYphozBhKO2RuBMxjAtNVJOIytdqOFLmJTWFIxDzsUyVtbR/cMQr3i/A7KAnAz2Szpifi4IHoQ5P/gZ7EHW8xZlNKBC/Udir4FdePF9fbHU9hf5QvXoGUknoCcY7eO85AZg5bWP+82x05A2iMcWHxVxECJyBCgUNlosRrgk1ChhodCNnbo95FhpsTwwH+gqHamK+t4BBBigENTE3Zipr79QYu/VkfSUjKnIt4oG4j9hJdtqEihCjfbrQhML6UQLi9Fq8YYQ8hP0Tw5rp/rT2jzNIHHD5uFdVkpXmxbaGTpXim+HGK30YsD8ROpunhCTA55KhlU9LAuhNKW0w+4TBLw8J2mh/XdeaRnj8E4LeWF8tFY6bGk4S44iRr14JMeiulXL5cBGguzlwPqkjvqDlEhX5B6LRgRVE7rVzc1Vj/KSf32pxGDnk/dflQ/B1weMjO1QJ4L0qSaV8LBmCh4AV8WtG353QaT6v5yQgrs0BnOCFyDeIOaJGvidF+RWg5RdZV+zLl1LorTHEjo2CnF48sh9mVNJpPUjP9lXDGmAPLXZZeaVt/Cd5yfqPz6Tc1zDHHcs03DAxnwMnBn1Krve0wVoT1rlCp3hv67407TKIE1Ylt1M2P7pH8YjJmgCuS5RB9GVqOcU5b+OPXxj4RSNPykYqY0xuoqviaZTimwAJMpN/392QAxL2EVw8U1vPScpizyi7IB1d3SxO5HOMMVUR1ck0heWYYVN8keviTzvbIA8C8tTtUlnLARIigWqj3C4t/tWV5T1RO7RW1LHeHP7qJ7u7kvZMvAWn/k7Bu52CCPi/IbMfKHfElpygGA7gQQHSaayNWzgratNVYORGJqFzC9C01YrmyjKyFPslV2nM0qxJB9c9bsRiFOEmG4LcCAUkaWAFC3RLlESUASG6V3MCpSg/68XqcqJQ/Bins5xeAgkaDpE+znv0AxSS2PWuN+zC4kukk9lm87RE/6baidAzGIrtoA7GVzsmipWeszKANMcRq2gJnLNrgdB2WwbuVvpcZk1qB9wNIFXfp+6ZrsFKFRUWz67QcUcx8ytoLoETRey27XmcgQiP/me7y9wqKbrfiD7hkWVZtQDvSDidtbbKPHS6udePue/hmdU+xWUsb3vW9V3pdaJSH25fZXubdSnyATttssMTPe+EdNZdye7aJlBB9bJaDGH1JVh3rfweyCcVBfseIkXDzC8erjKpzbwmeQU3DsPUQVSt1T7sMVnHyOkfMUarGyl0tCYrcw2HF24hlajxcxsqr9B8/n4W148hDL3tmHuUe/NCsoHPtRGF1GuURr4jzPU49xb96enjNLicaEYrAERKLakkqJ5MqDrST82qNer/6Cl0skAfaiHEqLTqw0SlIZiJiMbAH5C166Erl8JfXXFf7+2XeCny+74Czi//uAliTHBIvjaPl8nkKieTvOtB//n9LDV78zfxiKkYiin4rodyxj9BA1OAzP8eVELURd5cROGcIvF2tm+hAx/mpuWZHkK6W4AEYYFOSM8VklxsZECfkM1cLeEN4lbtbMnMqgQwfzVavVonJxeKddKpUZA+zo42jC/7xSD2vj/nTUy4C5tqocey9og32AdWZtQhUbGDWKdukmNKb2VCNCwTsSHxDKpT5Hlpt+vD6mqKAOx2Qf8bLy+USFJObFCTdq9Ii994qUXbv6A+uPiTdWuEMyCQE/0ieTZZT+rWnmJGZraGFGqG8CQ+6L1ryVJAmVN0CT6alN3pxMiX6qJZkwTHe2siTMyO0EczE7rxOFgbHFGDWlGfEsTLW/w88ygHjT0RH+AOnTDCZJffpvae/gJxFgJf6jn0hjh7G6BqNeTU+9VWewFOVp2d4mGKTg73K0vfyByAEIgBINXynnPdtWxP07Xc6K+nq24a8/wJpirWkJ09fmrbaXsRYOuyTSdUGYqSlW4iYKU0kbYkK6nBY2kF0wrkxJNA5QT2einMPz89kdGyDVAFB7GbWEmekU3B5EYECY0mBixreuUzjEHfPleV7inOVFUZaXuFllTiT5hTxHyfo+hgzDPSrZ1UI2gJphjpGTjE7Sa6VoGc7f5QxWNplojCTIkqaObDcfIrBHmAwLLaxRZ9/jUT4A24sSlMYQkjudt/1gr7SOnpDPkNYI39YlPfAzKBz/Y9Ham+WGe6O/PpygPUlLKZJecgOCXWEYuqCzk6dyiO/aej65RN39GQXFw1qDX741vIwNIqYrLoCan3qN4Nxy/v2Kf0xFSAGkZ0QVoFkE35C2MLrLU+U0qYIphK/hFhYqfx7IngLCW4gEVhCJ1soyCfP7KbNWPZmqEUdwLm0vO9wfJg75wT2dwNaDK6m9u6dz1zS8XCmHRwG+6VJTdfsStRlj5G9s2C7e/E5JDjVqAICSaqUF0i6Yo3tGpa5bOEO2zs+lz91t0CN+87tK+NC+xmEKO1HHQsikuyHa8V1mRt4oKPitFb34ClUtBxuJZ9XjUXdwD6a+P7dSXd87jpQoTUecB3ELW+td46uo3hc3aN/xKgSiTWWanLZPu7Qyfcqa12JAODmfZtoDYkWBWkyRSLCsmEqPxwL/JlWPpAUDDIjkvdtQwh7xbmBS3BWsFqazkDa5/J7YqawoICH80y8uL4HvIbXG9+oLPjHtzk0TEFEOaldceskOOyd2NlzRQXLiKm42GtJVXv5/fsyLDa6VXf1Acd99kfRFqMXb33GK36Gb+Xi/9CwMpTsT9mmINXxzKvrvFnbnojUT1H5xw3HCCvgK4GQohaR2hEoQZqCkGO629BbGsnS7wlR3VtClPBFpEyXJFTIKFEAuY27HJuSnDpisLsS4YrAmOGWLfNSRmcD0DVYsCfhH7kN1wv89zSd6IiYaHPyijD2qZeFLRyqZVAi5O9OP4ee30Ue1sEjAN2KWoePWOOiKFbWzaXR+rrxCquotHgrFNIfdEC1De/py7lTh/CVSQ11y8uCwn4SfvEIFNCdZjqaZgE1wQrja1oxq5LkWdRFPZJVTrdgjdJWCmuRd0UV0TQIHcsuj/9OOl4OBRulBX4MJ0Q1zPDGsjzYZBnZIX2p81dPLyXkDcvRRm+WmOPsm3cOwgnRQXq5XKbuFUNIbm+PwWiBtdoS9M1fYK/wR52s0RoRsZeL+IAHnD08yPcQJtSCdKFsvoiNcEKKaSDvL2QzbB6F8JICocv7nZwNPGOQGp8lbDzb/mT0+pJFdWfm9nX5Ri/wtQSwECFAMUAAAICADzekhdxpPGMWgkAAD2aQAALgAAAAAAAAAAAAAA7YEAAAAAWm9uZ05ldERpYWctbWFjT1Mv572R57uc6K+K5patLU5ldERpYWcuY29tbWFuZFBLAQIUAxQAAAgIAOd4SF0FSHgemxEAAFckAAAxAAAAAAAAAAAAAACkgbQkAABab25nTmV0RGlhZy1tYWNPUy8wLeS9v+eUqOivtOaYji3or7flhYjpmIXor7sudHh0UEsFBgAAAAACAAIAuwAAAJ42AAAAAA=="}, "win": {"name": "ZongNetDiag-Windows.zip", "size": 12941, "b64": "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"}}/*BUNDLE-END*/;
+
+  // ---------- language & tabs ----------
+  var lang = "zh";
+  try { lang = localStorage.getItem("zong-lang") || "zh"; } catch (e) {}
+  function setLang(l) {
+    lang = l;
+    document.documentElement.setAttribute("data-lang", l);
+    document.documentElement.lang = l === "zh" ? "zh-CN" : "en";
+    document.title = l === "zh" ? "Zong 专线网络诊断" : "Zong Network Diagnostic";
+    document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+      b.setAttribute("aria-pressed", String(b.getAttribute("data-set-lang") === l));
+    });
+    document.querySelectorAll("option[data-zh]").forEach(function (o) { o.textContent = o.getAttribute("data-" + l); });
+    try { localStorage.setItem("zong-lang", l); } catch (e) {}
+    if (lastResult) render(lastResult);
+  }
+  function T(zh, en) { return lang === "zh" ? zh : en; }
+  document.querySelectorAll("[data-set-lang]").forEach(function (b) {
+    b.addEventListener("click", function () { setLang(b.getAttribute("data-set-lang")); });
+  });
+  document.querySelectorAll("[data-tab]").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var tab = b.getAttribute("data-tab");
+      document.querySelectorAll("[data-tab]").forEach(function (x) { x.setAttribute("aria-selected", String(x === b)); });
+      document.querySelectorAll("section.panel").forEach(function (p) { p.classList.toggle("active", p.id === "panel-" + tab); });
+    });
+  });
+
+  // ---------- helpers ----------
+  function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function bust(url) { return url + (url.indexOf("?") < 0 ? "?" : "&") + "_zt=" + Date.now() + Math.random().toString(36).slice(2, 7); }
+  function fmt(v, d) { return v == null || isNaN(v) ? "-" : v.toFixed(d == null ? 0 : d); }
+
+  // One timed request. Returns elapsed ms, or null on failure / timeout.
+  function timed(url, opts) {
+    opts = opts || {};
+    var ctrl = new AbortController();
+    var timer = setTimeout(function () { ctrl.abort(); }, opts.timeout || TIMEOUT_MS);
+    var t0 = performance.now();
+    return fetch(bust(url), { method: opts.method || "GET", mode: opts.mode || "cors", cache: "no-store", signal: ctrl.signal, credentials: "omit" })
+      .then(function (r) { return r.arrayBuffer().catch(function () {}); })
+      .then(function () { return performance.now() - t0; })
+      .catch(function () { return null; })
+      .finally(function () { clearTimeout(timer); });
+  }
+
+  function stats(samples) {
+    var ok = samples.filter(function (v) { return v != null; });
+    var n = samples.length, o = ok.length;
+    var res = { n: n, ok: o, fail: n ? (n - o) / n * 100 : 100 };
+    if (!o) return res;
+    var sorted = ok.slice().sort(function (a, b) { return a - b; });
+    var avg = ok.reduce(function (a, b) { return a + b; }, 0) / o;
+    var sd = o > 1 ? Math.sqrt(ok.reduce(function (a, b) { return a + (b - avg) * (b - avg); }, 0) / (o - 1)) : null;
+    res.min = sorted[0]; res.avg = avg; res.median = sorted[Math.floor(o / 2)]; res.jitter = sd;
+    // A request at 2x the median or worse is almost always a lost packet being
+    // retransmitted - the closest thing to packet loss a browser can see.
+    res.spikes = ok.filter(function (v) { return v >= res.median * 2; }).length;
+    return res;
+  }
+
+  // Warm-up request (includes DNS + TCP + TLS), then SAMPLES requests on the warm connection.
+  function probe(point) {
+    var opts = { mode: point.mode, method: point.method };
+    return timed(point.url, Object.assign({ timeout: 8000 }, opts)).then(function (first) {
+      var samples = [];
+      var i = 0;
+      function next() {
+        if (i++ >= SAMPLES) return Promise.resolve();
+        return timed(point.url, opts).then(function (v) { samples.push(v); return sleep(GAP_MS); }).then(next);
+      }
+      return next().then(function () {
+        var s = stats(samples);
+        s.first = first;
+        return s;
+      });
+    });
+  }
+
+  // Business target: HEAD request in no-cors mode - we only need the timing, not the content.
+  // Tries https first, then http.
+  function businessPoint(host) {
+    var base = { id: "biz", tier: "T5", zh: "业务系统", en: "Business system", host: host,
+                 zhNote: "你填写的地址", enNote: "address you entered", mode: "no-cors", method: "HEAD" };
+    var https = "https://" + host + "/";
+    return timed(https, { mode: "no-cors", method: "HEAD", timeout: 8000 }).then(function (v) {
+      if (v != null) return Object.assign(base, { url: https });
+      var http = "http://" + host + "/";
+      return timed(http, { mode: "no-cors", method: "HEAD", timeout: 8000 }).then(function (w) {
+        return w != null ? Object.assign(base, { url: http }) : Object.assign(base, { url: https, unreachable: true });
+      });
+    });
+  }
+
+  function egressInfo() {
+    var info = {};
+    return fetch(bust("https://1.1.1.1/cdn-cgi/trace"), { cache: "no-store" })
+      .then(function (r) { return r.text(); })
+      .then(function (txt) {
+        txt.split("\n").forEach(function (line) {
+          var k = line.split("=")[0], v = line.slice(k.length + 1);
+          if (k) info[k] = v;
+        });
+        if (!info.ip) return info;
+        return fetch("https://stat.ripe.net/data/network-info/data.json?resource=" + encodeURIComponent(info.ip))
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            info.asn = j && j.data && j.data.asns && j.data.asns[0];
+            info.prefix = j && j.data && j.data.prefix;
+            if (!info.asn) return info;
+            return fetch("https://stat.ripe.net/data/as-overview/data.json?resource=AS" + info.asn)
+              .then(function (r) { return r.json(); })
+              .then(function (k) { info.holder = k && k.data && k.data.holder; return info; });
+          })
+          .catch(function () { return info; });
+      })
+      .catch(function () { return info; });
+  }
+
+  // Latency probe to Cloudflare while another transfer saturates the line.
+  function loadedLatency(stopFlag) {
+    var samples = [];
+    function loop() {
+      if (stopFlag.stop) return Promise.resolve(samples);
+      return timed("https://1.1.1.1/cdn-cgi/trace", { timeout: 4000 }).then(function (v) {
+        if (v != null) samples.push(v);
+        return sleep(300);
+      }).then(loop);
+    }
+    return loop();
+  }
+
+  // Cloudflare refuses very large single downloads, so two parallel streams
+  // each fetch 25 MB chunks back to back until DL_SECONDS have passed.
+  function downloadTest() {
+    var flag = { stop: false };
+    var lat = loadedLatency(flag);
+    var bytes = 0, tFirst = null, t0 = performance.now();
+    var deadline = t0 + (DL_SECONDS + 4) * 1000;
+    function elapsed() { return tFirst == null ? 0 : performance.now() - tFirst; }
+    function stream() {
+      if (elapsed() > DL_SECONDS * 1000 || performance.now() > deadline) return Promise.resolve();
+      var ctrl = new AbortController();
+      var hard = setTimeout(function () { ctrl.abort(); }, Math.max(1000, deadline - performance.now()));
+      return fetch(bust("https://speed.cloudflare.com/__down?bytes=25000000"), { cache: "no-store", signal: ctrl.signal })
+        .then(function (r) {
+          if (!r.ok) throw new Error("http " + r.status);
+          var reader = r.body.getReader();
+          function pump() {
+            return reader.read().then(function (c) {
+              if (c.done) return;
+              if (tFirst == null) tFirst = performance.now();
+              bytes += c.value.byteLength;
+              if (elapsed() > DL_SECONDS * 1000) { ctrl.abort(); return; }
+              return pump();
+            });
+          }
+          return pump();
+        })
+        .then(function () { clearTimeout(hard); return stream(); },
+              function () { clearTimeout(hard); });
+    }
+    return Promise.all([stream(), stream()]).then(function () {
+      flag.stop = true;
+      var secs = elapsed() / 1000;
+      var mbps = secs > 0.5 ? bytes * 8 / secs / 1e6 : null;
+      return lat.then(function (s) { return { mbps: mbps, loaded: stats(s) }; });
+    });
+  }
+
+  function randomBody(size) {
+    var buf = new Uint8Array(size);
+    for (var i = 0; i < size; i += 65536) crypto.getRandomValues(buf.subarray(i, Math.min(i + 65536, size)));
+    return buf;
+  }
+
+  // Growing uploads; stop once one takes over 3 s so slow uplinks are not hammered.
+  function uploadTest() {
+    var flag = { stop: false };
+    var lat = loadedLatency(flag);
+    var sizes = [1e6, 4e6, 16e6];
+    var best = null, i = 0;
+    function next() {
+      if (i >= sizes.length) return Promise.resolve();
+      var size = sizes[i++];
+      var body = randomBody(size);
+      var ctrl = new AbortController();
+      var timer = setTimeout(function () { ctrl.abort(); }, 20000);
+      var t0 = performance.now();
+      return fetch("https://speed.cloudflare.com/__up", { method: "POST", body: body, cache: "no-store", signal: ctrl.signal })
+        .then(function (r) { return r.arrayBuffer(); })
+        .then(function () {
+          var secs = (performance.now() - t0) / 1000;
+          best = size * 8 / secs / 1e6;
+          return secs > 3 ? null : next();
+        })
+        .catch(function () {})
+        .finally(function () { clearTimeout(timer); });
+    }
+    return next().then(function () {
+      flag.stop = true;
+      return lat.then(function (s) { return { mbps: best, loaded: stats(s) }; });
+    });
+  }
+
+  // ---------- run ----------
+  var lastResult = null;
+  var STEP_DEFS = [
+    ["egress", "查询上网出口", "Looking up internet egress"],
+    ["rtt", "测量响应时间（约 15 秒）", "Measuring response times (~15 s)"],
+    ["down", "下载测速（约 10 秒）", "Download test (~10 s)"],
+    ["up", "上传测速（约 10 秒）", "Upload test (~10 s)"]
+  ];
+  function showSteps(state) {
+    var ul = document.getElementById("steps");
+    ul.hidden = false;
+    ul.innerHTML = STEP_DEFS.map(function (s) {
+      var st = state[s[0]] || "";
+      return '<li class="' + st + '"><span class="dot"></span><span lang="zh">' + s[1] + '</span><span lang="en">' + s[2] + "</span></li>";
+    }).join("");
+  }
+
+  function cleanHost(v) {
+    return v.trim().replace(/^[a-z]+:\/\//i, "").split(/[\/?#]/)[0].replace(/\s+/g, "");
+  }
+
+  document.getElementById("run").addEventListener("click", function () {
+    var btn = this;
+    var company = document.getElementById("company").value.trim();
+    var linetype = document.getElementById("linetype").value;
+    var bw = parseFloat(document.getElementById("bandwidth").value);
+    if (!(bw > 0)) bw = null;
+    var host = cleanHost(document.getElementById("target").value);
+    var status = document.getElementById("run-status");
+    if (host && host.indexOf(".") < 0) {
+      status.textContent = T("系统地址需要是域名或 IP，例如 mail.company.com.cn", "The address must be a domain or IP, e.g. mail.company.com.cn");
+      return;
+    }
+    status.textContent = "";
+    btn.disabled = true;
+    document.getElementById("results").hidden = true;
+    var state = {};
+    var result = { company: company, linetype: linetype, bandwidth: bw, host: host, started: new Date(), points: [] };
+    function step(k, s) { state[k] = s; showSteps(state); }
+
+    step("egress", "run");
+    egressInfo()
+      .then(function (eg) {
+        result.egress = eg;
+        step("egress", "done"); step("rtt", "run");
+        var bizP = host ? businessPoint(host) : Promise.resolve(null);
+        return bizP.then(function (biz) {
+          var pts = POINTS.slice();
+          if (biz) pts.push(biz);
+          return Promise.all(pts.map(function (p) {
+            if (p.unreachable) return Promise.resolve({ point: p, s: { n: 0, ok: 0, fail: 100 } });
+            return probe(p).then(function (s) { return { point: p, s: s }; });
+          }));
+        });
+      })
+      .then(function (rows) {
+        result.points = rows;
+        step("rtt", "done"); step("down", "run");
+        return downloadTest();
+      })
+      .then(function (d) {
+        result.down = d;
+        step("down", "done"); step("up", "run");
+        return uploadTest();
+      })
+      .then(function (u) {
+        result.up = u;
+        step("up", "done");
+        result.finished = new Date();
+        lastResult = result;
+        render(result);
+      })
+      .catch(function (e) {
+        status.textContent = T("检测中断：", "Check interrupted: ") + (e && e.message ? e.message : e);
+      })
+      .finally(function () { btn.disabled = false; });
+  });
+
+  // ---------- judging ----------
+  function rowLevel(s) {
+    if (!s.ok) return "bad";
+    if (s.fail > 0 || s.spikes >= 2 || (s.jitter != null && s.jitter > JITTER_BAD)) return "bad";
+    if (s.spikes === 1 || (s.jitter != null && s.jitter > JITTER_BAD / 2)) return "warn";
+    return "ok";
+  }
+  function levelText(l) {
+    return { ok: T("正常", "OK"), warn: T("偏高", "Elevated"), bad: T("异常", "Abnormal") }[l];
+  }
+  function bloat(idle, loaded) {
+    if (idle == null || !loaded || loaded.median == null) return null;
+    return Math.max(0, loaded.median - idle);
+  }
+  function bloatLevel(x) { return x == null ? "na" : x < 30 ? "ok" : x < 100 ? "warn" : "bad"; }
+
+  function zongEgress(eg) {
+    return (eg.ip && ZONG_IPS[eg.ip]) || (eg.asn && ZONG_ASNS[eg.asn]) || null;
+  }
+
+  function lineText(r, l) {
+    var o = r.linetype ? document.querySelector('#linetype option[value="' + r.linetype + '"]') : null;
+    var type = o ? o.getAttribute("data-" + l) : (l === "zh" ? "未填" : "not given");
+    return type + (r.bandwidth ? " · " + r.bandwidth + " Mbps" : "");
+  }
+
+  // Measured speed as a share of the contracted bandwidth, per direction.
+  function bwShare(r) {
+    if (!r.bandwidth) return null;
+    var d = r.down && r.down.mbps, u = r.up && r.up.mbps;
+    return { down: d != null ? d / r.bandwidth * 100 : null, up: u != null ? u / r.bandwidth * 100 : null };
+  }
+
+  function verdicts(r) {
+    var out = [];
+    var eg = r.egress || {};
+    var zong = zongEgress(eg);
+    if (zong) {
+      out.push(["ok", T("上网出口在 Zong 网络上（" + zong.zh + "）。", "Internet egress is on the Zong network (" + zong.en + ").")]);
+    } else if (eg.asn) {
+      out.push(["warn", T("上网出口不在 Zong 网络上（AS" + eg.asn + " " + (eg.holder || "") + "）。如果你的专线是直达中国的国际专线，这可能是正常的；否则请确认这台电脑确实接在报障专线上，而不是手机热点或其他宽带。",
+        "Internet egress is not on the Zong network (AS" + eg.asn + " " + (eg.holder || "") + "). That can be normal for an international circuit landing in China; otherwise make sure this computer is really on the reported circuit, not a hotspot or other broadband.")]);
+    } else {
+      out.push(["info", T("没能查到上网出口的归属。", "Could not determine who owns the egress address.")]);
+    }
+    var by = {};
+    r.points.forEach(function (x) { by[x.point.id] = x; });
+    var near = by.near, g = by.google, c = by.china, b = by.biz;
+    var nearBad = near && rowLevel(near.s) === "bad";
+    var refsBad = [g, c].filter(function (x) { return x && rowLevel(x.s) === "bad"; });
+    if (nearBad) {
+      var sp = near.s.spikes ? T("20 次请求里有 " + near.s.spikes + " 次慢了一倍以上，通常意味着丢包。", near.s.spikes + " of 20 requests were at least twice as slow as usual, which usually means packet loss. ") : "";
+      out.push(["bad", sp + T("连离你最近的参照点都不稳定（有失败或抖动大）。问题很可能在近端：你的内网、Wi-Fi、线缆，或接入段。请运行诊断工具确认网关（T1）和上联隧道（T2）。",
+        "Even the nearest reference point is unstable (failures or high jitter). The problem is likely close by: your LAN, Wi-Fi, cabling, or the access segment. Run the diagnostic tool to check the gateway (T1) and uplink tunnel (T2).")]);
+    } else if (refsBad.length) {
+      out.push(["bad", T("近端正常，但" + refsBad.map(function (x) { return x.point.zh; }).join("、") + "不稳定。问题可能在国际出口或中国方向的传输段。",
+        "The near side is fine, but " + refsBad.map(function (x) { return x.point.en; }).join(" and ") + " is unstable. The issue may be on international egress or China-direction transport.")]);
+    } else {
+      out.push(["ok", T("近端参照、国际方向和中国方向都稳定，没有失败，抖动正常。", "Nearby, international and China-direction references are all stable: no failures, normal jitter.")]);
+    }
+    if (b) {
+      var bl = rowLevel(b.s);
+      if (b.point.unreachable || !b.s.ok) {
+        out.push(["warn", T("网页访问不了你填的业务系统（" + r.host + "）。可能是它不提供网页服务、只在内网可达，或者确实不通 —— 请以诊断工具的结果为准。",
+          "The page could not reach the business system (" + r.host + "). It may not serve web pages, be internal-only, or be genuinely unreachable - rely on the diagnostic tool for this one.")]);
+      } else if (bl === "bad" && !nearBad && !refsBad.length) {
+        out.push(["bad", T("参照点都正常，只有业务系统不稳定。问题多半在我们网络之外：大陆落地段或对端服务器本身。",
+          "All references are fine and only the business system is unstable. The problem is most likely beyond our network: the China landing segment or the far-end server.")]);
+      } else if (b.s.first != null && b.s.median != null && b.s.first > b.s.median * 4 && b.s.first > 500) {
+        out.push(["info", T("业务系统首次连接用了 " + fmt(b.s.first) + " ms，之后每次约 " + fmt(b.s.median) + " ms。首次慢主要是建连和 TLS 握手要来回好几趟，长距离链路上属于正常，连接复用或 HTTP/2 能改善。",
+          "First connection to the business system took " + fmt(b.s.first) + " ms, then about " + fmt(b.s.median) + " ms each. The slow first request is the connection and TLS handshakes needing several round trips - normal on a long path; connection reuse or HTTP/2 helps.")]);
+      }
+    }
+    var share = bwShare(r);
+    if (share && (share.down != null || share.up != null)) {
+      var parts = [], partsEn = [];
+      if (share.down != null) { parts.push("下载 " + fmt(r.down.mbps, 1) + " Mbps（" + fmt(share.down) + "%）"); partsEn.push("download " + fmt(r.down.mbps, 1) + " Mbps (" + fmt(share.down) + "%)"); }
+      if (share.up != null) { parts.push("上传 " + fmt(r.up.mbps, 1) + " Mbps（" + fmt(share.up) + "%）"); partsEn.push("upload " + fmt(r.up.mbps, 1) + " Mbps (" + fmt(share.up) + "%)"); }
+      var low = Math.min(share.down == null ? 999 : share.down, share.up == null ? 999 : share.up);
+      var head = T("签约带宽 " + r.bandwidth + " Mbps，实测" + parts.join("、") + "。", "Contracted " + r.bandwidth + " Mbps; measured " + partsEn.join(", ") + ". ");
+      if (low >= 80) out.push(["ok", head + T("达到签约带宽。", "The line delivers its contracted bandwidth.")]);
+      else if (low >= 50) out.push(["warn", head + T("略低于签约带宽。浏览器测速通常比实际低一些，高带宽线路尤其明显，可以参考诊断工具的测速。",
+        "Somewhat below contract. Browser speed tests tend to read low, especially on fast lines - compare with the diagnostic tool's test.")]);
+      else out.push(["bad", head + T("明显低于签约带宽。先看看是否有其他电脑在下载、备份或开视频会议占满了带宽；排除后再报障。",
+        "Well below contract. First check whether other computers are downloading, backing up or on video calls and saturating the line; report it once that is ruled out.")]);
+    }
+    var idle = near && near.s.median;
+    var bd = bloat(idle, r.down && r.down.loaded), bu = bloat(idle, r.up && r.up.loaded);
+    var worst = Math.max(bd || 0, bu || 0);
+    if (bd != null || bu != null) {
+      if (worst >= 100) out.push(["bad", T("线路一跑满，响应时间就增加 " + fmt(worst) + " ms。这是排队问题（bufferbloat）：带宽测着够，但语音视频会卡，加带宽解决不了。",
+        "When the line is saturated, response time grows by " + fmt(worst) + " ms. That is queueing (bufferbloat): bandwidth looks fine but voice and video will suffer, and more bandwidth will not fix it.")]);
+      else if (worst >= 30) out.push(["warn", T("线路跑满时响应时间增加 " + fmt(worst) + " ms，有一定排队，忙时可能感觉变慢。",
+        "Response time grows by " + fmt(worst) + " ms under load - some queueing; it may feel slower at busy times.")]);
+      else out.push(["ok", T("线路跑满时响应时间基本不变，没有明显排队。", "Response time barely changes under load - no significant queueing.")]);
+    }
+    out.push(["info", T("这只是初筛。请再下载并运行本页上方的诊断工具，把它的报告和本页结果一起发给客户经理或政企支持部门。",
+      "This is a first look. Please also download and run the diagnostic tool at the top of this page, and send its report together with this result to your account manager or enterprise support.")]);
+    return out;
+  }
+
+  // ---------- render ----------
+  function render(r) {
+    document.getElementById("results").hidden = false;
+    document.getElementById("verdicts").innerHTML = verdicts(r).map(function (v) {
+      return '<li class="' + v[0] + '">' + esc(v[1]) + "</li>";
+    }).join("");
+
+    var eg = r.egress || {};
+    var egItems = [
+      [T("公司", "Company"), r.company || T("未填", "not given")],
+      [T("线路", "Line"), lineText(r, lang)],
+      [T("公网 IP", "Public IP"), eg.ip || "-"],
+      [T("所属网络", "Network"), eg.asn ? "AS" + eg.asn + (eg.holder ? " · " + eg.holder : "") : "-"],
+      [T("国家 / Cloudflare 节点", "Country / Cloudflare node"), (eg.loc || "-") + " / " + (eg.colo || "-")]
+    ];
+    var conn = navigator.connection;
+    if (conn && (conn.type || conn.effectiveType)) egItems.push([T("连接类型（浏览器报告）", "Connection (browser-reported)"), conn.type || conn.effectiveType]);
+    document.getElementById("egress").innerHTML = egItems.map(function (x) {
+      return '<div><div class="k">' + esc(x[0]) + '</div><div class="v" style="font-size:15px">' + esc(x[1]) + "</div></div>";
+    }).join("");
+
+    var head = "<thead><tr><th>" + T("档位", "Tier") + "</th><th>" + T("目标", "Target") + '</th><th class="num">' + T("首次连接", "First conn.") +
+      '</th><th class="num">' + T("失败", "Failed") + '</th><th class="num">' + T("最低", "Min") + '</th><th class="num">' + T("中位", "Median") +
+      '</th><th class="num">' + T("抖动", "Jitter") + '</th><th class="num">' + T("卡顿次数", "Spikes") + "</th><th>" + T("判定", "Verdict") + "</th></tr></thead>";
+    var body = r.points.map(function (x) {
+      var p = x.point, s = x.s, l = rowLevel(s);
+      var name = '<b>' + esc(T(p.zh, p.en)) + '</b><span class="sub">' + esc(T(p.zhNote, p.enNote)) + "</span>";
+      if (!s.ok) {
+        return "<tr><td>" + p.tier + "</td><td>" + name + '<span class="sub mono">' + esc(p.host) + '</span></td><td class="num" colspan="6">' +
+          T("无法访问", "Unreachable") + '</td><td><span class="pill bad">' + levelText("bad") + "</span></td></tr>";
+      }
+      return "<tr><td>" + p.tier + "</td><td>" + name + '<span class="sub mono">' + esc(p.host) + "</span></td>" +
+        '<td class="num">' + fmt(s.first) + " ms</td>" +
+        '<td class="num">' + (s.n - s.ok) + "/" + s.n + "</td>" +
+        '<td class="num">' + fmt(s.min) + " ms</td>" +
+        '<td class="num">' + fmt(s.median) + " ms</td>" +
+        '<td class="num">' + fmt(s.jitter, 1) + " ms</td>" +
+        '<td class="num">' + s.spikes + "</td>" +
+        '<td><span class="pill ' + l + '">' + levelText(l) + "</span></td></tr>";
+    }).join("");
+    document.getElementById("rtt-table").innerHTML = head + "<tbody>" + body + "</tbody>";
+
+    var near = r.points.filter(function (x) { return x.point.id === "near"; })[0];
+    var idle = near && near.s.median;
+    var bd = bloat(idle, r.down && r.down.loaded), bu = bloat(idle, r.up && r.up.loaded);
+    var sp = [
+      [T("下载", "Download"), r.down && r.down.mbps != null ? fmt(r.down.mbps, 1) + " Mbps" : T("未测出", "n/a"), null],
+      [T("上传", "Upload"), r.up && r.up.mbps != null ? fmt(r.up.mbps, 1) + " Mbps" : T("未测出", "n/a"), null],
+      [T("签约带宽", "Contracted"), r.bandwidth ? r.bandwidth + " Mbps" : T("未填", "not given"), null],
+      [T("空闲时延（近端）", "Idle latency (nearby)"), idle != null ? fmt(idle) + " ms" : "-", null],
+      [T("下载满载时延增加", "Added latency, download"), bd != null ? "+" + fmt(bd) + " ms" : "-", bloatLevel(bd)],
+      [T("上传满载时延增加", "Added latency, upload"), bu != null ? "+" + fmt(bu) + " ms" : "-", bloatLevel(bu)]
+    ];
+    document.getElementById("speed").innerHTML = sp.map(function (x) {
+      var pill = x[2] && x[2] !== "na" ? ' <span class="pill ' + x[2] + '">' + { ok: T("良好", "good"), warn: T("一般", "fair"), bad: T("明显卡顿", "poor") }[x[2]] + "</span>" : "";
+      return '<div><div class="k">' + esc(x[0]) + '</div><div class="v">' + esc(x[1]) + pill + "</div></div>";
+    }).join("");
+  }
+
+  // ---------- export ----------
+  function pad(n) { return (n < 10 ? "0" : "") + n; }
+  function stamp(d) { return d.getFullYear() + pad(d.getMonth() + 1) + pad(d.getDate()) + "-" + pad(d.getHours()) + pad(d.getMinutes()) + pad(d.getSeconds()); }
+  function iso(d) { return d.getFullYear() + "-" + pad(d.getMonth() + 1) + "-" + pad(d.getDate()) + " " + pad(d.getHours()) + ":" + pad(d.getMinutes()) + ":" + pad(d.getSeconds()); }
+  function padR(s, n) { s = String(s); while (s.length < n) s += " "; return s; }
+  function padL(s, n) { s = String(s); while (s.length < n) s = " " + s; return s; }
+
+  function asText(r) {
+    var L = [];
+    var eg = r.egress || {};
+    var off = -r.started.getTimezoneOffset();
+    L.push("============================================================");
+    L.push(" ZONG ENTERPRISE - BROWSER QUICK CHECK");
+    L.push(" (first look only - the NetDiag tool report is still needed)");
+    L.push("============================================================");
+    L.push(" Company              : " + (r.company || "NOT-PROVIDED"));
+    L.push(" Line                 : " + lineText(r, "en"));
+    L.push(" Business target      : " + (r.host || "NOT-PROVIDED"));
+    L.push(" Local time           : " + iso(r.started) + " UTC" + (off >= 0 ? "+" : "-") + pad(Math.floor(Math.abs(off) / 60)) + ":" + pad(Math.abs(off) % 60));
+    L.push(" UTC time             : " + r.started.toISOString().replace("T", " ").slice(0, 19) + " UTC");
+    L.push(" Browser              : " + navigator.userAgent);
+    L.push("");
+    L.push(" [1] INTERNET EGRESS");
+    L.push(" Public IP            : " + (eg.ip || "-"));
+    L.push(" Network              : " + (eg.asn ? "AS" + eg.asn + " " + (eg.holder || "") : "-") + (zongEgress(eg) ? "   (Zong: " + zongEgress(eg).en + ")" : ""));
+    L.push(" Country / CF node    : " + (eg.loc || "-") + " / " + (eg.colo || "-"));
+    L.push("");
+    L.push(" [2] HTTPS RESPONSE TIME - " + SAMPLES + " requests each, warm connection");
+    L.push(" Browser timings include the server's reply; judge by jitter, spikes and");
+    L.push(" failures. SPIKES = requests >= 2x median, usually a retransmitted lost packet.");
+    L.push(" " + padR("TIER", 6) + padR("TARGET", 34) + padL("FIRST", 9) + padL("FAILED", 8) + padL("MIN", 9) + padL("MEDIAN", 9) + padL("JITTER", 9) + padL("SPIKES", 8) + "  VERDICT");
+    L.push(" " + new Array(102).join("-"));
+    r.points.forEach(function (x) {
+      var p = x.point, s = x.s;
+      var nm = p.en + " " + p.host;
+      if (!s.ok) { L.push(" " + padR(p.tier, 6) + padR(nm, 34) + "   UNREACHABLE"); return; }
+      L.push(" " + padR(p.tier, 6) + padR(nm, 34) + padL(fmt(s.first) + "ms", 9) + padL((s.n - s.ok) + "/" + s.n, 8) +
+        padL(fmt(s.min) + "ms", 9) + padL(fmt(s.median) + "ms", 9) + padL(fmt(s.jitter, 1) + "ms", 9) + padL(s.spikes, 8) + "  " + { ok: "OK", warn: "ELEVATED", bad: "ABNORMAL" }[rowLevel(s)]);
+    });
+    L.push("");
+    var near = r.points.filter(function (x) { return x.point.id === "near"; })[0];
+    var idle = near && near.s.median;
+    L.push(" [3] BANDWIDTH & LATENCY UNDER LOAD  (Cloudflare speed test)");
+    L.push(" Download             : " + (r.down && r.down.mbps != null ? fmt(r.down.mbps, 1) + " Mbps" : "n/a"));
+    L.push(" Upload               : " + (r.up && r.up.mbps != null ? fmt(r.up.mbps, 1) + " Mbps" : "n/a"));
+    var sh = bwShare(r);
+    if (sh) L.push(" Share of contract    : download " + (sh.down != null ? fmt(sh.down) + "%" : "n/a") + " | upload " + (sh.up != null ? fmt(sh.up) + "%" : "n/a") + "  (contract " + r.bandwidth + " Mbps)");
+    L.push(" Idle latency         : " + (idle != null ? fmt(idle) + " ms" : "-"));
+    var bd = bloat(idle, r.down && r.down.loaded), bu = bloat(idle, r.up && r.up.loaded);
+    L.push(" Added under download : " + (bd != null ? "+" + fmt(bd) + " ms" : "-"));
+    L.push(" Added under upload   : " + (bu != null ? "+" + fmt(bu) + " ms" : "-"));
+    L.push("   below 30 ms good | 30-100 ms fair | above 100 ms bufferbloat");
+    L.push("");
+    L.push(" [4] FINDINGS");
+    var save = lang; lang = "en";
+    verdicts(r).forEach(function (v) { L.push(" - " + v[1]); });
+    lang = save;
+    L.push("============================================================");
+    return L.join("\r\n") + "\r\n";
+  }
+
+  document.getElementById("download").addEventListener("click", function () {
+    if (!lastResult) return;
+    var id = (lastResult.company || "NOT-PROVIDED").replace(/[\s\/\\:*?"<>|.,()]+/g, "_").replace(/^_+|_+$/g, "").slice(0, 40) || "NOT-PROVIDED";
+    var blob = new Blob(["﻿" + asText(lastResult)], { type: "text/plain;charset=utf-8" });
+    var a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "WebCheck_" + id + "_" + stamp(lastResult.started) + ".txt";
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+  });
+
+  document.getElementById("copy").addEventListener("click", function () {
+    if (!lastResult) return;
+    var text = asText(lastResult);
+    var st = document.getElementById("copy-status");
+    function done() { st.textContent = T("已复制", "Copied"); setTimeout(function () { st.textContent = ""; }, 2500); }
+    function fallback() {
+      var ta = document.createElement("textarea");
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(); } catch (e) { st.textContent = T("复制失败，请用下载", "Copy failed - use download"); }
+      ta.remove();
+    }
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, fallback);
+    else fallback();
+  });
+
+  // ---------- tool downloads ----------
+  (function () {
+    var ua = navigator.userAgent || "";
+    var os = /Windows/i.test(ua) ? "win" : /Macintosh|Mac OS X/i.test(ua) ? "mac" : null;
+    document.querySelectorAll(".dl").forEach(function (d) { d.classList.toggle("rec", d.getAttribute("data-os") === os); });
+    document.querySelectorAll("[data-size]").forEach(function (s) {
+      var b = BUNDLE[s.getAttribute("data-size")];
+      s.textContent = b ? b.name + " · " + Math.max(1, Math.round(b.size / 1024)) + " KB" : "";
+    });
+    var built = document.querySelector("[data-built]");
+    if (built && BUNDLE.built) built.textContent = "(" + BUNDLE.built + ")";
+    document.querySelectorAll("[data-dl]").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        var b = BUNDLE[btn.getAttribute("data-dl")];
+        if (!b) return;
+        var bin = atob(b.b64), bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        var a = document.createElement("a");
+        a.href = URL.createObjectURL(new Blob([bytes], { type: "application/zip" }));
+        a.download = b.name;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(function () { URL.revokeObjectURL(a.href); }, 2000);
+      });
+    });
+  })();
+
+  setLang(lang);
+})();
+</script>
+</body>
+</html>
