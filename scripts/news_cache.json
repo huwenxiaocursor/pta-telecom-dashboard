@@ -1,5 +1,54 @@
 [
   {
+    "source": "BusinessRecorder",
+    "title": "PTML challenges PTA order to suspend ONIC operations",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE50MExqbWtQalpPMW9sWnFVMlV2NUNrbWswbm15amtkUndUUXlidHZRUzZiNWZSSXM4T3MzdndoQTk2ZjlhNS0tVlp3dTJGMTVt0gFWQVVfeXFMTVR0eWpmVlIxUS00bDBETWZJR0FBYXFQVjh4cnkyNmhGTXdSZ01KU2ozUWMwbWstV0NIajBvWjdCc3FqWktOUEpmNi10eE1HSGVHWFBoSlE?oc=5",
+    "date": "2026-10-09",
+    "summary_zh": "【巴基斯坦电信移动公司（PTML）】就巴基斯坦电信管理局（PTA）下令暂停其【ONIC业务运营】一事向法院提起诉讼，该消息于【10月9日】发布、更新于约21小时前，由记者Tahir Amin自伊斯兰堡报道。报道标题显示PTML对PTA的暂停令提出挑战，并将PTA告上法庭。正文节选仅包含卡拉奇证券交易所行情数据，包括BR100报18382点下跌30.3点（-0.16%）、BR30报65876点下跌169.3点（-0.26%）、KSE100报167089点下跌352.6点（-0.21%）、KSE30报49842点下跌142.2点（-0.28%），以及PTC报58.60卢比下跌1.49卢比（-2.48%）、TELE报7.19卢比上涨0.02卢比（0.28%）、TPL报20.25卢比上涨0.84卢比（4.33%）等个股报价，未披露PTA暂停令的具体依据条款、期限及PTML的详细诉求。",
+    "importance": "中",
+    "dup_of": "https://www.techjuice.pk/ptml-takes-pta-to-court-over-order-to-suspend-onic-operations/"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Tells Users to Enable Another Setting on Phones",
+    "url": "https://propakistani.pk/2026/10/09/pta-tells-users-to-enable-another-setting-on-phones/",
+    "date": "2026-10-09",
+    "summary_zh": "巴基斯坦电信管理局（PTA）建议手机用户【启用Wi-Fi Calling并检查4G/LTE设置】，以改善信号薄弱区域的连接与通话质量。PTA表示，用户在建筑物内部、地下室等移动信号较弱的地方可能难以拨打电话。Wi-Fi Calling允许用户通过Wi-Fi连接而非仅依赖移动信号拨打电话，但该功能仅在手机和移动运营商均支持时才可使用。PTA建议用户检查手机设置并在可用时启用Wi-Fi Calling，若无法找到或激活该选项，应联系移动运营商确认是否支持该服务。PTA还敦促用户检查4G/LTE设置，确保手机和SIM卡支持4G服务。遇到持续连接问题的用户可联系移动运营商寻求帮助，或访问PTA官方网站。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTML Takes PTA to Court Over Order to Suspend ONIC Operations",
+    "url": "https://www.techjuice.pk/ptml-takes-pta-to-court-over-order-to-suspend-onic-operations/",
+    "date": "2026-10-09",
+    "summary_zh": "巴基斯坦电信移动有限公司（PTML）已就巴基斯坦电信管理局（PTA）暂停其数字电信服务ONIC商业运营的命令向法院提起诉讼。PTA下令PTML立即停止新销售、激活、SIM卡和eSIM发放、订阅、营销及其他商业活动，裁定ONIC的运营模式属于移动虚拟网络运营商（MVNO）框架，需获得相关授权。争议焦点在于ONIC能否在PTML现有牌照下运营。PTML坚称ONIC是其数字品牌，在现有移动网络运营商（MNO）牌照下运营；但PTA认为ONIC的定制套餐、独立客户关系管理和计费系统、数字平台及客服安排，以及PTML与DTMS之间的建设-运营服务协议（BOSA）——其中DTMS在前三年获得【相关收入的55%】——均符合MVNO特征。PTA还就用户信息、通话详单、合法拦截、数据安全与本地化、SIM发放、KYC、计费、服务质量、灾难恢复、业务连续性、携号转网及第三方安排提出关切。PTA裁定PTML必须将ONIC重组为现有牌照下的明确产品，或取得MVNO牌照，并给予【三个月时间】将现有ONIC用户转移至PTML，但过渡期内不得继续商业运营。PTML已在法院质疑该决定。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Blocks 1M URLs for \"Morality,\" Dwarfing All Other Bans",
+    "url": "https://news.google.com/rss/articles/CBMikAFBVV95cUxQOHFJUVpjcExMMEZKLVliZEMxZHA3Q3R3cWFtTFZjSkFJQ1l6SnRRb2VHUkZfYjVYZmpPaDZnZUVnd1lkV1ExS3U0ZUhLT293cmtJaW80TTlFUGhIZzN6bnF1d3k4eDVSZUFFQm55WlZzaFRNNi12SEIzTzYwdmZMb0JVN24tMUtmUUI4YTZCZDk?oc=5",
+    "date": "2026-08-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）网络分析部门数据显示，在其处理的107万5762个网址中，有【106万5671个网址被以“风化与道德”名义封锁】，占全部封锁量的69%，下架率高达99.06%，超过其他所有类别之和。同期处理涉恐投诉约17.9万件，封锁14万1897个，下架率79.15%；“冒犯伊斯兰尊严”类封锁11万2482个，下架率82.17%；“危害巴基斯坦安全与国防”类仅封锁7万4059个，下架率59.05%，为主要类别中最低；教派与仇恨言论类封锁5万2776个，下架率68.96%；诽谤与冒名类处理4万4200件，仅封锁1万7356个，下架率39.27%；藐视法庭类封锁7716个，下架率76.28%。此外，PTA在1万0319个被举报的代理网址中封锁了1万0318个，下架率99.99%，显示为自动化处理。报道称，道德类内容封锁率近乎完美，表明审查极少人工复核，PTA将绝大部分资源用于其认为不雅的内容，而非直接安全威胁内容。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Middle East Conflict Disrupts Flights at Pakistan’s Airports",
+    "url": "https://propakistani.pk/2026/10/09/middle-east-conflict-disrupts-flights-at-pakistans-airports/",
+    "date": "2026-10-09",
+    "summary_zh": "受中东冲突影响，尤其是与胡塞武装袭击沙特阿拉伯机场相关的安全担忧，巴基斯坦各国际机场航班运营出现大范围中断。航空公司已取消【42架次飞往沙特的航班】，另有【68架次航班延误2至7小时】。机场消息人士称，中断给旅客、尤其是副朝朝觐者造成困难。拉合尔阿拉马·伊克巴尔国际机场报告【13架次取消、12架次延误】；卡拉奇真纳国际机场取消10架次、延误13架次；伊斯兰堡国际机场取消9架次、延误8架次；木尔坦国际机场取消7架次。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "TPL Insurance Becomes JazzSure as JazzWorld Strengthens its Insurance Platform",
+    "url": "https://propakistani.pk/2026/10/09/tpl-insurance-becomes-jazzsure-as-jazzworld-strengthens-its-insurance-platform/",
+    "date": "2026-10-09",
+    "summary_zh": "JazzWorld宣布将TPL Insurance Limited更名为JazzSure Insurance Limited，以强化其数字服务平台内的保险业务。JazzSure作为承保引擎，为JazzWorld旗下包括JazzCash和FikrFree在内的保险产品提供支持，同时继续服务现有客户。JazzWorld首席执行官兼JazzSure董事长Aamir Ibrahim表示，JazzSure结合承保专业能力与数字覆盖，旨在让数百万巴基斯坦人获得保险服务，将JazzCash服务无银行账户人群的进展延伸至无保险人群。JazzSure首席执行官Muhammad Aminuddin表示，现有客户仍是核心，将继续提供服务。此次更名源于Jazz International Holding Limited于2026年7月收购TPL Insurance【76.33%的控股权】，标志着该保险公司整合进入JazzWorld的下一阶段。",
+    "importance": "中"
+  },
+  {
     "source": "TechJuice",
     "title": "PTA Issues 4G/LTE Advisory on How to Fix Poor Call Quality",
     "url": "https://www.techjuice.pk/pta-issues-4g-lte-advisory-on-how-to-fix-poor-call-quality/",
