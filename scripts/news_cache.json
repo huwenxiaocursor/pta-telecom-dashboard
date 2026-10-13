@@ -1,5 +1,62 @@
 [
   {
+    "source": "PTA",
+    "title": "PTA Inspects 115 Telecom Sites in One Week to Improve Mobile Service Quality Across Pakistan",
+    "url": "https://www.pta.gov.pk/category/pta-inspects-115-telecom-sites-in-one-week-to-improve-mobile-service-quality-across-pakistan-1586702429-2026-10-12",
+    "date": "2026-10-10",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年10月10日在伊斯兰堡发布消息称，其区域办公室团队在【9月30日至10月7日一周内】对全国【115个电信站点】开展实地检查，以改善移动网络服务质量、覆盖与可用性。检查覆盖拉合尔39个、卡拉奇17个、苏库尔16个、木尔坦和拉瓦尔品第各14个、奎达8个、阿伯塔巴德4个、吉尔吉特3个站点。现场团队评估了网络性能、语音与数据服务质量、覆盖情况及备用电源配置，重点排查通话连接失败、掉话、移动互联网速度慢和覆盖盲区等问题，并审查消费者反馈与投诉。PTA还与地方政府、民选代表和社区成员沟通，以识别和解决问题。对发现缺陷或技术问题的站点，PTA已指示相关移动运营商采取必要纠正措施，以确保持续改善网络性能。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA to Regulate Foreign SIMs",
+    "url": "https://propakistani.pk/2026/10/12/pta-to-regulate-foreign-sims/",
+    "date": "2026-10-12",
+    "summary_zh": "巴基斯坦电信管理局（PTA）提出对通过外国SIM卡和eSIM接入巴基斯坦移动网络的国际漫游用户实施强制身份验证，理由是担忧欺诈、安全及无法追踪连接被滥用。根据【2026年国际漫游（入境）条例草案】，移动运营商须对入境漫游用户进行KYC核查，可能要求提供护照或旅行证件信息、国籍、SIM或eSIM信息、抵达日期、预计停留时长及外国运营商名称。PTA指出，国际漫游连接目前无本地身份验证，难以追踪涉欺诈用户，并列举了伪造来电、短信钓鱼、敲诈、电商欺诈及滥用社交媒体账户等风险。草案提出通过欢迎短信验证链接、PTA批准的数字门户、与移民和边境管制部门协调、注册旅行SIM及eSIM聚合商等方式收集身份信息。运营商须在用户停止使用国际漫游服务后【至少保留验证记录12个月】，旅行SIM和eSIM聚合商也将纳入注册监管框架。草案还包括监控永久漫游、限制滥用及封锁非法连接等措施。PTA邀请利益相关方于【2026年11月10日前】提交书面意见，规则仍处磋商阶段，须经PTA正式通知后生效。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "SBP Profits Drop 20%, But Governor Salaries Skyrocket by 94%",
+    "url": "https://www.techjuice.pk/sbp-profits-drop-20-but-governor-salaries-skyrocket-by-94/",
+    "date": "2026-10-12",
+    "summary_zh": "巴基斯坦国家银行（SBP）发布2025-26财年年度财务报表，显示【利润下滑20%】至1.992万亿卢比，较上一财年的2.499万亿卢比减少5070亿卢比。与此同时，行长及三位副行长薪酬福利合计达【1.8253亿卢比】，较2025财年的9397万卢比增加8855万卢比，涨幅94%。非执行董事薪酬从1115万卢比升至2516万卢比，涨幅126%；货币政策委员会外部成员薪酬从762万卢比微增至843万卢比。普通员工薪资福利仅增长8.4%，增加9118万卢比，总额约11.6亿卢比。高层管理、董事、货币政策委员会成员及员工薪酬总增幅约1.935亿卢比。SBP表示年内积极管理汇率并推动数字银行与无现金经济，但新钞发行计划仍待推进。行长由总统直接任命，副行长由联邦政府任命。",
+    "importance": "中",
+    "dup_of": "https://propakistani.pk/2026/10/11/sbp-governor-deputy-governors-salaries-and-benefits-skyrocket-by-94/"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SBP Earns Billions From Bank Fines",
+    "url": "https://propakistani.pk/2026/10/12/sbp-earns-billions-from-bank-fines/",
+    "date": "2026-10-12",
+    "summary_zh": "巴基斯坦国家银行（SBP）在2026财年对银行及金融机构处以【15.8亿卢比罚款】，原因是其违反监管要求，但最新年度财务报表未披露受罚机构名单及具体违规细节。多数违规涉及外汇法规、客户尽职调查、了解你的客户（KYC）要求、反洗钱与反恐融资规则及一般银行业务。SBP此前按季度披露执法行动，公布涉事银行、违规内容及整改措施，但现已停止在官网发布这些细节，限制了公众对银行业监管违规信息的获取。在银行业服务投诉持续的背景下，缺乏披露引发关注。此外，SBP在2026财年从金融机构收取的牌照及运营费用中【收入超19亿卢比】，较上一财年增长约40%。2025财年，SBP对银行处以【超20亿卢比罚款】。罚款收入构成央行收入的一部分。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Libya Offers More Crude Oil to Pakistan Amid Energy Supply Concerns",
+    "url": "https://www.techjuice.pk/libya-offers-more-crude-oil-to-pakistan-amid-energy-supply-concerns/",
+    "date": "2026-10-12",
+    "summary_zh": "巴基斯坦石油部长Ali Pervaiz Malik在利雅得举行的【第17届国际能源论坛部长级会议】期间与利比亚石油和天然气部长Khalifa Rajab Abdulsadek会晤，利比亚表示愿鼓励其国家石油公司向巴基斯坦买家【分配更多原油量】。巴方敦促国内炼油厂探索从利比亚进口原油，以在全球供应中断背景下实现能源来源多元化，并提及霍尔木兹海峡和曼德海峡航运可能中断的风险。Abdulsadek还表示有意学习巴基斯坦炼油厂现代化经验。双方未宣布具体进口量或供应协议。Malik还与卡塔尔能源部长Saad Sherida Al-Kaabi讨论了【液化天然气合作】，土耳其能源部长Alparslan Bayraktar宣布下月访巴接收TPAO的地震勘探船，该船将在印度河盆地开始数据采集。Malik表示巴基斯坦正推进战略储备、提高国内产量、炼油投资和扩大储存能力。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Zong 5G: The Most Expensive Way to Get Slow Internet in Pakistan",
+    "url": "https://www.techjuice.pk/zong-launches-z-homefi-5g-home-broadband-pakistan-pricing-plans/",
+    "date": "2026-10-12",
+    "summary_zh": "Zong推出号称巴基斯坦首个5G家庭宽带服务Z HomeFi，入门套餐为【10 Mbps速率、100GB流量、月费4500卢比】，折合约45卢比/GB；50 Mbps配100GB为7500卢比，50 Mbps配500GB为11000卢比。文章对比PTA资费数据指出，PTCL光纤40 Mbps配2500GB仅3350卢比，100 Mbps配4000GB为6900卢比；Telenor移动套餐130GB/15天为1043卢比，约8卢比/GB。Zong自身5G测试速率曾超1.4 Gbps，但面向消费者仅售10 Mbps。Z HomeFi共提供12种预付费套餐，速率10至50 Mbps、流量100GB至500GB，均非不限量，用尽后连接完全中断，仅在50%、80%、100%时发送提醒。用户还需购买【售价22000卢比的5G设备】，首月支出达26500卢比。服务覆盖巴基斯坦前十大城市，但Zong未说明具体城市。Zong营销主管Sajid Munir称技术的真正价值在于改善民众日常生活。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Internet and Mobile Services Disrupted in Peshawar and Other Parts of KP",
+    "url": "https://www.techjuice.pk/internet-and-mobile-services-disrupted-in-peshawar-and-other-parts-of-kp/",
+    "date": "2026-10-12",
+    "summary_zh": "据BBC和全球互联网监测机构NetBlocks消息，周日【白沙瓦及开伯尔-普什图省多地】的手机信号与互联网服务出现中断，居民和媒体通信受阻。NetBlocks在X平台发帖称，网络数据显示该省部分地区【互联网连接遭到重大中断】。用户反映移动数据和Wi-Fi均无法使用，Wi-Fi于周一恢复，移动数据是否恢复尚不明确。BBC报道称，信号与网络中断给民众和记者造成严重通信困难。巴基斯坦电信管理局（PTA）和内政部均未公开解释此次中断原因，也未说明影响范围是否扩大。上周曾发生类似中断：周四PTI领导的游行队伍原定抵达白沙瓦，当地大范围手机和网络服务自周三夜间起在无公开公告情况下中断，一名PTA官员向媒体证实系奉上级指示，称属游行期间【临时性安全预防措施】。",
+    "importance": "中"
+  },
+  {
     "source": "BusinessRecorder",
     "title": "PTA proposes KYC checks, 90-day cap on foreign roaming SIMs",
     "url": "https://news.google.com/rss/articles/CBMinwFBVV95cUxQcDZuVW5sdEl6d2ZYN1NHSkl3emIya01JbURrb3puVGlKb2hYNkpzdmIxWGtmUGcyMTZxenJrdUROYVI2cE9kUVZFY3hCX04zTWMxYmgxNGs3Mkl6RjljNzkyT3JJWkVwaGZRNW5heEJ4RjgzS1QyWllhQk1NWWNlM2R5TFRmc0UzVjBkeHY1UkRieG1idFhhWFdZWTh1SXPSAVZBVV95cUxQVEZyem9MTHBxMGpObFdZR3gtTm5iU1BnUVFSemJrRVVEQ3hXOWpETl9yb0FsQ2dMZVBpOG1xa0FDcFRGRWN6THMwd09uSXpxRGxUZmd0UQ?oc=5",
@@ -21,7 +78,8 @@
     "url": "https://propakistani.pk/2026/10/10/pta-inspects-115-telecom-sites-to-improve-mobile-service-quality/",
     "date": "2026-10-10",
     "summary_zh": "巴基斯坦电信管理局（PTA）持续加强全国移动网络基础设施的实地监测与检查，以改善服务质量、覆盖和可用性。在【2026年9月30日至10月7日】期间，PTA各区域办公室团队共检查了【115个电信站点】，其中拉合尔39个、卡拉奇17个、苏库尔16个、木尔坦和拉瓦尔品第各14个、奎达8个、阿伯塔巴德4个、吉尔吉特3个。现场团队评估了网络性能、语音和数据服务质量、覆盖情况及备用电源安排，重点排查通话连接失败、掉话、移动互联网速度慢和网络覆盖盲区等问题，并审查消费者反馈与投诉。PTA还与当地行政部门、民选代表和社区成员沟通，以发现并解决问题。对存在缺陷或技术问题的站点和铁塔，PTA已指示相关移动运营商采取必要纠正措施，以确保持续改善网络性能。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://www.pta.gov.pk/category/pta-inspects-115-telecom-sites-in-one-week-to-improve-mobile-service-quality-across-pakistan-1586702429-2026-10-12"
   },
   {
     "source": "TechJuice",
