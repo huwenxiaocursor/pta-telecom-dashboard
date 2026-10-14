@@ -895,6 +895,48 @@ def _is_foreign_monetary_spillover(t: str, tw: str) -> bool:
     return not any(k in t for k in _TELECOM_ENTITY)
 
 
+# 央行对银行的罚款/执法收入（2026-10-14 用户指定排除）。触发案例：ProPakistani
+# `SBP Earns Billions From Bank Fines`——SBP 一年罚了银行多少钱，属金融业内部监管，
+# 与电信和宏观走势都无关；靠 _TELECOM_WB 的 `sbp` 整词混进来（同「银行审慎监管」）。
+# 要求"银行主体 + 罚款动作"同时出现，所以 `PTA fines Jazz` 这类电信处罚（无银行
+# 主体）根本不会命中；例外照旧是电信实体。
+_BANK_FINE_RE = re.compile(r"\b(fine|fines|fined|penalt\w*|penali[sz]\w*)\b")
+_BANK_SUBJECT_RE = re.compile(r"\bbank(s|ing)?\b|financial institution")
+
+
+def _is_bank_fine(t: str) -> bool:
+    """央行对银行的罚款 → 丢弃；涉电信实体的照收。"""
+    if not (_BANK_FINE_RE.search(t) and _BANK_SUBJECT_RE.search(t)):
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
+# 能源供应外交/合作（2026-10-14 用户指定排除）。触发案例：TechJuice `Libya Offers
+# More Crude Oil to Pakistan Amid Energy Supply Concerns`——部长会晤、表态愿多供
+# 原油，没有价格也没有协议数字；靠 _GEO_MACRO 的 `crude oil` + Pakistan 进来。
+# **要保留的是价格传导**（OGRA 调 LNG 价、油价推高通胀、油价拖累储备），所以
+# 标题带 price/cost/inflation/储备等词一律豁免。刻意不收 `petroleum products`：
+# 库里那条是 SBP 管银行手续费的新闻，不属此类。
+_ENERGY_SUPPLY = {
+    "crude oil", "crude supply", "oil supply", "gas supply", "energy supply",
+    "lng supply", "lng cargo", "oil cargo", "energy cooperation",
+    "oil and gas cooperation", "energy security",
+}
+_ENERGY_SUPPLY_KEEP = {
+    "price", "cost", "inflation", "import bill", "reserves", "deferred",
+    "facility", "imf", "interest rate", "policy rate", "deficit",
+}
+
+
+def _is_energy_supply_diplomacy(t: str) -> bool:
+    """能源供应合作/外交表态 → 丢弃；涉价格或电信实体的照收。"""
+    if not any(k in t for k in _ENERGY_SUPPLY):
+        return False
+    if any(k in t for k in _ENERGY_SUPPLY_KEEP):
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -925,6 +967,10 @@ def is_relevant(title: str) -> bool:
     if _is_device_use_ban(t):
         return False
     if _is_foreign_monetary_spillover(t, tw):
+        return False
+    if _is_bank_fine(t):
+        return False
+    if _is_energy_supply_diplomacy(t):
         return False
     if _is_routine_fuel_price(t):
         return False
