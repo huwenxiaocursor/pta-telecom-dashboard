@@ -937,6 +937,35 @@ def _is_energy_supply_diplomacy(t: str) -> bool:
     return not any(k in t for k in _TELECOM_ENTITY)
 
 
+# 银行/央行口的新闻只收宏观（2026-10-15 用户指定："银行业相关新闻不需要，只看
+# 重要的宏观经济新闻"）。触发案例：BusinessRecorder `SBP launches 'BoE 2026'
+# policy`（银行业性别平等准则）。此前第 3/6/10/11/14 类都是逐类补洞，而 `sbp`
+# 整词进门后能带进来的银行业务五花八门（普惠金融指数、支票影像清算、PRISM+、
+# 奖券报送、央行利润与薪酬……），改成**白名单**：标题出现央行/银行主体时，必须
+# 同时带宏观指标词才收。利率决议、外汇储备、侨汇、通胀、IMF、经常账户照收。
+_BANKING_SUBJECT_RE = re.compile(
+    r"\b(sbp|state bank|central banks?|banks?|banking|financial institutions?)\b")
+_BANKING_MACRO_KEEP = {
+    "monetary policy", "policy rate", "interest rate", "mpc", "kibor", "bps",
+    "rate cut", "rate hike", "inflation", "price", "reserves", "forex",
+    "foreign exchange", "fx ", "dollar purchase", "exchange rate", "rupee",
+    "current account", "remittance", "imf", "gdp", "growth", "economy",
+    "economic", "import bill", "export growth", "exports record", "deficit",
+    "external debt", "debt repayment", "status quo", "activity pickup",
+    "outlook",
+}
+_BANKING_RATE_RE = re.compile(r"\brates?\b")
+
+
+def _is_banking_non_macro(t: str) -> bool:
+    """央行/银行口的非宏观新闻 → 丢弃；带宏观指标词或电信实体的照收。"""
+    if not _BANKING_SUBJECT_RE.search(t):
+        return False
+    if any(k in t for k in _BANKING_MACRO_KEEP) or _BANKING_RATE_RE.search(t):
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -971,6 +1000,8 @@ def is_relevant(title: str) -> bool:
     if _is_bank_fine(t):
         return False
     if _is_energy_supply_diplomacy(t):
+        return False
+    if _is_banking_non_macro(t):
         return False
     if _is_routine_fuel_price(t):
         return False
