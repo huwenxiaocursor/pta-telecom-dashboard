@@ -953,6 +953,8 @@ _BANKING_MACRO_KEEP = {
     "economic", "import bill", "export growth", "exports record", "deficit",
     "external debt", "debt repayment", "status quo", "activity pickup",
     "outlook",
+    # 央行高管薪酬：用户 2026-10-15 明确要保留（公共治理议题，不算银行业务）。
+    "salar",
 }
 _BANKING_RATE_RE = re.compile(r"\brates?\b")
 
