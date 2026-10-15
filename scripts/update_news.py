@@ -966,6 +966,24 @@ def _is_banking_non_macro(t: str) -> bool:
     return not any(k in t for k in _TELECOM_ENTITY)
 
 
+# 国债发行/拍卖/收益率（2026-10-15 用户指定"国债这类的不重要"）。触发案例：
+# `Five-year PIBs: SBP accepts bids worth Rs585.36bn in buy-back auction`。
+# 单独成条而不是只靠 _is_banking_non_macro：这类标题常顺带写 inflation/rates
+# （`T-bill yields fall as inflation eases`），会被银行白名单放回来。
+# 只认政府债券专有词；`auction` 不在里面，5G 频谱拍卖不受影响。
+_GOVT_DEBT_RE = re.compile(
+    r"\b(t-bills?|tbills?|treasury bills?|pibs?|sukuks?|eurobonds?|panda bonds?|"
+    r"sovereign bonds?|government bonds?|govt bonds?|bond auction|cut-off yields?|"
+    r"debt securit\w*)\b")
+
+
+def _is_govt_debt(t: str) -> bool:
+    """国债发行/拍卖/收益率 → 丢弃；涉电信实体的照收。"""
+    if not _GOVT_DEBT_RE.search(t):
+        return False
+    return not any(k in t for k in _TELECOM_ENTITY)
+
+
 def is_relevant(title: str) -> bool:
     t  = title.lower()
     tw = " " + t + " "
@@ -1002,6 +1020,8 @@ def is_relevant(title: str) -> bool:
     if _is_energy_supply_diplomacy(t):
         return False
     if _is_banking_non_macro(t):
+        return False
+    if _is_govt_debt(t):
         return False
     if _is_routine_fuel_price(t):
         return False
