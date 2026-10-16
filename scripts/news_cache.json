@@ -1,5 +1,45 @@
 [
   {
+    "source": "Dawn",
+    "title": "PTA shares tips to improve calls, internet quality",
+    "url": "https://news.google.com/rss/articles/CBMiiwFBVV95cUxPbHhqWWFZcmVhT2xxTVlkZW1wNVNkeERHaVF5a2NRYUJFUjg4WVJqZkRFRVY4Ymk2VmtVQmFacHV2TmVSQ0U2ck10b3FyaVJCZ2o1dDhSZmhUUWpOQWM1LXBscVFMYS1vU056QjJycUpibUx5aDg0SFJTdF9KdVBRcGVGR0ZMcmc0Wk5Z?oc=5",
+    "date": "2026-10-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于10月16日（周四）在伊斯兰堡建议手机用户调整网络设置并采用新技术，以改善通话和移动互联网体验。针对消费者关于4G和LTE通话语音不清、连接延迟的投诉，PTA建议用户检查手机网络设置，若未开启则【激活4G/LTE选项】，并启用VoLTE、Wi-Fi Calling和VoWiFi功能，但指出这些功能的可用性取决于手机与运营商的兼容性。该指引主要适用于近期频谱拍卖后4G服务扩展的地区。PTA表示，VoLTE通过4G网络进行语音通话，可提升音质并加快连接速度，但需手机、SIM卡和运营商均支持。在信号较弱的室内或地下室，Wi-Fi Calling和VoWiFi尤为有用，用户需在设置中启用Wi-Fi Calling并连接Wi-Fi网络。由于许多旧SIM卡不支持4G或VoLTE，PTA建议用户【升级SIM卡以支持4G】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "NA Panel Slams PTA and Telecom Firms Over Nationwide Mobile Service Failures",
+    "url": "https://news.google.com/rss/articles/CBMipAFBVV95cUxQa2dEaDVJQTVBd0U3SVd6NlBxWVpYajVDcDVrWm9vRGtwaGZBbUE1cElCTEoxWnV1dlFHa0ZubzFGVDNPaEhlVDFiUkpjdjZBcW1Mbmo2WVpHLUZLMFJDQTVjSjVRTDF2VFRpZElqOU5sdmxGdXEwZnJwQVFLXzZjQ1FQd05TcktMUHB1SWE5X3BIV0VhTmJRZzNPek5Xcy1WSFVucQ?oc=5",
+    "date": "2026-09-10",
+    "summary_zh": "巴基斯坦国民议会信息技术与电信常设委员会在主席Syed Aminul Haq主持下，听取巴基斯坦电信管理局（PTA）汇报后对全国移动和互联网服务质量表达强烈不满。PTA官员承认过去六个月仅向电信公司发出【四份说明理由通知】，而多年来累计发出48份通知和22封警告信，迄今收取的罚款总额仅为【6890万卢比】，远低于PTA有权开出的【3.5亿卢比最高罚款】。议员Ahmed Atiq称全国【70%地区存在服务问题】，委员会成员后认为实际比例可能高达90%。议员指出Ufone网络几乎无法运行，巴基斯坦医学科学研究院等机构无法可靠拨打电话，萨戈达一所大学向PTCL付费却未获服务。信息技术秘书Zarar Hashim将设备老旧列为原因之一，并称已与K-Electric成立联合委员会以保护移动基站免受停电影响。委员会最终传唤Jazz、Zong和Ufone到会，指示PTA起草立法建议提交议会，并批准成立小组委员会监督与监管机构的协调。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "JazzWorld Hosts Cybersecurity Seminar to Advance Digital Security and Resilience in Pakistan",
+    "url": "https://propakistani.pk/2026/10/15/jazzworld-hosts-cybersecurity-seminar-to-advance-digital-security-and-resilience-in-pakistan/",
+    "date": "2026-10-15",
+    "summary_zh": "JazzWorld与巴基斯坦电信管理局（PTA）合作举办网络安全意识研讨会，汇聚行业与政府利益相关方，探讨新兴网络威胁及保护移动网络、数字服务和关键基础设施的措施。会议审视了【5G部署、e-SIM和人工智能】对网络安全与消费者保护的影响，强调需协调行业力量应对不断演变的威胁。讨论聚焦加强技术保障、提升组织准备度及提高网络风险意识。JazzWorld集团企业与监管事务首席官Syed Zaheer Mehdi表示，网络安全是建立巴基斯坦数字未来信任的基础，公司致力于通过弹性基础设施、先进能力和与监管机构及行业伙伴的紧密合作来加强数字安全。会议重点包括下一代移动网络安全，讨论网络分段、访问控制、防火墙和安全接口等措施；e-SIM普及带来的风险，特别是稳健的数字入职、可靠身份验证及防范SIM相关欺诈和社会工程；以及AI在网络安全中的双重作用，既可提升威胁检测与响应，也可能被用于更复杂的攻击。与会者强调需结合技术保障、员工意识、负责任使用AI和更强组织准备，并持续合作交流知识。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan’s Foreign Reserves Near $27 Billion",
+    "url": "https://www.techjuice.pk/pakistans-foreign-reserves-near-27-billion/",
+    "date": "2026-10-15",
+    "summary_zh": "据巴基斯坦国家银行（SBP）数据，截至2026年10月9日当周，巴基斯坦【外汇总储备增至268.63亿美元】，较前一周增加6590万美元，央行储备与商业银行持有量双双上升。其中，SBP自身外汇储备增加1580万美元至【214.70亿美元】，商业银行储备增加5010万美元至【53.94亿美元】。最新数据显示，巴基斯坦外汇储备目前可覆盖约【3.04个月的进口】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "You Will Get NO Further Tax Relief on Imported Mobile Phones",
+    "url": "https://www.techjuice.pk/you-will-get-no-further-tax-relief-on-imported-mobile-phones/",
+    "date": "2026-10-14",
+    "summary_zh": "【10月14日】财政部长、参议员穆罕默德·奥朗则布在向国民议会的书面答复中明确表示，政府已排除对进口手机进一步减税或降税的可能，【2026-27财年预算中宣布的减免措施即为最终方案】。政府已依据《2026年财政法》落实全部已批准的税收措施，目前不再考虑对手机进口税制作额外调整。已实施的措施包括：将价值【100至200美元手机的收入税从930卢比降至100卢比】，并将手机终端税从600卢比降至200卢比，同时修订了手机终端税与监管关税的整体税率。奥朗则布称，这些决定是在与国民议会财政与收入常设委员会及信息技术行业等各方广泛磋商后敲定的。政府认为现有措施足以履行预算承诺，但未给出未来复审的时间表。此外，政府将【IT服务出口0.25%所得税率延长至2029年】，并将数字获取服务与供应的所得税和销售税上限设为2%。",
+    "importance": "中"
+  },
+  {
     "source": "ProPakistani",
     "title": "Travel SIM, eSIM Providers to Require PTA Registration",
     "url": "https://propakistani.pk/2026/10/13/travel-sim-esim-providers-to-require-pta-registration/",
