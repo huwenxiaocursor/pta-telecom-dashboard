@@ -8475,3 +8475,49 @@ Call log:
 [2026-10-24 12:10:31]   Injected 611 items into index.html
 [2026-10-24 12:10:31] News update complete
 [2026-10-24 12:10:31] ==================================================
+[2026-10-25 22:06:44] ==================================================
+[2026-10-25 22:06:44] News update started
+[2026-10-25 22:06:44] Cache: 831 existing items
+[2026-10-25 22:07:12] Fetching PTA official [新闻稿] …
+[2026-10-25 22:08:31]   PTA 官网 [新闻稿] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/press-releases", waiting until "networkidle"
+
+[2026-10-25 22:08:31] Fetching PTA official [新闻/更新] …
+[2026-10-25 22:08:35]   PTA 官网 [新闻/更新] 抓取失败：Page.goto: net::ERR_NETWORK_CHANGED at https://www.pta.gov.pk/category/news-updates
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/news-updates", waiting until "networkidle"
+
+[2026-10-25 22:08:35] Fetching PTA official [公告] …
+[2026-10-25 22:14:55]   PTA 官网 [公告] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/public-notices", waiting until "networkidle"
+
+[2026-10-25 22:14:56] Fetching Google News [PTA] …
+[2026-10-25 22:15:28]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 32076 ms: Timeout was reached
+[2026-10-25 22:15:30] Fetching Google News [SBP] …
+[2026-10-25 22:15:50]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20149 ms: Timeout was reached
+[2026-10-25 22:15:51] Fetching ProPakistani via WP REST API …
+[2026-10-25 22:15:53]   Cloudflare challenge detected, retrying with real browser …
+[2026-10-25 22:16:05]   Cloudflare challenge detected, retrying with real browser …
+[2026-10-25 22:16:12]   Browser page fetch failed (https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=2&after=2026-09-25T00:00:00&_fields=title,link,date): Page.goto: net::ERR_NETWORK_CHANGED at https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=2&after=2026-09-25T00:00:00&_fields=title,link,date
+Call log:
+  - navigating to "https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=2&after=2026-09-25T00:00:00&_fields=title,link,date", waiting until "domcontentloaded"
+
+[2026-10-25 22:16:12]   ProPakistani WP API returned non-JSON (likely still blocked)
+[2026-10-25 22:16:12]   ProPakistani: 0 items found
+[2026-10-25 22:16:14] Fetching Dawn RSS …
+[2026-10-25 22:16:16]   Cloudflare challenge detected, retrying with real browser …
+[2026-10-25 22:31:50]   Dawn XML parse error: not well-formed (invalid token): line 1, column 1271
+[2026-10-25 22:31:51] Fetching Business Recorder RSS …
+[2026-10-25 22:31:54]   Business Recorder: 1 items found
+[2026-10-25 22:31:55] Fetching TechJuice via WP REST API …
+[2026-10-25 22:32:10]   TechJuice: 6 items found
+[2026-10-25 22:32:11] New items: 2
+[2026-10-25 22:32:11]   同日同标题去重: 2 → 0 条（省下 2 次摘要调用）
+[2026-10-25 22:32:11]   ~ 部分来源连接失败（2 次网络错误），其余来源正常
+[2026-10-25 22:32:11] Cache saved: 831 total items
+[2026-10-25 22:32:12]   Dedup: 组内实体不连通，拆成 2 组 — “Has 4G Passed Away?” Lawmakers Qu ‖ Pakistan’s 5G Network Spans 24 Cit
+[2026-10-25 22:32:12]   Injected 610 items into index.html
+[2026-10-25 22:32:13] News update complete
+[2026-10-25 22:32:13] ==================================================
