@@ -8574,3 +8574,50 @@ Call log:
 [2026-10-26 19:56:51]   Injected 611 items into index.html
 [2026-10-26 19:56:55] News update complete
 [2026-10-26 19:56:55] ==================================================
+[2026-10-27 17:10:05] ==================================================
+[2026-10-27 17:10:05] News update started
+[2026-10-27 17:10:05] Cache: 834 existing items
+[2026-10-27 17:10:07] Fetching PTA official [新闻稿] …
+[2026-10-27 17:11:08]   PTA 官网 [新闻稿] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/press-releases", waiting until "networkidle"
+
+[2026-10-27 17:11:08] Fetching PTA official [新闻/更新] …
+[2026-10-27 17:12:09]   PTA 官网 [新闻/更新] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/news-updates", waiting until "networkidle"
+
+[2026-10-27 17:12:09] Fetching PTA official [公告] …
+[2026-10-27 17:13:12]   PTA 官网 [公告] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/public-notices", waiting until "networkidle"
+
+[2026-10-27 17:13:13] Fetching Google News [PTA] …
+[2026-10-27 17:13:33]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20147 ms: Timeout was reached
+[2026-10-27 17:13:35] Fetching Google News [SBP] …
+[2026-10-27 17:13:55]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20141 ms: Timeout was reached
+[2026-10-27 17:13:56] Fetching ProPakistani via WP REST API …
+[2026-10-27 17:13:57]   Cloudflare challenge detected, retrying with real browser …
+[2026-10-27 17:14:00]   Browser page fetch failed (https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-09-27T00:00:00&_fields=title,link,date): Page.goto: net::ERR_NETWORK_CHANGED at https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-09-27T00:00:00&_fields=title,link,date
+Call log:
+  - navigating to "https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-09-27T00:00:00&_fields=title,link,date", waiting until "domcontentloaded"
+
+[2026-10-27 17:14:00]   ProPakistani WP API returned non-JSON (likely still blocked)
+[2026-10-27 17:14:00]   ProPakistani: 0 items found
+[2026-10-27 17:14:01] Fetching Dawn RSS …
+[2026-10-27 17:14:02]   Cloudflare challenge detected, retrying with real browser …
+[2026-10-27 17:14:11]   Dawn XML parse error: not well-formed (invalid token): line 1, column 1271
+[2026-10-27 17:14:12] Fetching Business Recorder RSS …
+[2026-10-27 17:14:14]   Business Recorder: 0 items found
+[2026-10-27 17:14:15] Fetching TechJuice via WP REST API …
+[2026-10-27 17:14:25]   TechJuice: 3 items found
+[2026-10-27 17:14:26] New items: 2
+[2026-10-27 17:14:26] Re-summarising 1 cached items with empty summaries …
+[2026-10-27 17:14:26]   Re-summarising: SBP hikes policy rate to 12% on inflation, energy price worries …
+[2026-10-27 17:14:36]   Summarising: Pakistan Textile Exporters Criticise SBP Rate Hike …
+[2026-10-27 17:14:45]   Summarising: FPCCI Urges Government to Cut Policy Rate to Single Digits …
+[2026-10-27 17:14:59]   ~ 部分来源连接失败（2 次网络错误），其余来源正常
+[2026-10-27 17:14:59] Cache saved: 836 total items
+[2026-10-27 17:14:59]   Injected 613 items into index.html
+[2026-10-27 17:15:00] News update complete
+[2026-10-27 17:15:00] ==================================================
