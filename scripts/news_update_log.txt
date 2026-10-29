@@ -8663,3 +8663,47 @@ Call log:
 [2026-10-28 15:24:48]   Injected 614 items into index.html
 [2026-10-28 15:24:48] News update complete
 [2026-10-28 15:24:48] ==================================================
+[2026-10-29 12:01:24] ==================================================
+[2026-10-29 12:01:24] News update started
+[2026-10-29 12:01:24] Cache: 836 existing items
+[2026-10-29 12:01:28] Fetching PTA official [新闻稿] …
+[2026-10-29 12:02:29]   PTA 官网 [新闻稿] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/press-releases", waiting until "networkidle"
+
+[2026-10-29 12:02:29] Fetching PTA official [新闻/更新] …
+[2026-10-29 12:03:30]   PTA 官网 [新闻/更新] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/news-updates", waiting until "networkidle"
+
+[2026-10-29 12:03:30] Fetching PTA official [公告] …
+[2026-10-29 12:04:31]   PTA 官网 [公告] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/public-notices", waiting until "networkidle"
+
+[2026-10-29 12:04:32] Fetching Google News [PTA] …
+[2026-10-29 12:04:52]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20125 ms: Timeout was reached
+[2026-10-29 12:04:53] Fetching Google News [SBP] …
+[2026-10-29 12:05:13]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20149 ms: Timeout was reached
+[2026-10-29 12:05:14] Fetching ProPakistani via WP REST API …
+[2026-10-29 12:05:30]   FETCH ERROR [https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-09-29T00:00:00&_fields=title,link,date]: curl exit 28: curl: (28) SSL connection timeout
+[2026-10-29 12:05:30]   ProPakistani: 0 items found
+[2026-10-29 12:05:31] Fetching Dawn RSS …
+[2026-10-29 12:05:51]   FETCH ERROR [https://www.dawn.com/feeds/business]: curl exit 28: curl: (28) SSL connection timeout
+[2026-10-29 12:05:51]   Dawn: 0 items found
+[2026-10-29 12:05:52] Fetching Business Recorder RSS …
+[2026-10-29 12:06:12]   FETCH ERROR [https://www.brecorder.com/feeds/business]: curl exit 28: curl: (28) SSL connection timeout
+[2026-10-29 12:06:12]   Business Recorder: 0 items found
+[2026-10-29 12:06:13] Fetching TechJuice via WP REST API …
+[2026-10-29 12:06:22]   TechJuice: 3 items found
+[2026-10-29 12:06:24] New items: 3
+[2026-10-29 12:06:24]   Summarising: PTA Starts Blocking WhatsApp Accounts Linked to Inactive SIM Cards …
+[2026-10-29 12:06:34]   Summarising: PTA Allows Overseas Pakistanis to Use Phones Tax-Free for 120 Days …
+[2026-10-29 12:06:48]   FETCH ERROR [https://www.techjuice.pk/pta-allows-overseas-pakistanis-to-use-phones-tax-free-for-120-days/]: curl exit 16: curl: (16) Error in the HTTP2 framing layer
+[2026-10-29 12:07:27]   Summarising: Mobile Phone Taxes Face Senate Scrutiny Over PTA & FBR Disconnect …
+[2026-10-29 12:07:47]   FETCH ERROR [https://www.techjuice.pk/mobile-phone-taxes-face-senate-scrutiny-over-pta-fbr-disconnect/]: Command '['curl', '-sS', '--connect-timeout', '15', '-L', '-H', 'User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0 Safari/537.36', '-H', 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8', '-H', 'Accept-Language: en-US,en;q=0.9', 'https://www.techjuice.pk/mobile-phone-taxes-face-senate-scrutiny-over-pta-fbr-disconnect/']' timed out after 20 seconds
+[2026-10-29 12:07:58]   ~ 部分来源连接失败（5 次网络错误），其余来源正常
+[2026-10-29 12:07:58] Cache saved: 839 total items
+[2026-10-29 12:07:59]   Injected 617 items into index.html
+[2026-10-29 12:07:59] News update complete
+[2026-10-29 12:07:59] ==================================================

@@ -1,6 +1,30 @@
 [
   {
     "source": "TechJuice",
+    "title": "PTA Starts Blocking WhatsApp Accounts Linked to Inactive SIM Cards",
+    "url": "https://www.techjuice.pk/pta-starts-blocking-whatsapp-accounts-linked-to-inactive-sim-cards/",
+    "date": "2026-10-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已开始封禁与【未激活SIM卡关联的WhatsApp账号】，以防其被滥用。据官员称，此举是在开展宣传活动、提醒用户确保WhatsApp账号绑定本人当前持有并控制的活跃手机号码之后采取的。PTA建议用户，若此前绑定的SIM卡已停用、注销或不再使用，应更新WhatsApp注册信息。未激活SIM卡会带来安全风险，因为电信运营商可能将这些号码重新分配给其他用户；若WhatsApp账号仍绑定已被重新分配的号码，原机主可能失去账号控制权或遭遇未经授权的访问。PTA敦促用户检查SIM卡状态，确保WhatsApp账号绑定正在使用的号码；已更换手机号码的用户应使用WhatsApp的【“更改号码”功能】将账号转移至当前号码，以降低被滥用风险。此次行动是在PTA此前就未激活或已注销SIM卡注册WhatsApp账号的安全风险发出警告之后进行的。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Allows Overseas Pakistanis to Use Phones Tax-Free for 120 Days",
+    "url": "https://www.techjuice.pk/pta-allows-overseas-pakistanis-to-use-phones-tax-free-for-120-days/",
+    "date": "2026-10-28",
+    "summary_zh": "巴基斯坦电信管理局（PTA）宣布，依据联邦税收委员会（FBR）政策，海外巴基斯坦人每次回国期间可【免缴进口税使用手机最长120天】。该服务通过PTA在设备识别注册与封锁系统（DIRBS）门户上的自动化临时手机注册系统办理，符合条件的访客可在线注册设备，无需走常规的缴税注册流程。申请人须登录指定网址选择“海外巴基斯坦人与外国公民临时注册”选项，提供本人CNIC或NICOP信息、与出入境记录一致的护照信息，以及每台设备的IMEI号码（可拨*#06#查询），并注明手机支持单卡还是双卡。申请人还须提供以本人名义登记的巴基斯坦手机号并选择运营商，提交后通过【一次性密码（OTP）完成验证】。验证成功后设备即完成临时注册，【每次访问有效期为120天】。该便利措施使海外巴基斯坦人在回国期间无需缴纳常规手机注册税即可保持通信，但申请人须确保身份、护照、手机号和设备信息准确，以免延误。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Mobile Phone Taxes Face Senate Scrutiny Over PTA & FBR Disconnect",
+    "url": "https://www.techjuice.pk/mobile-phone-taxes-face-senate-scrutiny-over-pta-fbr-disconnect/",
+    "date": "2026-10-28",
+    "summary_zh": "巴基斯坦参议院内阁秘书处常务委员会召开会议，聚焦手机税收问题，暴露出【PTA与FBR之间的系统脱节】。联邦信息技术和电信部长Shaza Fatima Khawaja在会上表示，巴基斯坦使用的手机中【93%为本地制造】，因此这些本地生产的手机容易规避针对进口设备征收的税费；她还澄清，从境外带入巴基斯坦的设备并不构成大规模进口。针对消费者担心重税可能推迟下一代网络连接的忧虑，她表示【FBR税收不影响5G技术引入】，5G兼容智能手机的进口并非主要问题。总理已指示政府制定新政策，允许消费者以【分期付款方式购买手机】。FBR官员告知委员会，其依据手机型号和存储容量确定适用税率，但PTA的系统不提供手机型号，这一技术限制使FBR难以识别设备并征税。Shaza Fatima重申，调整产品税收的权力仅属于税收政策办公室，并建议传唤该办公室官员向委员会说明征税机制及其对消费者的影响。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
     "title": "Pakistan Textile Exporters Criticise SBP Rate Hike",
     "url": "https://www.techjuice.pk/pakistan-textile-exporters-criticise-sbp-rate-hike/",
     "date": "2026-10-26",
