@@ -8749,3 +8749,37 @@ Call log:
 [2026-10-30 17:52:47]   Injected 619 items into index.html
 [2026-10-30 17:52:47] News update complete
 [2026-10-30 17:52:47] ==================================================
+[2026-10-31 12:22:10] ==================================================
+[2026-10-31 12:22:10] News update started
+[2026-10-31 12:22:10] Cache: 839 existing items
+[2026-10-31 12:39:34]   PTA 官网：浏览器不可用，跳过（BrowserType.launch: Timeout 180000ms exceeded.
+Call log:
+  - <launching> /Users/huwenxiao/Library/Caches/ms-playwright/chromium_headless_shell-1223/chrome-headless-shell-mac-arm64/chrome-headless-shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-edgeupdater --disable-extensions --disable-features=AvoidUnnecessaryBeforeUnloadCheckSync,BoundaryEventDispatchTracksNodeRemoval,DestroyProfileOnBrowserClose,DialMediaRouteProvider,GlobalMediaControls,HttpsUpgrades,LensOverlay,MediaRouter,PaintHolding,ThirdPartyStoragePartitioning,Translate,AutoDeElevate,RenderDocument,OptimizationHints,msForceBrowserSignIn,msEdgeUpdateLaunchServicesPreferredVersion --enable-features=CDPScreenshotNewSurface --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --edge-skip-compat-layer-relaunch --disable-infobars --disable-search-engine-choice-screen --disable-sync --enable-unsafe-swiftshader --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --user-data-dir=/var/folders/mf/cshd5b3n08qfsbt7b1xx_8480000gn/T/playwright_chromiumdev_profile-ZOBOKa --remote-debugging-pipe --no-startup-window
+  - <launched> pid=22270
+）
+[2026-10-31 12:51:42] Fetching Google News [PTA] …
+[2026-10-31 12:52:03]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20103 ms: Timeout was reached
+[2026-10-31 12:52:04] Fetching Google News [SBP] …
+[2026-10-31 12:52:24]   FETCH ERROR [https://news.google.com/rss/search?q=SBP+Pakistan+monetary+policy+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 28: curl: (28) Failed to connect to news.google.com port 443 after 20149 ms: Timeout was reached
+[2026-10-31 12:52:25] Fetching ProPakistani via WP REST API …
+[2026-10-31 12:52:28]   Cloudflare challenge detected, retrying with real browser …
+[2026-10-31 12:52:28]   Browser page fetch failed (https://propakistani.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-10-01T00:00:00&_fields=title,link,date): It looks like you are using Playwright Sync API inside the asyncio loop.
+Please use the Async API instead.
+[2026-10-31 12:52:28]   ProPakistani WP API returned non-JSON (likely still blocked)
+[2026-10-31 12:52:28]   ProPakistani: 0 items found
+[2026-10-31 12:52:29] Fetching Dawn RSS …
+[2026-10-31 13:05:03]   FETCH ERROR [https://www.dawn.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.dawn.com
+[2026-10-31 13:05:03]   Dawn: 0 items found
+[2026-10-31 13:05:04] Fetching Business Recorder RSS …
+[2026-10-31 13:05:04]   FETCH ERROR [https://www.brecorder.com/feeds/business]: curl exit 6: curl: (6) Could not resolve host: www.brecorder.com
+[2026-10-31 13:05:04]   Business Recorder: 0 items found
+[2026-10-31 13:05:06] Fetching TechJuice via WP REST API …
+[2026-10-31 13:05:06]   FETCH ERROR [https://www.techjuice.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-10-01T00:00:00&_fields=title,link,date]: curl exit 6: curl: (6) Could not resolve host: www.techjuice.pk
+[2026-10-31 13:05:06]   TechJuice: 0 items found
+[2026-10-31 13:05:07] New items: 0
+[2026-10-31 13:05:07]   !! 抓取异常[network]：多数来源连接失败（5 次网络错误，1 次成功），疑似网络不稳
+[2026-10-31 13:05:07]   !! 无产出的来源：fetch_pta_official, fetch_pta, fetch_sbp, fetch_propakistani, fetch_dawn, fetch_business_recorder, fetch_techjuice
+[2026-10-31 13:05:08] Cache saved: 839 total items
+[2026-10-31 13:05:10]   Injected 619 items into index.html
+[2026-10-31 13:05:10] News update complete
+[2026-10-31 13:05:10] ==================================================
