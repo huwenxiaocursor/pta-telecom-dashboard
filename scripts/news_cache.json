@@ -1,5 +1,104 @@
 [
   {
+    "source": "Dawn",
+    "title": "Mobile phone service quality in certain areas of Rawalpindi, Islamabad not up to mark: PTA",
+    "url": "https://news.google.com/rss/articles/CBMiSEFVX3lxTE1HUkFtTURjMDhZcldibTdOLW5PdWtqRmxqRHNRN0RsOVJXWDd4dDFobXhZV1o2YmdPeGw4ajBrRHNSdS1HLWhXVA?oc=5",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于11月6日表示，在拉瓦尔品第和伊斯兰堡部分地区发现手机通话质量与互联网服务存在不足，此前已收到大量消费者投诉。PTA主席哈菲兹·乌尔·拉赫曼亲自带队，会同该局成员、总司长及高级官员，并邀请移动运营商代表、媒体及部分投诉者参与，开展专项实地检查。三支特别小组分别覆盖伊斯兰堡国际机场、斯利那加公路及周边，伊斯兰堡高速公路至拉瓦特T形路口沿线，以及拉瓦尔品第穆里路、拉瓦尔路和老机场周边区域，重点检查【4G覆盖、语音通话与移动互联网质量】，包括语音质量、呼叫接通率、通话连续性和移动数据速率。Jazz、Zong和Ufone等运营商代表参与检查，PTA主席现场向运营商代表下达必要指示，要求解决发现的问题并改善服务。运营商方面解释称，电信行业正从3G升级至4G、部分区域从4G升级至5G并安装新设备，同时新购频谱存在技术下沉，过渡期导致服务质量阶段性下降。",
+    "importance": "中",
+    "dup_of": "https://www.pta.gov.pk/category/pta-conducts-qoe-qos-field-survey-in-islamabad-and-rawalpindi-to-assess-telecom-service-quality-1043453988-2026-11-05"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Lahore, Karachi Next as PTA Expands Network Quality Surveys",
+    "url": "https://propakistani.pk/2026/11/06/lahore-karachi-next-as-pta-expands-network-quality-surveys/",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在完成对伊斯兰堡和拉瓦尔品第电信服务的近期评估后，正将移动网络质量检查扩展至【拉合尔、卡拉奇、白沙瓦等主要城市】，计划未来数日在拉合尔和卡拉奇开展实地调查，评估网络覆盖、通话质量、互联网连接及整体服务表现，以发现薄弱环节并改善消费者移动服务。PTA官员称，检查将由信息技术与电信部代表及移动网络运营商参与，沿用伊斯兰堡和拉瓦尔品第的做法，由PTA高级官员亲自在多处考察网络性能。监管机构表示，全国范围内的实地监测已在进行，各地区办事处团队会同地方行政部门代表定期走访各地，排查连接问题并评估服务质量。同时，PTA正就伊斯兰堡和拉瓦尔品第的检查编写详细报告，涵盖网络性能、服务质量、连接问题及待改进领域，提交当局审议并采取后续行动。在【5G频谱拍卖】之后，PTA还将重点推动主要城市的5G服务部署，并改善现有4G网络，目标是实现更广覆盖、更可靠连接和更优服务质量。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Ufone Demonstrates Strong Network Performance Across Key Parameters in PTA Survey",
+    "url": "https://propakistani.pk/2026/11/06/ufone-demonstrates-strong-network-performance-across-key-parameters-in-pta-survey/",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在伊斯兰堡和拉瓦尔品第开展最新一轮体验质量（QoE）与服务质量（QoS）调查，【Ufone在全部测试路线上未出现掉话或数据会话中断】。此次评估由PTA主席哈菲兹·乌尔·拉赫曼少将（退役）牵头，三支团队沿指定路线同步实测，覆盖新伊斯兰堡国际机场、T-Chowk、宪法大道、Club Road、穆里路、拉瓦尔路、旧机场区域及斯利那加高速公路等路段。测试中Ufone的VoLTE支持高清语音与即时接通，【8K超高清视频流媒体播放不中断】。上述结果正值Ufone与前Telenor巴基斯坦网络整合之际，其【850MHz和900MHz低频段频谱】有助于扩大覆盖和增强室内信号穿透。评估指标包括下载速率、语音质量、呼叫建立时间、数据连接及移动中的服务一致性，并进行了城际通话测试。PTA多位成员及执法总监等官员与信息技术和电信部、运营商和媒体代表参与。",
+    "importance": "中",
+    "dup_of": "https://www.techjuice.pk/ufone-demonstrates-strong-network-performance-in-pta-survey/"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA &amp; Meta Block 176,000 WhatsApp Accounts Linked to Recycled SIMs",
+    "url": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQeXNqQTBMQnJWWDlYc21qV0dfVVFWcDBkSHFVY09ORllMeGhXYkc2WmhUV1hSWFY1bE1HSHkwVmVfSzVTOElFQl83eS1FUVVRbFcxUF9YWV95eVVycEhvZmhZbUtDQ01sTG91UThJNTNOZm1CNGNlcUJwZl9INC14aWdFRzFTWXZLemJuTVJlTm03T3c?oc=5",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）与Meta合作，封禁了【17.6万个WhatsApp账号】，这些账号均注册于被回收的移动号码。PTA因收到多起网络诈骗投诉，发现诈骗者利用已注销或停用的回收号码通过WhatsApp作案，遂请求Meta协同处理，Meta应PTA直接要求封禁上述账号。PTA还向Meta移交了【约1000万个回收号码】，供其核验并封禁关联的活跃账号。目前巴电信运营商共持有约1600万个回收号码，原SIM注销后旧WhatsApp账号往往仍活跃，新用户购号后可轻易访问，形成安全漏洞。双方已商定持续机制，PTA将【每月共享5000个回收号码】，由Meta分阶段停用关联账号。PTA称，去年Meta已解决其转交投诉的82%。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Sets Rs. 1 Lac Internet Company Fee",
+    "url": "https://propakistani.pk/2026/11/06/pta-sets-rs-1-lac-internet-company-fee/",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）提出2026年物联网与低功耗广域网（IoT-LPWAN）许可条例草案，拟对物联网服务实行分类管理，分为免许可、登记和许可三类。向第三方提供LPWAN连接及相关服务的企业须取得PTA许可，【初始许可费为10万卢比】，另缴【5000卢比不可退还的申请处理费】，许可有效期五年，通过PTA线上系统申请。私营物联网网络运营方及物联网平台或应用提供商各缴【1万卢比初始登记费】及5000卢比处理费，登记有效期五年。草案另设监管沙盒登记，费用2000卢比加1000卢比处理费，有效期一年。持证运营商须在条例生效后一年内开始提供服务并取得开业证明，否则许可可能被吊销，PTA可给予最多六个月延期；还须登记网关、按季度报告活跃物联网连接与网关情况，并遵守频谱规定。现有LPWAN持证者须在新规生效后90天内登记网关。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Rupee Keeps Recovering Massively During Gulf War",
+    "url": "https://propakistani.pk/2026/11/06/rupee-keeps-recovering-massively-during-gulf-war/",
+    "date": "2026-11-06",
+    "summary_zh": "周五，巴基斯坦卢比兑美元连续第278个交易日收涨，当日微升1派萨，收于276.66。自2025年12月25日以来，卢比兑美元持续录得升值。其他货币方面，卢比兑英镑升值2.2卢比，兑澳元升值3.82卢比，兑欧元升值1.55卢比，兑加元升值1.63卢比；兑阿联酋迪拉姆微升1派萨，兑沙特里亚尔持平。汇率表显示，11月3日至6日美元兑卢比由276.7137降至276.6609，欧元兑卢比由309.7810降至309.5006，英镑兑卢比由371.2391降至370.6288，澳元兑卢比由193.0216降至190.1905，人民币兑卢比则由41.4630微升至41.4796。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "SpaceX Partners With Qualcomm to Build Its Own 5G Mobile Network",
+    "url": "https://propakistani.pk/2026/11/06/spacex-partners-with-qualcomm-to-build-its-own-5g-mobile-network/",
+    "date": "2026-11-06",
+    "summary_zh": "【11月4日】，高通宣布SpaceX已选择其Dragonwing蜂窝基础设施平台，为Starlink Mobile在美国全国范围内的5G移动网络提供地面基站支持，部署【将于2027年启动】。根据这份多年期协议，SpaceX计划在全美部署【数万个蜂窝站点】，网络将采用高通Dragonwing QRU100与QDU100平台及商用级Layer 1软件，支持【64T64R Massive MIMO】射频单元，以提升覆盖、容量与频谱效率并降低功耗。SpaceX将分多阶段、使用不同频段建设该网络，但尚未公布消费者可订阅该服务的时间。Starlink高级副总裁Michael Nicolls表示，掉话仍是问题，公司希望建成全国一体化的卫星与地面网络，高通技术将加速其完整基站架构的开发。双方还称合作可支持未来AI原生6G基础设施，但未公布6G部署时间表。",
+    "importance": "低"
+  },
+  {
+    "source": "Dawn",
+    "title": "PM seeks roadmap for ‘100pc’ digital payments system, stresses countrywide internet access",
+    "url": "https://www.dawn.com/news/2042606/pm-seeks-roadmap-for-100pc-digital-payments-system-stresses-countrywide-internet-access",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦总理夏巴兹·谢里夫于周五在伊斯兰堡主持关于推动无现金经济的高级别会议，指示相关部门制定【建立100%数字支付体系的明确路线图与限期目标】，并要求立即解决用户在数字支付系统中遇到的问题。他强调，为推广无现金经济，必须确保【全国互联网覆盖】和公众便捷获取技术，并称拉斯特（Raast）二维码支付系统正助力实现政府愿景，指示在政府支持下继续推进消费者与商户间的数字支付计划，同时开展媒体宣传鼓励电力和燃气用户通过账单上印制的二维码付款。会议简报称，联邦和省级政府机构支付数字化工作快速推进，【多数机构将在2026年12月前全面实现支付数字化】，贝娜齐尔收入支持计划款项已100%通过数字钱包发放；无互联网地区的现代数字支付系统正在引入，【自11月15日起将停用Asaan Assignment Account的支票支付】，改为全国通过拉斯特数字系统支付，相关财务官员已完成培训。",
+    "importance": "高"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Pakistan’s trade deficit surges 20% YoY to $3.9bn in October 2026",
+    "url": "https://www.brecorder.com/news/40447756/pakistans-trade-deficit-surges-20-yoy-to-39bn-in-october-2026",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦统计局周五公布数据显示，2026年10月该国贸易逆差同比扩大近20%至【38.8亿美元】，而2025年10月为32.4亿美元。当月出口29.3亿美元，同比仅增2.8%；进口68.1亿美元，同比增长近12%，逆差扩大主要因进口上升而出口增长乏力。环比看，10月逆差较9月的35.2亿美元增长逾10%。2026-27财年前四个月，贸易逆差同比扩大近16%至【146.3亿美元】，进口增长逾12%至259.6亿美元，出口增长逾8%至113.4亿美元。JS Global研究主管Waqas Ghani表示，进口与出口增速持续失衡正加大外部融资需求，可能对经常账户和外汇储备构成压力，外部账户稳定仍将依赖【汇款流入和服务出口】。报道称，巴基斯坦燃料、机械、化学品和食品高度依赖进口，石油产品占进口账单很大比重，汽车进口亦激增；出口以大米、原棉、纺织品和皮革等传统低附加值产品为主，受高能源关税、税负上升、融资昂贵和政策不确定性拖累。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan Trade Deficit Widens 16% to $14.6 Billion in Four Months",
+    "url": "https://www.techjuice.pk/pakistan-trade-deficit-widens-16-to-14-6-billion-in-four-months/",
+    "date": "2026-11-06",
+    "summary_zh": "据巴基斯坦统计局（PBS）初步数据，2027财年前四个月（7月至10月）【巴基斯坦贸易逆差同比扩大16%至146亿美元】，原因是进口增速持续快于出口。仅10月单月，贸易逆差达【39亿美元】，同比上升20%，较9月的35亿美元环比上升10%；当月进口同比增长12%至68亿美元，出口仅增长3%至29亿美元。7月至10月累计进口达260亿美元，同比增长13%；出口增长9%至113亿美元，累计贸易逆差由上年同期的126亿美元扩大至146亿美元。报道称，逆差扩大反映进口账单上升而出口增长相对缓慢，将推高外汇需求，并可能对卢比和外汇储备构成压力，也可能抬高依赖进口燃料、药品、电子产品和工业投入品的企业与消费者成本。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA & Meta Block 176,000 WhatsApp Accounts Linked to Recycled SIMs",
+    "url": "https://www.techjuice.pk/pta-meta-block-176000-whatsapp-accounts-linked-to-recycled-sims/",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）与Meta合作，封禁了【17.6万个WhatsApp账号】，这些账号均注册于被回收的移动号码。PTA因收到多起网络诈骗投诉，发现诈骗者利用已注销或停用的回收号码在WhatsApp上作案，遂请求Meta协同处理，Meta应PTA直接要求封禁上述账号。PTA还向Meta移交了约【1000万个回收号码】，供其核验并封禁关联的活跃账号。目前巴电信运营商共持有约【1600万个回收号码】，原SIM注销后旧WhatsApp账号往往仍活跃，新用户购号即可访问，形成安全漏洞。双方已商定持续机制：PTA每月向Meta提供【5000个回收号码】，由Meta分阶段识别并停用关联账号。PTA称，去年Meta已解决其转交投诉的82%。",
+    "importance": "中",
+    "dup_of": "https://news.google.com/rss/articles/CBMikwFBVV95cUxQeXNqQTBMQnJWWDlYc21qV0dfVVFWcDBkSHFVY09ORllMeGhXYkc2WmhUV1hSWFY1bE1HSHkwVmVfSzVTOElFQl83eS1FUVVRbFcxUF9YWV95eVVycEhvZmhZbUtDQ01sTG91UThJNTNOZm1CNGNlcUJwZl9INC14aWdFRzFTWXZLemJuTVJlTm03T3c?oc=5"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Introduces New IoT Licensing Regime With Rs 100,000 Fee",
+    "url": "https://www.techjuice.pk/pta-iot-lpwan-licensing-regulations-2026/",
+    "date": "2026-11-06",
+    "summary_zh": "巴基斯坦电信管理局（PTA）提出《2026年物联网与低功耗广域网（IoT-LPWAN）许可条例》草案，按商业运营、私有网络、研究沙盒和软件平台分设不同层级。核心是【五年期商业许可】，面向通过指定LPWAN频段向第三方提供物联网服务的实体，收取【5000卢比不可退还处理费和10万卢比初始许可费】，低于此前地区级框架的30万卢比。单一场所私有物联网网络须注册，费用为【1万卢比加5000卢比处理费】，有效期五年，仅限内部使用。测试新概念的沙盒注册为一年期，收费2000卢比加1000卢比处理费；物联网平台与应用提供商需办理五年期注册，费用1万卢比。Jazz、Zong及合并后的Ufone-Telenor等蜂窝运营商可凭现有频谱许可提供物联网服务，无需额外手续；短距离设备与超宽带共享频段设备、物联网设备进口商也获豁免，但进口商仍须符合型号核准要求。条例要求所有物联网运营商的回传流量（含卫星回传）须经PTA持牌本地接入提供商传输，通过无牌运营商连接将【自动吊销许可或注册】。持牌运营商须在生效日起一年内推出服务并取得开业证书，逾期自动吊销，PTA可给予一次六个月延期。",
+    "importance": "中"
+  },
+  {
     "source": "PTA",
     "title": "PTA Conducts QoE/QoS Field Survey in Islamabad and Rawalpindi to Assess Telecom Service Quality",
     "url": "https://www.pta.gov.pk/category/pta-conducts-qoe-qos-field-survey-in-islamabad-and-rawalpindi-to-assess-telecom-service-quality-1043453988-2026-11-05",
@@ -38,7 +137,8 @@
     "url": "https://propakistani.pk/2026/11/05/pta-discovers-more-call-and-internet-problems-in-twin-cities/",
     "date": "2026-11-05",
     "summary_zh": "巴基斯坦电信管理局（PTA）对伊斯兰堡和拉瓦尔品第两座城市的移动网络表现进行了评估，初步结果显示【多数受检区域通话与互联网服务总体令人满意】。PTA主席哈菲兹·乌尔·拉赫曼少将（退役）亲自测试了移动通话与网络连接，另有三支特别小组在多地评估4G覆盖、通话连接、语音质量、网络性能及移动互联网速率。检查范围包括伊斯兰堡国际机场、斯利那加公路、伊斯兰堡高速公路、拉瓦特T形路口、穆里路、拉瓦尔路及拉瓦尔品第旧机场周边地区，电信公司代表、信息技术与电信部官员及PTA高级官员随行。评估发现多数地点移动语音与数据服务表现良好，同时【识别出通话质量与互联网性能可进一步改善的区域】。检查后，PTA主席指示移动运营商解决已发现的服务缺口并采取措施提升网络性能，此次行动旨在评估消费者所获移动服务质量并支持两城语音与互联网连接改善。",
-    "importance": "中"
+    "importance": "中",
+    "dup_of": "https://www.pta.gov.pk/category/pta-conducts-qoe-qos-field-survey-in-islamabad-and-rawalpindi-to-assess-telecom-service-quality-1043453988-2026-11-05"
   },
   {
     "source": "ProPakistani",
