@@ -9210,3 +9210,40 @@ Call log:
 [2026-11-08 09:01:28]   Injected 672 items into index.html
 [2026-11-08 09:01:28] News update complete
 [2026-11-08 09:01:28] ==================================================
+[2026-11-09 09:00:07] ==================================================
+[2026-11-09 09:00:07] News update started
+[2026-11-09 09:00:07] Cache: 925 existing items
+[2026-11-09 09:00:09] Fetching PTA official [新闻稿] …
+[2026-11-09 09:00:16]   PTA official [新闻稿]: 23 items found
+[2026-11-09 09:00:16] Fetching PTA official [新闻/更新] …
+[2026-11-09 09:00:21]   PTA official [新闻/更新]: 0 items found
+[2026-11-09 09:00:21] Fetching PTA official [公告] …
+[2026-11-09 09:00:26]   PTA official [公告]: 0 items found
+[2026-11-09 09:00:27] Fetching Google News [PTA] …
+[2026-11-09 09:00:28]   Google News [PTA]: 20 items found（取最新 20 条）
+[2026-11-09 09:00:28]     非目标来源已跳过：PhoneWorld×11、Pakistan Connect×4、Investify×2、UrduPoint×2、NewzTodays×2、247news.com.pk×2、The Express Tribune×1、The Nation (Pakistan )×1
+[2026-11-09 09:00:30] Fetching Google News [SBP] …
+[2026-11-09 09:00:30]   Google News [SBP]: 8 items found（取最新 8 条）
+[2026-11-09 09:00:30]     非目标来源已跳过：Investify×9、The Express Tribune×2、Profit by Pakistan Today×2、Tapmad×1、Mettis Global×1、The News Pakistan×1、YouTube×1、Geo News×1
+[2026-11-09 09:00:31] Fetching ProPakistani via WP REST API …
+[2026-11-09 09:00:35]   ProPakistani: 2 items found
+[2026-11-09 09:00:36] Fetching Dawn RSS …
+[2026-11-09 09:00:36]   Dawn: 3 items found
+[2026-11-09 09:00:37] Fetching Business Recorder RSS …
+[2026-11-09 09:00:38]   Business Recorder: 0 items found
+[2026-11-09 09:00:39] Fetching TechJuice via WP REST API …
+[2026-11-09 09:00:44]   TechJuice: 3 items found
+[2026-11-09 09:00:45] New items: 15
+[2026-11-09 09:00:45]   同日同标题去重: 15 → 3 条（省下 12 次摘要调用）
+[2026-11-09 09:00:45]   Summarising: PTA approves Ufone-Telenor Merger: Reshaping Telecom Landscape …
+[2026-11-09 09:00:56]     ! 日期不符：原标 2026-11-05，原文为 2026-03-19 → 以原文为准
+[2026-11-09 09:00:56]     ! 早于 2026-08-01，丢弃
+[2026-11-09 09:00:56]   Summarising: Business Community Rejects SBP Interest Rate Hike, Warns of Industrial …
+[2026-11-09 09:01:06]     ! 日期不符：原标 2026-11-07，原文为 2026-04-27 → 以原文为准
+[2026-11-09 09:01:06]     ! 早于 2026-08-01，丢弃
+[2026-11-09 09:01:06]   Summarising: Monetary policy today …
+[2026-11-09 09:01:18]   按原文日期丢弃过期条目 2 条
+[2026-11-09 09:01:18] Cache saved: 926 total items
+[2026-11-09 09:01:19]   Injected 674 items into index.html
+[2026-11-09 09:01:19] News update complete
+[2026-11-09 09:01:19] ==================================================
