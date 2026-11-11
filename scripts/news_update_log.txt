@@ -9289,3 +9289,40 @@ Call log:
 [2026-11-10 09:34:22]   Injected 679 items into index.html
 [2026-11-10 09:34:22] News update complete
 [2026-11-10 09:34:22] ==================================================
+[2026-11-11 09:00:05] ==================================================
+[2026-11-11 09:00:05] News update started
+[2026-11-11 09:00:05] Cache: 933 existing items
+[2026-11-11 09:00:10] Fetching PTA official [新闻稿] …
+[2026-11-11 09:00:17]   PTA official [新闻稿]: 23 items found
+[2026-11-11 09:00:17] Fetching PTA official [新闻/更新] …
+[2026-11-11 09:13:01]   PTA official [新闻/更新]: 0 items found
+[2026-11-11 09:13:01] Fetching PTA official [公告] …
+[2026-11-11 09:13:03]   PTA 官网 [公告] 抓取失败：Page.goto: net::ERR_INTERNET_DISCONNECTED at https://www.pta.gov.pk/category/public-notices
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/public-notices", waiting until "networkidle"
+
+[2026-11-11 09:13:04] Fetching Google News [PTA] …
+[2026-11-11 09:13:04]   FETCH ERROR [https://news.google.com/rss/search?q=PTA+Pakistan+telecom+when:14d&hl=en-PK&gl=PK&ceid=PK:en]: curl exit 6: curl: (6) Could not resolve host: news.google.com
+[2026-11-11 09:13:05] Fetching Google News [SBP] …
+[2026-11-11 09:13:09]   Google News [SBP]: 1 items found（取最新 1 条）
+[2026-11-11 09:13:09]     非目标来源已跳过：Investify×3、The Express Tribune×2、Profit by Pakistan Today×2、Aaj English TV×1、samaa tv×1
+[2026-11-11 09:13:10] Fetching ProPakistani via WP REST API …
+[2026-11-11 09:13:17]   ProPakistani: 3 items found
+[2026-11-11 09:13:19] Fetching Dawn RSS …
+[2026-11-11 09:13:20]   Dawn: 0 items found
+[2026-11-11 09:13:21] Fetching Business Recorder RSS …
+[2026-11-11 09:13:22]   Business Recorder: 0 items found
+[2026-11-11 09:13:23] Fetching TechJuice via WP REST API …
+[2026-11-11 09:15:46]   FETCH ERROR [https://www.techjuice.pk/wp-json/wp/v2/posts?per_page=20&page=1&after=2026-10-12T00:00:00&_fields=title,link,date]: curl exit 28: curl: (28) Resolving timed out after 142438 milliseconds
+[2026-11-11 09:15:46]   TechJuice: 0 items found
+[2026-11-11 09:15:47] New items: 4
+[2026-11-11 09:15:47]   同日同标题去重: 4 → 3 条（省下 1 次摘要调用）
+[2026-11-11 09:15:47]   Summarising: PTA Holds Firefighting and Evacuation Drill at Islamabad Headquarters …
+[2026-11-11 09:15:47]   FETCH ERROR [https://propakistani.pk/2026/11/10/pta-holds-firefighting-and-evacuation-drill-at-islamabad-headquarters/]: curl exit 6: curl: (6) Could not resolve host: propakistani.pk
+[2026-11-11 09:16:04]   Summarising: JazzWorld and PITB Partner to Advance Digital Public Services in Punja …
+[2026-11-11 09:16:09]   Summarising: How to File a Complaint Against Telcos in Pakistan …
+[2026-11-11 09:16:13]   ~ 部分来源连接失败（3 次网络错误），其余来源正常
+[2026-11-11 09:16:13] Cache saved: 936 total items
+[2026-11-11 09:16:15]   Injected 682 items into index.html
+[2026-11-11 09:16:15] News update complete
+[2026-11-11 09:16:15] ==================================================
