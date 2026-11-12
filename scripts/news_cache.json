@@ -1,5 +1,109 @@
 [
   {
+    "source": "BusinessRecorder",
+    "title": "Pakistan’s fixed broadband operators fall short of PTA quality benchmarks",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTE8ycHhVX2lWajc4Z0l4dFkteGV5X1Jwc0NNYWFVT2NPMDJGaDRRMmF3ZmhFaWZLTUNjV21sNWVaXzR4THJGdzVrdnhjUDh0VzZi0gFWQVVfeXFMTk55ZXVScHJZd2wyRVd4YXlYRldSeklzM01jbmZpWXJ3bzZIWURzMk0yLXo0dHhYVkRCTHQ1S2xoZGFQLTFqUXhqT0xQWmR4VlhJQ0tkVEE?oc=5",
+    "date": "2026-11-11",
+    "summary_zh": "据巴基斯坦电信管理局（PTA）的评估，巴基斯坦固定宽带运营商未能达到PTA设定的服务质量基准。该报道由Tahir Amin撰写，于2026年11月11日发布，指出固网宽带运营商在PTA的质量考核中不达标。正文未披露具体运营商名称、考核指标数值、涉及企业数量或处罚金额等细节。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Exposes Hundreds of Dangerous Websites, Apps, Social Media Accounts",
+    "url": "https://propakistani.pk/2026/11/11/pta-exposes-hundreds-of-dangerous-websites-apps-social-media-accounts/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在《2025-26网络安全年度报告》中披露，【2025年7月至2026年6月共识别并处置586个恶意网络来源】，包括【152个危险网站链接、48个恶意移动应用和386个可疑社交媒体账号及页面】。报告称，这些威胁多涉及仿冒网站、身份冒充、网络钓鱼诈骗及有害内容传播，犯罪分子常伪装成合法个人或机构诱骗用户泄露敏感信息。其中【2025年9月检测到的恶意来源数量为全年最高】。PTA通过国家电信安全运营中心（nTSOC）持续监测普通互联网、社交媒体平台以及深网和暗网论坛，以便在威胁造成进一步危害前加以识别。PTA表示已加强威胁识别与分析系统，在发现可疑活动后评估风险并与其他机构共享信息，同时发布网络安全公告，并与电信运营商、国家网络应急响应小组（National CERT）等利益相关方合作，以更早发现网络威胁、防范潜在攻击并提升巴基斯坦互联网和电信基础设施安全。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Flags Broadband Quality Issues at Pace Telecom and Falcon Broadband",
+    "url": "https://www.techjuice.pk/pta-flags-broadband-quality-issues-at-pace-telecom-and-falcon-broadband/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在【2026年第三季度服务质量调查】中发现多家互联网服务商的宽带质量问题，调查于2026年7月至9月覆盖【21个主要城市的23家运营商】。其中，Pace Telecom在阿伯塔巴德的两项网络可用性指标不达标，核心网可用性为【99.73%，低于99.9%的要求】，接入网可用性为97.13%，低于99%的标准。Falcon Broadband在维哈里因抖动值超标被点名，其抖动达【40.61毫秒，而门槛为低于15毫秒】。调查评估了带宽利用率、核心与接入网可用性、本地与国际时延、抖动及上下行速率等七项关键指标，要求带宽利用率低于80%、本地时延低于40毫秒、国际地面连接时延不超过110毫秒。多数运营商达标，所有受访运营商均满足时延与最低吞吐要求，但部分运营商带宽利用率超限，PTA警告高峰期网速可能受影响。28个城市-运营商条目中【16个在全部七项指标上完全合规】。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Jazz and ZTE Expand Partnership to Advance 5G Device Affordability in Pakistan",
+    "url": "https://propakistani.pk/2026/11/11/jazz-and-zte-expand-partnership-to-advance-5g-device-affordability-in-pakistan/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦数字服务平台Jazz与中兴通讯扩大合作，在巴推出中兴旗下手机品牌nubia的四款5G智能手机，分别为nubia Neo 3、nubia Neo 5 Max、nubia Neo 5 Pro和nubia Air Pro，双方合作始于2026年初，旨在通过提升设备可负担性推动5G普及。Jazz已在【10座城市部署超过1200个5G基站】，并开展设备可负担性推广活动，以弥合5G终端价格差距。Jazz GSM消费者增长负责人Asad Maqbool表示，扩大5G应用需网络、可负担终端与消费者体验协同推进；中兴nubia巴基斯坦首席执行官Noah称双方合作体现让先进移动技术更易获得的共同承诺。上述机型通过Jazz体验中心和Jazz eStore销售，支持【全额付款或分期购买】。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Releases Latest Internet Speed and Quality Report",
+    "url": "https://propakistani.pk/2026/11/11/pta-releases-latest-internet-speed-and-quality-report/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）发布2026年第三季度固定宽带服务质量调查报告，于7月1日至9月30日对21个城市的【28个运营商-地点条目、涉及23家宽带服务商】展开评估，考察网络可用性、带宽利用率、本地与国际时延、抖动及上下行速率等七项指标。报告显示，【15个条目在全部七项指标上达标】，其余13个条目满足七项中的六项；所有受调查运营商均达到本地与国际时延要求以及最低上下行速率标准，即下行4Mbps、上行2Mbps，本地时延限值40毫秒、国际地面链路110毫秒。多数运营商抖动低于15毫秒限值。报告同时指出，部分地点带宽利用率超过【80%的规定上限】，高峰时段可能影响网速；阿伯塔巴德一家公司核心网可用性为99.73%、接入网可用性为97.13%，均未达标；Vehari一项服务抖动达40.61毫秒。PTA要求相关运营商扩容或整改，调查依据为2022年固定宽带服务质量条例。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Google Launches Mobile Network That Automatically Finds a Better Connection",
+    "url": "https://propakistani.pk/2026/11/11/google-launches-mobile-network-that-automatically-finds-a-better-connection/",
+    "date": "2026-11-11",
+    "summary_zh": "谷歌宣布对其Google Fi Wireless服务进行重大升级，推出可在两套美国5G网络之间自动切换的【“超级网络”系统】，并整合数百万个Wi-Fi热点。该功能自【11月10日起】向Pixel 9及更新机型推送，适用于符合条件的设备上的所有Google Fi套餐。当手机失去主数据连接时，Fi会实时切换至备用连接，以减少高速公路、乡村道路等覆盖不稳定区域的断网问题；该功能基于【多启用配置文件（MEP）技术】，使单张eSIM支持多个活跃SIM配置文件，且无需用户手动更改设置，但需启用eSIM并禁用其他非Fi SIM。谷歌同时扩展Wi-Fi Auto Connect+，让支持的手机在机场、商场等拥挤室内场所自动连接数百万个Wi-Fi热点，连接经Fi虚拟承载网络加密；该功能覆盖北美、欧洲、亚洲及巴西，并扩展至运行One UI 9或更高版本的三星手机及部分摩托罗拉机型。谷歌称其可靠性为附近Fi蜂窝连接的两倍，延迟【降低30%】。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "How to Activate Balance Save Service on Ufone SIM",
+    "url": "https://propakistani.pk/2026/11/11/how-to-activate-balance-save-service-on-ufone-sim/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）呼吁Ufone用户开通免费的【余额保护（Balance Save）服务】，以免数据套餐用尽后出现意外扣费。该服务又称PayG Blocker，会在数据套餐到期或用户用完全部流量时【自动暂停移动互联网】，从而避免套餐外数据费用消耗账户余额。Ufone用户可通过手机拨号盘选择Ufone SIM卡后拨打【*6611#】申请开通。PTA说明，该服务在套餐到期或流量耗尽两种情形下均会生效，但仅用于防止套餐结束后的意外上网扣费，【不会额外增加流量或延长套餐期限】。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "How to Activate Save Balance Service on Zong SIM",
+    "url": "https://propakistani.pk/2026/11/11/how-to-activate-save-balance-service-on-zong-sim/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在消费者提示中呼吁Zong用户开通免费的【余额保护（Balance Save）服务】，该服务又称PayG Blocker，可在流量套餐到期或用尽后自动暂停移动互联网，避免套餐外按量计费扣减用户余额。Zong用户可在双卡手机上选定Zong卡后，拨打【USSD代码*4004#】申请开通。PTA说明，该服务不提供额外流量、也不延长套餐有效期，仅用于保护SIM卡内已有余额，并强调其与流量套餐的区别，以推动全国消费者保护和更合理的移动数据使用。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "How to Activate Balance Save Service on Telenor SIM",
+    "url": "https://propakistani.pk/2026/11/11/how-to-activate-balance-save-service-on-telenor-sim/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）通过消费者告知通知提醒Telenor用户启用免费的【Balance Save（余额保护）服务】，以避免移动数据在套餐用尽后产生意外扣费。该服务又称PayG Blocker，会在用户数据套餐有效期到期或流量额度用尽时【自动停止移动互联网接入】，从而防止套餐外继续上网导致的扣费。PTA表示，该服务在移动网络上免费提供，各蜂窝移动运营商均向用户提供此项保护。在Telenor SIM上激活的方式为：打开手机拨号界面，若手机装有多张SIM卡则选择Telenor SIM，然后拨打【*342#】。该服务仅用于阻止意外上网扣费，【不会增加流量或续订套餐】。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "How to Activate Balance Save Service on Jazz SIM",
+    "url": "https://propakistani.pk/2026/11/11/how-to-activate-balance-save-service-on-jazz-sim/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信管理局（PTA）发布消费者提示，呼吁Jazz用户开通免费的余额保护（Balance Save）服务，以免在流量套餐用尽后出现意外扣费。PTA说明，该服务又称PayG Blocker，由移动运营商提供，可在套餐到期或用户用完所含全部流量时自动暂停移动互联网，从而防止继续按量计费消耗账户余额。Jazz用户可通过手机拨号盘输入【USSD代码*275#】申请开通，双卡手机需先选定Jazz SIM卡。PTA指出，该功能覆盖套餐到期与流量全部用完两种情形，仅保护现有余额，【不提供额外流量】也不延长套餐有效期。PTA同时鼓励用户更合理地使用移动数据，并提高对意外上网费用的警觉。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Telcos Set to Get Cheaper Electricity as Govt Nears Agreement",
+    "url": "https://propakistani.pk/2026/11/11/telcos-set-to-get-cheaper-electricity-as-govt-nears-agreement/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦总理夏巴兹·谢里夫指示专项工作组敲定将工业电价扩展至电信基础设施的建议，以降低移动运营商运营成本并支持5G网络投资。总理办公室要求工作组与电力司、财政司磋商，就财政影响及吸收电价差额的机制提交建议。此前Jazz、CMPak（Zong）、PTMIL（Ufone与Telenor）及PTCL的CEO联合呼吁政府向持牌电信基础设施提供工业电价。运营商称电信业早已被政策立法认定为工业，却仍承担商业电价，能源成本上升使5G、光纤及AI数据中心投资愈发困难。运营商表示未来三年已承诺约【20亿美元投资】用于5G部署和光纤扩张。其称电信站点商业电价自2018年以来上涨约【197%】，燃油成本涨约300%，每用户平均收入同期下降约22%，另有【5%预扣税】负担。运营商援引2004年移动蜂窝政策、2004年4月20日工业与生产部通知、2021年财政法及2018年11月9日NEPRA先例。由信息技术与电信部秘书领导的专项工作组成立于【2026年6月29日】，首次会议于2026年8月4日举行。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Internet Speeds Rise 60% in Two and a Half Years, Says IT Minister",
+    "url": "https://www.techjuice.pk/internet-speeds-rise-60-in-two-and-a-half-years-says-it-minister/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦联邦信息技术与电信部长Shaza Fatima Khawaja周二在Margalla Dialogue活动上表示，过去两年半巴基斯坦网速提升【60%】，光纤连接数从300万增至【逾600万】。她称互联网数据使用量增长【2太比特每秒】，全国在用互联网总容量已达约7太比特每秒，并新增两条海底光缆以改善国际连接。她还提到近期频谱拍卖推出【480兆赫兹频谱】，为该国史上最大规模拍卖，使可用频谱总量从274兆赫兹增至【逾750兆赫兹】。她确认5G服务已推出，约【180万用户】已入网。谈及人工智能，她称AI到2033年可能成为【4.8万亿美元】的全球产业，并强调数字技能的重要性。不过报道指出，不同网络和地区的用户仍抱怨网速慢，许多人称尚未感受到明显改善。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Govt Weighs Industrial Electricity Rates for Telecom Infrastructure",
+    "url": "https://www.techjuice.pk/govt-weighs-industrial-electricity-rates-for-telecom-infrastructure/",
+    "date": "2026-11-11",
+    "summary_zh": "巴基斯坦电信运营商可能很快将按工业电价而非商业电价缴纳电费，此前总理办公室已责令一个专项工作组为联邦政府拟定最终建议，该工作组将与电力司和财政司合作，测算财政影响并确定吸收电价差额的机制。这一指令源于Jazz、CMPak（Zong）、PTMIL（Ufone与Telenor）及PTCL的首席执行官联名致信总理夏巴兹·谢里夫，要求将工业电价扩展至持牌电信基础设施，理由是电信业已依政府政策与立法被认定为工业，却仍支付高得多的商业电价。该工作组于【2026年6月29日】组建，由信息技术与电信部秘书牵头，成员包括PTA主席、电力司、NEPRA、运营商及配电公司代表，并于【2026年8月4日】召开首次会议。运营商称未来三年将投入约【20亿美元】用于5G部署与光纤化，而电信站点商业电价自2018年以来上涨约【197%】，燃油成本涨约300%，ARPU同期下降约22%，另承担5%预扣税。运营商援引2004年移动蜂窝政策、2004年4月20日工业与生产部通知、《2021年财政法》对所得税条例第2(29C)条的修订以及NEPRA 2018年11月9日决定作为依据。",
+    "importance": "高"
+  },
+  {
     "source": "ProPakistani",
     "title": "PTA Holds Firefighting and Evacuation Drill at Islamabad Headquarters",
     "url": "https://propakistani.pk/2026/11/10/pta-holds-firefighting-and-evacuation-drill-at-islamabad-headquarters/",
