@@ -1,5 +1,13 @@
 [
   {
+    "source": "ProPakistani",
+    "title": "PTA Plans to Reduce SIM Ownership Limit for All Pakistanis",
+    "url": "https://propakistani.pk/2026/11/16/pta-voice-sim-limit-cnic-5-to-3/",
+    "date": "2026-11-16",
+    "summary_zh": "巴基斯坦电信管理局（PTA）计划下调所有巴基斯坦人可持有的SIM卡数量上限，【每张身份证的语音SIM卡上限拟从5张降至3张】。该调整将适用于全体持证用户，涉及全国移动用户与四大移动运营商的实名登记规则。PTA尚未公布新规的具体生效时间与实施细则。",
+    "importance": "高"
+  },
+  {
     "source": "TechJuice",
     "title": "PTA Disputes Jazz Overcharge Claim: Regulatory Battle Over Rs 6.58 Billion Audit Findings",
     "url": "https://news.google.com/rss/articles/CBMitAFBVV95cUxNRngtaHRuZkoxbTFHdVJYS1dMZXItUllta2ptYnk3UmhCRXJLdGxLR1dSZ0F4T2tRN1c4ckFCRE5qcW9Ja3RJbDFGNUNuQnp2eVoyVGhySG1ObjF3TXFybVJpVWI1d01jNVRPMWdvOXZuVU5ZSUlRR2l2dTZmQXFtaXBpM09xVWplcXUzd3p1VDFVNVdNVUZyOThtU0hFZkRvRVBjMkhmQ1ZmcEtJSUs2RklrVFc?oc=5",
@@ -48,14 +56,6 @@
     "date": "2026-11-14",
     "summary_zh": "巴基斯坦电信管理局（PTA）发布公众提示，建议民众在办理新SIM卡或使用其他电信服务时，【仅在运营商授权的客服中心、加盟店或获批销售点】提供生物识别数据。该局要求消费者在录入指纹前先确认采集指纹的具体用途，并避免向未经授权的个人或网点透露敏感生物信息，此举旨在提升公众意识、防止公民生物识别数据被滥用。PTA此前还曾就一类诈骗发出警告：不法分子冒充快递公司人员，以派送包裹为由向客户索取一次性密码（OTP），该局呼吁民众【切勿向任何人透露OTP】，尤其是自称代表快递公司或其他机构的陌生来电者。",
     "importance": "中"
-  },
-  {
-    "source": "TechJuice",
-    "title": "Modi’s Office Summons Telecom Chief Over Fake Court Orders",
-    "url": "https://www.techjuice.pk/modis-office-summons-telecom-chief-over-fake-court-orders/",
-    "date": "2026-11-14",
-    "summary_zh": "印度总理莫迪办公室于周六召见电信秘书阿米特·阿格拉瓦尔，要求其就官员依据伪造法院命令封禁【逾100个网站】一事作出解释。阿格拉瓦尔是电信部最高级别官员，已被从外州行程中召回。此前路透社周三报道称，电信官员依据伪造的高等法院命令，指示互联网服务商封禁了【129个非法博彩网站】，这些命令由冒充律师者通过电子邮件发送给官员。一名官员表示，电信部通过相关现场官员对博彩网站采取了行动。网络博彩在印度属非法行为。此案引发担忧：内容下架机制保障薄弱，可能让伪造法院文件被用来封禁合法网站。邦警方已就可能的伪造和欺诈立案调查，并调取该部记录；电信部也已启动内部调查。路透社认定两份邦法院命令为伪造，均带有伪造的法院标识、印章和二维码。这些命令及官员指示互联网服务商删除网站的往来函件，曾在电信部网站上公开数月。截至周六，其中一份伪造命令仍可在该网站访问，另一份已被删除。阿格拉瓦尔、其所在部门及莫迪办公室均未回应置评请求。印度最高法院去年曾表示，伪造法官签名动摇公众信任的根基，此类罪行不能被视为寻常之事。",
-    "importance": "低"
   },
   {
     "source": "PTA",
