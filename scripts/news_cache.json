@@ -1,5 +1,167 @@
 [
   {
+    "source": "PTA",
+    "title": "PTA Conducts Quality of Service (QoS) Surveys for Fixed-Line Broadband at Network and User Ends (Q3 2026)",
+    "url": "https://www.pta.gov.pk/category/pta-conducts-quality-of-service-%28qos%29-surveys-for-fixed-line-broadband-at-network-and-user-ends-%28q3-2026%29-744342237-2026-11-18",
+    "date": "2026-11-17",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年11月11日在伊斯兰堡宣布，已在2026年第三季度对固网宽带服务开展服务质量（QoS）调查，覆盖包括吉尔吉特-巴尔蒂斯坦在内的主要城市，分别从网络端和用户端评估宽带服务提供商的表现。网络端调查考察【网络可用性、抖动、时延、带宽利用率与数据吞吐量】等关键指标，用户端调查则反映消费者实际体验的服务质量。调查结果用于评估运营商对规定QoS基准的合规情况并识别待改进领域，对存在性能不足的运营商，PTA已要求其采取适当纠正措施改善服务。PTA表示将继续致力于提升固网宽带质量，【2026年第三季度QoS调查详细结果】已在其官网公布供公众查阅。",
+    "importance": "低"
+  },
+  {
+    "source": "PTA",
+    "title": "PTA, Licensed Operators Join Hands to Curb Illegal Internet Services and Ensure Regulatory Compliance",
+    "url": "https://www.pta.gov.pk/category/pta,-licensed-operators-join-hands-to-curb-illegal-internet-services-and-ensure-regulatory-compliance-180647767-2026-11-17",
+    "date": "2026-11-17",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于【2026年11月12日】在伊斯兰堡总部召开会议，由合规与执法委员【Khawar Saddique Khokhar博士】主持，与持牌的长途国际（LDI）、固定本地环路（FLL）及类别增值服务（CVAS）运营商共同商讨加强监管合规、整治未经授权的互联网服务提供行为。会议重点介绍了【地区类别牌照】，使PEMRA有线电视运营商和最后一公里服务商可从FLL持牌方获取带宽；并重申LDI和FLL持牌方只能向PTA持牌运营商提供带宽（含配置套餐），【禁止向无牌实体或分销商提供IP带宽、面板服务、E1、DPLC等】。互联网服务账单须由相关FLL或类别持牌方开具，互联网服务类别持牌方仅可服务终端用户，不得提供批发带宽转售。与会持牌运营商承诺配合推广牌照意识、确保合规，并赞赏PTA打击非法运营、保护持牌运营商的努力。",
+    "importance": "中"
+  },
+  {
+    "source": "PTA",
+    "title": "PTA Advances Digital Connectivity with Finalization of Licensing Framework for Satellite-Based In-Flight Telecommunication Services",
+    "url": "https://www.pta.gov.pk/category/pta-advances-digital-connectivity-with-finalization-of-licensing-framework-for-satellite-based-in-flight-telecommunication-services-631848786-2026-11-17",
+    "date": "2026-11-17",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年11月17日在伊斯兰堡宣布，已完成【卫星机载通信服务（ITS）牌照框架】的定稿，为飞机上提升网络连接铺路。根据该框架，持牌ITS提供商可使用卫星，但须先在【巴基斯坦太空活动监管委员会（PSARB）完成注册】，并符合PTA牌照要求，方可为巴基斯坦注册的飞机提供服务；过境巴基斯坦领空的外国飞机则需取得PTA出具的【无异议证明（NOC）】并满足相关合规条件。PTA表示，ITS服务将通过无缝机上互联网连接改善乘客体验，支持数字服务、娱乐、个人通信及工作相关活动，并将电信服务延伸至地面网络之外，以扩大巴基斯坦的数字连接覆盖。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Moves to Buy Advanced Firewall to Tighten Control Over Social Media",
+    "url": "https://www.techjuice.pk/pta-moves-to-buy-advanced-firewall-to-tighten-control-over-social-media/",
+    "date": "2026-11-19",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已批准采购一款新防火墙【USG-6630E的许可证】，用于加强对包括社交媒体在内的数字平台的安全监控。该机构决定邀请国际公司参与该许可证的投标与方案提交，这款基于现代技术的防火墙将使PTA能够监控上述平台并实施防护与安全措施。PTA将依据【《2026年公共采购规则》】以及该机构发布的规则、条例、监管指南和采购指南开展此次采购，流程采用【单阶段单信封程序】，投标人通过【最低成本选择法（LCBS）】确定。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Issues Several Cybersecurity Warnings to Telecom Companies",
+    "url": "https://propakistani.pk/2026/11/18/pta-issues-several-cybersecurity-warnings-to-telecom-companies/",
+    "date": "2026-11-18",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在《2025-26年度网络安全报告》中披露，【2025年7月至2026年6月期间共向电信持牌运营商发布59份网络安全通告】，通过国家电信安全运营中心（nTSOC）发出，警示针对性网络攻击、软件漏洞、恶意软件及漏洞利用等威胁。报告显示，其中【针对定向网络攻击的通告1份、漏洞类2份、恶意软件与漏洞利用类4份】，另有涉及新兴网络威胁和针对电信基础设施恶意活动的通告。PTA通过持续监控恶意网络来源、暗网论坛及威胁情报平台等渠道收集情报，分析识别可能影响运营商和数字服务的新兴威胁、安全漏洞与攻击模式。报告称，通告已与持牌运营商及相关方共享，以帮助其识别漏洞、落实安全措施、降低风险，并支持协调应对网络事件、加强对电信基础设施的监控。PTA表示，持续威胁情报监控、通告发布及与运营商和国家网络安全相关方的协调，仍是其强化巴电信业韧性的核心工作。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Finalises Licensing Framework for Satellite-Based In-Flight Internet",
+    "url": "https://www.techjuice.pk/pta-finalises-licensing-framework-for-satellite-based-in-flight-internet/",
+    "date": "2026-11-18",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已完成【基于卫星的机上互联网许可框架】的制定，该框架针对航空器上通过卫星链路提供互联网接入服务的牌照发放作出规范。标题未披露框架的具体条款、生效时间、适用运营商范围及资费安排等细节。",
+    "importance": "中",
+    "dup_of": "https://www.pta.gov.pk/category/pta-advances-digital-connectivity-with-finalization-of-licensing-framework-for-satellite-based-in-flight-telecommunication-services-631848786-2026-11-17"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Finalizes Rules for Internet on Flights",
+    "url": "https://news.google.com/rss/articles/CBMihgFBVV95cUxPdnhhcDd0aWdHQVZSTXZMNVQyMl9MX21yX1ZkUUx0QnhneWlvVjZyMFRJY1ZFX2ZBOWtwSGhwWGR6UXJwc2g1S09fblJoTEV2RFNPMDhMeVVWSW0yYnlFaDJOaGZoakd4TzlGYWpzZ3pWZy1TVC1lZ1c3Y1Z6U2dKd0hsRVNkZ9IBiwFBVV95cUxNem5adThtclZRMnFEcXFZY1l6dmNHOFJBOVJKSGM4VTdBUjNkYVNzVnZsbzFoQ2VkU0gyTDBVRXVmVjk5a3U1aGhZRmZ1YlBMamI4LTdxdjFNdk8xdmM0X1BJWTBQMUoyeDVUVklVdGVGWklJQkRUU3VXdXhJdU5TY2h5ZEZJUzV1eXNJ?oc=5",
+    "date": "2026-11-17",
+    "summary_zh": "巴基斯坦电信管理局（PTA）已完成【机上互联网服务规则】的制定工作，为在飞行途中提供网络连接服务确立了监管框架。该规则明确了航空公司与电信运营商在机上互联网服务中的准入与运营要求，涉及【机上网络服务的合规条件】。PTA表示相关规则已定稿，但正文未披露规则的具体条款、生效日期及涉及的具体运营商名单。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Passengers Will Soon Get Internet Access on Flights As PTA Finalizes New ITS Framework",
+    "url": "https://news.google.com/rss/articles/CBMisgFBVV95cUxPZ25NTlhaTUVpNzlnemVZXzkxUmNrZ3l4alVHdmZvcHJfdEdqQmN2RHFrMGR3N2dSZUNaaWkxUXI1b011eGJkZy1ZQnMxRVFELVZ6NFZaVnZEOVExbnFfa1BxMzEtMzdqRENEcVo5UHVBZU45WTBiS2V4NS1uZFVuMmRBNzg3eTZtUXpfeFBXTGN2MmNwb0VQajFtVG5rTGFEZUdXSHAzX1ljSjBDS2RuRVlR?oc=5",
+    "date": "2026-11-17",
+    "summary_zh": "【正文内容无法获取】：该新闻链接指向的谷歌页面显示为自动查询拦截提示，正文实际内容缺失，仅能从标题得知巴基斯坦电信管理局（PTA）正在敲定新的机上互联网服务（ITS）框架，乘客未来有望在航班上获得互联网接入。标题未披露框架的具体条款、生效时间、涉及运营商或金额等细节，正文亦无可用信息可供转述。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Telecom Operators Reportedly Boost Networks Ahead of PTA Inspection",
+    "url": "https://news.google.com/rss/articles/CBMifkFVX3lxTE1jX0dOcnhRcC1tb1dGQkFGcFlvemNsTzgwT2kzTWc5NW1GSUZFN2t0M0Z3ZHM5Q203YXBld3REcWtCZlBCYnhOZ3BfSXZBaDBhNmRVSWlBTzJLNHM1RUlFMWlZekRNTGZoSGVoZGlEc1ZTRmVVNHFDbklPcWJEQQ?oc=5",
+    "date": "2026-11-14",
+    "summary_zh": "据标题信息，巴基斯坦电信运营商在【巴基斯坦电信管理局（PTA）检查】前对网络进行了加强。报道未披露涉及的具体运营商、检查时间、网络提升的具体指标或投资金额，也未说明PTA此次检查的依据条款与范围。",
+    "importance": "中"
+  },
+  {
+    "source": "BusinessRecorder",
+    "title": "Governor’s Annual Report FY26: SBP remains vigilant in monitoring risks to the economy",
+    "url": "https://news.google.com/rss/articles/CBMiUEFVX3lxTFBtX2ZNUFYxRGJhMXRUTEFoQ09CVWx1Y1pxYjdDYWx5Yi1zVXpGa2ExRFNaRVQ5TnhiWENDWXZ3TVdldjlReWx3VGVYMGxldmdT0gFWQVVfeXFMUDlrWS1nZlJYSW5SazNXSXhxcWdhWXE5QTdGTE9iZm9nWkViZVJjNzNJcTFOekFLeHVpVzd4TFRBRkd0N0x1SWVBS18xT2Fsa0s0NjdNUnc?oc=5",
+    "date": "2026-11-18",
+    "summary_zh": "该新闻标题为巴基斯坦国家银行（SBP）行长提交2026财年年度报告，正文内容因谷歌反自动化查询拦截而无法获取，仅能从标题得知SBP表示将持续警惕监测经济面临的风险。由于正文缺失，无法转述报告中的具体时间、金额、机构表态等细节。",
+    "importance": "中"
+  },
+  {
+    "source": "Dawn",
+    "title": "SBP says inflation to ease to 5-7pc target range during FY2027",
+    "url": "https://www.dawn.com/news/2044936/sbp-says-inflation-to-ease-to-5-7pc-target-range-during-fy2027",
+    "date": "2026-11-16",
+    "summary_zh": "巴基斯坦国家银行（SBP）周一表示，预计到【2027财年通胀将逐步回落至5%至7%的中期目标区间】，实际GDP增速将保持在3.5%至4.5%之间，经常账户赤字预计占GDP的0%至1%，财政赤字预计占GDP的3%至4%。在《2026财年巴基斯坦经济状况年度报告》中，央行称本国经济在内外冲击下展现韧性，关键宏观指标均有改善，并将成效归因于审慎的货币政策、持续的财政整顿以及国际货币基金组织（IMF）计划下的经济改革，这帮助在【美国贸易关税政策变动、季风洪灾及2026年2月中东冲突爆发】等挑战下维持宏观稳定。报告称2026财年实际GDP增长加快，主要动力来自大规模制造业反弹；进口随经济活动复苏而增加，出口受不利全球经济趋势制约，但【侨汇强劲增长使2026财年经常账户赤字仅占GDP的0.1%】。SBP购汇、远期负债减少和官方资金持续流入也改善了外汇储备。报告还指出，尽管能源价格冲击使2026年4月起同比通胀升至两位数，审慎政策仍使平均全国CPI通胀接近5%至7%目标区间上限，并强调需深化结构性改革以走上可持续高增长路径。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Total Forex Reserves Down by $64 Million",
+    "url": "https://propakistani.pk/2026/11/19/total-forex-reserves-down-by-64-million/",
+    "date": "2026-11-19",
+    "summary_zh": "巴基斯坦国家银行（SBP）数据显示，截至2026年11月13日当周，SBP外汇储备增加1500万美元至【215.87亿美元】，为连续第五周增长。同期，该国【流动外汇储备总额下降6400万美元】至267.75亿美元，其中SBP持有215.8亿美元，商业银行净储备为51.88亿美元，较前一周的52.66亿美元【减少7800万美元】。SBP预计其储备将在2026年12月达到230亿美元，并在2027年6月达到250亿美元。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Govt Plans Low-Cost Financing to Upgrade Islamabad Hotels for 2027 SCO Summit",
+    "url": "https://propakistani.pk/2026/11/19/islamabad-hotels-cheap-loans-sco-summit-2027/",
+    "date": "2026-11-19",
+    "summary_zh": "联邦政府已成立高级别委员会，研究为伊斯兰堡酒店项目提供优惠融资的方案，以迎接【2027年8月举行的上合组织峰会】。据财政部周四发布的公告，该委员会依总理夏巴兹·谢里夫指示设立，负责评估内政部提交的提案。委员会由副总理兼外长伊沙克·达尔牵头，成员包括财政、法律、经济事务和内政部长，以及财政秘书和【巴基斯坦国家银行行长】。委员会将研究完成未完工酒店项目、翻新改造现有住宿设施的融资选项，目标是提升伊斯兰堡酒店接待能力和服务标准，以满足国际要求、接待与会外国政要和官方代表团。委员会可增邀成员并审议相关事项，总理要求其【一周内提交建议】，财政部提供秘书支持。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Jazz and Xiaomi Pakistan Join Hands to Expand Affordable 5G Device Access in Pakistan",
+    "url": "https://propakistani.pk/2026/11/19/jazz-and-xiaomi-pakistan-join-hands-to-expand-affordable-5g-device-access-in-pakistan/",
+    "date": "2026-11-19",
+    "summary_zh": "Jazz与小米巴基斯坦签署谅解备忘录，将在巴基斯坦推出【新款REDMI 17 5G手机】。该机搭载骁龙4 Gen 5处理器，配备6.9英寸屏幕、5000万像素AI相机系统及【7500mAh电池与45W快充】。用户可通过一次性付款或先买后付方式购买，Jazz后付费用户可分【12个月分期】付款，也可通过Jazz电子商店和体验中心用信用卡购买。Jazz GSM消费者增长负责人Asad Maqbool表示，扩大5G覆盖只是一部分，让兼容手机变得可负担同样重要；小米巴基斯坦国家经理Brain Shawn称，此次合作结合了小米的高性价比产品与Jazz的连接生态。Jazz已在巴基斯坦部署【超过1200个5G站点】，此次合作旨在通过改善设备可及性推动5G普及与数字包容。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Zong Partners with Xiaomi to Make 5G Accessible and Affordable for Every Pakistani",
+    "url": "https://propakistani.pk/2026/11/19/zong-partners-with-xiaomi-to-make-5g-accessible-and-affordable-for-every-pakistani/",
+    "date": "2026-11-19",
+    "summary_zh": "Zong与小米巴基斯坦宣布建立长期合作，旨在让更多巴基斯坦民众能够负担并使用5G。双方将向Zong用户提供【价格亲民的入门级5G智能手机】，扩大Zong的5G生态并覆盖更广泛的大众市场。合作下推出的首款设备为【Redmi 17 5G】，在Zong全国所有客户服务中心销售，用户可同时获得Zong专属套餐优惠和协助购买体验。Zong表示，此举针对5G普及的关键障碍，加速从4G向5G过渡，并强化连接、设备与战略合作的融合。该合作也扩大了Zong的全球智能手机合作伙伴组合，并为未来联合推出设备和深化合作建立平台。签约仪式由Zong董事长兼首席执行官Huo Junli、首席商务官Omer Bin Tariq，以及小米巴基斯坦国家经理Brian Shawn和双方高层出席。Omer Bin Tariq表示，5G的真正价值在于让所有人可及，与小米合作使5G设备更可负担并消除采用障碍。",
+    "importance": "中"
+  },
+  {
+    "source": "Dawn",
+    "title": "Economic resilience needs more than fiscal, external buffers: SBP governor",
+    "url": "https://www.dawn.com/news/2045621/economic-resilience-needs-more-than-fiscal-external-buffers-sbp-governor",
+    "date": "2026-11-19",
+    "summary_zh": "巴基斯坦国家银行（SBP）行长贾米勒·艾哈迈德在渣打银行年度全球研究简报会上表示，经济韧性不止于积累财政和外部缓冲，还需要【持续可信的政策、灵活的市场和强有力的制度】。他指出，与俄乌危机时期相比，巴基斯坦改善的宏观经济基本面增强了其应对近期外部冲击（包括中东冲突带来的影响）的能力。他强调，新兴经济体尤其易受大宗商品价格波动、地缘政治紧张和气候相关扰动冲击，拥有更强财政与外部缓冲、可信政策框架和韧性制度的国家更能吸收冲击。他表示，打破巴基斯坦反复出现的繁荣—萧条周期需要【更高出口、更多国内储蓄与投资以及更深化的金融市场】，私营部门对可持续增长至关重要。他回顾FY22和FY23期间的调整，称政府与SBP采取了货币紧缩、财政整顿和临时行政措施管理外汇流出，在多边和双边伙伴支持下恢复了稳定与信心。他还提到，FY26通胀均值接近目标区间，尽管近期有所上升，预计将逐步回落。",
+    "importance": "中"
+  },
+  {
+    "source": "Dawn",
+    "title": "Current account posts $39m surplus",
+    "url": "https://www.dawn.com/news/2045284/current-account-posts-39m-surplus",
+    "date": "2026-11-18",
+    "summary_zh": "卡拉奇消息：10月经常账户录得【3900万美元顺差】，而前一个月为3.71亿美元逆差，主因是美元流入增加、外汇储备上升。由于流入改善，政府未对进口设限，称坚持自由进口政策以刺激多年徘徊在【约3%增速】的经济。但进口增加未能带动增长，奢侈品进口推高贸易逆差。央行周二数据显示，本财年前四个月经常账户逆差收窄至【8.5亿美元】，上年同期为10.62亿美元；2026-27财年7至10月商品与服务贸易逆差扩大至【133.58亿美元】，上年同期为114.96亿美元。同期外国直接投资同比增长22%至【9.35亿美元】，上年同期为7.64亿美元，但仍远低于地区国家水平。政府称海湾战争威胁令外国投资者对该国经济金融体系稳定性感到担忧。",
+    "importance": "中"
+  },
+  {
+    "source": "Dawn",
+    "title": "Mideast conflict changes external outlook: SBP",
+    "url": "https://www.dawn.com/news/2045287/mideast-conflict-changes-external-outlook-sbp",
+    "date": "2026-11-18",
+    "summary_zh": "巴基斯坦国家银行行长于周二发布2025-26年度报告，指出中东冲突推高通胀并恶化外部前景，央行于4月【将政策利率上调100个基点】以抑制第二轮效应、支撑宏观经济稳定，全球多数央行也暂停降息或加息。货币政策委员会在2025年12月前维持利率不变，随后【降息50个基点】，理由是总体通胀低迷、通胀预期锚定、全球大宗商品价格回落及外部账户改善。报告称，尽管遭遇全球能源价格冲击，2025-26财年7月至次年2月【平均CPI通胀为5.5%】，但中东冲突推高全球油价后，4月起总体通胀升至两位数。外汇储备【超过180亿美元目标】，央行年内净购汇81亿美元，并将远期/掉期负债减少16亿美元。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Advances Digital Connectivity with Finalization of Licensing Framework for Satellite-Based In-Flight Telecommunication Services",
+    "url": "https://www.techjuice.pk/pta-advances-digital-connectivity-with-finalization-of-licensing-framework-for-satellite-based-in-flight-telecommunication-services/",
+    "date": "2026-11-18",
+    "summary_zh": "巴基斯坦电信管理局（PTA）宣布【完成卫星机载通信服务许可框架的定稿】，该框架针对在飞行航班上提供基于卫星的电信连接服务，明确了相关服务的牌照发放安排。PTA表示此举是其推进数字连接覆盖的组成部分，但标题未披露框架的具体条款、发牌时间表、参与企业及资费安排等细节。",
+    "importance": "中",
+    "dup_of": "https://www.pta.gov.pk/category/pta-advances-digital-connectivity-with-finalization-of-licensing-framework-for-satellite-based-in-flight-telecommunication-services-631848786-2026-11-17"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTCL Wins FCC Ruling on NIRC Powers to Regularise Employees",
+    "url": "https://www.techjuice.pk/ptcl-wins-fcc-ruling-on-nirc-powers-to-regularise-employees/",
+    "date": "2026-11-18",
+    "summary_zh": "联邦宪法法院（FCC）裁定，国家劳资关系委员会（NIRC）无权将巴基斯坦电信公司（PTCL）一名员工转为正式雇员，认为转正与授予在职员工永久身份在法律上性质不同。由法官Ali Baqar Najafi领衔的三人合议庭审理了PTCL针对伊斯兰堡高等法院（IHC）判决的上诉。该员工于【1996年1月1日以日薪搬运工身份入职】，2004年12月6日被任命为电缆接头工，2010年6月9日向PTCL发出申诉通知要求被认定为永久工人，并于2010年7月26日依据2010年旁遮普省劳资关系条例第37条向劳动法院提出申诉。法院于2011年5月18日支持该申诉，指令PTCL将其转正。NIRC全体庭2019年10月28日发回重审，单一庭2021年4月13日再次支持，全体庭2022年6月20日驳回上诉，IHC于2023年10月24日驳回PTCL的令状申请。FCC认定，PTCL未承认该员工的法定工人身份构成持续诉因，【该员工在永久性岗位上连续工作超过14年】。",
+    "importance": "低"
+  },
+  {
     "source": "BusinessRecorder",
     "title": "Economy shows resilience to shocks in FY26: SBP",
     "url": "https://www.brecorder.com/news/40449292/economy-shows-resilience-to-shocks-in-fy26-sbp",
