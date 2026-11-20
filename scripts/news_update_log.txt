@@ -9711,3 +9711,38 @@ Call log:
 [2026-11-19 22:05:10]   Injected 722 items into index.html
 [2026-11-19 22:05:10] News update complete
 [2026-11-19 22:05:10] ==================================================
+[2026-11-20 09:35:42] ==================================================
+[2026-11-20 09:35:42] News update started
+[2026-11-20 09:35:42] Cache: 993 existing items
+[2026-11-20 09:35:50] Fetching PTA official [新闻稿] …
+[2026-11-20 09:36:24]   PTA official [新闻稿]: 28 items found
+[2026-11-20 09:36:24] Fetching PTA official [新闻/更新] …
+[2026-11-20 09:36:33]   PTA official [新闻/更新]: 0 items found
+[2026-11-20 09:36:33] Fetching PTA official [公告] …
+[2026-11-20 09:36:45]   PTA official [公告]: 0 items found
+[2026-11-20 09:36:46] Fetching Google News [PTA] …
+[2026-11-20 09:36:47]   Google News [PTA]: 28 items found（取最新 20 条）
+[2026-11-20 09:36:47]     非目标来源已跳过：Bloom Pakistan×5、PhoneWorld×4、Investify×2、Digital Pakistan×1、Brandsynario×1、Profit by Pakistan Today×1、ARYnews.tv×1、Times of Karachi×1
+[2026-11-20 09:36:49] Fetching Google News [SBP] …
+[2026-11-20 09:36:49]   Google News [SBP]: 4 items found（取最新 4 条）
+[2026-11-20 09:36:49]     非目标来源已跳过：Investify×3、Mettis Global×2、The News Pakistan×2、The Express Tribune×2、Pakistan Observer×2、Geo News×1、Profit by Pakistan Today×1、UrduPoint×1
+[2026-11-20 09:36:50] Fetching ProPakistani via WP REST API …
+[2026-11-20 09:37:00]   ProPakistani: 4 items found
+[2026-11-20 09:37:02] Fetching Dawn RSS …
+[2026-11-20 09:37:03]   Dawn: 3 items found
+[2026-11-20 09:37:05] Fetching Business Recorder RSS …
+[2026-11-20 09:37:07]   Business Recorder: 0 items found
+[2026-11-20 09:37:08] Fetching TechJuice via WP REST API …
+[2026-11-20 09:37:14]   TechJuice: 4 items found
+[2026-11-20 09:37:15] New items: 14
+[2026-11-20 09:37:15]   同日同标题去重: 14 → 2 条（省下 12 次摘要调用）
+[2026-11-20 09:37:15]   Summarising: PTA Delays Decision on Ufone–Telenor Merger Amid Spectrum Auction …
+[2026-11-20 09:37:27]     ! 日期不符：原标 2026-11-18，原文为 2026-03-11 → 以原文为准
+[2026-11-20 09:37:27]     ! 早于 2026-08-01，丢弃
+[2026-11-20 09:37:27]   Summarising: Pakistan’s Total Forex Reserves Decline by $64 Million …
+[2026-11-20 09:37:32]   按原文日期丢弃过期条目 1 条
+[2026-11-20 09:37:32] Cache saved: 994 total items
+[2026-11-20 09:37:32]   Cross-source dedup: tagged 1 duplicate-event item(s) with dup_of
+[2026-11-20 09:37:34]   Injected 720 items into index.html
+[2026-11-20 09:37:35] News update complete
+[2026-11-20 09:37:35] ==================================================
