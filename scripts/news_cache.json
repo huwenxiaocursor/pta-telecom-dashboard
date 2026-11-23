@@ -1,5 +1,85 @@
 [
   {
+    "source": "ProPakistani",
+    "title": "Mobile Phone Explodes While Charging Inside Electric Bus in Punjab",
+    "url": "https://propakistani.pk/2026/11/21/mobile-phone-explodes-while-charging-inside-electric-bus-in-punjab/",
+    "date": "2026-11-21",
+    "summary_zh": "2026年11月21日（周五），巴基斯坦旁遮普省一辆从洛德兰开往德拉巴卡的电动巴士上发生手机爆炸事件。据目击者称，一名学生在Dring体育场附近将手机接入车载充电口，插上充电线后不久手机即发生爆炸，烟雾弥漫车厢。部分乘客从行驶中的巴士跳下，其他人则砸碎车窗和玻璃门逃生，造成数人轻伤。运输公司确认手机因短路爆炸，但否认发生火灾，称司机发现烟雾后停车并打开车门；公司还确认乘客砸碎【四块车窗玻璃】，一名女子在逃生时砸坏玻璃门。",
+    "importance": "低"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistanis’ Mobile Data Usage Increases Despite Internet Slowdown",
+    "url": "https://propakistani.pk/2026/11/21/pakistanis-mobile-data-usage-increases-internet-slowdown/",
+    "date": "2026-11-21",
+    "summary_zh": "据Ismail Iqbal证券报告，2026年10月巴基斯坦用户月均移动数据使用量从9月的8.69GB升至【8.96GB，增长3%】，同期移动渗透率由1月的81%升至84%。2026年前10个月本地手机产量达2300万部。1月至10月，三大运营商用户数均增长：Jazz从7420万增至7730万，Ufone从7250万增至7660万（【净增410万，增幅最大】），Zong从5380万增至5660万，三家合计新增约1000万，总数达【2.105亿】。FTTH用户从1月的265万增至10月的403万，【较1月增长52%】，PTCL与StormFiber居前。PTA于11月18日称SMW5海底光缆在距巴海岸约11公里处发生故障，可能导致连接中断，TWA正与联盟排查，流量已改道其他链路，尚无修复时间表。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Inspects 226 Mobile Sites, Finds Faulty Batteries, Generators and Power Woes",
+    "url": "https://propakistani.pk/2026/11/20/pta-inspects-226-mobile-sites-finds-faulty-batteries-generators-and-power-woes/",
+    "date": "2026-11-20",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年10月29日至11月11日在全国范围内检查了【226个移动网络站点】，发现电池故障、发电机失效、电力供应不稳定以及光纤电缆安全隐患等主要问题。此次检查是PTA全国实地监测计划的一部分，覆盖卡拉奇、拉合尔、巴哈瓦尔布尔、奎达、拉瓦尔品第、伊斯兰堡、白沙瓦、米尔布尔、斯卡杜、吉尔吉特-巴尔蒂斯坦的卡爾曼、哈里普尔、曼塞赫拉、瓜达尔和萨戈达等【16个城市和地区】。检查与县政府、民选代表、当地利益相关方及电信运营商协调进行，旨在找出影响移动网络性能的缺陷。PTA表示，累计监测站点已超过【1127个】，正与运营商协调解决已发现的问题，并将继续开展实地监测以提升网络可靠性和服务质量。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "These Are the Top Fiber Internet Providers in Pakistan",
+    "url": "https://propakistani.pk/2026/11/20/top-fiber-internet-providers-pakistan/",
+    "date": "2026-11-20",
+    "summary_zh": "据巴基斯坦电信管理局（PTA）最新数据，截至2026年10月，巴基斯坦光纤宽带用户同比增长73%，达到【403万户】。PTCL仍是最大的光纤到户运营商，拥有【100.06万用户】，但市场份额从一年前的34%降至25%，主因是新进入者竞争加剧。Cyber Internet Services（StormFiber）以74万户、18%份额位居第二，Connect Communications（28.9万户、7%）、Nayatel（25.4万户、6%）、Wancom（20.4万户、5%）分列其后。前六大运营商之外的小型提供商合计占35%份额。同期铜缆DSL用户同比下降18%至77.5万户。政府目标是在未来数年实现【750万光纤家庭】。移动市场方面，移动用户达2.125亿，Jazz以7730万户、36.3%份额领先，PTML（Ufone-Telenor）以7660万户、36.0%紧随，Zong为5660万户。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Conducting 3-Day Islamabad to Multan Mobile Network Test",
+    "url": "https://propakistani.pk/2026/11/20/pta-conducting-3-day-islamabad-to-multan-mobile-network-test/",
+    "date": "2026-11-20",
+    "summary_zh": "巴基斯坦电信管理局（PTA）于2026年11月20日起开展为期三天的服务质量（QoS）调查，路线从伊斯兰堡至木尔坦，评估移动网络覆盖、语音通话质量、呼叫连通性及数据速率。此次实地测试由执法总监带队，各移动运营商代表随行，目前正在木尔坦市及周边地区进行，并已对【伊斯兰堡至木尔坦高速公路沿线】的覆盖与性能进行评估，以识别连通性问题和覆盖不足区域。在与运营商的会议上，PTA要求企业【立即整改网络缺陷与覆盖盲区】，确保语音和数据服务质量。PTA团队还计划当天晚些时候会见固网运营商及其他持牌机构代表，次日会见国民议会议员赛义德·阿里·卡西姆·吉拉尼；返程将沿卡比尔瓦拉、章、萨戈达一线评估移动服务。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Jazz Tops the PTA Telecom Complaints Chart in October 2026",
+    "url": "https://www.techjuice.pk/jazz-tops-the-pta-telecom-complaints-chart-in-october-2026/",
+    "date": "2026-11-20",
+    "summary_zh": "巴基斯坦电信管理局（PTA）数据显示，2026年10月共收到针对各类电信及移动运营商的投诉【7254件】，并已解决其中【94.33%】。按用户类别划分，针对蜂窝移动运营商（CMO）的投诉最多，达6405件，解决6103件，解决率95.28%；针对互联网服务提供商的投诉705件，解决613件，解决率86.95%；针对基础电话业务的投诉144件，解决127件，解决率88.19%。在四大移动运营商中，【Jazz收到投诉3112件】居首，解决2944件，解决率94.60%；Zong收到1167件，解决率95.89%；Telenor收到1158件，解决率98.27%；Ufone收到932件，解决率93.56%；SCOM收到36件，解决率83.33%。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Ufone & Telenor Pakistan Partners with Xiaomi Pakistan to Accelerate 5G Device Adoption",
+    "url": "https://www.techjuice.pk/ufone-telenor-pakistan-partners-with-xiaomi-pakistan-to-accelerate-5g-device-adoption/",
+    "date": "2026-11-20",
+    "summary_zh": "巴基斯坦电信运营商Ufone & Telenor Pakistan与小米巴基斯坦达成战略合作，以推动全国5G智能手机普及。合作以小米新发布的Redmi 17 5G手机为载体，通过【实惠设备与专属捆绑数据套餐】降低5G使用门槛。购买该机型的Ufone 5G与Telenor Pakistan用户可获专属5G数据套餐，销售渠道覆盖全国【Ufone与Telenor联合门店】及数字渠道。Redmi 17 5G搭载骁龙4 Gen 5芯片、7500mAh电池、45W快充、5000万像素AI相机，支持IP64防护、NFC与HyperOS 3，将接入其【sub-6GHz 5G网络】，覆盖伊斯兰堡、拉瓦尔品第、拉合尔和卡拉奇。PTML首席商务官Syed Atif Raza称这是巴基斯坦5G进程的决定性时刻，强调连接应成为权利而非特权；小米巴基斯坦国家经理Brian Shawn表示巴基斯坦始终是小米优先市场，此次合作体现其长期承诺。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan Local Mobile Phone Manufacturing Hits 23.03 Million Units",
+    "url": "https://www.techjuice.pk/pakistan-local-mobile-phone-manufacturing-hits-23-03-million-units/",
+    "date": "2026-11-20",
+    "summary_zh": "据官方数据，2026年1月至10月，巴基斯坦本地手机制造与组装厂共生产【2303万部手机】，同期商业进口量仅385万部，本地产量约为进口量的六倍。其中2026年10月单月本地组装【295万部】，商业进口约100万部。在1月至10月的本地组装量中，智能手机约【962万部】，2G手机约1300万部；而巴基斯坦电信管理局（PTA）数据显示，现网活跃移动设备中智能手机占71%，2G手机占29%。此外，本地厂商2025年全年组装【55.31万部5G手机】，2026年9月单月组装【7.85万部5G手机】。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "VGO TEL Overtakes Infinix as the Top Locally Assembled Mobile Phone Brand",
+    "url": "https://www.techjuice.pk/vgo-tel-overtakes-infinix-as-the-top-locally-assembled-mobile-phone-brand/",
+    "date": "2026-11-20",
+    "summary_zh": "据品牌产量数据，【2026年1月至10月】VGO TEL以【350万台】本地组装量超越Infinix，成为巴基斯坦本地组装手机第一品牌，Infinix以【227万台】退居第二，itel以203万台位列第三。TECNO（138万台）、Nokia（128万台）、Samsung（120万台）、vivo（117万台）分列第四至第七，Club Mobile、Q Mobile、E-TACHI以93万、77万、76万台进入前十。对比2025年全年，Infinix以365万台居首，VGO TEL以357万台紧随其后，vivo为280万台、itel为234万台。VGO TEL仅用十个月产量便接近其2025年全年水平，Infinix同期则明显回落。报道称Nokia重新进入本地组装前十，Club Mobile与E-TACHI亦上榜，品牌排名反映本地组装领域竞争加剧。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Ufone Cellular Market Share Hits 36% & Closes Gap With Jazz",
+    "url": "https://www.techjuice.pk/ufone-cellular-market-share-hits-36-closes-gap-with-jazz/",
+    "date": "2026-11-20",
+    "summary_zh": "据巴基斯坦电信管理局（PTA）【2026年10月数据】，Ufone在蜂窝移动通信市场的份额达到【36.03%】，与市场领先者Jazz的36.36%仅相差【0.33个百分点】。这一变化源于PTML完成对Telenor Pakistan的收购，Ufone将Telenor Pakistan的份额与数据并入自身统计。同期Zong以26.62%位居第三，特别通信组织（SCO）占0.99%。Jazz与Ufone合计占市场【72.39%】，两家运营商对市场领导地位的争夺趋于激烈。",
+    "importance": "高"
+  },
+  {
     "source": "TechJuice",
     "title": "Pakistan’s Total Forex Reserves Decline by $64 Million",
     "url": "https://www.techjuice.pk/pakistans-total-forex-reserves-decline-by-64-million/",
