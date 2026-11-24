@@ -1,6 +1,94 @@
 [
   {
     "source": "ProPakistani",
+    "title": "PTA Plans Central Database to Track and Block Foreign SIM Users",
+    "url": "https://propakistani.pk/2026/11/23/pta-plans-central-database-to-track-and-block-foreign-sim-users/",
+    "date": "2026-11-23",
+    "summary_zh": "巴基斯坦电信管理局（PTA）提出建立中央数据库，防止因非法活动被巴方某运营商封禁的外国SIM卡和eSIM用户通过其他运营商接入本国移动网络。依据【2026年国际漫游（入境）条例草案】，因欺诈、网络犯罪、骚扰等非法行为被一家运营商封禁的外国用户，也将无法通过其他网络使用国际漫游服务。该数据库由PTA维护，存储被封禁用户的IMSI、手机号、IMEI、境外运营商信息、封禁日期及原因等，并规定信息保存期限、访问权限与审计、错误记录更正等程序。运营商须在【72小时内】向PTA报告每次封禁及原因，封禁理由不成立或问题解决后须恢复服务并通知PTA及境外运营商。PTA还可要求运营商封禁特定用户、IMSI群组乃至整个境外运营商，但须考量行动规模与比例原则。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Tests Mobile Networks in Multan to Identify Internet and Call Issues",
+    "url": "https://propakistani.pk/2026/11/23/pta-tests-mobile-networks-in-multan-to-identify-internet-and-call-issues/",
+    "date": "2026-11-23",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在木尔坦、木尔坦-哈内瓦尔公路、N-5国道及卡比尔瓦拉等地开展移动网络实地测试，检查网速、通话质量、网络覆盖及用户连接问题，属其持续进行的服务质量（QoS）与体验质量（QoE）调查的一部分。PTA官员会同各移动运营商代表测试全部网络，以识别服务质量与覆盖问题。由执法总干事阿米尔·沙赫扎德率领的PTA团队还会见了国民议会议员阿里·卡西姆·吉拉尼，讨论地区电信服务；吉拉尼赞赏木尔坦【5G服务的推出】改善了当地电信服务质量，但指出部分周边地区存在【移动网络覆盖缺口】。PTA承诺由分区办公室指定联络人协调运营商与普遍服务基金（USF），解决上述问题并确定需增设移动网络站点的区域。此前PTA团队与木尔坦的移动及固网运营商、有线运营商等举行会议，沙赫扎德警告称，PTA【不会容忍电信服务质量差、非法售卡】及违反SIM卡销售规定或提供非法电信服务的行为，行业代表则保证遵守规定并致力于提供优质服务。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "PTA Orders Mobile Operators to Fix Network Issues in Shorkot, Jhang, Shahpur, Sahiwal",
+    "url": "https://propakistani.pk/2026/11/23/pta-orders-mobile-operators-to-fix-network-issues-in-shorkot-jhang-shahpur-sahiwal/",
+    "date": "2026-11-23",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在完成对伊斯兰堡至木尔坦路线的【为期三天服务质量与体验调查】后，指示移动运营商解决在Shorkot、Jhang、Shahpur、Sahiwal及周边地区测试中发现的网络质量问题，以改善当地用户的移动覆盖与连接。调查最后阶段，PTA官员会同移动网络运营商代表沿Old Road进行路测，覆盖Kabirwala Tehsil、Shorkot、Jhang、Shahpur和Sahiwal，并走访当地居民收集移动网络体验反馈、检查多地电信基础设施。PTA依据测试结果、现场观察和公众投诉向运营商下达整改指令，并将编制发布涵盖此次调查发现的详细报告。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Ufone Cellular Market Share Hits 36% &amp; Closes Gap With Jazz",
+    "url": "https://news.google.com/rss/articles/CBMiigFBVV95cUxNMVZCc3g4S0ZydHF6dHRwcS1IdEtLcHRSTU1ZRUQ5eDdiQi02MkxqLUhXNUZPcjZPaXdGUmFwbHVfbjJyS0tROERuT0hTckZEWHk0Sm42TWdJNV95UlY5d2MwaWw0NWFQb2ROQnJ3ZVN4Zk94M3o4Nk5hcFRrVFlnZVNfNkdoTm1iRnc?oc=5",
+    "date": "2026-11-20",
+    "summary_zh": "【Ufone Cellular市场份额升至36%】，与巴基斯坦最大移动运营商Jazz的差距进一步收窄。标题未披露统计口径、时间区间及Jazz当期份额等具体数据，也未说明份额上升来自新增用户还是其他运营商流失。",
+    "importance": "高"
+  },
+  {
+    "source": "TechJuice",
+    "title": "PTA Revenue Plunges 68pc to Rs 34.6bn in FY25; 5G Auction Delay Hits Exchequer",
+    "url": "https://news.google.com/rss/articles/CBMipgFBVV95cUxOWGVRa0k4SkdGUW93aDdpU2VaYWpBQnd4RHByWUlTdjdLWF8xNDlmSzJjSmZaeF82ckliQU9IS3FFVnFsZ0VBajV3STB1ZWZkWVlIQzV6eld3Tm93dVZrejBpcDNFR0RGcUVkczU4ZnBTU0NWWlJ1LXQyak1KalFSYWJCbmVyQ1d0Y0syOS1tVVlmdmtnSVRCYVVpSGpUaFRqNWdXblV3?oc=5",
+    "date": "2026-11-17",
+    "summary_zh": "巴基斯坦电信管理局（PTA）在2025财年收入【暴跌68%至346亿卢比】，标题将这一下滑与【5G频谱拍卖推迟】直接关联，称拍卖延期冲击了国库收入。标题未披露上财年对比基数、收入构成、拍卖原定时间表及监管机构的具体说明。",
+    "importance": "高"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Govt Plan for Mobile Phone Exports Revealed",
+    "url": "https://propakistani.pk/2026/11/23/govt-plan-for-mobile-phone-exports-revealed/",
+    "date": "2026-11-23",
+    "summary_zh": "巴基斯坦计划通过扩大手机、笔记本电脑和锂电池等产品的本地制造，将技术出口增加【25亿美元】。工程发展委员会（EDB）首席执行官哈马德·阿里·曼苏尔对一家私营新闻频道表示，政府正与制造商和组装商磋商制定新的手机制造与组装政策，以替代约三年前到期的旧政策。目前巴基斯坦使用的手机中【约94%已在本地组装】，其余依靠进口，政府下一步目标是推动企业在本土生产更多零部件，把组装基地升级为制造产业。拟议政策将设定年度目标，并推出收入中性的财政激励，激励力度与本地化水平和出口挂钩，以补偿企业本地生产的部分额外成本。曼苏尔称，政府计划在【两年内新增约5亿美元手机出口】，并将本地化率提升至【50%】。本地生产的手机须达到与原产国相当的严格质量标准。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
+    "title": "Pakistan’s Basmati Rice Exports Soar 62% Despite Middle East Shipping Crisis",
+    "url": "https://propakistani.pk/2026/11/23/pakistan-basmati-rice-exports-soar-62-percent/",
+    "date": "2026-11-23",
+    "summary_zh": "尽管红海、霍尔木兹海峡及中东地区航运受阻，巴基斯坦【2026财年前四个月（7月至10月）】巴斯马蒂大米出口仍同比大增62%。其中，巴斯马蒂大米出口量增加11.6万吨至【30.1万吨】，非巴斯马蒂大米出口量同比增加14万吨至104.9万吨，四个月大米出口总量达【135.1万吨】。分析人士将增长归因于巴斯马蒂大米丰收，以及地方税费退还（DLTL）计划延长至9月、结转库存充足、种植面积扩大、部分地区双季种植、单产提高和天气有利等因素。非巴斯马蒂大米出口商则在印度高补贴大米及泰国、越南、柬埔寨、缅甸低价竞争下仍实现增长。2026年10月，菲律宾为最大买家，进口【87,478吨】，其他主要目的地包括坦桑尼亚、肯尼亚、阿联酋、欧盟、中亚、中国和沙特阿拉伯。",
+    "importance": "低"
+  },
+  {
+    "source": "Dawn",
+    "title": "Used phone import surge hits industry",
+    "url": "https://www.dawn.com/news/2046653/used-phone-import-surge-hits-industry",
+    "date": "2026-11-24",
+    "summary_zh": "伊斯兰堡消息：巴基斯坦二手智能手机进口量从7月的【1434部激增至10月的98383部】，原因是本地组装手机与进口整机之间的关税差距缩小。10月手机到货总量为150133部，其中新机51750部、价值【7170万美元】，而7月新机仅18431部、价值1780万美元。巴基斯坦手机制造商协会（PMPMA）已致函工业与生产部及联邦税务局（FBR）表达关切，指出最令人担忧的是二手手机进口的急剧上升，并计划近日派代表团赴首都与主管部门磋商。协会强调，这已对本地手机组装造成明显负面影响，产量从7月的【906711部降至10月的752870部】。协会主席Abdul Rehman周一告诉《黎明报》，整机进口激增由两个因素驱动：一是进口关税差距收窄，助长了“khepia”生意；二是FBR下调了进口手机的税负。他解释说，整机与本地组装所用CKD套件之间的关税差距已大幅缩小，100美元手机约为11%、200美元手机约为14%。他说，100至200美元是销量最大的价格段，11%和14%的差距几乎消失，因为大宗进口商通过低报价格等手段操作，使受监管的本地制造商几乎没有空间。他还表示，另一推动因素是FBR在设备识别、注册与封锁系统（DIRBS）下下调了估值，使廉价进口手机得以在PTA注册。进口整机在短短几个月内已占据全国智能手机市场【41.8%的份额】。协会称，手机制造业三年来一直抱怨反向级联税负，导致充电器、电池、数据线和主板组件等难以本地化。目前充电器作为CKD套件一部分可免税进口，但进口其原材料和子组件的累计税负接近20%。",
+    "importance": "高"
+  },
+  {
+    "source": "Dawn",
+    "title": "Capitalising on the Middle East conflict: Pakistan's ports can win transshipment business, if policy stays consistent",
+    "url": "https://www.dawn.com/news/2046504/capitalising-on-the-middle-east-conflict-pakistans-ports-can-win-transshipment-business-if-policy-stays-consistent",
+    "date": "2026-11-23",
+    "summary_zh": "该报道讨论巴基斯坦港口能否借中东冲突带来的航线调整机会争取转运业务，指出【政策保持连续性】是抓住这一机会的前提。标题未披露具体港口、货量、金额或时间等细节。",
+    "importance": "低"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan’s Trade Deficit Widens 27.6% to $4.13 Billion in October",
+    "url": "https://www.techjuice.pk/pakistans-trade-deficit-widens-27-6-to-4-13-billion-in-october/",
+    "date": "2026-11-23",
+    "summary_zh": "巴基斯坦统计局（PBS）公布的临时数据显示，2026年10月巴基斯坦商品贸易逆差同比扩大27.6%，达到【41.32亿美元】，高于2025年10月的32.39亿美元，较2026年9月的34.47亿美元环比上升19.9%。本财年前四个月累计逆差达【147.79亿美元】，去年同期为126.14亿美元，同比增长17.2%。7月至10月进口额增长13.99%至262.86亿美元，出口额增长10.16%至115.07亿美元。仅10月出口同比增长5.16%至29.95亿美元，进口则激增17.09%至71.27亿美元。出口品类中针织品贡献最大，达【1353.28亿卢比】，成衣出口增长5.37%至1098.44亿卢比，棉纱出口大增46.40%至232.43亿卢比，床品和棉布出口分别下降4.18%和3.07%。进口方面，原油进口达2401.41亿卢比，同比增长57%，钢铁进口近乎翻倍至1389.58亿卢比，塑料材料增长43.42%至919.75亿卢比，手机进口增长23.39%至502.22亿卢比。以卢比计，10月贸易逆差为【1.158万亿卢比】，7月至10月累计逆差达4.122万亿卢比。",
+    "importance": "中"
+  },
+  {
+    "source": "TechJuice",
+    "title": "Pakistan’s Mobile Phone Imports Fall 7.2% as Local Production Reaches 23 Million Units",
+    "url": "https://www.techjuice.pk/pakistans-mobile-phone-imports-fall-7-2-as-local-production-reaches-23-million-units/",
+    "date": "2026-11-23",
+    "summary_zh": "巴基斯坦2026-27财年前四个月（7月至10月）手机进口额同比下降7.20%，降至【5.98亿美元】，去年同期为6.45亿美元；以卢比计下降8.74%至【1662.05亿卢比】。但10月单月进口额达1.81亿美元，环比增长26.54%，同比增25.21%。同期本地手机产量持续增长，2026年1月至10月本土制造与组装厂共生产【2303万部】手机，约为同期商业进口385万部的近六倍；其中约962万部为智能手机，约1300万部为2G手机。品牌格局方面，【VGO TEL以350万部本地组装量居首】，超越Infinix。此外，7月至10月电信设备进口额达【9.33亿美元】，同比增长7.30%，反映电信基础设施投资与下一代移动服务筹备持续推进。",
+    "importance": "中"
+  },
+  {
+    "source": "ProPakistani",
     "title": "Mobile Phone Explodes While Charging Inside Electric Bus in Punjab",
     "url": "https://propakistani.pk/2026/11/21/mobile-phone-explodes-while-charging-inside-electric-bus-in-punjab/",
     "date": "2026-11-21",
