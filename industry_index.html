@@ -139,7 +139,7 @@
 
   <div class="card full" style="margin-bottom:28px;">
     <h3>月度用户数与市场份额明细表</h3>
-    <div class="sub">单位：用户数（人）；份额（%）</div>
+    <div class="sub">单位：用户数（人）；份额（%）；最新月份在最上面</div>
     <table id="dataTable"></table>
   </div>
 
@@ -632,7 +632,8 @@ new Chart(document.getElementById('sharePieChart'), {
 (function(){
   const tbl = document.getElementById('dataTable');
   let html = '<tr><th>月份</th>' + Object.keys(subs).map(op=>`<th>${op} 用户数</th><th>${op} 份额</th>`).join('') + '</tr>';
-  months.forEach((m,i)=>{
+  // 最新月份排在最上面，一眼看到最新数据
+  months.map((m,i)=>[m,i]).reverse().forEach(([m,i])=>{
     html += `<tr><td>${m}</td>` + Object.keys(subs).map(op=>(subs[op][i] == null ? '<td>并入Ufone</td><td>-</td>' : `<td>${subs[op][i].toLocaleString()}</td><td>${shares[op][i]}%</td>`)).join('') + '</tr>';
   });
   tbl.innerHTML = html;
