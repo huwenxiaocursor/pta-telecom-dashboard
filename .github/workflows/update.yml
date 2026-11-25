@@ -11,6 +11,9 @@ permissions:
 
 jobs:
   update-industry:
+    # GitHub 的服务器连不上 pta.gov.pk（2026-09 起每次 "Network is unreachable"），
+    # 定时更新已改由本机 scripts/run_news_fetch.sh 执行；这里只留手动触发。
+    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

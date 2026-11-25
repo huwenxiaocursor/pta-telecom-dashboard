@@ -94,7 +94,8 @@
 
   <div class="note">
     数据范围说明：PTA"用户/市场份额"指标按月更新，公开数据截至 <b class="js-end-month-cn">2026年4月</b>（PTA官方数据通常滞后1-2个月发布，本页会随PTA官网更新自动跟进最新月份）。
-    QoS季度驱车测试报告截至发文时仅发布到 <b>2026年第一季度</b>（Q2 2026 尚未结束，报告通常滞后2-3个月发布）。
+    <b>Telenor 自 2026年9月起并入 Ufone</b>：PTA 从 9 月起 Telenor 一栏为 0、用户全部计入 Ufone，所以 Ufone 曲线在 9 月跳升；Ufone 的同比和份额变化按「去年 Ufone + Telenor 之和」计算。
+    QoS季度驱车测试报告截至发文时仅发布到 <b>2026年第一季度</b>；PTA 另发布的 Opensignal 用户实测（体验）报告已到 <b>2026年第二季度</b>。
   </div>
 
   <!-- ===================== 市场份额部分 ===================== -->
@@ -190,6 +191,29 @@
     </div>
   </div>
 
+  <!-- 用户实际体验（Opensignal 众包，PTA 发布）：与上面的驱车 QoS 是两套口径，不要混算 -->
+  <div class="note" style="margin-top:24px;">
+    <b>用户实际体验（Opensignal，2026年第二季度）</b>：PTA 委托 Opensignal 用真实用户手机在日常使用中自动测速，
+    90 天、全国 + 20 个城市，反映用户<b>体感</b>（QoE）；上面的 QoS 是驱车实测网络是否达标，两者口径不同、数字不可直接对比。以下为 4G 结果。
+  </div>
+  <div class="grid">
+    <div class="card">
+      <h3>全国 4G 用户体验（Q2 2026）</h3>
+      <div class="sub">加粗为该项第一；全国平均 4G 下载 18.9 Mbps（高端机 31.3）、在网时长 93.67%</div>
+      <table id="oeNationalTable"></table>
+    </div>
+    <div class="card">
+      <h3>20 个城市逐项第一次数（Q2 2026）</h3>
+      <div class="sub">每个城市每项指标最高的运营商，含并列；不含 SCO（仅 AJK/GB 三城参测）</div>
+      <canvas id="oeCityWinChart" style="max-height:300px;"></canvas>
+    </div>
+  </div>
+  <div class="card" style="margin-top:20px;">
+    <h3>各城市 4G 下载速率（Mbps）与在网时长（%）— Q2 2026</h3>
+    <div class="sub">加粗为该城市最高；在网时长 = 用户有 3G/4G/5G 数据连接的时间占比，不代表地理覆盖范围</div>
+    <div style="overflow-x:auto;"><table id="oeCityTable"></table></div>
+  </div>
+
   <!-- =================== 三. 行业规模（年度） =================== -->
   <div class="section-title" style="margin-top:32px;">三、电信行业规模（年度） <span class="tag">PTA Telecom Indicators</span></div>
   <div class="grid" style="margin-top:20px;">
@@ -277,6 +301,8 @@
       <a href="https://www.pta.gov.pk/category/telecom-indicators/166" target="_blank">.../166</a>（页面数据截至<span class="js-end-month-cn">2026年4月</span>）</li>
     <li>PTA Independent Quality of Service Survey in Pakistan – Cities, 1st Quarter 2026（PDF）：
       <a href="https://www.pta.gov.pk/assets/media/2026-06-11-Q1-Report-For-Publication----Updated---V2.pdf" target="_blank">2026-06-11-Q1-Report-For-Publication.pdf</a></li>
+    <li>PTA Mobile Network Experience Benchmarking Report — National and City, Quarter 02 2026（Opensignal，PDF）：
+      <a href="https://www.pta.gov.pk/assets/media/Mobile%20Network%20Experience%20Benchmarking%20Report-Q2-2026.pdf" target="_blank">Mobile Network Experience Benchmarking Report-Q2-2026.pdf</a></li>
     <li>历史季度排名参考：PhoneWorld / TechJuice / ProPakistani 对PTA各季度QoS报告的报道（Q1–Q4 2025）</li>
     <li>PTA Telecom Indicators – Revenues / Investment：
       <a href="https://www.pta.gov.pk/category/telecom-indicators/168" target="_blank">.../168</a>（收入），
@@ -296,13 +322,13 @@
 const COLORS = { Jazz:"#d71920", Ufone:"#ef7a15", Zong:"#8cc63e", Telenor:"#18a9f8", SCO:"#302f95" };
 
 // ---------- 1. 月度用户数据（PTA官方，2025-05 ~ 2026-04） ----------
-const months = ["2025-03", "2025-04", "2025-05", "2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07"];
+const months = ["2025-06", "2025-07", "2025-08", "2025-09", "2025-10", "2025-11", "2025-12", "2026-01", "2026-02", "2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08", "2026-09", "2026-10"];
 const subs = {
-  Jazz:    [73292051,73883428,73783016,73839867,73370431,73028300,72582384,72649532,72915202,73861653,74191312,74905106,74858177,75081575,75021742,75421212,75960362],
-  Ufone:   [26779950,26910705,26789706,26858916,26997429,26981031,27084240,27151808,27302518,28408965,29129992,29544992,29777020,29908672,30186460,30810942,31499193],
-  Zong:    [51603052,51879548,51671947,51884333,52064183,52063545,51900248,51958173,52035603,53141227,53825007,54375971,54192630,54675138,54839448,55600136,56474691],
-  Telenor: [43887893,43935420,43572664,43283858,43108659,42826316,42669803,42406180,42292640,43048917,43324659,43813979,43786513,43868222,43790778,44046436,44325040],
-  SCO:     [1884055,1890898,1884824,1937255,1973981,1961206,1957970,1988076,2038950,2094723,2104699,2131125,2141256,2156055,2170051,2178529,2196909]
+  Jazz:    [73839867,73370431,73028300,72582384,72649532,72915202,73861653,74191312,74905106,74858177,75081575,75021742,75421212,75960362,76303155,76439316,77251725],
+  Ufone:   [26858916,26997429,26981031,27084240,27151808,27302518,28408965,29129992,29544992,29777020,29908672,30186460,30810942,31499193,31789597,76287633,76555704],
+  Zong:    [51884333,52064183,52063545,51900248,51958173,52035603,53141227,53825007,54375971,54192630,54675138,54839448,55600136,56474691,56651585,56621965,56554244],
+  Telenor: [43283858,43108659,42826316,42669803,42406180,42292640,43048917,43324659,43813979,43786513,43868222,43790778,44046436,44325040,44304611,0,0],
+  SCO:     [1937255,1973981,1961206,1957970,1988076,2038950,2094723,2104699,2131125,2141256,2156055,2170051,2178529,2196909,2123734,2120527,2103739]
 };
 
 // ===AUTO-NEW-DATA-START===
@@ -312,13 +338,13 @@ const investments = {"CMO":[808, 1175, 396, 431, 555], "LDI":[31.4, 24, 17, 13, 
 const fdi = {"Inflow":[204.3, 174.9, 57.7, 46, 97], "Net":[36, -23, -222, -44, -131]};
 const manufacturingYears = ["2021", "2022", "2023", "2024", "2025"];
 const manufacturing = {"Smart":[14.6, 13.2, 13.0, 12.7, 17.6], "TwoG":[10.0, 8.7, 8.2, 18.6, 15.1]};
-const cellSites = {"TwoG":[48091, 51768, 53581, 55777, 58423], "ThreeG":[42007, 44576, 45855, 44833, 33419], "FourG":[40749, 47759, 50359, 53245, 56694]};
+const cellSites = {"TwoG":[51768, 53581, 55777, 58423, 60878], "ThreeG":[44576, 45855, 44833, 33419, 30045], "FourG":[47759, 50359, 53245, 56694, 59023]};
 const arpu = {"years":["2018-19", "2019-20", "2020-21", "2021-22", "2022-23", "2023-24", "2024-25"], "vals":[262, 241, 235, 212, 229, 270, 306]};
 const MONTHS_CN = ["1月","2月","3月","4月","5月","6月","7月","8月","9月","10月","11月","12月"];
-const ngmsYoY = {2025:{"Jazz":[51552000, 52395000, 53301000, 53641000, 53980065, 54552540, 54893545, 55094161, 55077087, 55042236, 55000626, 55528640], "Ufone":[18795000, 19004000, 19185000, 19240000, 19294634, 19619789, 19939049, 19977988, 20191504, 20161868, 20196816, 20781844], "Zong":[40925000, 41379000, 41764000, 41906000, 42048608, 42402756, 42674161, 42812236, 42897821, 43073640, 43236956, 44004816], "Telenor":[26930000, 27125000, 27465000, 27533000, 27600661, 27682123, 27918470, 28010501, 28075926, 27939873, 27861338, 28313555], "SCO":[1748000, 1737000, 1727000, 1730000, 1737739, 1791608, 1830067, 1819008, 1817423, 1849332, 1901713, 1959752], "Total":[139950000, 141640000, 143442000, 144050000, 144661707, 146048816, 147255292, 147713894, 148059761, 148066949, 148197449, 150588607]}, 2026:{"Jazz":[55979821, 56713013, 57114772, 57483631, 57684054, 58132803, 58805000, null, null, null, null, null], "Ufone":[21311036, 21700605, 21851005, 22010457, 22130368, 22546698, 22858762, null, null, null, null, null], "Zong":[44688717, 45288965, 45238558, 45751699, 45980038, 46669734, 47305384, null, null, null, null, null], "Telenor":[29375551, 30231285, 30428201, 30307385, 30260515, 30415821, 30671143, null, null, null, null, null], "SCO":[1970728, 1996783, 2007870, 2022797, 2038464, 2048386, 2067695, null, null, null, null, null], "Total":[153325853, 155930651, 156640406, 157575969, 158093439, 159813442, 161707984, null, null, null, null, null]}};
-const dataUsagePbYoY = {2025:{"Jazz":[null, null, null, null, null, 446.3, 458.5, 459.2, 454.7, 465.4, 456.6, 495.6], "Ufone":[null, null, null, null, null, 159.2, 166.8, 158.8, 167.6, 172.5, 164.9, 177.5], "Zong":[null, null, null, null, null, 439.9, 454.6, 457.0, 449.9, 472.5, 468.2, 501.5], "Telenor":[null, null, null, null, null, 197.1, 203.1, 208.7, 200.2, 206.2, 203.2, 219.7], "SCO":[null, null, null, null, null, 9.1, 9.6, 9.7, 9.3, 9.4, 8.9, 8.9], "Total":[1180.0, 1185.0, 1195.0, 1207.0, 1220.0, 1235.0, 1260.0, 1294.0, 1281.7, 1325.9, 1301.7, 1403.2]}, 2026:{"Jazz":[501.7, 465.6, 546.3, 518.8, 529.0, 507.9, 538.1, null, null, null, null, null], "Ufone":[180.3, 163.2, 193.8, 182.4, 189.1, 180.0, 188.3, null, null, null, null, null], "Zong":[501.8, 458.3, 531.3, 489.9, 504.3, 475.2, 498.0, null, null, null, null, null], "Telenor":[191.9, 206.5, 239.9, 220.0, 229.3, 213.6, 225.1, null, null, null, null, null], "SCO":[8.8, 8.9, 9.3, 9.4, 10.6, 6.7, 6.7, null, null, null, null, null], "Total":[1384.6, 1302.5, 1520.6, 1420.5, 1462.3, 1383.4, 1456.2, null, null, null, null, null]}};
-const broadbandYoY = {2025:{"Total":[143.1, 144.0, 145.2, 146.3, 148.31, 150.0, 151.1, 152.0, 151.96, 152.0, 152.15, 154.69], "FTTH":[1.7, 1.75, 1.8, 1.85, 1.95, 2.0, 2.1, 2.2, 2.29, 2.33, 2.36, 2.51], "Mobile BB":[139.95, 141.64, 143.44, 144.05, 144.66, 146.05, 147.26, 147.71, 148.06, 148.07, 148.2, 150.59]}, 2026:{"Total":[157.55, 160.2, 160.96, 161.89, 162.41, 163.91, 166.12, null, null, null, null, null], "FTTH":[2.65, 2.69, 2.74, 2.8, 2.81, 2.88, 2.95, null, null, null, null, null], "Mobile BB":[153.33, 155.93, 156.64, 157.58, 158.09, 159.55, 161.71, null, null, null, null, null]}};
-const teledensityYoY = {2025:{"Total":[80.4, 80.87, 81.3, 81.15, 81.1, 81.05, 80.81, 80.41, 80.04, 79.89, 79.94, 81.33]}, 2026:{"Total":[82, 82.75, 82.6, 82.86, 82.85, 83.52, 84.34, null, null, null, null, null]}};
+const ngmsYoY = {2025:{"Jazz":[51552000, 52395000, 53301000, 53641000, 53980065, 54552540, 54893545, 55094161, 55077087, 55042236, 55000626, 55528640], "Ufone":[18795000, 19004000, 19185000, 19240000, 19294634, 19619789, 19939049, 19977988, 20191504, 20161868, 20196816, 20781844], "Zong":[40925000, 41379000, 41764000, 41906000, 42048608, 42402756, 42674161, 42812236, 42897821, 43073640, 43236956, 44004816], "Telenor":[26930000, 27125000, 27465000, 27533000, 27600661, 27682123, 27918470, 28010501, 28075926, 27939873, 27861338, 28313555], "SCO":[1748000, 1737000, 1727000, 1730000, 1737739, 1791608, 1830067, 1819008, 1817423, 1849332, 1901713, 1959752], "Total":[139950000, 141640000, 143442000, 144050000, 144661707, 146048816, 147255292, 147713894, 148059761, 148066949, 148197449, 150588607]}, 2026:{"Jazz":[55979821, 56713013, 57114772, 57483631, 57684054, 58132803, 58805000, 59262883, 59515027, 59673996, null, null], "Ufone":[21311036, 21700605, 21851005, 22010457, 22130368, 22546698, 22858762, 22994299, 53617934, 53554840, null, null], "Zong":[44688717, 45288965, 45238558, 45751699, 45980038, 46669734, 47305384, 47480256, 47439151, 47453421, null, null], "Telenor":[29375551, 30231285, 30428201, 30307385, 30260515, 30415821, 30671143, 30545233, 0, 0, null, null], "SCO":[1970728, 1996783, 2007870, 2022797, 2038464, 2048386, 2067695, 2011305, 2014378, 2001441, null, null], "Total":[153325853, 155930651, 156640406, 157575969, 158093439, 159813442, 161707984, 162293976, 162586490, 162683698, null, null]}};
+const dataUsagePbYoY = {2025:{"Jazz":[null, null, null, null, null, 446.3, 458.5, 459.2, 454.7, 465.4, 456.6, 495.6], "Ufone":[null, null, null, null, null, 159.2, 166.8, 158.8, 167.6, 172.5, 164.9, 177.5], "Zong":[null, null, null, null, null, 439.9, 454.6, 457.0, 449.9, 472.5, 468.2, 501.5], "Telenor":[null, null, null, null, null, 197.1, 203.1, 208.7, 200.2, 206.2, 203.2, 219.7], "SCO":[null, null, null, null, null, 9.1, 9.6, 9.7, 9.3, 9.4, 8.9, 8.9], "Total":[1180.0, 1185.0, 1195.0, 1207.0, 1220.0, 1235.0, 1260.0, 1294.0, 1281.7, 1325.9, 1301.7, 1403.2]}, 2026:{"Jazz":[501.7, 465.6, 546.3, 518.8, 529.0, 507.9, 538.1, 545.2, 521.9, 544.2, null, null], "Ufone":[180.3, 163.2, 193.8, 182.4, 189.1, 180.0, 188.3, 186.7, 405.6, 419.2, null, null], "Zong":[501.8, 458.3, 531.3, 489.9, 504.3, 475.2, 498.0, 488.3, 476.6, 484.7, null, null], "Telenor":[191.9, 206.5, 239.9, 220.0, 229.3, 213.6, 225.1, 222.5, 0.0, 0.0, null, null], "SCO":[8.8, 8.9, 9.3, 9.4, 10.6, 6.7, 6.7, 6.9, 8.5, 9.4, null, null], "Total":[1384.6, 1302.5, 1520.6, 1420.5, 1462.3, 1383.4, 1456.2, 1449.7, 1412.6, 1457.5, null, null]}};
+const broadbandYoY = {2025:{"Total":[143.1, 144.0, 145.2, 146.3, 148.31, 150.0, 151.1, 152.0, 151.96, 152.0, 152.15, 154.69], "FTTH":[1.7, 1.75, 1.8, 1.85, 1.95, 2.0, 2.1, 2.2, 2.29, 2.33, 2.36, 2.51], "Mobile BB":[139.95, 141.64, 143.44, 144.05, 144.66, 146.05, 147.26, 147.71, 148.06, 148.07, 148.2, 150.59]}, 2026:{"Total":[157.55, 160.2, 160.96, 161.89, 162.41, 163.91, 166.12, 166.74, 167.1, 167.77, null, null], "FTTH":[2.65, 2.69, 2.74, 2.8, 2.81, 2.88, 2.95, 3.01, 3.46, 4.03, null, null], "Mobile BB":[153.33, 155.93, 156.64, 157.58, 158.09, 159.55, 161.71, 162.29, 162.59, 162.68, null, null]}};
+const teledensityYoY = {2025:{"Total":[80.4, 80.87, 81.3, 81.15, 81.1, 81.05, 80.81, 80.41, 80.04, 79.89, 79.94, 81.33]}, 2026:{"Total":[82, 82.75, 82.6, 82.86, 82.85, 83.52, 84.34, 84.46, 85.26, 85.73, null, null]}};
 // ===AUTO-NEW-DATA-END===
 
 // 在网活跃设备占比：来自PTA Annual Report 2025，无对应官网图表，人工维护，不参与自动更新
@@ -331,9 +357,18 @@ const localVsImport = {"years":["2021","2022","2023","2024","2025"], "Local":[24
 const ppgbByOperator = {"Jazz":33.7, "Ufone":28.0, "Zong":20.2, "Telenor":38.6};
 const ppgbTrend = {"years":["2021","2022","2023","2024","2025"], "vals":[29.6,26.9,25.5,26.6,29.0]};
 
-const totals = months.map((_,i)=> Object.values(subs).reduce((s,arr)=>s+arr[i],0));
+// Telenor 自 2026-09 起并入 Ufone：PTA 从这个月开始 Telenor 一栏填 0，用户全部记在 Ufone 名下。
+// 页面上 Telenor 从合并月起留空（不画成 0），Ufone 的同比、份额对比按「去年 Ufone + Telenor 之和」算，
+// 否则会显示虚假暴涨。subs 由脚本每月重写，这里只在页面上做换算，不改数据本身。
+const MERGE = { from:'Telenor', into:'Ufone', since:'2026-09' };
+months.forEach((m,i)=>{ if (m >= MERGE.since && !subs[MERGE.from][i]) subs[MERGE.from][i] = null; });
+const isMerged = months[months.length-1] >= MERGE.since;
+const opLabel = (op) => (isMerged && op === MERGE.into) ? `${op}（含原${MERGE.from}）` : op;
+const activeOps = Object.keys(subs).filter(op => subs[op][months.length-1] != null);
+
+const totals = months.map((_,i)=> Object.values(subs).reduce((s,arr)=>s+(arr[i]||0),0));
 const shares = {};
-Object.keys(subs).forEach(op=>{ shares[op] = subs[op].map((v,i)=> +(v/totals[i]*100).toFixed(2)); });
+Object.keys(subs).forEach(op=>{ shares[op] = subs[op].map((v,i)=> v==null ? null : +(v/totals[i]*100).toFixed(2)); });
 
 // ---- 动态日期标签：脚本每月只需更新上面的 months / subs，下面这些标签会自动跟着变 ----
 const toCN = (ym)=>{ const [y,m]=ym.split('-'); return `${y}年${+m}月`; };
@@ -352,11 +387,11 @@ const is2026 = months.map(m=>m.startsWith(latestYear));
 
 // KPI cards: latest month snapshot
 const kpiHost = document.getElementById('latestShareKpis');
-Object.keys(subs).forEach(op=>{
+activeOps.forEach(op=>{
   const div = document.createElement('div');
   div.className='kpi-box';
   div.style.background = COLORS[op];
-  div.innerHTML = `<div class="name">${op}</div><div class="val">${shares[op][latestIdx]}%</div><div class="rank">${(subs[op][latestIdx]/1e6).toFixed(1)}M 用户 · ${endMonthCN}</div>`;
+  div.innerHTML = `<div class="name">${opLabel(op)}</div><div class="val">${shares[op][latestIdx]}%</div><div class="rank">${(subs[op][latestIdx]/1e6).toFixed(1)}M 用户 · ${endMonthCN}</div>`;
   kpiHost.appendChild(div);
 });
 
@@ -369,14 +404,25 @@ function getYearArr(op, yr) {
   return Array.from({length:12}, (_,i) => {
     const iso = `${yr}-${String(i+1).padStart(2,'0')}`;
     const idx = months.indexOf(iso);
-    return idx >= 0 ? +(subs[op][idx]/10000).toFixed(0) : null;
+    return (idx >= 0 && subs[op][idx] != null) ? +(subs[op][idx]/10000).toFixed(0) : null;
+  });
+}
+
+// 同比的上年基数：合并后的 Ufone 对比去年 Ufone + Telenor 之和
+function getPrevBase(op) {
+  const pre = getYearArr(op, prevYear);
+  if (op !== MERGE.into) return pre;
+  const other = getYearArr(MERGE.from, prevYear);
+  return pre.map((v,i) => {
+    const iso = `${latestYear}-${String(i+1).padStart(2,'0')}`;
+    return (iso >= MERGE.since && v !== null && other[i] !== null) ? v + other[i] : v;
   });
 }
 
 // 计算同比增速（%），返回12个月的数组
 function getYoYPct(op) {
   const cur = getYearArr(op, latestYear);
-  const pre = getYearArr(op, prevYear);
+  const pre = getPrevBase(op);
   return cur.map((v,i) => (v!==null && pre[i]!==null) ? +((v-pre[i])/pre[i]*100).toFixed(1) : null);
 }
 
@@ -405,7 +451,7 @@ const curMonthPlugin = {
       const op = ops[di];
       const val = ds.data[curMonthIdx];
       if (val === null) return;
-      const pre = getYearArr(op, prevYear)[curMonthIdx];
+      const pre = getPrevBase(op)[curMonthIdx];
       if (pre === null) return;
       const pct = +((val - pre) / pre * 100).toFixed(1);
       const xPos = x.getPixelForValue(curMonthIdx);
@@ -464,10 +510,10 @@ new Chart(document.getElementById('subsChart'), {
               if (!item.dataset.label.includes(latestYear)) return;
               const op = ops.find(o => item.dataset.label.startsWith(o));
               if (!op) return;
-              const pre = getYearArr(op, prevYear)[item.dataIndex];
+              const pre = getPrevBase(op)[item.dataIndex];
               if (item.raw === null || pre === null) return;
               const pct = +((item.raw - pre) / pre * 100).toFixed(1);
-              lines.push(`  ${op} 同比: ${pct >= 0 ? '+' : ''}${pct}%（${pct >= 0 ? '+' : ''}${item.raw - pre}万）`);
+              lines.push(`  ${opLabel(op)} 同比: ${pct >= 0 ? '+' : ''}${pct}%（${pct >= 0 ? '+' : ''}${item.raw - pre}万）`);
             });
             return lines;
           }
@@ -503,8 +549,8 @@ new Chart(document.getElementById('shareTrendChart'), {
 new Chart(document.getElementById('sharePieChart'), {
   type:'doughnut',
   data:{
-    labels:Object.keys(subs),
-    datasets:[{ data: Object.keys(subs).map(op=>shares[op][latestIdx]), backgroundColor: Object.keys(subs).map(op=>COLORS[op]) }]
+    labels:activeOps.map(opLabel),
+    datasets:[{ data: activeOps.map(op=>shares[op][latestIdx]), backgroundColor: activeOps.map(op=>COLORS[op]) }]
   },
   options:{ plugins:{ legend:{position:'bottom'}, tooltip:{callbacks:{label:(ctx)=>`${ctx.label}: ${ctx.parsed}%`}} } }
 });
@@ -512,15 +558,17 @@ new Chart(document.getElementById('sharePieChart'), {
 // ---------- 市场份额对比：当月 vs 2025年12月 ----------
 (function(){
   const dec25idx = months.indexOf('2025-12');
-  const ops = Object.keys(subs);
-  const shareDec25  = ops.map(op => shares[op][dec25idx]);
+  const ops = activeOps;
+  // 合并后的 Ufone 对比 2025年12月 Ufone + Telenor 之和
+  const shareDec25  = ops.map(op => (isMerged && op === MERGE.into)
+    ? +(shares[op][dec25idx] + shares[MERGE.from][dec25idx]).toFixed(2) : shares[op][dec25idx]);
   const shareLatest = ops.map(op => shares[op][latestIdx]);
   const deltas      = ops.map((op,i) => +(shareLatest[i] - shareDec25[i]).toFixed(2));
 
   new Chart(document.getElementById('shareCompareChart'), {
     type: 'bar',
     data: {
-      labels: ops,
+      labels: ops.map(opLabel),
       datasets: [
         {
           label: '2025年12月',
@@ -585,7 +633,7 @@ new Chart(document.getElementById('sharePieChart'), {
   const tbl = document.getElementById('dataTable');
   let html = '<tr><th>月份</th>' + Object.keys(subs).map(op=>`<th>${op} 用户数</th><th>${op} 份额</th>`).join('') + '</tr>';
   months.forEach((m,i)=>{
-    html += `<tr><td>${m}</td>` + Object.keys(subs).map(op=>`<td>${subs[op][i].toLocaleString()}</td><td>${shares[op][i]}%</td>`).join('') + '</tr>';
+    html += `<tr><td>${m}</td>` + Object.keys(subs).map(op=>(subs[op][i] == null ? '<td>并入Ufone</td><td>-</td>' : `<td>${subs[op][i].toLocaleString()}</td><td>${shares[op][i]}%</td>`)).join('') + '</tr>';
   });
   tbl.innerHTML = html;
 })();
@@ -676,6 +724,49 @@ new Chart(document.getElementById('cityWinChart'),{
   },
   options:{ plugins:{legend:{display:false}} }
 });
+
+// ---------- 用户实际体验：Opensignal Q2 2026（PTA "Mobile Network Experience Benchmarking Report-Q2-2026"，p.5 全国、p.6–25 城市） ----------
+const OE_OPS = ['Jazz','Zong','Ufone','Telenor'];
+const oeNational = {  // 4G
+  '下载速率 (Mbps)':   { Jazz:17.61, Telenor:7.5,   Ufone:12.82, Zong:18.55 },
+  '上传速率 (Mbps)':   { Jazz:6.26,  Telenor:2.82,  Ufone:4.42,  Zong:7.81 },
+  '视频体验 (0-100)':  { Jazz:41.51, Telenor:30.3,  Ufone:36.64, Zong:41.66 },
+  '游戏体验 (0-100)':  { Jazz:40.15, Telenor:37.88, Ufone:50.08, Zong:47.28 },
+  '在网时长 (%)':      { Jazz:93.33, Telenor:92.58, Ufone:92.16, Zong:96.59 }
+};
+const oeCityWins = {  // 20 城市逐项第一次数（含并列，不含 SCO）
+  '下载': { Jazz:8,  Zong:12, Ufone:0,  Telenor:0 },
+  '上传': { Jazz:4,  Zong:16, Ufone:0,  Telenor:0 },
+  '视频': { Jazz:12, Zong:8,  Ufone:0,  Telenor:0 },
+  '游戏': { Jazz:0,  Zong:5,  Ufone:15, Telenor:0 },
+  '在网时长': { Jazz:0, Zong:19, Ufone:1, Telenor:0 }
+};
+const oeCities = [{"c": "Islamabad", "dl": {"Jazz": 20.86, "Telenor": 6.03, "Ufone": 13.13, "Zong": 16.01}, "ton": {"Jazz": 93.32, "Telenor": 93.46, "Ufone": 91.56, "Zong": 97.17}}, {"c": "Rawalpindi", "dl": {"Jazz": 19.25, "Telenor": 6.12, "Ufone": 12.7, "Zong": 16.09}, "ton": {"Jazz": 92.04, "Telenor": 93.98, "Ufone": 92.25, "Zong": 96.58}}, {"c": "Lahore", "dl": {"Jazz": 17.36, "Telenor": 7.58, "Ufone": 13.61, "Zong": 21.26}, "ton": {"Jazz": 94.18, "Telenor": 93.25, "Ufone": 97.27, "Zong": 98.18}}, {"c": "Karachi", "dl": {"Jazz": 17.8, "Telenor": 12.19, "Ufone": 14.89, "Zong": 18.27}, "ton": {"Jazz": 92.61, "Telenor": 93.25, "Ufone": 93.6, "Zong": 97.64}}, {"c": "Peshawar", "dl": {"Jazz": 17.79, "Telenor": 5.49, "Ufone": 11.69, "Zong": 15.53}, "ton": {"Jazz": 92.07, "Telenor": 93.24, "Ufone": 90.0, "Zong": 93.68}}, {"c": "Quetta", "dl": {"Jazz": 22.41, "Telenor": 11.34, "Ufone": 13.2, "Zong": 16.69}, "ton": {"Jazz": 93.42, "Telenor": 93.94, "Ufone": 91.39, "Zong": 98.03}}, {"c": "Abbottabad", "dl": {"Jazz": 14.53, "Telenor": 5.05, "Ufone": 10.96, "Zong": 15.27}, "ton": {"Jazz": 89.39, "Telenor": 92.92, "Ufone": 89.25, "Zong": 94.53}}, {"c": "Faisalabad", "dl": {"Jazz": 19.78, "Telenor": 10.72, "Ufone": 14.04, "Zong": 19.1}, "ton": {"Jazz": 93.96, "Telenor": 91.98, "Ufone": 92.99, "Zong": 96.6}}, {"c": "Sukkur", "dl": {"Jazz": 19.26, "Telenor": 9.17, "Ufone": 13.95, "Zong": 17.99}, "ton": {"Jazz": 95.31, "Telenor": 92.56, "Ufone": 96.79, "Zong": 98.31}}, {"c": "Multan", "dl": {"Jazz": 19.04, "Telenor": 10.04, "Ufone": 12.76, "Zong": 21.6}, "ton": {"Jazz": 95.9, "Telenor": 96.89, "Ufone": 95.75, "Zong": 98.37}}, {"c": "Gujranwala", "dl": {"Jazz": 16.2, "Telenor": 6.63, "Ufone": 12.2, "Zong": 18.62}, "ton": {"Jazz": 95.51, "Telenor": 94.23, "Ufone": 95.26, "Zong": 97.35}}, {"c": "Hyderabad", "dl": {"Jazz": 18.54, "Telenor": 12.74, "Ufone": 17.26, "Zong": 18.46}, "ton": {"Jazz": 94.14, "Telenor": 89.95, "Ufone": 87.97, "Zong": 97.15}}, {"c": "Gwadar", "dl": {"Jazz": 11.63, "Telenor": 3.87, "Ufone": 10.74, "Zong": 12.75}, "ton": {"Jazz": 86.78, "Telenor": 59.18, "Ufone": 93.05, "Zong": 94.59}}, {"c": "Sialkot", "dl": {"Jazz": 16.83, "Telenor": 5.78, "Ufone": 12.98, "Zong": 17.89}, "ton": {"Jazz": 93.51, "Telenor": 92.76, "Ufone": 91.56, "Zong": 96.81}}, {"c": "Chakwal", "dl": {"Jazz": 19.3, "Telenor": 6.28, "Ufone": 12.5, "Zong": 20.24}, "ton": {"Jazz": 92.16, "Telenor": 92.88, "Ufone": 92.09, "Zong": 96.69}}, {"c": "Swabi", "dl": {"Jazz": 17.92, "Telenor": 4.08, "Ufone": 13.15, "Zong": 15.17}, "ton": {"Jazz": 94.38, "Telenor": 94.4, "Ufone": 90.5, "Zong": 96.48}}, {"c": "Khairpur", "dl": {"Jazz": 16.97, "Telenor": 9.66, "Ufone": 12.6, "Zong": 18.06}, "ton": {"Jazz": 92.12, "Telenor": 92.29, "Ufone": 85.4, "Zong": 95.08}}, {"c": "Mirpur", "dl": {"SCO": 7.76, "Jazz": 10.09, "Telenor": 11.27, "Ufone": 12.31, "Zong": 19.06}, "ton": {"SCO": 80.69, "Jazz": 81.0, "Telenor": 88.62, "Ufone": 90.01, "Zong": 86.8}}, {"c": "Skardu", "dl": {"SCO": 4.55, "Jazz": 11.65, "Telenor": 8.03, "Ufone": 5.03, "Zong": 14.76}, "ton": {"SCO": 76.2, "Jazz": 72.16, "Telenor": 78.07, "Ufone": 48.67, "Zong": 82.77}}, {"c": "Muzaffarabad", "dl": {"SCO": 9.03, "Jazz": 8.53, "Telenor": 10.6, "Ufone": 9.26, "Zong": 14.7}, "ton": {"SCO": 95.42, "Jazz": 68.68, "Telenor": 90.46, "Ufone": 82.87, "Zong": 90.53}}];
+(function(){
+  const bold = (v, row, ops) => v === Math.max(...ops.map(o=>row[o]).filter(x=>x!=null)) ? `<b>${v}</b>` : v;
+  let html = '<tr><th>指标</th>' + OE_OPS.map(o=>`<th>${o}</th>`).join('') + '</tr>';
+  Object.entries(oeNational).forEach(([k,row])=>{
+    html += `<tr><td style="text-align:left;white-space:nowrap;">${k}</td>` + OE_OPS.map(o=>`<td>${bold(row[o],row,OE_OPS)}</td>`).join('') + '</tr>';
+  });
+  document.getElementById('oeNationalTable').innerHTML = html;
+
+  const ops5 = ['Jazz','Zong','Ufone','Telenor','SCO'];
+  let h = '<tr><th rowspan="2">城市</th><th colspan="5">下载速率 (Mbps)</th><th colspan="5">在网时长 (%)</th></tr><tr>'
+        + ops5.map(o=>`<th>${o}</th>`).join('') + ops5.map(o=>`<th>${o}</th>`).join('') + '</tr>';
+  oeCities.forEach(r=>{
+    const cell = (m,o) => m[o]==null ? '<td>-</td>' : `<td>${bold(m[o],m,ops5)}</td>`;
+    h += `<tr><td style="text-align:left;">${r.c}</td>` + ops5.map(o=>cell(r.dl,o)).join('') + ops5.map(o=>cell(r.ton,o)).join('') + '</tr>';
+  });
+  document.getElementById('oeCityTable').innerHTML = h;
+
+  const metrics = Object.keys(oeCityWins);
+  new Chart(document.getElementById('oeCityWinChart'),{
+    type:'bar',
+    data:{ labels: metrics,
+      datasets: OE_OPS.map(o=>({ label:o, data: metrics.map(m=>oeCityWins[m][o]), backgroundColor: COLORS[o] })) },
+    options:{ scales:{ y:{ beginAtZero:true, max:20, title:{display:true,text:'城市数'} } } }
+  });
+})();
 
 // =================== 三 & 四. 年度指标图表 ===================
 const AP = ['#1c63d4','#ef7a15','#8cc63e','#d71920','#302f95'];

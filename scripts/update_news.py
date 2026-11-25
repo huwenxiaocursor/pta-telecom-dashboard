@@ -250,6 +250,11 @@ _FOREIGN = {
     # 带这些词又没有强巴基斯坦标识的，一律判为国际行情报道。
     "brent", "wti crude", "opec+", "global oil", "world oil", "international oil",
     "global crude", "global fuel", "oil market",
+    # 印度专有地名/机构（2026-11-15 加）：TechJuice《Modi's Office Summons Telecom
+    # Chief Over Fake Court Orders》通篇是印度电信部的事，但标题只有人名没写国名，
+    # 靠 "telecom" 混了进来。整词的人名/缩写见 _FOREIGN_WB。
+    "mumbai", "bengaluru", "bangalore", "kolkata", "chennai", "lok sabha",
+    "vodafone idea", "new zealand",
 }
 
 # Foreign markers that are short abbreviations — must be matched as whole words,
@@ -266,6 +271,11 @@ _FOREIGN = {
 _FOREIGN_WB = {
     "us", "u.s.", "u.s", "uk", "u.k.", "eu", "opec",
     "ecb", "boe", "boj", "pboc", "rbi", "fed",
+    # 2026-11-15 补印度领导人/电信监管/运营商：标题常只写人名或公司名而不写国名
+    # （Modi's Office…、Rupee traders weigh Jio IPO flows…，后者的 rupee 是印度卢比）。
+    # 整词匹配；核对过现有库 969 条标题只命中这两条。词表永远列不全，第二道闸在
+    # 摘要层（_is_foreign_by_summary）。
+    "modi", "trai", "jio", "airtel", "bsnl", "bjp",
 }
 
 # 地缘政治 → 输入性通胀的传导链（2026-08-11 加）。看板关心的是"外部冲击如何推高
@@ -1053,9 +1063,12 @@ def is_relevant(title: str) -> bool:
     # stories. If the headline is clearly about a foreign country and never mentions
     # Pakistan, drop it — otherwise generic macro news (Thai/Indian/US central bank,
     # inflation, rates) slips into a Pakistan-only dashboard.
+    # 整词匹配前先去掉所有格、把标点换成空格：否则 "Modi’s Office…" 里的 modi
+    # 后面紧跟 ’s、"…Jio, Airtel" 后面紧跟逗号，都凑不成 " modi " 而漏网。
+    # 保留 "." 以免拆坏 u.s./u.k.。
+    tf = " " + re.sub(r"[^a-z0-9.+&]+", " ", re.sub(r"[’']s\b", "", t)) + " "
     foreign = any(kw in t for kw in _FOREIGN) or any(
-        " " + kw + " " in tw or tw.startswith(kw + " ") or tw.endswith(" " + kw)
-        for kw in _FOREIGN_WB)
+        " " + kw + " " in tf for kw in _FOREIGN_WB)
     if foreign and not any(m in t for m in _PK_MARKERS):
         return False
     return True
@@ -1368,6 +1381,38 @@ def _apply_real_pub_date(item: dict) -> bool:
         log(f"    ! 早于 {CUTOFF_DATE}，丢弃")
         return False
     return True
+
+
+# 摘要层地域校验（2026-11-15 加）。is_relevant() 只看标题，而标题完全可以不出现
+# 国名——《Modi's Office Summons Telecom Chief…》只有人名，地域闸门形同虚设，
+# 一条纯印度新闻上了看板。往 _FOREIGN 补人名/地名永远补不全，但摘要第一句一定会
+# 交代"哪国"，这是比标题可靠得多的信号。
+#
+# 判据必须两条同时成立：摘要开头 FOREIGN_LEAD_CHARS 字内出现外国，**且**全文
+# 不含任何巴基斯坦标识。只看"全文没提巴基斯坦"不行——回归时会误伤自由克什米尔
+# 断网、BISP 免费 SIM、财长答复免税这类国内新闻（摘要默认在讲本国，不写国名）。
+# 回归：库里 969 条只命中 5 条（印度 2、美国 SpaceX 2、华为中国发布 1），零误伤。
+# "卢比"刻意不算巴基斯坦标识：印度卢比行情稿（Jio IPO 那条）就靠它蒙混。
+FOREIGN_LEAD_CHARS = 30
+_FOREIGN_ZH = (
+    "印度", "美国", "英国", "中国", "孟加拉", "泰国", "斯里兰卡", "尼泊尔", "阿富汗",
+    "伊朗", "欧盟", "欧洲", "日本", "韩国", "俄罗斯", "土耳其", "沙特", "阿联酋", "迪拜",
+    "卡塔尔", "越南", "印尼", "马来西亚", "新加坡", "菲律宾", "德国", "法国", "埃及",
+    "尼日利亚", "非洲", "澳大利亚", "新西兰", "加拿大", "巴西", "美联储",
+)
+_PK_MARKERS_ZH = (
+    "巴基斯坦", "巴方", "伊斯兰堡", "卡拉奇", "拉合尔", "白沙瓦", "奎达", "拉瓦尔品第",
+    "费萨拉巴德", "旁遮普", "信德", "开伯尔", "俾路支", "克什米尔", "国家银行",
+    "电信管理局", "pta", "sbp", "jazz", "zong", "ufone", "telenor", "ptcl",
+    # 母公司集团动态对本公司有意义，不按"中国新闻"拦
+    "中国移动",
+)
+
+
+def _is_foreign_by_summary(summary: str) -> bool:
+    s = summary.lower()
+    return (any(c in summary[:FOREIGN_LEAD_CHARS] for c in _FOREIGN_ZH)
+            and not any(m in s for m in _PK_MARKERS_ZH))
 
 
 def clean(text: str) -> str:
@@ -2530,6 +2575,7 @@ def main() -> None:
         log(f"Re-summarising {len(retry_items)} cached items with empty summaries …")
     retry_stale: list = []
     retry_dead: list = []
+    retry_foreign: list = []
     for item in retry_items:
         log(f"  Re-summarising: {item['title'][:70]} …")
         article_text = fetch_article_text(item["url"])
@@ -2547,9 +2593,17 @@ def main() -> None:
             retry_stale.append(item)
             continue
         result = summarize(item["title"], item["url"], article_text)
+        if _is_foreign_by_summary(result["summary_zh"]):
+            log(f"    ! 摘要显示为外国新闻、未涉及巴基斯坦，丢弃")
+            retry_foreign.append(item)
+            continue
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
+
+    if retry_foreign:
+        cache = [i for i in cache if i not in retry_foreign]
+        log(f"  重摘要时丢弃外国新闻 {len(retry_foreign)} 条")
 
     if retry_dead:
         cache = [i for i in cache if i not in retry_dead]
@@ -2563,6 +2617,7 @@ def main() -> None:
     # 原文链接已 404 的条目：标题本身可能完全切题，但点开是错误页，卡片上只能写
     # "正文显示404、无内容"，对读者没有任何价值——整条不收（2026-09-19 用户指定）。
     dead: list = []
+    foreign: list = []
     for item in new_items:
         log(f"  Summarising: {item['title'][:70]} …")
         # pop, not get: the RSS body is only needed for this one summarize()
@@ -2584,9 +2639,18 @@ def main() -> None:
             continue
 
         result = summarize(item["title"], item["url"], article_text)
+        # 标题层地域闸门拦不住只写人名/公司名的外国新闻，摘要第一句会交代国别
+        if _is_foreign_by_summary(result["summary_zh"]):
+            log(f"    ! 摘要显示为外国新闻、未涉及巴基斯坦，丢弃")
+            foreign.append(item)
+            continue
         item["summary_zh"] = result["summary_zh"]
         item["importance"] = result["importance"]
         time.sleep(0.5)
+
+    if foreign:
+        new_items = [i for i in new_items if i not in foreign]
+        log(f"  摘要层判为外国新闻丢弃 {len(foreign)} 条")
 
     if dead:
         new_items = [i for i in new_items if i not in dead]

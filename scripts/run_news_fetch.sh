@@ -51,6 +51,21 @@ fi
 # 抓取新闻并生成中文摘要
 python3 scripts/update_news.py >> "$LOG" 2>&1
 
+# PTA 月度用户数：每 14 天左右在本机抓一次。GitHub 的服务器连不上 pta.gov.pk
+# （2026-09 起 update-industry 连续失败，报 "Network is unreachable"），本机能连上，
+# 所以搬到这里跑。update_log.txt 每次运行都会写，13 天没动过就该再跑了。
+if [ -n "$(find scripts/update_log.txt -mtime +13 2>/dev/null)" ]; then
+    echo "  更新 PTA 电信数据" >> "$LOG"
+    python3 scripts/update_pta_dashboard.py >> "$LOG" 2>&1 || echo "  !! PTA 数据更新失败，见 scripts/update_log.txt" >> "$LOG"
+    for f in industry_index.html scripts/history_monthly.json scripts/update_log.txt \
+             scripts/known_qos_pdfs.json scripts/qos_update_needed.txt \
+             scripts/known_operators.json scripts/operators_changed_needed.txt; do
+        if [ -f "$f" ] || git ls-files --error-unmatch "$f" >/dev/null 2>&1; then
+            git add -A -- "$f"
+        fi
+    done
+fi
+
 # 有变更则 commit + push。**必须带上 news_update_log.txt**：它是被跟踪文件，
 # 每次运行都会改，漏掉它工作区就一直是脏的，下次 git pull --rebase 会直接罢工
 # （"cannot pull with rebase: You have unstaged changes"，2026-08-12 查实）。
