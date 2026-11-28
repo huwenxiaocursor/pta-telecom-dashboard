@@ -10052,3 +10052,40 @@ Please use the Async API instead.
 [2026-11-27 09:01:56]   Injected 761 items into index.html
 [2026-11-27 09:01:56] News update complete
 [2026-11-27 09:01:56] ==================================================
+[2026-11-28 09:11:57] ==================================================
+[2026-11-28 09:11:57] News update started
+[2026-11-28 09:11:57] Cache: 1042 existing items
+[2026-11-28 09:12:00] Fetching PTA official [新闻稿] …
+[2026-11-28 09:12:21]   PTA official [新闻稿]: 31 items found
+[2026-11-28 09:12:21] Fetching PTA official [新闻/更新] …
+[2026-11-28 09:16:27]   PTA 官网 [新闻/更新] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/news-updates", waiting until "networkidle"
+
+[2026-11-28 09:16:27] Fetching PTA official [公告] …
+[2026-11-28 09:24:09]   PTA 官网 [公告] 抓取失败：Page.goto: Timeout 60000ms exceeded.
+Call log:
+  - navigating to "https://www.pta.gov.pk/category/public-notices", waiting until "networkidle"
+
+[2026-11-28 09:24:10] Fetching Google News [PTA] …
+[2026-11-28 09:24:18]   Google News [PTA]: 27 items found（取最新 20 条）
+[2026-11-28 09:24:18]     非目标来源已跳过：UrduPoint×8、PhoneWorld×7、Bloom Pakistan×3、Pkrevenue.com×3、The Express Tribune×2、247news.com.pk×2、Investify×1、Digital Pakistan×1
+[2026-11-28 09:24:19] Fetching Google News [SBP] …
+[2026-11-28 09:24:21]   Google News [SBP]: 3 items found（取最新 3 条）
+[2026-11-28 09:24:21]     非目标来源已跳过：Investify×3、UrduPoint×3、Mettis Global×2、The Express Tribune×2、Minute Mirror×1、شبكة تواصل الإخبارية×1、Profit by Pakistan Today×1、samaa tv×1
+[2026-11-28 09:24:22] Fetching ProPakistani via WP REST API …
+[2026-11-28 09:24:30]   ProPakistani: 1 items found
+[2026-11-28 09:24:31] Fetching Dawn RSS …
+[2026-11-28 09:24:32]   Dawn: 0 items found
+[2026-11-28 09:24:33] Fetching Business Recorder RSS …
+[2026-11-28 09:24:34]   Business Recorder: 1 items found
+[2026-11-28 09:24:35] Fetching TechJuice via WP REST API …
+[2026-11-28 09:24:52]   TechJuice: 3 items found
+[2026-11-28 09:24:53] New items: 16
+[2026-11-28 09:24:53]   同日同标题去重: 16 → 2 条（省下 14 次摘要调用）
+[2026-11-28 09:24:53]   Summarising: Zong Wins Landmark Mandate to Power Pakistan’s Digital and Intelligent …
+[2026-11-28 09:24:57]   Summarising: Zong crosses 1,000 5G sites ahead of target …
+[2026-11-28 09:25:00] Cache saved: 1044 total items
+[2026-11-28 09:25:01]   Injected 766 items into index.html
+[2026-11-28 09:25:01] News update complete
+[2026-11-28 09:25:01] ==================================================
